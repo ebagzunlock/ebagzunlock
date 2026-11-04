@@ -1,0 +1,10 @@
+CHECKLIST AVANT MISE EN LIGNE
+
+[ ] Vérifier dans Stripe que la prestation déclarée correspond exactement au désimlockage opérateur autorisé.
+[ ] Ajouter STRIPE_SECRET_KEY dans Netlify > Project configuration > Environment variables.
+[ ] Vérifier le scope Functions.
+[ ] Déployer le site.
+[ ] Tester avec une clé Stripe de test (sk_test_...).
+[ ] Vérifier les montants et les paiements de test dans Stripe Dashboard.
+[ ] Remplacer par la clé live uniquement après validation complète.
+[ ] Ajouter un webhook Stripe signé avant toute automatisation de livraison de prestation.

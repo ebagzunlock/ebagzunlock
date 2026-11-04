@@ -1,0 +1,15 @@
+{
+  "name": "ebagzunlock-stripe-checkout",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "dependencies": {
+    "stripe": "^18.5.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^23.10.0"
+  }
+}
