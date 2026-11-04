@@ -2,6 +2,11 @@ import Stripe from "stripe";
 
 const PRODUCTS = [
   {
+    "id": "update",
+    "name": "UPDATE",
+    "amount": 500
+  },
+  {
     "id": "iphone-service-1",
     "name": "iPhone X – iPhone 12 Pro",
     "amount": 3800
