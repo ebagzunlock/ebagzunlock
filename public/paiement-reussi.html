@@ -1,10 +1,92 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Paiement reçu — ebagzunlock</title><style>
-body{margin:0;min-height:100vh;display:grid;place-items:center;background:#050914;color:#f4f8ff;font:16px Arial,sans-serif}
-main{width:min(560px,88%);padding:32px;border:1px solid #28466d;border-radius:20px;background:#0b1426;text-align:center}
-h1{color:#45d7ff}p{color:#b8c7dc;line-height:1.6}a{display:inline-block;margin-top:16px;padding:12px 18px;border-radius:10px;background:#168bff;color:white;text-decoration:none;font-weight:bold}
-</style></head><body><main><h1>Merci pour votre paiement</h1>
-<p>Stripe vous a redirigé vers cette page après le processus de paiement. Votre demande doit maintenant être rapprochée de la confirmation de paiement Stripe avant toute intervention.</p>
-<p>Pour toute question, contactez ebagzunlock via WhatsApp.</p>
-<a href="/">Retour au site</a></main></body></html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Vérification du paiement — ebagzunlock</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #050914;
+      color: #f4f8ff;
+      font: 16px Arial, sans-serif;
+    }
+    main {
+      width: min(560px, 88%);
+      padding: 32px;
+      border: 1px solid #28466d;
+      border-radius: 20px;
+      background: #0b1426;
+      text-align: center;
+    }
+    h1 { color: #45d7ff; }
+    p { color: #b8c7dc; line-height: 1.6; }
+    a {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: #168bff;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1 id="title">Vérification de votre paiement...</h1>
+    <p id="message">Veuillez patienter pendant que nous vérifions votre transaction auprès de Stripe.</p>
+    <div id="action"></div>
+  </main>
+
+  <script>
+    async function verifyPayment() {
+      const title = document.getElementById("title");
+      const message = document.getElementById("message");
+      const action = document.getElementById("action");
+
+      const sessionId = new URLSearchParams(location.search).get("session_id");
+
+      if (!sessionId) {
+        title.textContent = "Référence introuvable";
+        message.textContent = "Nous ne trouvons pas la référence de votre paiement. Contactez-nous sur WhatsApp.";
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          "/api/verify-checkout-session?session_id=" + encodeURIComponent(sessionId)
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || "Vérification impossible.");
+        }
+
+        if (result.paid) {
+          title.textContent = "Paiement confirmé !";
+          message.textContent = "Merci pour votre commande. Complétez maintenant le formulaire de demande avec les informations de votre appareil. Vous pourrez ensuite nous transmettre votre demande sur WhatsApp.";
+
+          const link = document.createElement("a");
+          link.href = "/#demande";
+          link.textContent = "Compléter ma demande";
+          action.appendChild(link);
+        } else {
+          title.textContent = "Paiement non confirmé";
+          message.textContent = "Stripe n'indique pas encore que le paiement est effectué. Si vous venez de payer, patientez un instant puis actualisez cette page. Sinon, contactez-nous.";
+        }
+      } catch (error) {
+        title.textContent = "Vérification impossible";
+        message.textContent = "Nous n'avons pas pu vérifier votre paiement. Ne procédez pas à un nouveau paiement avant d'avoir contacté notre support.";
+      }
+    }
+
+    verifyPayment();
+  </script>
+</body>
+</html>
