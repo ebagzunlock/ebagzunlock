@@ -1,25 +1,23 @@
+
 export async function onRequestGet({ request, env }) {
   try {
     if (!env.STRIPE_SECRET_KEY) {
-      return new Response(
-        JSON.stringify({ error: "Configuration Stripe manquante." }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json" }
-        }
+      return Response.json(
+        { error: "Configuration Stripe manquante." },
+        { status: 500 }
       );
     }
 
     const url = new URL(request.url);
     const sessionId = url.searchParams.get("session_id");
 
-    if (!sessionId || !/^cs_(test|live)_[A-Za-z0-9]+$/.test(sessionId)) {
-      return new Response(
-        JSON.stringify({ error: "Identifiant de paiement invalide." }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" }
-        }
+    if (
+      !sessionId ||
+      !/^cs_(test|live)_[A-Za-z0-9]+$/.test(sessionId)
+    ) {
+      return Response.json(
+        { error: "Identifiant de paiement invalide." },
+        { status: 400 }
       );
     }
 
@@ -36,46 +34,53 @@ export async function onRequestGet({ request, env }) {
     const session = await stripeResponse.json();
 
     if (!stripeResponse.ok) {
-      return new Response(
-        JSON.stringify({
-          error: "Impossible de vérifier le paiement."
-        }),
-        {
-          status: stripeResponse.status,
-          headers: { "Content-Type": "application/json" }
-        }
+      console.error("Stripe verification error:", session);
+
+      return Response.json(
+        { error: "Impossible de vérifier le paiement." },
+        { status: 502 }
       );
     }
 
-    const paid = session.payment_status === "paid";
+    const paid =
+      session.payment_status === "paid" &&
+      session.status === "complete";
 
-    return new Response(
-      JSON.stringify({
-        paid,
+    if (!paid) {
+      return Response.json({
+        paid: false,
         paymentStatus: session.payment_status,
-        selection: paid
-          ? {
-              service: session.metadata?.service || null,
-              device: session.metadata?.device || null,
-              model: session.metadata?.model || null
-            }
-          : null
-      }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
+        selection: null
+      });
+    }
+
+    const service = session.metadata?.service || null;
+    const device = session.metadata?.device || null;
+    const model = session.metadata?.model || null;
+
+    if (!service || !model) {
+      return Response.json(
+        { error: "Informations de commande manquantes." },
+        { status: 400 }
+      );
+    }
+
+    return Response.json({
+      paid: true,
+      paymentStatus: session.payment_status,
+      selection: {
+        service,
+        device,
+        model
       }
-    );
+    });
 
   } catch (error) {
     console.error("Erreur vérification Stripe :", error);
 
-    return new Response(
-      JSON.stringify({ error: "Erreur lors de la vérification du paiement." }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" }
-      }
+    return Response.json(
+      { error: "Erreur lors de la vérification du paiement." },
+      { status: 500 }
     );
   }
 }
