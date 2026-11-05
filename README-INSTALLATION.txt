@@ -52,3 +52,4 @@ La page `paiement-reussi.html` est une page de retour visuelle ; elle ne constit
 Le catalogue et les montants sont contrôlés côté serveur : le navigateur transmet uniquement l'identifiant fixe de la prestation, jamais le montant.
 
 Les prestations doivent rester limitées au désimlockage opérateur autorisé, sur un appareil appartenant au client ou pour lequel il détient une autorisation. Conservez des descriptions exactes, vos conditions de vente, politique de remboursement et coordonnées de contact à jour.
+Test Stripe - branche de test
