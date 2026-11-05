@@ -8,7 +8,51 @@
 <meta name="description" content="Services ebagzunlock pour iPhone, MacBook, iPad et Apple Watch.">
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#101216;color:#f5f5f5;font-family:Arial,sans-serif}
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(ellipse at 78% 18%,rgba(48,91,145,.28),transparent 34%),
+    radial-gradient(ellipse at 12% 55%,rgba(26,66,112,.22),transparent 38%),
+    linear-gradient(135deg,#070d18 0%,#101c2d 48%,#080f1b 100%);
+  background-attachment:fixed;
+  color:#f5f5f5;
+  font-family:Arial,sans-serif;
+  position:relative;
+  isolation:isolate;
+  overflow-x:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:-20%;
+  z-index:-1;
+  pointer-events:none;
+  background:repeating-radial-gradient(
+    ellipse at 82% 42%,
+    transparent 0 105px,
+    rgba(111,159,211,.075) 107px 109px,
+    transparent 111px 175px
+  );
+  transform:rotate(-13deg);
+  opacity:.75;
+}
+
+body:after{
+  content:"";
+  position:fixed;
+  z-index:-1;
+  pointer-events:none;
+  width:68vw;
+  height:68vw;
+  right:-31vw;
+  top:8vh;
+  border:1px solid rgba(130,174,222,.16);
+  border-radius:50%;
+  box-shadow:0 0 90px rgba(52,104,165,.10),
+             inset 0 0 70px rgba(52,104,165,.06);
+}
 header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #343434}
 .logo{font-size:25px;font-weight:bold;color:#d8bd83}
 nav a{color:#fff;text-decoration:none;margin-left:18px}
