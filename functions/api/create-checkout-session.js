@@ -3,8 +3,15 @@ const SERVICES = [
   "Déverrouillage iCloud",
   "Déverrouillage Opérateur",
   "Suppression Blocage &Limitation Propriétaire",
-  "Résolution Blocage DFU & Mode de Récupération"
+  "Résolution Blocage DFU & Mode de Récupération",
+  "Mise à jour"
 ];
+
+const UPDATE_PRICES = {
+  "iOS": 7,
+  "macOS": 15,
+  "ebagzunlock": 2
+};
 
 const CATALOGUE = {
   "iPhone": {
@@ -73,44 +80,61 @@ export async function onRequestPost({ request, env }) {
 
   const { service, device, model } = payload || {};
 
-  if (
-    !SERVICES.includes(service) ||
-    typeof device !== "string" ||
-    typeof model !== "string" ||
-    !Object.prototype.hasOwnProperty.call(CATALOGUE, device) ||
-    !Object.prototype.hasOwnProperty.call(CATALOGUE[device], model)
-  ) {
+  if (!SERVICES.includes(service)) {
     return Response.json(
-      { error: "Sélection de prestation ou d'appareil invalide." },
+      { error: "Prestation invalide." },
       { status: 400 }
     );
   }
 
-  const amount = CATALOGUE[device][model];
+  let amount;
+
+  if (service === "Mise à jour") {
+    if (
+      typeof model !== "string" ||
+      !Object.prototype.hasOwnProperty.call(UPDATE_PRICES, model)
+    ) {
+      return Response.json(
+        { error: "Option de mise à jour invalide." },
+        { status: 400 }
+      );
+    }
+    amount = UPDATE_PRICES[model];
+  } else {
+    if (
+      typeof device !== "string" ||
+      typeof model !== "string" ||
+      !Object.prototype.hasOwnProperty.call(CATALOGUE, device) ||
+      !Object.prototype.hasOwnProperty.call(CATALOGUE[device], model)
+    ) {
+      return Response.json(
+        { error: "Sélection de prestation ou d'appareil invalide." },
+        { status: 400 }
+      );
+    }
+    amount = CATALOGUE[device][model];
+  }
 
   const params = new URLSearchParams();
   params.set("mode", "payment");
   params.set("line_items[0][quantity]", "1");
   params.set("line_items[0][price_data][currency]", "eur");
   params.set("line_items[0][price_data][unit_amount]", String(amount * 100));
-  params.set(
-    "line_items[0][price_data][product_data][name]",
-    `${service} — ${device} — ${model}`
-  );
+
+  const productName = service === "Mise à jour"
+    ? `Mise à jour — ${model}`
+    : `${service} — ${device} — ${model}`;
+
+  params.set("line_items[0][price_data][product_data][name]", productName);
   params.set(
     "line_items[0][price_data][product_data][description]",
     "Prestation réalisée uniquement dans un cadre légal, avec l'autorisation du propriétaire."
   );
   params.set("billing_address_collection", "auto");
-
-  params.set(
-    "success_url",
-    `${siteOrigin}/?session_id={CHECKOUT_SESSION_ID}#tarifs`
-  );
+  params.set("success_url", `${siteOrigin}/?session_id={CHECKOUT_SESSION_ID}#tarifs`);
   params.set("cancel_url", `${siteOrigin}/#tarifs`);
-
   params.set("metadata[service]", service);
-  params.set("metadata[device]", device);
+  params.set("metadata[device]", device || "");
   params.set("metadata[model]", model);
   params.set("metadata[amount_eur]", String(amount));
 
@@ -138,7 +162,6 @@ export async function onRequestPost({ request, env }) {
     }
 
     return Response.json({ url: session.url });
-
   } catch (error) {
     console.error("Checkout error:", error);
     return Response.json(
