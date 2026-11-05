@@ -1,343 +1,168 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta property="og:title" content="EBAGZUNLOCK — SERVICE DE DÉVERROUILLAGE &amp; ASSISTANCE INFORMATIQUE APPLE"/>
-<meta property="og:description" content="Service de déverrouillage et assistance informatique Apple."/>
-<meta property="og:site_name" content="EBAGZUNLOCK"/>
-<meta name="google-site-verification" content="b27YH7s0tqSXZVOZ0Y56Q-xdZlQ67H24PpSXX1ofKqk" />
-<meta name="description" content="Assistance iPhone en France et en Europe : déblocage opérateur, aide iCloud, récupération et restauration en mode DFU."/>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="#050914" name="theme-color"/>
-<title>EBAGZUNLOCK – Déblocage iPhone et assistance Apple à distance</title><style>
-:root{--bg:#050914;--panel:#0b1426;--panel2:#101d33;--blue:#168bff;--cyan:#45d7ff;--text:#f4f8ff;--muted:#9eacc4;--line:rgba(75,157,255,.24);--green:#21d878}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#102b53 0,transparent 38%),var(--bg);color:var(--text);font-family:Inter,Arial,Helvetica,sans-serif;line-height:1.5}
-a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.wrap{width:min(1120px,92%);margin:auto}
-header{position:sticky;top:0;z-index:10;background:rgba(5,9,20,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-size:1.25rem;font-weight:750;letter-spacing:-.35px}.brand span{color:var(--cyan)}.navlinks{display:flex;gap:22px;color:var(--muted);font-size:.92rem}.navlinks a:hover{color:white}.btn{display:inline-flex;justify-content:center;align-items:center;gap:9px;border:1px solid transparent;border-radius:12px;padding:12px 17px;font-weight:800;cursor:pointer;transition:.2s}.btn:hover{transform:translateY(-1px)}.primary{background:linear-gradient(100deg,#0878ff,#22b8ff);color:white;box-shadow:0 8px 30px #0878ff35}.outline{border-color:var(--line);background:#0b1426;color:var(--text)}.whatsapp{background:#0b3b2a;border-color:#167e51;color:#c6ffe1}.hero{padding:78px 0 55px;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:42px}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid var(--line);border-radius:999px;color:#a9ddff;background:#0c1b31;font-size:.8rem;font-weight:650;letter-spacing:.25px}.dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 12px var(--green)}h1{font-size:clamp(2.6rem,6vw,4.7rem);line-height:1.02;letter-spacing:-2.5px;margin:20px 0}.glow{color:var(--cyan);text-shadow:0 0 26px #168bff4a}.lead{font-size:1.1rem;color:var(--muted);max-width:590px}.actions{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0}.trust{display:flex;gap:18px;flex-wrap:wrap;color:#b8c7dc;font-size:.85rem}.trust span:before{content:"";color:var(--cyan);font-weight:900;margin-right:7px}.visual{min-height:390px;position:relative;display:grid;place-items:center}.device{width:min(100%,420px);aspect-ratio:1/1.05;border:1px solid #3b9cff66;border-radius:34px;background:linear-gradient(145deg,#142b4b,#070d19 68%);box-shadow:0 0 70px #0878ff22,inset 0 0 35px #168bff12;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}.device:before,.device:after{content:"";position:absolute;border:1px solid #28a8ff50;border-radius:50%;width:310px;height:310px}.device:after{width:230px;height:230px}.phone{position:relative;z-index:1;width:148px;height:275px;border:5px solid #a6b6d0;border-radius:28px;background:linear-gradient(160deg,#1b6aff,#060b18 60%,#9a43ff);box-shadow:0 20px 55px #0009;transform:rotate(-8deg);display:flex;align-items:center;justify-content:center}.phone:before{content:"";position:absolute;top:8px;width:55px;height:13px;background:#050914;border-radius:12px}.lock{font-size:3.4rem;text-shadow:0 0 24px #70d8ff}.mini-tag{position:absolute;z-index:2;background:#0b1426;border:1px solid var(--line);padding:11px 14px;border-radius:14px;box-shadow:0 10px 28px #0006;font-size:.9rem;font-weight:800}.tag1{top:14%;left:2%}.tag2{right:1%;bottom:17%}.tag3{right:0;top:22%}.section{padding:56px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:25px}.section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-1px;margin:0}.section-head p{margin:6px 0 0;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{padding:22px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#0e1a2e,#080e1a);min-width:0}.service-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:#0e2b4c;border:1px solid #1a75c9;color:var(--cyan);font-size:1.5rem}.card h3{margin:17px 0 8px}.card p{color:var(--muted);font-size:.94rem;min-height:48px}.card .btn{width:100%;margin-top:10px}.process{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step-num{color:var(--cyan);font-weight:900;font-size:.8rem;letter-spacing:1px}.step h3{margin:8px 0}.step p{color:var(--muted);margin:0}.request-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:22px;align-items:start}.side-panel{background:linear-gradient(145deg,#0d2340,#080e1a);border:1px solid var(--line);padding:25px;border-radius:22px}.side-panel h3{font-size:1.5rem;margin-top:0}.side-panel p,.side-panel li{color:var(--muted)}.side-panel ul{padding-left:20px}.form-panel{padding:25px;border-radius:22px;border:1px solid var(--line);background:#0a1221}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}label{font-size:.88rem;font-weight:750;color:#dbe7f8}input,select,textarea{width:100%;padding:12px 13px;color:var(--text);background:#050b16;border:1px solid #263c5c;border-radius:10px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #168bff20}textarea{min-height:110px;resize:vertical}.hint{font-size:.8rem;color:var(--muted)}.form-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.paybox{margin-top:15px;border:1px dashed #3b77b6;border-radius:14px;padding:15px;background:#09182a}.paybox strong{display:block}.paybox p{color:var(--muted);font-size:.88rem;margin:5px 0 12px}.paybox .btn{width:100%}.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.product-card{padding:19px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,#0e1a2e,#080e1a)}.product-card h3{font-size:1rem;margin:0 0 8px;min-height:2.8em}.product-price{font-size:1.65rem;font-weight:900;color:var(--cyan);margin:8px 0 14px}.product-card .btn{width:100%;font-size:.88rem}.btn:disabled{opacity:.72;cursor:not-allowed;transform:none}.payment-state{font-size:.78rem;color:#b8c7dc;margin-top:9px}.support-strip{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:18px;border:1px solid #167e51;border-radius:16px;background:#0b3b2a;margin-top:22px}.support-strip p{margin:3px 0;color:#c6ffe1;font-size:.9rem}.faq{display:grid;grid-template-columns:1fr 1fr;gap:14px}.faq details{padding:17px;border:1px solid var(--line);border-radius:14px;background:#091221}.faq summary{cursor:pointer;font-weight:800}.faq p{color:var(--muted);margin-bottom:0}footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.88rem}.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.small{font-size:.8rem;color:var(--muted)}.notice{margin-top:12px;padding:12px 14px;border-radius:10px;background:#10233c;color:#c5e4ff;font-size:.86rem;display:none}
-@media(max-width:800px){.product-grid{grid-template-columns:repeat(2,1fr)}.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:52px;gap:20px}.visual{min-height:330px}.device{max-width:360px}.grid{grid-template-columns:1fr}.process{grid-template-columns:1fr}.request-layout{grid-template-columns:1fr}.section-head{display:block}.section-head .btn{margin-top:14px}.faq{grid-template-columns:1fr}}
-@media(max-width:460px){.product-grid{grid-template-columns:1fr}.nav{height:66px}.brand{font-size:1.08rem}.nav>.btn{padding:10px 12px;font-size:.82rem}.hero{padding-top:38px}h1{letter-spacing:-1.5px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.visual{min-height:300px}.device{max-width:300px}.phone{width:120px;height:225px}.mini-tag{font-size:.75rem;padding:8px 10px}.tag1{left:-1%}.tag3{right:-2%}}
-
-/* --- Finition premium et galerie iPhone --- */
-:root{--bg:#070b14;--panel:#0d1728;--panel2:#13223a;--blue:#397cff;--cyan:#78dcff;--line:rgba(126,174,255,.20)}
-h1,h2,h3,.brand,.product-price,.eyebrow,.btn,.navlinks,label{font-family:"Outfit","Manrope",sans-serif}
-.brand{font-size:1.38rem;letter-spacing:-1px}.navlinks{font-weight:600}.hero{padding-top:88px}.section{padding:68px 0}
-.product-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.product-card{position:relative;overflow:hidden;padding:14px 16px 18px;border-radius:22px;background:linear-gradient(155deg,rgba(20,35,58,.98),rgba(8,14,25,.98));border:1px solid rgba(126,174,255,.22);box-shadow:0 14px 35px rgba(0,0,0,.16);transition:transform .22s,border-color .22s,box-shadow .22s}
-.product-card:hover{transform:translateY(-5px);border-color:rgba(120,220,255,.55);box-shadow:0 20px 44px rgba(0,0,0,.3)}
-.product-art{height:190px;margin:-2px -4px 13px;border-radius:17px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 50% 68%,rgba(80,145,255,.20),transparent 58%),linear-gradient(145deg,#152944,#0a1220 72%);border:1px solid rgba(126,174,255,.10)}
-.product-art img{display:block;width:100%;height:100%;min-width:0;object-fit:contain;padding:8px 22px;filter:drop-shadow(0 16px 15px rgba(0,0,0,.35))}.product-art img.image-fallback{padding:4px;filter:none;mix-blend-mode:normal}.product-art:has(img:nth-child(2)){display:flex;gap:0}.product-art:has(img:nth-child(2)) img{width:50%;padding:7px 8px}.product-price{display:flex;flex-direction:column;gap:2px}.price-label{font-size:.78rem;font-weight:700;letter-spacing:0;color:var(--muted)}.product-price strong{font:inherit;color:var(--cyan)}
-.product-card h3{font-size:1.08rem;min-height:0;margin:0 0 4px;letter-spacing:-.35px}.product-price{font-size:1.8rem;margin:4px 0 13px;letter-spacing:-1px}
-.product-card .payment-state{min-height:32px;line-height:1.45}.product-card .btn{min-height:46px;border-radius:12px}
-.section-head{margin-bottom:28px}.section-head p{font-size:1rem}.section-head .eyebrow{white-space:nowrap}
-.btn{border-radius:13px}.primary{background:linear-gradient(110deg,#2869f5,#18aee8);box-shadow:0 10px 28px rgba(24,126,255,.22)}
-.card,.side-panel,.form-panel{box-shadow:0 14px 35px rgba(0,0,0,.12)}
-@media(max-width:800px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.section{padding:52px 0}}
-@media(max-width:520px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-card{padding:10px;border-radius:17px}.product-art{height:145px;margin-bottom:10px}.product-art img{padding:6px 12px}.product-card h3{font-size:.92rem}.product-price{font-size:1.5rem}.product-card .btn{font-size:.74rem;padding:10px 7px;line-height:1.25}.payment-state{font-size:.7rem}.section-head .eyebrow{display:inline-flex;margin-top:12px}.hero{padding-top:48px}}
-
-/* Brand identity v3: visible Apple-inspired mark, unmistakable premium typography */
-:root{--bg:#070b14;--cyan:#9adfff;--blue:#4d8dff}
-body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.012em}
-h1,h2,h3,.brand,.product-price,.eyebrow,.btn,.navlinks,label{font-family:"Outfit","Manrope",sans-serif}
-h1{font-weight:800;letter-spacing:-.045em}
-h2{font-weight:700;letter-spacing:-.035em}
-.brand{display:inline-flex;align-items:center;gap:10px;font-size:1.32rem;font-weight:800;letter-spacing:-.055em;white-space:nowrap}
-.brand-name{color:#f5f8ff}.brand-name>span{color:#8bdcff}
-.footer-brand{margin-bottom:9px}
-.eyebrow-apple{display:inline-grid;place-items:center;width:18px;height:18px;vertical-align:middle;margin-right:2px;color:#c8edff}
-.eyebrow-apple .apple-mark{width:16px;height:16px}
-.product-art{height:205px;background:radial-gradient(ellipse at 50% 65%,rgba(95,165,255,.28),transparent 60%),linear-gradient(145deg,#1a2d49,#0a1220 75%)}
-.product-art img{width:100%;height:100%;object-fit:contain;padding:6px 14px;opacity:1;visibility:visible}
-.product-card{min-height:370px}
-@media(max-width:520px){.product-art{height:165px}.brand,.brand-name{font-size:1.08rem!important}}
-
-
-/* Version professionnelle : photos produits réelles, interface sans emojis */
-.product-art{background:#f5f7fa;border:1px solid #e7ebf1;border-radius:16px;min-height:205px}
-.product-art img{object-fit:contain;padding:10px 18px;filter:none;mix-blend-mode:multiply}
-.product-card{background:#fff;color:#111827;border:1px solid #e5eaf0;box-shadow:0 12px 30px rgba(15,23,42,.07)}
-.product-card h3{color:#111827}
-.product-price{color:#1267d6}
-.product-card .payment-state{color:#667085}
-.product-card .btn.outline{background:#f8fafc;color:#344054;border-color:#d0d5dd}
-.hero-device{background:#f7f8fa;border-color:#e5e7eb;box-shadow:0 24px 60px rgba(15,23,42,.12)}
-.hero-device:before,.hero-device:after{display:none}
-.hero-device img{width:100%;height:100%;object-fit:contain;padding:24px;position:relative;z-index:1}
-.service-icon{font-family:"Outfit",sans-serif;font-size:1rem;font-weight:800;background:#edf4ff;color:#1d5fc4;border:1px solid #d7e5fb}
-.support-strip{background:#f0f7ff;border-color:#d8e8fb;color:#172b4d}
-.support-strip p{color:#526782}
-@media(max-width:520px){.product-art{background:#f5f7fa}.hero-device img{padding:16px}}
-
-
-.product-art.multi{display:flex;align-items:center;justify-content:center;gap:2px;padding:8px}
-.product-art.multi img{width:calc(50% - 2px);height:100%;padding:2px;object-fit:contain}
-.product-card:nth-child(10) .product-art.multi img{width:33.333%;padding:1px}
-
-.product-art.multi{display:flex;align-items:center;justify-content:center;gap:2px;padding:8px}
-.product-art.multi img{width:calc(50% - 2px);height:100%;padding:2px;object-fit:contain}
-.product-card:nth-child(10) .product-art.multi img{width:33.333%;padding:1px}
-
-
-/* Identité visuelle V1 conservée — finition professionnelle V5 */
-:root{--bg:#050914;--panel:#0b1426;--panel2:#101d33;--blue:#168bff;--cyan:#45d7ff;--text:#f4f8ff;--muted:#9eacc4;--line:rgba(75,157,255,.24);--green:#21d878}
-body{background:radial-gradient(ellipse at 80% 0%,#102b53 0,transparent 38%),var(--bg);color:var(--text);font-family:"Manrope",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-header{background:rgba(5,9,20,.90);border-bottom:1px solid var(--line)}
-.brand{display:inline-flex;align-items:center;gap:0;color:var(--text);font-size:1.38rem;font-weight:900;letter-spacing:-1px;white-space:nowrap}
-.brand span{color:var(--cyan)}
-.hero{padding:78px 0 55px}
-.eyebrow{background:#0c1b31;border-color:var(--line);color:#a9ddff}
-h1{color:var(--text)}.glow{color:var(--cyan);text-shadow:0 0 26px #168bff4a}
-.lead{color:var(--muted)}.trust{color:#b8c7dc}
-.device,.hero-device{background:linear-gradient(145deg,#142b4b,#070d19 68%);border:1px solid #3b9cff66;border-radius:34px;box-shadow:0 0 70px #0878ff22,inset 0 0 35px #168bff12}
-.hero-device:before,.hero-device:after{display:block}
-.hero-device img{width:100%;height:100%;object-fit:contain;padding:24px;position:relative;z-index:1;mix-blend-mode:normal}
-.mini-tag{background:#0b1426;color:var(--text);border:1px solid var(--line);box-shadow:0 10px 28px #0006}
-.section h2{color:var(--text)}.section-head p{color:var(--muted)}
-.product-card{position:relative;overflow:hidden;padding:14px 16px 18px;border-radius:20px;background:linear-gradient(155deg,rgba(14,26,46,.98),rgba(8,14,25,.98));border:1px solid var(--line);color:var(--text);box-shadow:0 14px 35px rgba(0,0,0,.16);transition:transform .22s,border-color .22s,box-shadow .22s}
-.product-card:hover{transform:translateY(-4px);border-color:rgba(120,220,255,.55);box-shadow:0 20px 44px rgba(0,0,0,.3)}
-.product-art{height:190px;margin:-2px -4px 13px;border-radius:16px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 50% 68%,rgba(80,145,255,.20),transparent 58%),linear-gradient(145deg,#152944,#0a1220 72%);border:1px solid rgba(126,174,255,.10)}
-.product-art img{display:block;width:100%;height:100%;object-fit:contain;padding:8px 22px;filter:drop-shadow(0 16px 15px rgba(0,0,0,.28));mix-blend-mode:normal}
-.product-art.multi{display:flex;align-items:center;justify-content:center;gap:2px;padding:8px}
-.product-art.multi img{width:calc(50% - 2px);height:100%;padding:2px;object-fit:contain}
-.product-card h3{color:var(--text);font-size:1.08rem;min-height:0;margin:0 0 4px;letter-spacing:-.35px}
-.product-price{color:var(--cyan);font-size:1.8rem;margin:4px 0 13px;letter-spacing:-1px}
-.product-card .payment-state{min-height:32px;line-height:1.45;color:var(--muted)}
-.product-card .btn{min-height:46px;border-radius:12px}.product-card .btn.outline{background:#0b1426;color:var(--text);border-color:var(--line)}
-.card,.side-panel,.form-panel,.faq details{background:linear-gradient(145deg,#0e1a2e,#080e1a);border:1px solid var(--line);color:var(--text);box-shadow:0 14px 35px rgba(0,0,0,.12)}
-.card h3,.step h3,.side-panel h3{color:var(--text)}.card p,.step p,.side-panel p,.side-panel li{color:var(--muted)}
-.service-icon{font-family:"Outfit",sans-serif;font-size:1rem;font-weight:800;background:#0e2b4c;color:var(--cyan);border:1px solid #1a75c9}
-.step-num{color:var(--cyan)}
-.form-panel{background:#0a1221}.side-panel{background:linear-gradient(145deg,#0d2340,#080e1a)}
-.field label{color:#dbe7f8}input,select,textarea{background:#050b16;color:var(--text);border:1px solid #263c5c}
-input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #168bff20}
-.paybox{background:#09182a;border-color:#3b77b6}.faq details{background:#091221}.faq summary{color:var(--text)}.faq p{color:var(--muted)}
-.support-strip{background:#0c1b31;border:1px solid var(--line);color:var(--text)}.support-strip p{color:var(--muted)}
-footer{border-top:1px solid var(--line);color:var(--muted)}
-@media(max-width:520px){.product-art{height:155px}.product-art:has(img:nth-child(2)) img{padding:4px 2px}.hero-device img{padding:16px}.product-card{padding:10px;border-radius:17px}}
-
-.apple-logo{width:25px;height:25px;flex:0 0 25px;color:#f5f8ff;display:block;stroke-linecap:round}
-.brand-name{display:inline-flex;align-items:center;gap:0}
-
-/* Logo conforme à la référence fournie : ebagz blanc, unlock cyan */
-.brand,.brand-name{font-family:Arial,Helvetica,sans-serif!important;font-size:1.35rem!important;font-weight:800!important;letter-spacing:-.055em!important;line-height:1!important;white-space:nowrap!important;color:#f5f8ff!important}
-.brand-name{display:inline-block!important}
-.brand-name>span{color:#45d7ff!important}
-.nav{min-height:112px;height:auto;padding:18px 0}
-.brand{flex-shrink:0}
-/* Éviter les coupures au milieu des mots et expressions */
-body{overflow-wrap:normal;word-break:normal}
-.eyebrow{word-break:keep-all}
-@media(max-width:520px){.nav{min-height:112px;padding:18px 0;gap:10px}.nav>.btn{white-space:nowrap}}
-
-.product-art img.image-fallback{object-fit:contain;filter:none;mix-blend-mode:normal;padding:4px!important}\n</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ebagzunlock | Services Apple</title>
+<meta name="description" content="Services ebagzunlock pour iPhone, MacBook, iPad et Apple Watch.">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101216;color:#f5f5f5;font-family:Arial,sans-serif}
+header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #343434}
+.logo{font-size:25px;font-weight:bold;color:#d8bd83}
+nav a{color:#fff;text-decoration:none;margin-left:18px}
+.hero{text-align:center;padding:65px 20px 45px}
+.hero h1{font-size:40px}
+.hero p{color:#bbb;line-height:1.6}
+.gold{color:#d8bd83}
+.container{max-width:1100px;margin:auto;padding:25px 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:#1c2026;border:1px solid #353a42;border-radius:14px;padding:25px 18px;text-align:center}
+.card h2,.card h3{color:#d8bd83}
+.emoji{font-size:48px}
+button,.btn{display:inline-block;background:#d8bd83;color:#111;padding:12px 19px;border:0;border-radius:7px;font-weight:bold;text-decoration:none;cursor:pointer;margin:5px}
+.whatsapp{background:#25d366;color:white}
+.price{font-size:22px;font-weight:bold;color:#fff}
+#catalogue,#detail{display:none}
+input,select,textarea{width:100%;padding:12px;margin:7px 0;background:#101216;border:1px solid #555;border-radius:6px;color:white}
+label{display:block;text-align:left;margin-top:10px;color:#ddd}
+footer{text-align:center;padding:30px;color:#aaa;border-top:1px solid #333;margin-top:45px}
+@media(max-width:600px){header{flex-direction:column;gap:15px}.hero h1{font-size:30px}}
+</style>
 </head>
 <body>
 <header>
-<div class="wrap nav">
-<a class="brand" href="#accueil" aria-label="ebagzunlock accueil"><span class="brand-name">ebagz<span>unlock</span></span></a>
-<nav class="navlinks"><a href="#tarifs">Tarifs</a><a href="#services">Services</a><a href="#fonctionnement">Comment ça marche</a><a href="#demande">Demander un devis</a></nav>
-<a class="btn primary" href="#demande">Demander un devis </a>
-</div>
+<div class="logo">ebagzunlock</div>
+<nav><a href="#services">Services</a><a href="#contact">Contact</a></nav>
 </header>
+
 <main>
-<section class="wrap hero" id="accueil">
-<div>
-<div class="eyebrow"><span class="dot"></span> SERVICE DE DÉVERROUILLAGE &amp; ASSISTANCE INFORMATIQUE APPLE</div>
-<h1>Votre appareil.<br/><span class="glow">Notre expertise.</span></h1>
-<p class="lead">Assistance pour vos appareils Apple, diagnostic, réparation et dépannage informatique. Présentez‑nous votre besoin : nous vous répondrons avec une solution adaptée.</p>
-<div class="actions"><a class="btn primary" href="#demande">Demander un devis <span></span></a><a class="btn whatsapp" href="https://wa.me/33644676361?text=Bonjour%20ebagzunlock%2C%20je%20souhaite%20des%20informations%20sur%20vos%20prestations." rel="noopener" target="_blank">Joindre ebagzunlock</a></div>
-<div class="trust"><span>Échange direct</span><span>Devis personnalisé</span><span>Accompagnement personnalisé</span></div>
-</div>
-<div aria-label="Photographie d’un iPhone Apple" class="visual">
-<div class="device hero-device"><img alt="iPhone 18 Pro Max — photographie produit Apple" decoding="async" loading="eager" src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-compare-iphone-18-pro-202609?.v=M0dlUVBobHVpY1h1dmlaR3RZekpEMEhRUmlKNkhhdE80VTZIL1ZUdjd2eUpxQWhXdDZiUERGcnlNZW9hNkhxRmJPbDJJWDFrVGJEYlIxTitTcHhVWldHUUw4RnF3MmwyMUVGYm13ODRTWXlINUhveGhFc1lXWld4RkQ2dkFBMi8&amp;fmt=png-alpha&amp;hei=512&amp;wid=400"/></div>
-<div class="mini-tag tag1">Un accompagnement adapté</div><div class="mini-tag tag2">Une assistance à votre écoute</div><div class="mini-tag tag3">Demande de devis</div>
-</div>
+<section class="hero">
+<h1>Votre spécialiste <span class="gold">Apple</span></h1>
+<p>Des solutions professionnelles pour vos appareils Apple.<br>Choisissez votre appareil pour découvrir les modèles et services.</p>
 </section>
-<section class="section wrap" id="tarifs">
-<div class="section-head"><div><h2>Nos services iPhone</h2><p>Sélectionnez votre modèle pour consulter le tarif correspondant.</p></div><span class="eyebrow">PAIEMENT SÉCURISÉ PAR CARTE</span></div>
-<div class="product-grid">
-<article class="product-card">
-  <div class="product-art">
-  <img src="/update-apple.png"
-       alt="UPDATE Apple"
-       style="width:100%; height:100%; object-fit:cover; display:block; border-radius:14px;">
-</div>
-  <h3>UPDATE</h3>
-  <div class="product-price">
-    <span class="price-label">Tarif du service</span>
-    <strong>5 €</strong>
-  </div>
-  <button class="btn primary stripe-pay" data-product-id="update" type="button">
-    Payer par carte
-  </button>
-  <div class="payment-state">Paiement sécurisé par carte via Stripe.</div>
-</article><article class="product-card"><div class="product-art multi"><img alt="iPhone X — photo produit Apple" decoding="async" loading="eager" src="/%20iphone-x.png"/><img alt="iPhone 12 Pro — photo produit Apple" decoding="async" loading="eager" src="/iphone-12-pro.png"/></div><h3>iPhone X – iPhone 12 Pro</h3><div class="product-price"><span class="price-label">Tarif du déblocage</span><strong>38 €</strong></div><button class="btn primary stripe-pay" data-product-id="iphone-service-1" type="button">Payer par carte</button><div class="payment-state">Paiement sécurisé par carte via Stripe.</div></article>
-<article class="product-card"><div class="product-art multi"><img alt="iPhone 12 Pro Max — photo produit Apple" decoding="async" loading="eager" src="/iphone-12-pro-max.png"/><img alt="iPhone 14 — photo produit Apple" decoding="async" loading="eager" src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-finish-select-202209-6-1inch-blue?wid=940&hei=1112&fmt=png-alpha"/></div><h3>iPhone 12 Pro Max – iPhone 14</h3><div class="product-price"><span class="price-label">Tarif du déblocage</span><strong>55 €</strong></div><button class="btn primary stripe-pay" data-product-id="iphone-service-2" type="button">Payer par carte</button><div class="payment-state">Paiement sécurisé par carte via Stripe.</div></article>
-<article class="product-card"><div class="product-art multi"><img alt="iPhone 14 Plus — photo produit Apple" decoding="async" loading="eager" src="/iphone-14-plus.png"/><img alt="iPhone 15 — photo produit Apple" decoding="async" loading="eager" src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-finish-select-202309-6-1inch-pink?wid=940&hei=1112&fmt=png-alpha"/></div><h3>iPhone 14 Plus – iPhone 15</h3><div class="product-price"><span class="price-label">Tarif du déblocage</span><strong>60 €</strong></div><button class="btn primary stripe-pay" data-product-id="iphone-service-3" type="button">Payer par carte</button><div class="payment-state">Paiement sécurisé par carte via Stripe.</div></article>
-<article class="product-card"><div class="product-art multi"><img alt="iPhone 15 Plus — photo produit Apple" decoding="async" loading="eager" src="/iphone-15-plus.png"/><img alt="iPhone 16 — photo produit Apple" decoding="async" loading="eager" src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch-ultramarine?wid=940&hei=1112&fmt=png-alpha"/></div><h3>iPhone 15 Plus – iPhone 16</h3><div class="product-price"><span class="price-label">Tarif du déblocage</span><strong>67 €</strong></div><button class="btn primary stripe-pay" data-product-id="iphone-service-4" type="button">Payer par carte</button><div class="payment-state">Paiement sécurisé par carte via Stripe.</div></article>
-<article class="product-card"><div class="product-art multi"><img alt="iPhone 16 Plus — photo produit Apple" decoding="async" loading="eager" src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-plus-ultramarine-select-202409?wid=940&hei=1112&fmt=png-alpha"/><img alt="iPhone 16e — photo produit Apple" decoding="async" loading="eager" src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16e-white-select-202502?wid=940&hei=1112&fmt=png-alpha"/></div><h3>iPhone 16 Plus – iPhone 16e</h3><div class="product-price"><span class="price-label">Tarif du déblocage</span><strong>71 €</strong></div><button class="btn primary stripe-pay" data-product-id="iphone-service-5" type="button">Payer par carte</button><div class="payment-state">Paiement sécurisé par carte via Stripe.</div></article>
-<article class="product-card"><div class="product-art multi"><img alt="iPhone 17 — photo produit Apple" decoding="async" loading="eager" src="https://www.apple.com/v/iphone-17/k/images/overview/product-viewer/initial__fgfrnz7ag26i_large.jpg"/><img alt="iPhone 17e — photo produit Apple" decoding="async" loading="eager" src="https://images.apple.com/v/iphone-17e/g/images/overview/highlights/highlights_design_endframe__crx8inqsi8k2_large.jpg"/></div><h3>iPhone 17 – iPhone 17e</h3><div class="product-price"><span class="price-label">Tarif du déblocage</span><strong>115 €</strong></div><button class="btn primary stripe-pay" data-product-id="iphone-service-6" type="button">Payer par carte</button><div class="payment-state">Paiement sécurisé par carte via Stripe.</div></article>
-<article class="product-card"><div class="product-art"><img alt="iPhone 18 Pro — photo produit Apple" decoding="async" loading="eager" src="https://www.apple.com/v/iphone-18-pro/e/images/overview/product-viewer/3d_viewer__hgotqf9hvvee_large.jpg"/></div><h3>iPhone 18 Pro</h3><div class="product-price"><span class="price-label">Tarif du déblocage</span><strong>135 €</strong></div><button class="btn primary stripe-pay" data-product-id="iphone-service-7" type="button">Payer par carte</button><div class="payment-state">Paiement sécurisé par carte via Stripe.</div></article>
-<article class="product-card"><div class="product-art"><img alt="iPhone 18 Pro Max — photo produit Apple" decoding="async" loading="eager" src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-compare-iphone-18-pro-202609?.v=M0dlUVBobHVpY1h1dmlaR3RZekpEMEhRUmlKNkhhdE80VTZIL1ZUdjd2eUpxQWhXdDZiUERGcnlNZW9hNkhxRmJPbDJJWDFrVGJEYlIxTitTcHhVWldHUUw4RnF3MmwyMUVGYm13ODRTWXlINUhveGhFc1lXWld4RkQ2dkFBMi8&fmt=png-alpha&hei=512&wid=400"/></div><h3>iPhone 18 Pro Max</h3><div class="product-price"><span class="price-label">Tarif du déblocage</span><strong>155 €</strong></div><button class="btn primary stripe-pay" data-product-id="iphone-service-8" type="button">Payer par carte</button><div class="payment-state">Paiement sécurisé par carte via Stripe.</div></article>
-<article class="product-card"><div class="product-art"><img alt="iPhone Duo — photo produit Apple" decoding="async" loading="eager" src="https://www.apple.com/v/iphone-duo/f/images/overview/product-viewer/display__bx48n0ntsgvm_large.jpg"/></div><h3>iPhone Duo</h3><div class="product-price"><span class="price-label">Tarif du déblocage</span><strong>132,50 €</strong></div><button class="btn primary stripe-pay" data-product-id="iphone-service-9" type="button">Payer par carte</button><div class="payment-state">Paiement sécurisé par carte via Stripe.</div></article>
-<article class="product-card"><div class="product-art"><img alt="iPhone Air — photo produit Apple" decoding="async" loading="eager" src="https://www.apple.com/v/iphone-air/k/images/overview/product-viewer/initial__fawwxxx0sday_large.jpg"/></div><h3>iPhone 17 Air</h3><div class="product-price"><span class="price-label">Tarif du déblocage</span><strong>119,50 €</strong></div><button class="btn primary stripe-pay" data-product-id="iphone-service-10" type="button">Payer par carte</button><div class="payment-state">Paiement sécurisé par carte via Stripe.</div></article>
-</div>
-<div class="support-strip"><div><strong>Une question avant de faire votre demande ?</strong><p>Notre équipe est à votre disposition sur WhatsApp.</p></div><a class="btn whatsapp" href="https://wa.me/33644676361?text=Bonjour%20ebagzunlock%2C%20j'ai%20besoin%20d'assistance%20pour%20une%20prestation." rel="noopener" target="_blank">Joindre ebagzunlock </a></div>
-</section>
-<section class="section wrap" id="services">
-<div class="section-head"><div><h2>Nos services</h2><p>Sélectionnez le service adapté à votre besoin.</p></div><span class="eyebrow">EBAGZUNLOCK</span></div>
+
+<section class="container" id="services">
+<h2 class="gold" style="text-align:center">Nos catégories</h2>
 <div class="grid">
-<article class="card"><div aria-hidden="true" class="service-icon">01</div><h3>Assistance Apple</h3><p>Assistance pour vos appareils Apple, diagnostic et conseils adaptés à votre situation.</p><button class="btn outline choose-service" data-service="Déblocage / assistance Apple">Sélectionner ce service </button></article>
-<article class="card"><div aria-hidden="true" class="service-icon">02</div><h3>Réparation et diagnostic</h3><p>Décrivez le problème rencontré afin de recevoir une première évaluation et un devis.</p><button class="btn outline choose-service" data-service="Réparation / diagnostic">Sélectionner ce service </button></article>
-<article class="card"><div aria-hidden="true" class="service-icon">03</div><h3>Assistance informatique</h3><p>Configuration, dépannage logiciel et assistance informatique.</p><button class="btn outline choose-service" data-service="Assistance informatique">Sélectionner ce service </button></article>
+<div class="card"><div class="emoji">📱</div><h2>iPhone</h2><p>Services pour iPhone compatibles.</p><button onclick="showCategory('iphone')">Voir les modèles</button></div>
+<div class="card"><div class="emoji">💻</div><h2>MacBook</h2><p>Services pour MacBook compatibles.</p><button onclick="showCategory('macbook')">Voir les modèles</button></div>
+<div class="card"><div class="emoji">📲</div><h2>iPad</h2><p>Services pour iPad compatibles.</p><button onclick="showCategory('ipad')">Voir les modèles</button></div>
+<div class="card"><div class="emoji">⌚</div><h2>Apple Watch</h2><p>Services pour Apple Watch compatibles.</p><button onclick="showCategory('watch')">Voir les modèles</button></div>
 </div>
 </section>
-<section class="section wrap" id="fonctionnement">
-<div class="section-head"><div><h2>Une démarche simple et transparente</h2><p>Un échange direct à chaque étape, de votre demande jusqu’au devis.</p></div></div>
-<div class="process">
-<article class="card step"><div class="step-num">ÉTAPE 01</div><h3>Présentez votre besoin</h3><p>Sélectionnez une prestation, indiquez le modèle de votre appareil et décrivez le problème rencontré.</p></article>
-<article class="card step"><div class="step-num">ÉTAPE 02</div><h3>Envoyez votre demande</h3><p>Le formulaire prépare un message récapitulatif que vous pourrez envoyer sur WhatsApp.</p></article>
-<article class="card step"><div class="step-num">ÉTAPE 03</div><h3>Validez le devis</h3><p>Le tarif, la faisabilité et les modalités vous sont communiqués avant toute intervention.</p></article>
-</div>
+
+<section class="container" id="catalogue">
+<button onclick="backHome()">← Retour</button>
+<h2 class="gold" id="categoryTitle"></h2>
+<div class="grid" id="models"></div>
 </section>
-<section class="section wrap" id="demande">
-<div class="section-head"><div><h2>Parlons de votre appareil</h2><p>Renseignez les informations ci-dessous afin de préparer votre demande.</p></div></div>
-<div class="request-layout">
-<aside class="side-panel"><div class="eyebrow">CONTACT PROFESSIONNEL</div><h3>ebagzunlock</h3><p>Pour faciliter le traitement de votre demande, indiquez le modèle exact de votre appareil et décrivez clairement le problème.</p><ul><li>Assistance par WhatsApp</li><li>Devis personnalisé</li><li>Validation avant toute intervention</li></ul><a class="btn whatsapp" href="https://wa.me/33644676361" rel="noopener" style="width:100%" target="_blank">Joindre ebagzunlock</a><p class="small">Ne communiquez jamais votre mot de passe Apple, vos codes de vérification ou vos coordonnées bancaires dans le formulaire.</p></aside>
-<div class="form-panel">
+
+<section class="container" id="detail">
+<button onclick="backCategory()">← Retour aux modèles</button>
+<div class="card">
+<h2 id="detailName"></h2>
+<p>Service de déverrouillage opérateur autorisé, sous réserve de compatibilité et de vérification.</p>
+<p class="price" id="detailPrice"></p>
 <form id="requestForm">
-<div class="form-grid">
-<div class="field"><label for="name">Votre nom</label><input id="name" name="name" placeholder="Nom ou prénom" required=""/></div>
-<div class="field"><label for="contact">Votre adresse e-mail (facultatif)</label><input id="contact" name="contact" placeholder="nom@exemple.com" type="email"/></div>
-<div class="field"><label for="service">Prestation</label><select id="service" name="service" required=""><option value="">Sélectionner…</option><option>Déblocage / assistance Apple</option><option>Réparation / diagnostic</option><option>Assistance informatique</option><option>Autre demande</option></select></div>
-<div class="field"><label for="device">Appareil</label><select id="device" name="device" required=""><option value="">Sélectionner…</option><option>iPhone</option><option>iPad</option><option>MacBook / Mac</option><option>Apple Watch</option><option>Android (Samsung, Google Pixel, etc.)</option><option>PC Windows</option><option>Autre appareil</option></select></div>
-<div class="field full"><label for="model">Modèle de l’appareil (si connu)</label><input id="model" name="model" placeholder="Ex. iPhone 14, MacBook Air M2…"/></div>
-<div class="field full"><label for="details">Décrivez le problème rencontré</label><textarea id="details" name="details" placeholder="Que se passe-t-il ? Depuis quand le problème est-il apparu ? Qu’avez-vous déjà essayé ?" required=""></textarea></div>
-</div>
-<p class="hint">Lorsque vous envoyez le formulaire, WhatsApp s’ouvre avec un message prérempli. Vérifiez les informations, puis appuyez sur « Envoyer ».</p>
-<div class="form-actions"><button class="btn primary" type="submit">Envoyer ma demande sur WhatsApp </button><button class="btn outline" type="reset">Réinitialiser</button></div>
-<div class="notice" id="formNotice" role="status"></div>
+<label>Nom complet</label><input id="name" required>
+<label>Adresse e-mail</label><input id="email" type="email" required>
+<label>Téléphone</label><input id="phone" type="tel" required>
+<label id="serialLabel">IMEI / Numéro de série</label><input id="serial" required>
+<label>Détails de votre demande</label><textarea id="details" rows="4"></textarea>
+<button type="button" onclick="sendWhatsApp()">Joindre ebagzunlock</button>
 </form>
-<div class="paybox"><strong>Paiement par carte</strong><p>Les paiements par carte sont traités sur la page sécurisée Stripe. Le montant est celui affiché sur la prestation sélectionnée.</p><button class="btn outline" id="paymentBtn" type="button">Informations sur le paiement</button><div class="notice" id="paymentNotice" role="status"></div></div>
-</div>
+<p style="color:#aaa;font-size:13px">L'assistance WhatsApp est gratuite et ne constitue pas une commande payée. Paiement en ligne non activé sur cette version.</p>
 </div>
 </section>
-<section class="section wrap">
-<div class="section-head"><div><h2>Questions fréquentes</h2><p>Les informations utiles avant de faire une demande.</p></div></div>
-<div class="faq">
-<details><summary>Comment connaître le tarif ?</summary><p>Transmettez les informations concernant votre appareil. Le tarif et la faisabilité seront confirmés après examen de votre demande.</p></details>
-<details><summary>Le paiement par carte est-il disponible ?</summary><p>Les tarifs sont affichés à titre indicatif. Le paiement par carte est traité par Stripe. Le client est redirigé vers une page sécurisée pour régler la prestation choisie.</p></details>
-<details><summary>Dois-je communiquer mon mot de passe Apple ?</summary><p>Non. Ne communiquez jamais votre mot de passe Apple ni vos codes de vérification. Seules les procédures officielles et autorisées sont utilisées.</p></details>
-<details><summary>Comment transmettre ma demande ?</summary><p>Remplissez le formulaire, puis confirmez l’envoi du message dans WhatsApp. Aucun message n’est envoyé sans votre validation.</p></details>
+
+<section class="container" id="contact">
+<div class="card">
+<h2>Besoin d'assistance ?</h2>
+<a class="btn whatsapp" href="https://wa.me/33644676361" target="_blank" rel="noopener">Joindre ebagzunlock</a>
 </div>
 </section>
 </main>
-<footer><div class="wrap foot"><div><div class="brand footer-brand">ebagz<span>unlock</span></div><div>Assistance Apple • Réparation • Assistance informatique</div></div><div>Assistance par WhatsApp : <a href="https://wa.me/33644676361" rel="noopener" target="_blank">Joindre ebagzunlock</a><div class="small">Les prestations sont réalisées uniquement sur des appareils vous appartenant ou pour lesquels vous disposez d’une autorisation. Aucun contournement non autorisé des protections Apple n’est proposé. Ne communiquez jamais vos mots de passe ni vos codes de vérification.<br/>Visuels des appareils : Apple. Service indépendant, non affilié à Apple Inc. © <span id="year"></span> ebagzunlock. Tous droits réservés.</div></div></div></footer>
-<script>
-const WA_NUMBER = "33644676361";
-document.getElementById("year").textContent = new Date().getFullYear();
-document.querySelectorAll(".choose-service").forEach(btn => btn.addEventListener("click", () => {
-  document.getElementById("service").value = btn.dataset.service;
-  document.getElementById("demande").scrollIntoView({behavior:"smooth"});
-}));
-document.getElementById("requestForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const f = new FormData(this);
-  const lines = [
-    "Bonjour ebagzunlock, je souhaite obtenir un devis.",
-    "",
-    "Nom : " + f.get("name"),
-    "E-mail : " + (f.get("contact") || "Non renseigné"),
-    "Prestation : " + f.get("service"),
-    "Appareil : " + f.get("device"),
-    "Modèle : " + (f.get("model") || "Non précisé"),
-    "Description : " + f.get("details"),
-    "",
-    "Merci de me confirmer la faisabilité, le prix et le délai."
-  ];
-  document.getElementById("formNotice").style.display = "block";
-  document.getElementById("formNotice").textContent = "Votre message est prêt. WhatsApp va s’ouvrir ; vérifiez-le, puis appuyez sur « Envoyer ».";
-  window.open("https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noopener");
-});
-document.getElementById("paymentBtn").addEventListener("click", () => {
-  document.getElementById("tarifs").scrollIntoView({behavior:"smooth"});
-});
 
-document.querySelectorAll(".stripe-pay").forEach((button) => {
-  button.addEventListener("click", async () => {
-    if (button.disabled) return;
-    const original = button.textContent;
-    button.disabled = true;
-    button.textContent = "Redirection vers Stripe…";
-    try {
-      const response = await fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({productId: button.dataset.productId})
-      });
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok || !data.url) {
-        throw new Error(data.error || "Impossible de préparer le paiement. Réessayez dans quelques instants.");
-      }
-      window.location.assign(data.url);
-    } catch (error) {
-      const notice = document.getElementById("paymentNotice");
-      notice.style.display = "block";
-      notice.textContent = error.message || "Une erreur est survenue. Contactez-nous sur WhatsApp.";
-      button.disabled = false;
-      button.textContent = original;
-    }
-  });
-});
-</script>
+<footer>
+<p>© 2026 ebagzunlock — Tous droits réservés.</p>
+<p>Services réservés aux appareils que vous possédez ou pour lesquels vous êtes autorisé à intervenir.</p>
+<p>Ce service ne contourne pas iCloud, le verrouillage d’activation, les comptes Apple ou les protections MDM.</p>
+</footer>
 
 <script>
-/*
- * Images produits robustes pour Netlify :
- * les photos Apple restent prioritaires. Si une adresse distante est
- * indisponible, une illustration locale intégrée est affichée à sa place.
- */
-(function () {
-  function escapeXml(value) {
-    return String(value).replace(/[&<>"']/g, function (char) {
-      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[char]);
-    });
-  }
-
-  function makeFallback(label) {
-    var safeLabel = escapeXml(label || 'Appareil Apple');
-    var svg =
-      '<svg xmlns="http://www.w3.org/2000/svg" width="500" height="600" viewBox="0 0 500 600">' +
-        '<defs><linearGradient id="body" x1="0" y1="0" x2="1" y2="1">' +
-          '<stop offset="0" stop-color="#344b69"/><stop offset="1" stop-color="#101b2c"/>' +
-        '</linearGradient><linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">' +
-          '<stop offset="0" stop-color="#72d8ff"/><stop offset=".48" stop-color="#397cff"/>' +
-          '<stop offset="1" stop-color="#182a55"/>' +
-        '</linearGradient></defs>' +
-        '<ellipse cx="250" cy="500" rx="120" ry="22" fill="#14243b" opacity=".18"/>' +
-        '<rect x="145" y="48" width="210" height="430" rx="38" fill="url(#body)" stroke="#8298b5" stroke-width="8"/>' +
-        '<rect x="158" y="63" width="184" height="400" rx="28" fill="url(#screen)"/>' +
-        '<path d="M158 320 Q245 205 342 280 L342 463 L158 463Z" fill="#10244b" opacity=".48"/>' +
-        '<rect x="215" y="72" width="70" height="15" rx="8" fill="#101827"/>' +
-        '<circle cx="250" cy="440" r="5" fill="#dceeff" opacity=".75"/>' +
-        '<text x="250" y="540" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#24364e">' + safeLabel + '</text>' +
-      '</svg>';
-    return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
-  }
-
-  document.querySelectorAll('img[src]').forEach(function (img) {
-    img.addEventListener('error', function () {
-      if (img.dataset.fallbackApplied === 'true') return;
-      img.dataset.fallbackApplied = 'true';
-      var label = (img.getAttribute('alt') || 'Appareil Apple')
-        .replace(/—.*$/, '').replace(/photo produit Apple/i, '').trim();
-      img.src = makeFallback(label);
-      img.classList.add('image-fallback');
-    });
-  });
-})();
+const prices={
+iphone:{
+"iPhone X":25,"iPhone XR":25,"iPhone XS":25,"iPhone XS Max":25,
+"iPhone 11":25,"iPhone 11 Pro":25,"iPhone 11 Pro Max":27,
+"iPhone 12 mini":25,"iPhone 12":25,"iPhone 12 Pro":29,"iPhone 12 Pro Max":32,
+"iPhone 13 mini":39,"iPhone 13":40,"iPhone 13 Pro":40,"iPhone 13 Pro Max":42,
+"iPhone 14":40,"iPhone 14 Plus":40,"iPhone 14 Pro":43,"iPhone 14 Pro Max":49,
+"iPhone 15":53,"iPhone 15 Plus":55,"iPhone 15 Pro":55,"iPhone 15 Pro Max":59,
+"iPhone 16":64,"iPhone 16 Plus":59,"iPhone 16 Pro":62,"iPhone 16 Pro Max":69,"iPhone 16e":65,
+"iPhone 17":69,"iPhone 17 Pro":70,"iPhone 17 Pro Max":77,"iPhone 17e":75,"iPhone 17 Air":79,
+"iPhone 18":85,"iPhone 18 Pro":89,"iPhone 18 Pro Max":100,"iPhone 18 Duo":95
+},
+macbook:{
+"MacBook Air Intel 2008–2020":35,"MacBook Air M1":38,"MacBook Air M2 13/15 pouces":38,
+"MacBook Air M3 13/15 pouces":40,"MacBook Air M4 13/15 pouces":40,"MacBook Air M5 13/15 pouces":42,
+"MacBook Pro Intel":40,"MacBook Pro M1 13/14/16 pouces":45,"MacBook Pro M2 13/14/16 pouces":45,
+"MacBook Pro M3 14/16 pouces":45,"MacBook Pro M4 14/16 pouces":49,"MacBook Pro M5 14/16 pouces":49,
+"MacBook Pro M6 14 pouces":55,"MacBook 12 pouces 2015–2017":30,"MacBook Neo A18 Pro":133
+},
+ipad:{
+"iPad classique 1re à 11e génération (A16 inclus)":37,"iPad mini 1 à 6 (A17 Pro inclus)":39,
+"iPad Air 1 à 5":37,"iPad Air M2/M3/M4 11 et 13 pouces":35,
+"iPad Pro 9,7 pouces":39,"iPad Pro 10,5 pouces":39,
+"iPad Pro 11 pouces générations 1 à 5":45,"iPad Pro 12,9 pouces générations 1 à 6":49,
+"iPad Pro M4 11 et 13 pouces":52,"iPad Pro M5 11 et 13 pouces":55
+},
+watch:{
+"Apple Watch Series 1 à 12":54,"Apple Watch SE 1/2/3":63,
+"Apple Watch Ultra 1/2/3/4":69
+}
+};
+const titles={iphone:"iPhone",macbook:"MacBook",ipad:"iPad",watch:"Apple Watch"};
+let currentCategory="iphone",currentModel="";
+function showCategory(category){
+currentCategory=category;
+document.getElementById("detail").style.display="none";
+document.getElementById("catalogue").style.display="block";
+document.getElementById("categoryTitle").textContent="Modèles "+titles[category];
+document.getElementById("models").innerHTML=Object.entries(prices[category]).map(([model,price])=>
+`<div class="card"><h3>${model}</h3><p class="price">${price} €</p><button onclick="showDetail('${model.replace(/'/g,"\\'")}')">Voir le service</button></div>`
+).join("");
+document.getElementById("catalogue").scrollIntoView({behavior:"smooth"});
+}
+function showDetail(model){
+currentModel=model;
+document.getElementById("catalogue").style.display="none";
+document.getElementById("detail").style.display="block";
+document.getElementById("detailName").textContent=model;
+document.getElementById("detailPrice").textContent=prices[currentCategory][model]+" €";
+document.getElementById("serialLabel").textContent=currentCategory==="iphone"?"IMEI":"Numéro de série";
+document.getElementById("detail").scrollIntoView({behavior:"smooth"});
+}
+function backHome(){
+document.getElementById("catalogue").style.display="none";
+document.getElementById("detail").style.display="none";
+document.getElementById("services").scrollIntoView({behavior:"smooth"});
+}
+function backCategory(){
+document.getElementById("detail").style.display="none";
+showCategory(currentCategory);
+}
+function sendWhatsApp(){
+const name=document.getElementById("name").value.trim();
+const email=document.getElementById("email").value.trim();
+const phone=document.getElementById("phone").value.trim();
+const serial=document.getElementById("serial").value.trim();
+const details=document.getElementById("details").value.trim();
+if(!name||!email||!phone||!serial){alert("Merci de remplir tous les champs obligatoires.");return;}
+const message=`Bonjour ebagzunlock,%0AAppareil : ${encodeURIComponent(currentModel)}%0ATarif affiché : ${prices[currentCategory][currentModel]} €%0ANom : ${encodeURIComponent(name)}%0AEmail : ${encodeURIComponent(email)}%0ATéléphone : ${encodeURIComponent(phone)}%0AIMEI / Série : ${encodeURIComponent(serial)}%0ADétails : ${encodeURIComponent(details)}`;
+window.open("https://wa.me/33644676361?text="+message,"_blank");
+}
 </script>
-
 </body>
 </html>
