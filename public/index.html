@@ -1,189 +1,574 @@
-ebagzunlock
-ebagzunlock
-Repository navigation
-Code
-Issues
-Pull requests
-Agents
-Actions
-Projects
-Wiki
-ebagzunlock/public
-/
-
-in
-main
-
-Edit
-
-Preview
-Indent mode
-
-Indent size
-
-Line wrap mode
-
-Editing index.html file contents
- 
-  1
-  2
-  3
-  4
-  5
-  6
-  7
-  8
-  9
- 10
- 11
- 12
- 13
- 14
- 15
- 16
- 17
- 18
- 19
- 20
- 21
- 22
- 23
- 24
- 25
- 26
- 27
- 28
- 29
- 30
- 31
- 32
- 33
- 34
- 35
- 36
- 37
- 38
- 39
- 40
- 41
- 42
- 43
- 44
- 45
- 46
- 47
- 48
- 49
- 50
- 51
- 52
- 53
- 54
- 55
- 56
- 57
- 58
- 59
- 60
- 61
- 62
- 63
- 64
- 65
- 66
- 67
- 68
- 69
- 70
- 71
- 72
- 73
- 74
- 75
- 76
- 77
- 78
- 79
- 80
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ebagzunlock | Services Apple</title>
-<meta name="description" content="Services ebagzunlock pour iPhone, MacBook, iPad et Apple Watch.">
-<style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  min-height:100vh;
-  background:
-    radial-gradient(ellipse at 78% 18%,rgba(48,91,145,.28),transparent 34%),
-    radial-gradient(ellipse at 12% 55%,rgba(26,66,112,.22),transparent 38%),
-    linear-gradient(135deg,#070d18 0%,#101c2d 48%,#080f1b 100%);
-  background-attachment:fixed;
-  color:#f5f5f5;
-  font-family:Arial,sans-serif;
-  position:relative;
-  isolation:isolate;
-  overflow-x:hidden;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071426">
+  <title>ebagzunlock | Solutions professionnelles Apple</title>
+  <meta name="description" content="ebagzunlock : services et assistance professionnelle pour appareils Apple. Sélectionnez votre appareil et découvrez nos tarifs.">
 
-body:before{
-  content:"";
-  position:fixed;
-  inset:-20%;
-  z-index:-1;
-  pointer-events:none;
-  background:repeating-radial-gradient(
-    ellipse at 82% 42%,
-    transparent 0 105px,
-    rgba(111,159,211,.075) 107px 109px,
-    transparent 111px 175px
-  );
-  transform:rotate(-13deg);
-  opacity:.75;
-}
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body:after{
-  content:"";
-  position:fixed;
-  z-index:-1;
-  pointer-events:none;
-  width:68vw;
-  height:68vw;
-  right:-31vw;
-  top:8vh;
-  border:1px solid rgba(130,174,222,.16);
-  border-radius:50%;
-  box-shadow:0 0 90px rgba(52,104,165,.10),
-             inset 0 0 70px rgba(52,104,165,.06);
-}
-header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #343434}
-.logo{font-size:25px;font-weight:bold;color:#d8bd83}
-nav a{color:#fff;text-decoration:none;margin-left:18px}
-.hero{text-align:center;padding:65px 20px 45px}
-.hero h1{font-size:40px}
-.hero p{color:#bbb;line-height:1.6}
-.gold{color:#d8bd83}
-.container{max-width:1100px;margin:auto;padding:25px 20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.card{background:#1c2026;border:1px solid #353a42;border-radius:14px;padding:25px 18px;text-align:center}
-.card h2,.card h3{color:#d8bd83}
-.emoji{font-size:48px}
-button,.btn{display:inline-block;background:#d8bd83;color:#111;padding:12px 19px;border:0;border-radius:7px;font-weight:bold;text-decoration:none;cursor:pointer;margin:5px}
-.whatsapp{background:#25d366;color:white}
-.price{font-size:22px;font-weight:bold;color:#fff}
-#catalogue,#detail{display:none}
-input,select,textarea{width:100%;padding:12px;margin:7px 0;background:#101216;border:1px solid #555;border-radius:6px;color:white}
-label{display:block;text-align:left;margin-top:10px;color:#ddd}
-footer{text-align:center;padding:30px;color:#aaa;border-top:1px solid #333;margin-top:45px}
-@media(max-width:600px){header{flex-direction:column;gap:15px}.hero h1{font-size:30px}}
-</style>
+    :root {
+      --bg: #071426;
+      --panel: rgba(17, 39, 65, .78);
+      --blue: #62b5ff;
+      --text: #f4f8ff;
+      --muted: #a9bbd0;
+      --line: rgba(160, 200, 240, .17);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 15% 15%, #193e66 0, transparent 42%),
+        radial-gradient(ellipse at 85% 65%, #102f50 0, transparent 45%),
+        linear-gradient(145deg, #050d1b, #0b1d33 55%, #071426);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .22;
+      background: repeating-radial-gradient(
+        ellipse at 50% 45%,
+        transparent 0 55px,
+        rgba(110, 180, 235, .12) 56px 57px,
+        transparent 58px 100px
+      );
+      z-index: -1;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 7%;
+      border-bottom: 1px solid var(--line);
+      background: rgba(4, 14, 28, .45);
+    }
+
+    .logo {
+      color: white;
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo span { color: var(--blue); }
+
+    nav { display: flex; gap: 24px; flex-wrap: wrap; }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover { color: white; }
+
+    .hero {
+      text-align: center;
+      padding: 85px 20px 65px;
+      max-width: 950px;
+      margin: auto;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(35px, 6vw, 58px);
+      line-height: 1.12;
+      margin-bottom: 22px;
+      letter-spacing: -1.5px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      margin: 9px auto;
+    }
+
+    .hero .main-phrase {
+      color: white;
+      font-size: 21px;
+      font-weight: 600;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 14px 25px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #68c1ff, #287ed0);
+      color: #061426;
+      font-weight: 800;
+      text-decoration: none;
+      border: 0;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .section {
+      max-width: 1120px;
+      padding: 45px 22px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 17px;
+    }
+
+    .service-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 25px;
+      transition: .2s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--blue);
+    }
+
+    .service-card h3 { margin-bottom: 12px; color: white; }
+    .service-card p { color: var(--muted); font-size: 14px; }
+
+    .service-number {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 28px;
+      max-width: 760px;
+      margin: 25px auto;
+      box-shadow: 0 20px 70px rgba(0, 0, 0, .2);
+    }
+
+    label {
+      display: block;
+      margin: 17px 0 7px;
+      font-size: 14px;
+      color: #dceaff;
+      font-weight: 600;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 9px;
+      border: 1px solid var(--line);
+      background: #0a1b30;
+      color: white;
+      font: inherit;
+      outline: none;
+    }
+
+    select:focus, input:focus, textarea:focus {
+      border-color: var(--blue);
+    }
+
+    select option { background: #0a1b30; color: white; }
+
+    .price {
+      margin-top: 22px;
+      padding: 18px;
+      text-align: center;
+      background: rgba(75, 155, 225, .12);
+      border: 1px solid rgba(98, 181, 255, .3);
+      border-radius: 12px;
+    }
+
+    .price strong {
+      display: block;
+      font-size: 32px;
+      color: var(--blue);
+    }
+
+    .notice {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 18px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    .full { grid-column: 1 / -1; }
+
+    .whatsapp {
+      display: block;
+      text-align: center;
+      width: 100%;
+      margin-top: 22px;
+      padding: 15px;
+      border: 0;
+      border-radius: 10px;
+      background: #20bd72;
+      color: #062416;
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .whatsapp:hover { background: #42d58d; }
+
+    footer {
+      margin-top: 60px;
+      padding: 35px 20px;
+      text-align: center;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer a { color: var(--blue); text-decoration: none; }
+
+    @media (max-width: 650px) {
+      header { flex-direction: column; }
+      nav { justify-content: center; gap: 15px; }
+      .hero { padding-top: 60px; }
+      .panel { padding: 20px; }
+    }
+  </style>
 </head>
-<body>
-<header>
-<div class="logo">ebagzunlock</div>
 
-Use Control + Shift + m to toggle the tab key moving focus. Alternatively, use esc then tab to move to the next interactive element on the page.
+<body>
+
+<header>
+  <div class="logo">ebagz<span>unlock</span></div>
+  <nav>
+    <a href="#accueil">Accueil</a>
+    <a href="#services">Services</a>
+    <a href="#tarifs">Tarifs</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero" id="accueil">
+    <div class="eyebrow">Solutions professionnelles Apple</div>
+    <h1>Votre spécialiste Apple des solutions professionnelles</h1>
+    <p class="main-phrase">Pour tout appareil Apple, sans aucune restriction.</p>
+    <p>Choisissez votre modèle d'appareil pour découvrir nos services et nos tarifs.</p>
+    <a href="#tarifs" class="button">Découvrir nos services</a>
+  </section>
+
+  <section class="section" id="services">
+    <h2 class="section-title">Nos services</h2>
+    <p class="section-subtitle">Une assistance adaptée à votre appareil Apple.</p>
+
+    <div class="services">
+      <article class="service-card">
+        <div class="service-number">SERVICE 01</div>
+        <h3>Diagnostic iCloud & compte Apple</h3>
+        <p>Analyse de votre situation et accompagnement dans les démarches officielles de récupération de compte et d'accès.</p>
+      </article>
+
+      <article class="service-card">
+        <div class="service-number">SERVICE 02</div>
+        <h3>Assistance Operator</h3>
+        <p>Évaluation de la compatibilité et assistance selon les possibilités autorisées pour votre iPhone.</p>
+      </article>
+
+      <article class="service-card">
+        <div class="service-number">SERVICE 03</div>
+        <h3>Diagnostic Blocage & limitation propriétaire</h3>
+        <p>Diagnostic de la situation et orientation vers les procédures officielles adaptées, avec justificatif de propriété si nécessaire.</p>
+      </article>
+
+      <article class="service-card">
+        <div class="service-number">SERVICE 04</div>
+        <h3>Diagnostic DFU & mode de récupération</h3>
+        <p>Analyse des problèmes de démarrage, de restauration et de récupération logicielle de votre appareil.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="tarifs">
+    <h2 class="section-title">Appareils et tarifs</h2>
+    <p class="section-subtitle">Sélectionnez un service, une catégorie et votre modèle.</p>
+
+    <div class="panel">
+      <label for="service">1. Choisissez votre service</label>
+      <select id="service">
+        <option value="Diagnostic iCloud & compte Apple">Diagnostic iCloud & compte Apple</option>
+        <option value="Assistance Operator">Assistance Operator</option>
+        <option value="Diagnostic Blocage & limitation propriétaire">Diagnostic Blocage & limitation propriétaire</option>
+        <option value="Diagnostic DFU & mode de récupération">Diagnostic DFU & mode de récupération</option>
+      </select>
+
+      <label for="category">2. Choisissez votre appareil</label>
+      <select id="category">
+        <option value="iPhone">iPhone</option>
+        <option value="MacBook">MacBook</option>
+        <option value="iPad">iPad</option>
+        <option value="Apple Watch">Apple Watch</option>
+      </select>
+
+      <label for="model">3. Choisissez votre modèle</label>
+      <select id="model">
+        <option value="">Sélectionnez d'abord votre modèle</option>
+      </select>
+
+      <div class="price">
+        Tarif indicatif
+        <strong id="price">— €</strong>
+        <span id="priceNote">Sélectionnez un modèle pour afficher le tarif.</span>
+      </div>
+
+      <p class="notice">
+        Les tarifs affichés sont indicatifs et doivent être confirmés après vérification
+        de l'appareil et de la demande. Aucun service ne garantit le contournement
+        d'une protection de sécurité Apple.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <h2 class="section-title">Faire une demande</h2>
+    <p class="section-subtitle">Transmettez-nous les informations de votre appareil.</p>
+
+    <div class="panel">
+      <form id="contactForm">
+        <div class="contact-grid">
+
+          <div>
+            <label for="customerName">Votre nom</label>
+            <input id="customerName" type="text" placeholder="Votre nom" required>
+          </div>
+
+          <div>
+            <label for="customerEmail">Votre adresse e-mail</label>
+            <input id="customerEmail" type="email" placeholder="vous@exemple.com" required>
+          </div>
+
+          <div>
+            <label for="customerPhone">Votre numéro WhatsApp</label>
+            <input id="customerPhone" type="tel" placeholder="+33..." required>
+          </div>
+
+          <div>
+            <label for="identifier">Numéro de série ou IMEI</label>
+            <input id="identifier" type="text" placeholder="À renseigner si disponible">
+          </div>
+
+          <div class="full">
+            <label for="details">Décrivez votre demande</label>
+            <textarea id="details" rows="4" placeholder="Expliquez brièvement votre situation..."></textarea>
+          </div>
+        </div>
+
+        <button class="whatsapp" type="submit">
+          Envoyer ma demande sur WhatsApp
+        </button>
+
+        <p class="notice">
+          En envoyant votre demande, vous acceptez que les informations saisies
+          soient transmises à ebagzunlock pour le traitement de votre demande.
+          Ne communiquez jamais votre mot de passe Apple ni un code de vérification.
+          Les prestations sont réservées aux appareils dont vous êtes propriétaire
+          ou pour lesquels vous disposez d'une autorisation valable.
+        </p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>ebagzunlock</strong> — Solutions professionnelles Apple</p>
+  <p>Contact : <a href="mailto:ebagzunlock@outlook.fr">ebagzunlock@outlook.fr</a></p>
+  <p>WhatsApp : <a href="https://wa.me/33644676361" target="_blank" rel="noopener">+33 6 44 67 63 61</a></p>
+  <p style="margin-top:12px;">© <span id="year"></span> ebagzunlock. Tous droits réservés.</p>
+</footer>
+
+<script>
+  const catalog = {
+    "iPhone": [
+      ["iPhone X",25],["iPhone XR",25],["iPhone XS",25],["iPhone XS Max",25],
+      ["iPhone 11",25],["iPhone 11 Pro",25],["iPhone 11 Pro Max",27],
+      ["iPhone 12 mini",25],["iPhone 12",25],["iPhone 12 Pro",29],["iPhone 12 Pro Max",32],
+      ["iPhone 13 mini",39],["iPhone 13",40],["iPhone 13 Pro",40],["iPhone 13 Pro Max",42],
+      ["iPhone 14",40],["iPhone 14 Plus",40],["iPhone 14 Pro",43],["iPhone 14 Pro Max",49],
+      ["iPhone 15",53],["iPhone 15 Plus",55],["iPhone 15 Pro",55],["iPhone 15 Pro Max",59],
+      ["iPhone 16",64],["iPhone 16 Plus",59],["iPhone 16 Pro",62],["iPhone 16 Pro Max",69],
+      ["iPhone 16e",65],["iPhone 17",69],["iPhone 17 Pro",70],["iPhone 17 Pro Max",77],
+      ["iPhone 17e",75],["iPhone 17 Air",79],["iPhone 18",85],["iPhone 18 Pro",89],
+      ["iPhone 18 Pro Max",100],["iPhone 18 Duo",95]
+    ],
+
+    "MacBook": [
+      ["MacBook Air Intel 2008–2020",35],
+      ["MacBook Air M1",38],
+      ["MacBook Air M2 13/15 pouces",38],
+      ["MacBook Air M3 13/15 pouces",40],
+      ["MacBook Air M4 13/15 pouces",40],
+      ["MacBook Air M5 13/15 pouces",42],
+      ["MacBook Pro Intel",40],
+      ["MacBook Pro M1 13/14/16 pouces",45],
+      ["MacBook Pro M2",45],
+      ["MacBook Pro M3 14/16 pouces",45],
+      ["MacBook Pro M4 14/16 pouces",49],
+      ["MacBook Pro M5 14/16 pouces",49],
+      ["MacBook Pro M6 14 pouces",55],
+      ["MacBook 12 pouces 2015–2017",30],
+      ["MacBook Neo A18 Pro",133]
+    ],
+
+    "iPad": [
+      ["iPad classique 1re à 11e génération (A16 inclus)",37],
+      ["iPad mini 1 à 6 (A17 Pro inclus)",39],
+      ["iPad Air 1 à 5",37],
+      ["iPad Air M2/M3/M4 11/13 pouces",35],
+      ["iPad Pro 9,7 pouces",39],
+      ["iPad Pro 10,5 pouces",39],
+      ["iPad Pro 11 pouces générations 1 à 5",45],
+      ["iPad Pro 12,9 pouces générations 1 à 6",49],
+      ["iPad Pro M4 11/13 pouces",52],
+      ["iPad Pro M5 11/13 pouces",55]
+    ],
+
+    "Apple Watch": [
+      ["Apple Watch Series 1 à 12",54],
+      ["Apple Watch SE 1/2/3",63],
+      ["Apple Watch Ultra 1/2/3/4",69]
+    ]
+  };
+
+  const service = document.getElementById("service");
+  const category = document.getElementById("category");
+  const model = document.getElementById("model");
+  const price = document.getElementById("price");
+  const priceNote = document.getElementById("priceNote");
+
+  function updateModels() {
+    const selectedCategory = category.value;
+    const selectedService = service.value;
+
+    // L'assistance Operator est proposée uniquement pour iPhone.
+    if (selectedService === "Assistance Operator") {
+      category.value = "iPhone";
+      category.disabled = true;
+    } else {
+      category.disabled = false;
+    }
+
+    const devices = catalog[category.value] || [];
+    model.innerHTML = '<option value="">Sélectionnez votre modèle</option>';
+
+    devices.forEach((item, index) => {
+      const option = document.createElement("option");
+      option.value = index;
+      option.textContent = item[0];
+      model.appendChild(option);
+    });
+
+    price.textContent = "— €";
+    priceNote.textContent = "Sélectionnez un modèle pour afficher le tarif.";
+  }
+
+  function updatePrice() {
+    const index = model.value;
+    const devices = catalog[category.value] || [];
+
+    if (index === "") {
+      price.textContent = "— €";
+      priceNote.textContent = "Sélectionnez un modèle pour afficher le tarif.";
+      return;
+    }
+
+    const selected = devices[Number(index)];
+    if (!selected) return;
+
+    price.textContent = selected[1] + " €";
+    priceNote.textContent = selected[0];
+  }
+
+  category.addEventListener("change", updateModels);
+  service.addEventListener("change", updateModels);
+  model.addEventListener("change", updatePrice);
+
+  document.getElementById("contactForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    if (!model.value) {
+      alert("Veuillez sélectionner votre modèle d'appareil dans la section Tarifs.");
+      document.getElementById("tarifs").scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    const selectedModel = catalog[category.value][Number(model.value)];
+
+    const name = document.getElementById("customerName").value.trim();
+    const email = document.getElementById("customerEmail").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
+    const identifier = document.getElementById("identifier").value.trim();
+    const details = document.getElementById("details").value.trim();
+
+    const message =
+      "Bonjour ebagzunlock,\n\n" +
+      "Je souhaite faire une demande.\n\n" +
+      "Nom : " + name + "\n" +
+      "E-mail : " + email + "\n" +
+      "Téléphone : " + phone + "\n" +
+      "Service : " + service.value + "\n" +
+      "Appareil : " + category.value + "\n" +
+      "Modèle : " + selectedModel[0] + "\n" +
+      "Tarif indicatif : " + selectedModel[1] + " €\n" +
+      "IMEI / numéro de série : " + (identifier || "Non renseigné") + "\n" +
+      "Détails : " + (details || "Aucun détail supplémentaire") + "\n\n" +
+      "Merci.";
+
+    const whatsappURL = "https://wa.me/33644676361?text=" + encodeURIComponent(message);
+    window.open(whatsappURL, "_blank", "noopener");
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  updateModels();
+</script>
+
+</body>
+</html>
