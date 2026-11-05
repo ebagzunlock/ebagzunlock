@@ -13,22 +13,18 @@ const PRODUCTS = [
 ];
 
 export async function onRequestPost({ request, env }) {
-  if (!env.STRIPE_SECRET_KEY || !env.SITE_URL) {
-    return Response.json(
-      { error: "Le paiement n'est pas encore configuré." },
-      { status: 503 }
-    );
-  }
+ if (!env.STRIPE_SECRET_KEY) {
+  return Response.json(
+    { error: "La clé Stripe n'est pas configurée." },
+    { status: 503 }
+  );
+}
 
   const origin = request.headers.get("Origin");
 
-  try {
-    if (origin && new URL(origin).host !== new URL(env.SITE_URL).host) {
-      return Response.json({ error: "Origine non autorisée." }, { status: 403 });
-    }
-  } catch {
-    return Response.json({ error: "Origine invalide." }, { status: 403 });
-  }
+  if (origin && origin !== new URL(request.url).origin) {
+  return Response.json({ error: "Origine non autorisée." }, { status: 403 });
+}
 
   let payload;
   try {
