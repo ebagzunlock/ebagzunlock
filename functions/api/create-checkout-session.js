@@ -13,22 +13,18 @@ const PRODUCTS = [
 ];
 
 export async function onRequestPost({ request, env }) {
-  if (!env.STRIPE_SECRET_KEY || !env.SITE_URL) {
-    return Response.json(
-      { error: "Le paiement n'est pas encore configuré." },
-      { status: 503 }
-    );
-  }
+ if (!env.STRIPE_SECRET_KEY) {
+  return Response.json(
+    { error: "La clé Stripe n'est pas configurée." },
+    { status: 503 }
+  );
+}
 
   const origin = request.headers.get("Origin");
 
-  try {
-    if (origin && new URL(origin).host !== new URL(env.SITE_URL).host) {
-      return Response.json({ error: "Origine non autorisée." }, { status: 403 });
-    }
-  } catch {
-    return Response.json({ error: "Origine invalide." }, { status: 403 });
-  }
+  if (origin && origin !== new URL(request.url).origin) {
+  return Response.json({ error: "Origine non autorisée." }, { status: 403 });
+}
 
   let payload;
   try {
@@ -60,11 +56,11 @@ export async function onRequestPost({ request, env }) {
   params.set("billing_address_collection", "auto");
  params.set(
   "success_url",
-  "https://ebagzunlock.pages.dev/paiement-reussi.html?session_id={CHECKOUT_SESSION_ID}"
+  `${new URL(request.url).origin}/paiement-reussi.html?session_id={CHECKOUT_SESSION_ID}`
 );
 params.set(
   "cancel_url",
-  "https://ebagzunlock.pages.dev/paiement-annule.html"
+  `${new URL(request.url).origin}/paiement-annule.html`
 );
   params.set("metadata[product_id]", product.id);
   params.set("metadata[service_type]", "authorized_carrier_unlock");
