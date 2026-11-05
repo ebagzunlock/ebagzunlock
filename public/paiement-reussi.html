@@ -73,7 +73,7 @@
           message.textContent = "Merci pour votre commande. Complétez maintenant le formulaire de demande avec les informations de votre appareil. Vous pourrez ensuite nous transmettre votre demande sur WhatsApp.";
 
           const link = document.createElement("a");
-          link.href = "/#demande";
+        link.href = "/?session_id=" + encodeURIComponent(sessionId) + "#demande";
           link.textContent = "Compléter ma demande";
           action.appendChild(link);
         } else {
