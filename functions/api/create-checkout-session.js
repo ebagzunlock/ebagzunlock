@@ -60,11 +60,11 @@ export async function onRequestPost({ request, env }) {
   params.set("billing_address_collection", "auto");
  params.set(
   "success_url",
-  "https://ebagzunlock.pages.dev/paiement-reussi.html?session_id={CHECKOUT_SESSION_ID}"
+  `${new URL(request.url).origin}/paiement-reussi.html?session_id={CHECKOUT_SESSION_ID}`
 );
 params.set(
   "cancel_url",
-  "https://ebagzunlock.pages.dev/paiement-annule.html"
+  `${new URL(request.url).origin}/paiement-annule.html`
 );
   params.set("metadata[product_id]", product.id);
   params.set("metadata[service_type]", "authorized_carrier_unlock");
