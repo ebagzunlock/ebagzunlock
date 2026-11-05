@@ -96,8 +96,45 @@ modelSelect.addEventListener("change",()=>{const d=deviceSelect.value,m=modelSel
 const contactToggle=document.getElementById("contactToggle"),contactIcons=document.getElementById("contactIcons");
 contactToggle.addEventListener("click",()=>{const show=contactIcons.hidden;contactIcons.hidden=!show;contactToggle.setAttribute("aria-expanded",String(show))});
 document.querySelectorAll(".main-nav a").forEach(a=>a.addEventListener("click",()=>{contactIcons.hidden=true;contactToggle.setAttribute("aria-expanded","false")}));
-payButton.addEventListener("click",async()=>{const service=serviceSelect.value,device=deviceSelect.value;let model=modelSelect.value;if(!service||!device||selectedPrice===null){showStatus(paymentStatus,"Sélectionnez une prestation pour afficher son tarif.","error");return}if(service===UPDATE_SERVICE)model="Mise à jour "+device;payButton.disabled=true;showStatus(paymentStatus,"Préparation du paiement sécurisé…");try{const r=await fetch("/api/create-checkout-session",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({service,device,model})});const data=await r.json();if(!r.ok||!data.url)throw new Error(data.error||"Impossible de préparer le paiement.");window.location.assign(data.url)}catch(e){showStatus(paymentStatus,e.message||"Une erreur est survenue.","error");payButton.disabled=false}});
-async function verifyReturnedPayment(){const sessionId=new URLSearchParams(location.search).get("session_id");if(!sessionId)return;showStatus(paymentStatus,"Vérification de votre paiement…");try{const r=await fetch("/api/verify-checkout-session?session_id="+encodeURIComponent(sessionId));const data=await r.json();if(!r.ok||data.paid!==true||!data.selection?.service||!data.selection?.device||!data.selection?.model)throw new Error("Le paiement n'a pas pu être confirmé. Si tu as payé, contacte-nous.");verifiedSelection=data.selection;verifiedSessionId=sessionId;selectService(data.selection.service);deviceSelect.value=data.selection.device;if(data.selection.service===UPDATE_SERVICE){deviceSelect.dispatchEvent(new Event("change"))}else{deviceSelect.dispatchEvent(new Event("change"));modelSelect.value=data.selection.model;modelSelect.dispatchEvent(new Event("change"))}requestSection.classList.add("visible");showStatus(paymentStatus,"Paiement vérifié. Tu peux maintenant envoyer ta demande.","success");history.replaceState({},document.title,location.pathname+"#tarifs");requestSection.scrollIntoView({behavior:"smooth",block:"start"})}catch(e){showStatus(paymentStatus,e.message||"Erreur lors de la vérification du paiement.","error")}}
+
+payButton.addEventListener("click",async()=>{
+  const service = serviceSelect.value;
+  const device = deviceSelect.value;
+  let model = modelSelect.value;
+
+  if (!service || !device || selectedPrice === null) {
+    showStatus(paymentStatus,"Sélectionnez une prestation pour afficher son tarif.","error");
+    return;
+  }
+
+  if (service === UPDATE_SERVICE) {
+    model = device;
+  }
+
+  payButton.disabled = true;
+  showStatus(paymentStatus,"Préparation du paiement sécurisé…");
+
+  try {
+    const r = await fetch("/api/create-checkout-session",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({service,device,model})
+    });
+
+    const data = await r.json();
+
+    if (!r.ok || !data.url) {
+      throw new Error(data.error || "Impossible de préparer le paiement.");
+    }
+
+    window.location.assign(data.url);
+  } catch(e) {
+    showStatus(paymentStatus,e.message || "Une erreur est survenue.","error");
+    payButton.disabled = false;
+  }
+});
+
+async function verifyReturnedPayment(){const sessionId=new URLSearchParams(location.search).get("session_id");if(!sessionId)return;showStatus(paymentStatus,"Vérification de votre paiement…");try{const r=await fetch("/api/verify-checkout-session?session_id="+encodeURIComponent(sessionId));const data=await r.json();if(!r.ok||data.paid!==true||!data.selection?.service||(data.selection.service !== UPDATE_SERVICE && !data.selection?.device)||!data.selection?.model)throw new Error("Le paiement n'a pas pu être confirmé. Si tu as payé, contacte-nous.");verifiedSelection=data.selection;verifiedSessionId=sessionId;selectService(data.selection.service);deviceSelect.value=data.selection.device;if(data.selection.service===UPDATE_SERVICE){deviceSelect.dispatchEvent(new Event("change"))}else{deviceSelect.dispatchEvent(new Event("change"));modelSelect.value=data.selection.model;modelSelect.dispatchEvent(new Event("change"))}requestSection.classList.add("visible");showStatus(paymentStatus,"Paiement vérifié. Tu peux maintenant envoyer ta demande.","success");history.replaceState({},document.title,location.pathname+"#tarifs");requestSection.scrollIntoView({behavior:"smooth",block:"start"})}catch(e){showStatus(paymentStatus,e.message||"Erreur lors de la vérification du paiement.","error")}}
 document.getElementById("requestForm").addEventListener("submit",event=>{event.preventDefault();const status=document.getElementById("requestStatus"),form=event.currentTarget;if(!verifiedSelection||!verifiedSessionId){showStatus(status,"Aucun paiement vérifié n'est associé à cette demande.","error");return}if(!form.reportValidity())return;const f=new FormData(form),subject="Nouvelle demande — ebagzunlock";const body=["Nouvelle demande après paiement vérifié","","Service : "+verifiedSelection.service,"Option / appareil : "+verifiedSelection.device,"Modèle : "+verifiedSelection.model,"Référence de paiement : "+verifiedSessionId,"","Nom : "+f.get("name"),"E-mail : "+f.get("email"),"Téléphone : "+f.get("phone"),"IMEI / numéro de série : "+f.get("identifier"),"","Informations complémentaires :",f.get("message")||"Aucune"].join("\n");const mailto="mailto:ebagzunlock@outlook.fr?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);showStatus(status,"Ton application e-mail va s'ouvrir pour envoyer la demande.","success");location.href=mailto});
 verifyReturnedPayment();
 </script>
