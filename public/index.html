@@ -5,875 +5,990 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#081321">
-  <meta name="description" content="Services dédiés aux appareils Apple. Prise en charge professionnelle et tarifs transparents.">
   <title>ebagzunlock — Services Apple</title>
+  <meta name="description" content="Services dédiés aux appareils Apple. Prise en charge professionnelle et paiement sécurisé.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#081321;
-      --panel:#101f31;
-      --panel2:#14263a;
-      --blue:#477fb5;
-      --blue2:#5b91c5;
-      --white:#f5f8fc;
-      --muted:#9aacc0;
-      --border:rgba(255,255,255,.09);
-      --green:#8ee0ad;
+    :root {
+      --bg: #081321;
+      --panel: #101f31;
+      --panel-light: #14263b;
+      --blue: #477fb5;
+      --blue-light: #6da5dc;
+      --white: #f5f8fc;
+      --muted: #aab7c7;
+      --border: rgba(255,255,255,.10);
+      --success: #55c995;
+      --danger: #ff7777;
     }
 
-    *{box-sizing:border-box;margin:0;padding:0}
+    * { box-sizing: border-box; }
 
-    html{scroll-behavior:smooth}
-
-    body{
-      font-family:Inter,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--white);
-      line-height:1.6;
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
     }
 
-    a{color:inherit;text-decoration:none}
-
-    button,input,select,textarea{font:inherit}
-
-    .container{
-      width:min(1120px,calc(100% - 40px));
-      margin:auto;
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--white);
+      font-family: Inter, sans-serif;
+      line-height: 1.6;
     }
 
-    header{
-      border-bottom:1px solid var(--border);
-      background:rgba(8,19,33,.94);
-      position:sticky;
-      top:0;
-      z-index:20;
-      backdrop-filter:blur(14px);
+    a { color: inherit; }
+
+    button, input, select, textarea {
+      font: inherit;
     }
 
-    .header-inner{
-      min-height:78px;
-      display:grid;
-      grid-template-columns:1fr auto 1fr;
-      align-items:center;
+    button { cursor: pointer; }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin-inline: auto;
     }
 
-    .logo{
-      font-size:25px;
-      font-weight:800;
-      letter-spacing:-1.2px;
-      justify-self:start;
+    /* HEADER */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(8,19,33,.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
     }
 
-    .logo span{color:var(--blue)}
-
-    nav{
-      display:flex;
-      gap:30px;
-      align-items:center;
+    .header-inner {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
     }
 
-    nav a{
-      color:#c4d0dd;
-      font-size:13px;
-      font-weight:600;
-      transition:.2s;
+    .logo {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      white-space: nowrap;
     }
 
-    nav a:hover{color:white}
+    .logo-blue { color: var(--blue-light); }
 
-    .contact-wrap{
-      justify-self:end;
-      position:relative;
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
     }
 
-    .contact-toggle{
-      width:42px;
-      height:42px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      color:white;
-      background:var(--panel);
-      cursor:pointer;
-      font-size:19px;
+    .main-nav a,
+    .main-nav button {
+      border: 0;
+      padding: 8px 0;
+      background: transparent;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color .2s;
     }
 
-    .contact-menu{
-      display:none;
-      position:absolute;
-      right:0;
-      top:50px;
-      background:var(--panel2);
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:10px;
-      gap:8px;
-      min-width:110px;
-      box-shadow:0 12px 35px #0005;
+    .main-nav a:hover,
+    .main-nav button:hover,
+    .main-nav button[aria-expanded="true"] {
+      color: var(--blue-light);
     }
 
-    .contact-menu.open{display:flex}
-
-    .contact-menu a{
-      display:grid;
-      place-items:center;
-      width:42px;
-      height:42px;
-      border-radius:9px;
-      background:#20364d;
-      font-size:20px;
+    .contact-icons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    .hero{
-      padding:105px 0 100px;
-      text-align:center;
+    .contact-icons[hidden] {
+      display: none !important;
+    }
+
+    .contact-icons a {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      border: 1px solid var(--blue);
+      border-radius: 50%;
+      text-decoration: none;
+      transition: .2s;
+    }
+
+    .contact-icons a:hover {
+      background: var(--blue);
+      transform: translateY(-2px);
+    }
+
+    .contact-icons svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 540px;
+      display: flex;
+      align-items: center;
+      padding: 90px 0;
       background:
-        radial-gradient(ellipse at 50% 0%,rgba(71,127,181,.17),transparent 58%);
+        radial-gradient(ellipse at 80% 35%, rgba(71,127,181,.17), transparent 48%),
+        var(--bg);
     }
 
-    .eyebrow{
-      color:#8fb5d9;
-      font-size:11px;
-      font-weight:700;
-      letter-spacing:2px;
-      margin-bottom:22px;
+    .eyebrow {
+      color: var(--blue-light);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
     }
 
-    h1{
-      font-size:clamp(42px,7vw,72px);
-      line-height:1.08;
-      letter-spacing:-3px;
-      font-weight:800;
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(43px, 7vw, 76px);
+      line-height: 1.08;
+      letter-spacing: -3px;
     }
 
-    h1 span{color:var(--blue)}
+    h1 span { display: block; }
+    h1 .blue { color: var(--blue-light); }
 
-    .hero p{
-      max-width:650px;
-      margin:24px auto 30px;
-      color:var(--muted);
-      font-size:16px;
+    .hero-description {
+      max-width: 600px;
+      margin: 25px 0 30px;
+      color: var(--muted);
+      font-size: 17px;
     }
 
-    .primary-btn{
-      display:inline-flex;
-      justify-content:center;
-      align-items:center;
-      padding:14px 25px;
-      border-radius:9px;
-      background:var(--blue2);
-      color:white;
-      font-weight:700;
-      font-size:14px;
-      border:0;
-      cursor:pointer;
-      transition:.2s;
+    .primary-button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 24px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--blue);
+      color: white;
+      font-weight: 700;
+      text-decoration: none;
+      transition: .2s;
     }
 
-    .primary-btn:hover{background:#78afe0}
-
-    section{padding:75px 0}
-
-    .section-heading{
-      text-align:center;
-      margin-bottom:38px;
+    .primary-button:hover {
+      background: var(--blue-light);
+      transform: translateY(-2px);
     }
 
-    .section-heading h2{
-      font-size:clamp(27px,4vw,38px);
-      letter-spacing:-1px;
-      margin-bottom:10px;
+    /* SECTIONS */
+
+    section.content-section {
+      padding: 85px 0;
     }
 
-    .section-heading p{
-      color:var(--muted);
-      font-size:14px;
+    .section-heading {
+      margin-bottom: 38px;
+      text-align: center;
     }
 
-    .services-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:17px;
+    .section-heading h2 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing: -1px;
     }
 
-    .service-card{
-      padding:27px;
-      border:1px solid var(--border);
-      background:linear-gradient(145deg,var(--panel),#0c1928);
-      border-radius:15px;
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
     }
 
-    .service-card h3{
-      font-size:17px;
-      margin-bottom:9px;
+    /* SERVICES */
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
     }
 
-    .service-card p{
-      color:var(--muted);
-      font-size:13px;
+    .service-card {
+      width: 100%;
+      min-height: 175px;
+      padding: 26px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: var(--panel);
+      color: var(--white);
+      text-align: left;
+      transition: .2s;
     }
 
-    .pricing-box{
-      max-width:760px;
-      margin:auto;
-      padding:32px;
-      border:1px solid var(--border);
-      border-radius:17px;
-      background:linear-gradient(145deg,var(--panel),#0c1928);
+    .service-card:hover,
+    .service-card:focus-visible {
+      border-color: var(--blue-light);
+      background: var(--panel-light);
+      transform: translateY(-3px);
+      outline: none;
     }
 
-    .field{margin-bottom:20px}
+    .service-card h3 {
+      margin: 0 0 12px;
+      font-size: 19px;
+      line-height: 1.4;
+    }
 
-    .field label{
-      display:block;
-      font-size:13px;
-      font-weight:600;
-      margin-bottom:9px;
-      color:#dce6f0;
+    .service-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card-hint {
+      display: inline-block;
+      margin-top: 18px;
+      color: var(--blue-light);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* PRICING */
+
+    #tarifs { background: #0b1929; }
+
+    .pricing-panel {
+      max-width: 760px;
+      margin: auto;
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel);
+    }
+
+    .field { margin-bottom: 20px; }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
     }
 
     .field select,
     .field input,
-    .field textarea{
-      width:100%;
-      padding:14px;
-      color:white;
-      background:#091726;
-      border:1px solid #2b4057;
-      border-radius:9px;
-      outline:none;
+    .field textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      outline: none;
+      background: #0b1929;
+      color: var(--white);
     }
 
     .field select:focus,
     .field input:focus,
-    .field textarea:focus{
-      border-color:var(--blue);
+    .field textarea:focus {
+      border-color: var(--blue-light);
     }
 
-    .field select:disabled{
-      opacity:.45;
-      cursor:not-allowed;
+    .field select:disabled {
+      opacity: .55;
+      cursor: not-allowed;
     }
 
-    .field select option{
-      background:#101f31;
-      color:white;
+    .price-display {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin: 25px 0;
+      padding: 18px;
+      border-radius: 9px;
+      background: #0b1929;
     }
 
-    .price-display{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:15px;
-      margin:25px 0;
-      padding:20px;
-      border:1px solid rgba(71,127,181,.35);
-      background:rgba(71,127,181,.09);
-      border-radius:12px;
+    .price-display span:first-child {
+      color: var(--muted);
     }
 
-    .price-display span:first-child{
-      color:#c5d2df;
-      font-size:14px;
+    #priceValue {
+      color: var(--blue-light);
+      font-size: 26px;
+      font-weight: 800;
     }
 
-    .price{
-      font-size:29px;
-      font-weight:800;
-      color:white;
+    .full-width { width: 100%; }
+
+    .notice {
+      margin-top: 17px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
     }
 
-    .pay-btn{
-      width:100%;
-      padding:16px;
-      border:0;
-      border-radius:9px;
-      color:white;
-      background:var(--blue2);
-      font-weight:700;
-      cursor:pointer;
-      transition:.2s;
+    .status-message {
+      margin: 15px 0;
+      font-size: 14px;
+      text-align: center;
     }
 
-    .pay-btn:hover{background:#78afe0}
+    .status-message.error { color: var(--danger); }
+    .status-message.success { color: var(--success); }
 
-    .pay-btn:disabled{
-      opacity:.45;
-      cursor:not-allowed;
+    /* REQUEST FORM */
+
+    #requestSection {
+      display: none;
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 1px solid var(--border);
     }
 
-    .message{
-      min-height:25px;
-      margin-top:14px;
-      font-size:13px;
-      color:#f0b7a9;
-      text-align:center;
+    #requestSection.visible { display: block; }
+
+    #requestSection h3 {
+      margin-top: 0;
+      font-size: 21px;
     }
 
-    .request-form{
-      display:none;
-      margin-top:28px;
-      padding-top:28px;
-      border-top:1px solid var(--border);
+    .field textarea {
+      min-height: 100px;
+      resize: vertical;
     }
 
-    .request-form.visible{display:block}
-
-    .request-form h3{
-      font-size:21px;
-      margin-bottom:8px;
+    .consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 18px 0;
+      color: var(--muted);
+      font-size: 13px;
     }
 
-    .request-form>p{
-      color:var(--muted);
-      font-size:13px;
-      margin-bottom:23px;
+    .consent input {
+      margin-top: 5px;
+      accent-color: var(--blue);
     }
 
-    .request-form textarea{
-      min-height:100px;
-      resize:vertical;
+    /* FOOTER */
+
+    .site-footer {
+      width: 100%;
+      padding: 55px 20px 35px;
+      border-top: 1px solid var(--border);
+      text-align: center;
     }
 
-    .check-row{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      color:#c2d0de;
-      font-size:12px;
-      margin:20px 0;
+    .footer-logo {
+      display: inline-block;
+      color: var(--white);
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      text-decoration: none;
     }
 
-    .check-row input{
-      margin-top:4px;
-      accent-color:var(--blue);
+    .site-footer p {
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: 14px;
     }
 
-    .success-note{
-      color:var(--green);
-      font-size:13px;
-      margin-bottom:16px;
-    }
-
-    .legal-note{
-      color:#8295aa;
-      font-size:11px;
-      text-align:center;
-      margin-top:22px;
-      line-height:1.7;
-    }
-
-    footer{
-      border-top:1px solid var(--border);
-      padding:30px 0;
-      background:#07111e;
-    }
-
-    .footer-inner{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:20px;
-    }
-
-    .footer-brand p{
-      color:var(--muted);
-      font-size:12px;
-      margin-top:5px;
-    }
-
-    .footer-cta{
-      background:#203c58;
-      color:white;
-      border:1px solid rgba(91,145,197,.3);
-      padding:12px 17px;
-      border-radius:9px;
-      font-size:13px;
-      font-weight:700;
-    }
-
-    .footer-cta:hover{background:#2b5278}
-
-    @media(max-width:700px){
-      .header-inner{
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-        gap:13px;
-        padding:15px 0;
+    @media (max-width: 720px) {
+      .header-inner {
+        padding: 16px 0;
+        flex-direction: column;
+        gap: 12px;
       }
 
-      .logo{align-self:center}
-
-      nav{
-        order:2;
-        gap:22px;
+      .main-nav {
+        width: 100%;
+        justify-content: center;
+        gap: clamp(13px, 4vw, 23px);
       }
 
-      .contact-wrap{
-        position:absolute;
-        right:0;
-        top:15px;
+      .main-nav a,
+      .main-nav button {
+        font-size: 13px;
       }
 
-      .hero{padding:75px 0 70px}
-
-      h1{letter-spacing:-2px}
-
-      .services-grid{grid-template-columns:1fr}
-
-      .pricing-box{padding:22px 17px}
-
-      .footer-inner{
-        flex-direction:column;
-        align-items:flex-start;
+      .contact-icons {
+        justify-content: center;
       }
+
+      .hero {
+        min-height: 460px;
+        padding: 70px 0;
+      }
+
+      h1 { letter-spacing: -2px; }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section.content-section { padding: 65px 0; }
+
+      .pricing-panel { padding: 20px; }
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <div class="container header-inner">
-    <a class="logo" href="#accueil">ebagz<span>unlock</span></a>
+  <header class="site-header">
+    <div class="container header-inner">
 
-    <nav>
-      <a href="#accueil">Accueil</a>
-      <a href="#services">Services</a>
-      <a href="#tarifs">Tarifs</a>
-      <a href="#contact">Contact</a>
-    </nav>
+      <a href="#accueil" class="logo" aria-label="ebagzunlock accueil">
+        ebagz<span class="logo-blue">unlock</span>
+      </a>
 
-    <div class="contact-wrap">
-      <button class="contact-toggle" id="contactToggle" aria-label="Ouvrir les contacts">⌄</button>
-      <div class="contact-menu" id="contactMenu">
-        <a href="mailto:ebagzunlock@outlook.fr" aria-label="E-mail">✉</a>
-        <a href="https://wa.me/33644676361" target="_blank" rel="noopener" aria-label="Téléphone">☎</a>
-      </div>
-    </div>
-  </div>
-</header>
-
-<main>
-  <section class="hero" id="accueil">
-    <div class="container">
-      <div class="eyebrow">SERVICES DE DÉVERROUILLAGE POUR APPAREILS APPLE</div>
-      <h1>Votre appareil.<br><span>Notre expertise.</span></h1>
-      <p>Des solutions adaptées à vos appareils Apple, avec une prise en charge rapide et professionnelle.</p>
-      <a class="primary-btn" href="#services">Découvrir nos services</a>
-    </div>
-  </section>
-
-  <section id="services">
-    <div class="container">
-      <div class="section-heading">
-        <h2>Nos services</h2>
-        <p>Des prestations adaptées à différents appareils Apple.</p>
-      </div>
-
-      <div class="services-grid">
-        <article class="service-card">
-          <h3>Déverrouillage iCloud</h3>
-          <p>IMEI ou numéro de série</p>
-        </article>
-
-        <article class="service-card">
-          <h3>Déverrouillage Opérateur</h3>
-          <p>IMEI uniquement</p>
-        </article>
-
-        <article class="service-card">
-          <h3>Suppression Blocage &amp;Limitation Propriétaire</h3>
-          <p>IMEI / Numéro de série</p>
-        </article>
-
-        <article class="service-card">
-          <h3>Résolution Blocage DFU &amp; Mode de Récupération</h3>
-          <p>IMEI / numéro de série</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="tarifs">
-    <div class="container">
-      <div class="section-heading">
-        <h2>Choisir une prestation</h2>
-        <p>Sélectionnez votre service et votre appareil pour afficher le tarif.</p>
-      </div>
-
-      <div class="pricing-box">
-        <div class="field">
-          <label for="service">Prestation</label>
-          <select id="service">
-            <option value="">Choisir un service</option>
-            <option>Déverrouillage iCloud</option>
-            <option>Déverrouillage Opérateur</option>
-            <option>Suppression Blocage &amp;Limitation Propriétaire</option>
-            <option>Résolution Blocage DFU &amp; Mode de Récupération</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="device">Type d'appareil</label>
-          <select id="device" disabled>
-            <option value="">Choisir un appareil</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="model">Modèle</label>
-          <select id="model" disabled>
-            <option value="">Choisir un modèle</option>
-          </select>
-        </div>
-
-        <div class="price-display">
-          <span>Tarif de la prestation</span>
-          <span class="price" id="price">— €</span>
-        </div>
-
-        <button class="pay-btn" id="payButton" disabled>
-          Procéder au paiement
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="#accueil">Accueil</a>
+        <a href="#accueil">Services</a>
+        <a href="#tarifs">Tarifs</a>
+        <button type="button" id="contactToggle" aria-expanded="false">
+          Contact
         </button>
+      </nav>
 
-        <div class="message" id="message" role="status" aria-live="polite"></div>
+      <div class="contact-icons" id="contactIcons" hidden>
+        <a href="mailto:ebagzunlock@outlook.fr"
+           aria-label="Envoyer un e-mail"
+           title="Envoyer un e-mail">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2"
+              stroke="currentColor" stroke-width="1.8"/>
+            <path d="m4 7 8 6 8-6"
+              stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
 
-        <div class="request-form" id="requestForm">
-          <div class="success-note">✓ Paiement confirmé. Votre demande peut être envoyée.</div>
-          <h3>Votre demande</h3>
-          <p>Complétez les informations ci-dessous pour transmettre votre demande.</p>
+        <a href="https://wa.me/33644676361"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Envoyer un message"
+           title="Envoyer un message">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.2A8.5 8.5 0 1 1 20 11.5Z"
+              stroke="currentColor" stroke-width="1.8"
+              stroke-linejoin="round"/>
+            <path d="M8 8.2c.4-.5.8-.4 1.1.1l.8 1.5c.2.3.1.6-.2.9l-.5.5c.6 1.1 1.4 1.9 2.6 2.5l.5-.6c.2-.3.5-.4.9-.2l1.5.7c.5.2.6.7.2 1.1-.5.6-1.1.9-1.9.8-2.8-.4-5.8-3.3-6.1-6.1-.1-.5.3-1 .8-1.2Z"
+              fill="currentColor"/>
+          </svg>
+        </a>
+      </div>
 
-          <form id="customerForm">
-            <div class="field">
-              <label for="customerName">Nom et prénom</label>
-              <input id="customerName" name="name" autocomplete="name" required>
-            </div>
+    </div>
+  </header>
 
-            <div class="field">
-              <label for="customerEmail">Adresse e-mail</label>
-              <input id="customerEmail" name="email" type="email" autocomplete="email" required>
-            </div>
-
-            <div class="field">
-              <label for="customerPhone">Numéro de téléphone</label>
-              <input id="customerPhone" name="phone" type="tel" autocomplete="tel" required>
-            </div>
-
-            <div class="field">
-              <label for="deviceIdentifier">IMEI ou numéro de série</label>
-              <input id="deviceIdentifier" name="identifier" required>
-            </div>
-
-            <div class="field">
-              <label for="details">Informations complémentaires</label>
-              <textarea id="details" name="details" placeholder="Précisez votre demande si nécessaire."></textarea>
-            </div>
-
-            <label class="check-row">
-              <input type="checkbox" id="ownership" required>
-              <span>Je confirme être propriétaire de l'appareil ou disposer de l'autorisation explicite de son propriétaire.</span>
-            </label>
-
-            <button class="pay-btn" type="submit">Envoyer ma demande</button>
-            <div class="message" id="formMessage" role="status"></div>
-          </form>
+  <main>
+    <section class="hero" id="accueil">
+      <div class="container">
+        <div class="eyebrow">
+          SERVICES DE DÉVERROUILLAGE POUR APPAREILS APPLE
         </div>
 
-        <p class="legal-note">
-          Toute prestation est soumise à la vérification de la propriété de l'appareil
-          ou de l'autorisation du propriétaire. Aucune protection destinée à empêcher
-          l'accès non autorisé à un appareil ne sera contournée.
+        <h1>
+          <span>Votre appareil.</span>
+          <span class="blue">Notre expertise.</span>
+        </h1>
+
+        <p class="hero-description">
+          Des solutions adaptées à vos appareils Apple, avec une prise en charge rapide et professionnelle.
         </p>
+
+        <a href="#services" class="primary-button">
+          Découvrir nos services
+        </a>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
 
-<footer id="contact">
-  <div class="container footer-inner">
-    <div class="footer-brand">
-      <a class="logo" href="#accueil">ebagz<span>unlock</span></a>
-      <p>Services dédiés aux appareils Apple.</p>
-    </div>
+    <section class="content-section" id="services">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Nos services</h2>
+          <p>Sélectionnez un service pour commencer votre demande.</p>
+        </div>
 
-    <a class="footer-cta" href="https://wa.me/33644676361" target="_blank" rel="noopener">
-      Joindre ebagzunlock
+        <div class="services-grid">
+          <button class="service-card" type="button"
+            data-service="Déverrouillage iCloud">
+            <h3>Déverrouillage iCloud</h3>
+            <p>IMEI ou numéro de série</p>
+            <span class="card-hint">Sélectionner ce service →</span>
+          </button>
+
+          <button class="service-card" type="button"
+            data-service="Déverrouillage Opérateur">
+            <h3>Déverrouillage Opérateur</h3>
+            <p>IMEI uniquement</p>
+            <span class="card-hint">Sélectionner ce service →</span>
+          </button>
+
+          <button class="service-card" type="button"
+            data-service="Suppression Blocage &Limitation Propriétaire">
+            <h3>Suppression Blocage &amp;Limitation Propriétaire</h3>
+            <p>IMEI / Numéro de série</p>
+            <span class="card-hint">Sélectionner ce service →</span>
+          </button>
+
+          <button class="service-card" type="button"
+            data-service="Résolution Blocage DFU & Mode de Récupération">
+            <h3>Résolution Blocage DFU &amp; Mode de Récupération</h3>
+            <p>IMEI / numéro de série</p>
+            <span class="card-hint">Sélectionner ce service →</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="tarifs">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Tarifs</h2>
+          <p>Choisissez votre service et votre appareil pour afficher le tarif.</p>
+        </div>
+
+        <div class="pricing-panel">
+
+          <div class="field">
+            <label for="serviceSelect">Service</label>
+            <select id="serviceSelect">
+              <option value="">Choisir un service</option>
+              <option>Déverrouillage iCloud</option>
+              <option>Déverrouillage Opérateur</option>
+              <option>Suppression Blocage &amp;Limitation Propriétaire</option>
+              <option>Résolution Blocage DFU &amp; Mode de Récupération</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="deviceSelect">Catégorie d'appareil</label>
+            <select id="deviceSelect" disabled>
+              <option value="">Choisir un appareil</option>
+              <option value="iPhone">iPhone</option>
+              <option value="MacBook">MacBook</option>
+              <option value="iPad">iPad</option>
+              <option value="Apple Watch">Apple Watch</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="modelSelect">Modèle</label>
+            <select id="modelSelect" disabled>
+              <option value="">Choisir un modèle</option>
+            </select>
+          </div>
+
+          <div class="price-display">
+            <span>Prix de la prestation</span>
+            <strong id="priceValue">— €</strong>
+          </div>
+
+          <button class="primary-button full-width" id="payButton" type="button" disabled>
+            Procéder au paiement sécurisé
+          </button>
+
+          <div id="paymentStatus" class="status-message" role="status"></div>
+
+          <p class="notice">
+            Le paiement est traité de manière sécurisée par Stripe.
+          </p>
+
+          <div id="requestSection">
+            <h3>Votre demande</h3>
+            <p class="notice" style="text-align:left;margin:0 0 20px">
+              Paiement vérifié. Complétez les informations nécessaires à votre demande.
+            </p>
+
+            <form id="requestForm">
+              <div class="field">
+                <label for="customerName">Nom et prénom</label>
+                <input id="customerName" name="name" required>
+              </div>
+
+              <div class="field">
+                <label for="customerEmail">Adresse e-mail</label>
+                <input id="customerEmail" name="email" type="email" required>
+              </div>
+
+              <div class="field">
+                <label for="customerPhone">Numéro de téléphone</label>
+                <input id="customerPhone" name="phone" type="tel" required>
+              </div>
+
+              <div class="field">
+                <label for="deviceIdentifier">IMEI ou numéro de série</label>
+                <input id="deviceIdentifier" name="identifier" required>
+              </div>
+
+              <div class="field">
+                <label for="customerMessage">Informations complémentaires</label>
+                <textarea id="customerMessage" name="message"
+                  placeholder="Décrivez votre demande si nécessaire."></textarea>
+              </div>
+
+              <label class="consent">
+                <input type="checkbox" id="ownershipConsent" required>
+                <span>
+                  Je confirme être le propriétaire de l'appareil ou être autorisé à effectuer cette demande. Je comprends que toute intervention doit respecter les droits du propriétaire et les règles applicables.
+                </span>
+              </label>
+
+              <button class="primary-button full-width" type="submit">
+                Envoyer ma demande
+              </button>
+            </form>
+
+            <div id="requestStatus" class="status-message" role="status"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a href="#accueil" class="footer-logo">
+      ebagz<span class="logo-blue">unlock</span>
     </a>
-  </div>
-</footer>
+    <p>Services dédiés aux appareils Apple.</p>
+  </footer>
 
-<script>
-const CATALOGUE = {
-  "iPhone": {
-    "iPhone X":25,"iPhone XR":25,"iPhone XS":25,"iPhone XS Max":25,
-    "iPhone 11":25,"iPhone 11 Pro":25,"iPhone 11 Pro Max":27,
-    "iPhone 12 mini":25,"iPhone 12":25,"iPhone 12 Pro":29,"iPhone 12 Pro Max":32,
-    "iPhone 13 mini":39,"iPhone 13":40,"iPhone 13 Pro":40,"iPhone 13 Pro Max":42,
-    "iPhone 14":40,"iPhone 14 Plus":40,"iPhone 14 Pro":43,"iPhone 14 Pro Max":49,
-    "iPhone 15":53,"iPhone 15 Plus":55,"iPhone 15 Pro":55,"iPhone 15 Pro Max":59,
-    "iPhone 16":64,"iPhone 16 Plus":59,"iPhone 16 Pro":62,"iPhone 16 Pro Max":69,"iPhone 16e":65,
-    "iPhone 17":69,"iPhone 17 Pro":70,"iPhone 17 Pro Max":77,"iPhone 17e":75,"iPhone 17 Air":79,
-    "iPhone 18":85,"iPhone 18 Pro":89,"iPhone 18 Pro Max":100,"iPhone 18 Duo":95
-  },
-
-  "MacBook": {
-    "MacBook Air Intel 2008–2020":35,"MacBook Air M1":38,
-    "MacBook Air M2 13/15 pouces":38,"MacBook Air M3 13/15 pouces":40,
-    "MacBook Air M4 13/15 pouces":40,"MacBook Air M5 13/15 pouces":42,
-    "MacBook Pro Intel":40,"MacBook Pro M1 13/14/16 pouces":45,
-    "MacBook Pro M2":45,"MacBook Pro M3 14/16 pouces":45,
-    "MacBook Pro M4 14/16 pouces":49,"MacBook Pro M5 14/16 pouces":49,
-    "MacBook Pro M6 14 pouces":55,"MacBook 12 pouces 2015–2017":30,
-    "MacBook Neo A18 Pro":133
-  },
-
-  "iPad": {
-    "iPad classique 1re–11e génération (A16 inclus)":37,
-    "iPad mini 1–6 (A17 Pro inclus)":39,"iPad Air 1–5":37,
-    "iPad Air M2/M3/M4 11/13 pouces":35,"iPad Pro 9,7 pouces":39,
-    "iPad Pro 10,5 pouces":39,"iPad Pro 11 pouces générations 1–5":45,
-    "iPad Pro 12,9 pouces générations 1–6":49,
-    "iPad Pro M4 11/13 pouces":52,"iPad Pro M5 11/13 pouces":55
-  },
-
-  "Apple Watch": {
-    "Apple Watch Series 1–12":54,"Apple Watch SE 1/2/3":63,
-    "Apple Watch Ultra 1/2/3/4":69
-  }
-};
-
-const serviceSelect = document.getElementById("service");
-const deviceSelect = document.getElementById("device");
-const modelSelect = document.getElementById("model");
-const priceDisplay = document.getElementById("price");
-const payButton = document.getElementById("payButton");
-const message = document.getElementById("message");
-const requestForm = document.getElementById("requestForm");
-const customerForm = document.getElementById("customerForm");
-
-let currentSelection = null;
-let paymentVerified = false;
-
-function fillSelect(select, values, placeholder){
-  select.innerHTML = "";
-
-  const first = document.createElement("option");
-  first.value = "";
-  first.textContent = placeholder;
-  select.appendChild(first);
-
-  values.forEach(value => {
-    const option = document.createElement("option");
-    option.value = value;
-    option.textContent = value;
-    select.appendChild(option);
-  });
-
-  select.disabled = false;
-}
-
-function resetPrice(){
-  priceDisplay.textContent = "— €";
-  payButton.disabled = true;
-}
-
-serviceSelect.addEventListener("change", () => {
-  fillSelect(
-    deviceSelect,
-    Object.keys(CATALOGUE),
-    "Choisir un appareil"
-  );
-
-  modelSelect.innerHTML = '<option value="">Choisir un modèle</option>';
-  modelSelect.disabled = true;
-  resetPrice();
-});
-
-deviceSelect.addEventListener("change", () => {
-  const device = deviceSelect.value;
-
-  if(!device){
-    modelSelect.disabled = true;
-    modelSelect.innerHTML = '<option value="">Choisir un modèle</option>';
-    resetPrice();
-    return;
-  }
-
-  fillSelect(
-    modelSelect,
-    Object.keys(CATALOGUE[device]),
-    "Choisir un modèle"
-  );
-
-  resetPrice();
-});
-
-modelSelect.addEventListener("change", () => {
-  const device = deviceSelect.value;
-  const model = modelSelect.value;
-
-  if(!device || !model){
-    resetPrice();
-    return;
-  }
-
-  const amount = CATALOGUE[device][model];
-
-  priceDisplay.textContent = amount + " €";
-  payButton.disabled = !serviceSelect.value;
-});
-
-payButton.addEventListener("click", async () => {
-  const service = serviceSelect.value;
-  const device = deviceSelect.value;
-  const model = modelSelect.value;
-
-  if(!service || !device || !model){
-    message.textContent = "Veuillez sélectionner une prestation et un appareil.";
-    return;
-  }
-
-  payButton.disabled = true;
-  payButton.textContent = "Préparation du paiement…";
-  message.textContent = "";
-
-  try{
-    const response = await fetch("/api/create-checkout-session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
+  <script>
+    const CATALOGUE = {
+      "iPhone": {
+        "iPhone X":25,
+        "iPhone XR":25,
+        "iPhone XS":25,
+        "iPhone XS Max":25,
+        "iPhone 11":25,
+        "iPhone 11 Pro":25,
+        "iPhone 11 Pro Max":27,
+        "iPhone 12 mini":25,
+        "iPhone 12":25,
+        "iPhone 12 Pro":29,
+        "iPhone 12 Pro Max":32,
+        "iPhone 13 mini":39,
+        "iPhone 13":40,
+        "iPhone 13 Pro":40,
+        "iPhone 13 Pro Max":42,
+        "iPhone 14":40,
+        "iPhone 14 Plus":40,
+        "iPhone 14 Pro":43,
+        "iPhone 14 Pro Max":49,
+        "iPhone 15":53,
+        "iPhone 15 Plus":55,
+        "iPhone 15 Pro":55,
+        "iPhone 15 Pro Max":59,
+        "iPhone 16":64,
+        "iPhone 16 Plus":59,
+        "iPhone 16 Pro":62,
+        "iPhone 16 Pro Max":69,
+        "iPhone 16e":65,
+        "iPhone 17":69,
+        "iPhone 17 Pro":70,
+        "iPhone 17 Pro Max":77,
+        "iPhone 17e":75,
+        "iPhone 17 Air":79,
+        "iPhone 18":85,
+        "iPhone 18 Pro":89,
+        "iPhone 18 Pro Max":100,
+        "iPhone 18 Duo":95
       },
-      body: JSON.stringify({service,device,model})
-    });
 
-    const data = await response.json();
+      "MacBook": {
+        "MacBook Air Intel 2008–2020":35,
+        "MacBook Air M1":38,
+        "MacBook Air M2 13/15 pouces":38,
+        "MacBook Air M3 13/15 pouces":40,
+        "MacBook Air M4 13/15 pouces":40,
+        "MacBook Air M5 13/15 pouces":42,
+        "MacBook Pro Intel":40,
+        "MacBook Pro M1 13/14/16 pouces":45,
+        "MacBook Pro M2":45,
+        "MacBook Pro M3 14/16 pouces":45,
+        "MacBook Pro M4 14/16 pouces":49,
+        "MacBook Pro M5 14/16 pouces":49,
+        "MacBook Pro M6 14 pouces":55,
+        "MacBook 12 pouces 2015–2017":30,
+        "MacBook Neo A18 Pro":133
+      },
 
-    if(!response.ok || !data.url){
-      throw new Error(data.error || "Impossible de préparer le paiement.");
+      "iPad": {
+        "iPad classique 1re–11e génération (A16 inclus)":37,
+        "iPad mini 1–6 (A17 Pro inclus)":39,
+        "iPad Air 1–5":37,
+        "iPad Air M2/M3/M4 11/13 pouces":35,
+        "iPad Pro 9.7 pouces":39,
+        "iPad Pro 10.5 pouces":39,
+        "iPad Pro 11 pouces générations 1–5":45,
+        "iPad Pro 12.9 pouces générations 1–6":49,
+        "iPad Pro M4 11/13 pouces":52,
+        "iPad Pro M5 11/13 pouces":55
+      },
+
+      "Apple Watch": {
+        "Apple Watch Series 1–12":54,
+        "Apple Watch SE 1/2/3":63,
+        "Apple Watch Ultra 1/2/3/4":69
+      }
+    };
+
+    const serviceSelect = document.getElementById("serviceSelect");
+    const deviceSelect = document.getElementById("deviceSelect");
+    const modelSelect = document.getElementById("modelSelect");
+    const priceValue = document.getElementById("priceValue");
+    const payButton = document.getElementById("payButton");
+    const paymentStatus = document.getElementById("paymentStatus");
+    const requestSection = document.getElementById("requestSection");
+
+    let selectedPrice = null;
+    let verifiedSelection = null;
+    let verifiedSessionId = null;
+
+    function setStatus(element, message, type = "") {
+      element.textContent = message;
+      element.className = "status-message " + type;
     }
 
-    window.location.href = data.url;
-
-  }catch(error){
-    message.textContent = error.message || "Une erreur est survenue.";
-    payButton.disabled = false;
-    payButton.textContent = "Procéder au paiement";
-  }
-});
-
-/* VÉRIFICATION DU PAIEMENT AU RETOUR DE STRIPE */
-async function verifyReturnedPayment(){
-  const sessionId = new URLSearchParams(location.search).get("session_id");
-  if(!sessionId) return;
-
-  message.textContent = "Vérification du paiement…";
-
-  try{
-    const response = await fetch(
-      "/api/verify-checkout-session?session_id=" + encodeURIComponent(sessionId)
-    );
-
-    const data = await response.json();
-
-    if(!response.ok || data.paid !== true || !data.selection ||
-       !data.selection.service || !data.selection.device || !data.selection.model){
-      throw new Error("Le paiement n'a pas pu être confirmé.");
+    function resetPrice() {
+      selectedPrice = null;
+      priceValue.textContent = "— €";
+      payButton.disabled = true;
     }
 
-    currentSelection = data.selection;
-    paymentVerified = true;
+    function refreshModels() {
+      const device = deviceSelect.value;
 
-    requestForm.classList.add("visible");
-    message.style.color = "#8ee0ad";
-    message.textContent = "Paiement confirmé. Vous pouvez envoyer votre demande.";
+      modelSelect.innerHTML = '<option value="">Choisir un modèle</option>';
+      resetPrice();
 
-    requestForm.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
+      if (!device || !CATALOGUE[device]) {
+        modelSelect.disabled = true;
+        return;
+      }
+
+      Object.keys(CATALOGUE[device]).forEach(model => {
+        const option = document.createElement("option");
+        option.value = model;
+        option.textContent = model;
+        modelSelect.appendChild(option);
+      });
+
+      modelSelect.disabled = false;
+    }
+
+    function refreshPrice() {
+      const device = deviceSelect.value;
+      const model = modelSelect.value;
+
+      if (!device || !model || !CATALOGUE[device] ||
+          CATALOGUE[device][model] === undefined) {
+        resetPrice();
+        return;
+      }
+
+      selectedPrice = CATALOGUE[device][model];
+      priceValue.textContent = selectedPrice + " €";
+      payButton.disabled = !serviceSelect.value;
+    }
+
+    serviceSelect.addEventListener("change", () => {
+      resetPrice();
+      if (modelSelect.value) refreshPrice();
+      payButton.disabled = !serviceSelect.value || !selectedPrice;
     });
 
-    history.replaceState(
-      {},
-      document.title,
-      location.pathname + "#tarifs"
-    );
+    deviceSelect.addEventListener("change", refreshModels);
+    modelSelect.addEventListener("change", refreshPrice);
 
-  }catch(error){
-    message.style.color = "#f0b7a9";
-    message.textContent =
-      error.message || "Impossible de vérifier le paiement.";
-  }
-}
+    document.querySelectorAll(".service-card").forEach(card => {
+      card.addEventListener("click", () => {
+        serviceSelect.value = card.dataset.service;
+        payButton.disabled = !selectedPrice;
+        document.getElementById("tarifs").scrollIntoView({behavior:"smooth"});
+      });
+    });
 
-/* ENVOI DE LA DEMANDE */
-customerForm.addEventListener("submit", event => {
-  event.preventDefault();
+    /* NAVIGATION CONTACT */
 
-  const formMessage = document.getElementById("formMessage");
+    const contactToggle = document.getElementById("contactToggle");
+    const contactIcons = document.getElementById("contactIcons");
 
-  if(!paymentVerified || !currentSelection){
-    formMessage.textContent = "Un paiement confirmé est nécessaire.";
-    return;
-  }
+    contactToggle.addEventListener("click", () => {
+      const willShow = contactIcons.hidden;
+      contactIcons.hidden = !willShow;
+      contactToggle.setAttribute("aria-expanded", String(willShow));
+    });
 
-  if(!document.getElementById("ownership").checked){
-    formMessage.textContent = "Veuillez confirmer votre autorisation.";
-    return;
-  }
+    document.querySelectorAll('.main-nav a').forEach(link => {
+      link.addEventListener("click", () => {
+        contactIcons.hidden = true;
+        contactToggle.setAttribute("aria-expanded", "false");
+      });
+    });
 
-  const formData = new FormData(customerForm);
+    /* CREATION DE LA SESSION STRIPE */
 
-  const subject = "Nouvelle demande ebagzunlock";
+    payButton.addEventListener("click", async () => {
+      if (!serviceSelect.value || !deviceSelect.value ||
+          !modelSelect.value || !selectedPrice) {
+        setStatus(paymentStatus, "Veuillez sélectionner un service et un appareil.", "error");
+        return;
+      }
 
-  const body = [
-    "Nouvelle demande après paiement Stripe",
-    "",
-    "Prestation : " + currentSelection.service,
-    "Appareil : " + currentSelection.device,
-    "Modèle : " + currentSelection.model,
-    "",
-    "Nom : " + formData.get("name"),
-    "E-mail : " + formData.get("email"),
-    "Téléphone : " + formData.get("phone"),
-    "IMEI ou numéro de série : " + formData.get("identifier"),
-    "",
-    "Informations complémentaires :",
-    formData.get("details") || "Aucune"
-  ].join("\n");
+      payButton.disabled = true;
+      setStatus(paymentStatus, "Préparation du paiement sécurisé…");
 
-  const mailto =
-    "mailto:ebagzunlock@outlook.fr" +
-    "?subject=" + encodeURIComponent(subject) +
-    "&body=" + encodeURIComponent(body);
+      try {
+        const response = await fetch("/api/create-checkout-session", {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify({
+            service: serviceSelect.value,
+            device: deviceSelect.value,
+            model: modelSelect.value
+          })
+        });
 
-  formMessage.style.color = "#8ee0ad";
-  formMessage.textContent =
-    "Votre logiciel de messagerie va s'ouvrir pour envoyer votre demande.";
+        const data = await response.json();
 
-  window.location.href = mailto;
-});
+        if (!response.ok || !data.url) {
+          throw new Error(data.error || "Impossible de créer la session de paiement.");
+        }
 
-/* MENU CONTACT */
-const contactToggle = document.getElementById("contactToggle");
-const contactMenu = document.getElementById("contactMenu");
+        window.location.href = data.url;
+      } catch (error) {
+        setStatus(paymentStatus, error.message || "Une erreur est survenue.", "error");
+        payButton.disabled = false;
+      }
+    });
 
-contactToggle.addEventListener("click", () => {
-  contactMenu.classList.toggle("open");
-});
+    /* VERIFICATION DU PAIEMENT AU RETOUR DE STRIPE */
 
-document.addEventListener("click", event => {
-  if(!event.target.closest(".contact-wrap")){
-    contactMenu.classList.remove("open");
-  }
-});
+    async function verifyReturnedPayment() {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get("session_id");
 
-verifyReturnedPayment();
-</script>
+      if (!sessionId) return;
+
+      setStatus(paymentStatus, "Vérification de votre paiement…");
+
+      try {
+        const response = await fetch(
+          "/api/verify-checkout-session?session_id=" + encodeURIComponent(sessionId)
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.paid || !data.selection) {
+          throw new Error("Le paiement n'a pas pu être confirmé.");
+        }
+
+        verifiedSelection = data.selection;
+        verifiedSessionId = sessionId;
+
+        serviceSelect.value = data.selection.service || "";
+        deviceSelect.value = data.selection.device || "";
+
+        refreshModels();
+        modelSelect.value = data.selection.model || "";
+        refreshPrice();
+
+        requestSection.classList.add("visible");
+
+        setStatus(paymentStatus, "Paiement vérifié. Vous pouvez envoyer votre demande.", "success");
+
+        history.replaceState(
+          {},
+          document.title,
+          window.location.pathname + "#tarifs"
+        );
+
+        requestSection.scrollIntoView({behavior:"smooth", block:"start"});
+      } catch (error) {
+        setStatus(paymentStatus, error.message, "error");
+      }
+    }
+
+    /* ENVOI DE LA DEMANDE PAR E-MAIL */
+
+    document.getElementById("requestForm").addEventListener("submit", event => {
+      event.preventDefault();
+
+      if (!verifiedSelection || !verifiedSessionId) {
+        setStatus(
+          document.getElementById("requestStatus"),
+          "Aucun paiement vérifié n'est associé à cette demande.",
+          "error"
+        );
+        return;
+      }
+
+      const form = event.currentTarget;
+
+      if (!form.reportValidity()) return;
+
+      const formData = new FormData(form);
+
+      const subject = "Nouvelle demande — ebagzunlock";
+      const body = [
+        "Nouvelle demande après paiement vérifié",
+        "",
+        "Service : " + verifiedSelection.service,
+        "Appareil : " + verifiedSelection.device,
+        "Modèle : " + verifiedSelection.model,
+        "Référence de paiement : " + verifiedSessionId,
+        "",
+        "Nom : " + formData.get("name"),
+        "E-mail : " + formData.get("email"),
+        "Téléphone : " + formData.get("phone"),
+        "IMEI / numéro de série : " + formData.get("identifier"),
+        "",
+        "Informations complémentaires :",
+        formData.get("message") || "Aucune"
+      ].join("\n");
+
+      const mailto =
+        "mailto:ebagzunlock@outlook.fr" +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+
+      setStatus(
+        document.getElementById("requestStatus"),
+        "Votre application e-mail va s'ouvrir pour envoyer votre demande.",
+        "success"
+      );
+
+      window.location.href = mailto;
+    });
+
+    verifyReturnedPayment();
+  </script>
 
 </body>
 </html>
