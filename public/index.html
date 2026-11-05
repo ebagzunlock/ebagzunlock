@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,7 +7,6 @@
 <meta name="theme-color" content="#07111f">
 <title>ebagzunlock — Services Apple</title>
 <meta name="description" content="Services dédiés aux appareils Apple.">
-
 <style>
 :root{
   --bg:#07111f;
@@ -14,18 +14,12 @@
   --panel2:#12243a;
   --blue:#477fb5;
   --blue2:#69a5dc;
-  --text:#e8edf3;
-  --muted:#a5b1bf;
+  --text:#f3f6fa;
+  --muted:#9aabc0;
   --border:rgba(255,255,255,.10);
 }
-
 *{box-sizing:border-box}
-
-html{
-  scroll-behavior:smooth;
-  scroll-padding-top:105px;
-}
-
+html{scroll-behavior:smooth;scroll-padding-top:105px}
 body{
   margin:0;
   background:var(--bg);
@@ -33,10 +27,8 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   line-height:1.6;
 }
-
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit}
-
 header{
   position:sticky;
   top:0;
@@ -45,7 +37,6 @@ header{
   border-bottom:1px solid var(--border);
   backdrop-filter:blur(12px);
 }
-
 .header-inner{
   max-width:1150px;
   min-height:78px;
@@ -55,7 +46,6 @@ header{
   grid-template-columns:1fr auto 1fr;
   align-items:center;
 }
-
 .brand{
   grid-column:2;
   font-size:25px;
@@ -64,11 +54,6 @@ header{
   color:white;
   white-space:nowrap;
 }
-
-.brand-blue{
-  color:#477fb5;
-}
-
 nav{
   grid-column:3;
   display:flex;
@@ -78,23 +63,18 @@ nav{
   font-size:14px;
   color:var(--muted);
 }
-
 nav>a,.contact-toggle{
   cursor:pointer;
   transition:color .2s;
 }
-
 nav>a:hover,.contact-toggle:hover{color:white}
-
 .contact-wrap{position:relative}
-
 .contact-toggle{
   border:0;
   background:none;
   color:var(--muted);
   padding:8px 0;
 }
-
 .contact-menu{
   display:none;
   position:absolute;
@@ -107,9 +87,7 @@ nav>a:hover,.contact-toggle:hover{color:white}
   gap:8px;
   box-shadow:0 10px 30px rgba(0,0,0,.3);
 }
-
 .contact-menu.open{display:flex}
-
 .contact-menu a{
   display:grid;
   place-items:center;
@@ -119,42 +97,35 @@ nav>a:hover,.contact-toggle:hover{color:white}
   background:#1b3450;
   font-size:20px;
 }
-
 .contact-menu a:hover{background:var(--blue)}
-
 section{
   max-width:1150px;
   margin:auto;
   padding:75px 22px;
   scroll-margin-top:100px;
 }
-
 .hero{
   text-align:center;
   padding-top:105px;
   padding-bottom:95px;
 }
-
 .eyebrow{
   color:var(--blue2);
   font-size:12px;
   font-weight:700;
   letter-spacing:2px;
 }
-
 h1{
   font-size:clamp(36px,6vw,62px);
   line-height:1.12;
   margin:22px 0;
 }
-
 .hero p{
   max-width:650px;
   margin:0 auto;
   color:var(--muted);
   font-size:17px;
 }
-
 .primary-btn,.pay-btn{
   display:inline-flex;
   justify-content:center;
@@ -169,30 +140,15 @@ h1{
   cursor:pointer;
   transition:.2s;
 }
-
 .primary-btn:hover,.pay-btn:hover{background:var(--blue2)}
-
-.section-heading{
-  text-align:center;
-  margin-bottom:38px;
-}
-
-.section-heading h2{
-  font-size:32px;
-  margin:0 0 10px;
-}
-
-.section-heading p{
-  color:var(--muted);
-  margin:0;
-}
-
+.section-heading{text-align:center;margin-bottom:38px}
+.section-heading h2{font-size:32px;margin:0 0 10px}
+.section-heading p{color:var(--muted);margin:0}
 .services-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:18px;
 }
-
 .service-card{
   text-align:left;
   width:100%;
@@ -205,24 +161,19 @@ h1{
   cursor:pointer;
   transition:.2s;
 }
-
 .service-card:hover,.service-card.selected{
   border-color:var(--blue2);
   background:var(--panel2);
   transform:translateY(-2px);
 }
-
-.service-card h3{
-  font-size:19px;
-  margin:0 0 7px;
+.service-number{
+  color:var(--blue2);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:1.5px;
 }
-
-.service-card p{
-  color:var(--muted);
-  font-size:14px;
-  margin:0;
-}
-
+.service-card h3{font-size:19px;margin:12px 0 7px}
+.service-card p{color:var(--muted);font-size:14px;margin:0}
 .tariff-panel{
   max-width:720px;
   margin:0 auto;
@@ -231,16 +182,13 @@ h1{
   border:1px solid var(--border);
   border-radius:16px;
 }
-
 .field{margin-bottom:20px}
-
 label{
   display:block;
   font-size:14px;
   font-weight:700;
   margin-bottom:8px;
 }
-
 select,input,textarea{
   width:100%;
   padding:13px 14px;
@@ -250,16 +198,8 @@ select,input,textarea{
   border-radius:8px;
   outline:none;
 }
-
-select:focus,input:focus,textarea:focus{
-  border-color:var(--blue2);
-}
-
-select:disabled{
-  opacity:.45;
-  cursor:not-allowed;
-}
-
+select:focus,input:focus,textarea:focus{border-color:var(--blue2)}
+select:disabled{opacity:.45;cursor:not-allowed}
 .price-box{
   margin-top:22px;
   padding:20px;
@@ -267,57 +207,33 @@ select:disabled{
   background:#10243b;
   text-align:center;
 }
-
-.price-box span{
-  display:block;
-  color:var(--muted);
-  font-size:13px;
-}
-
-.price-box strong{
-  display:block;
-  font-size:34px;
-  margin-top:5px;
-}
-
-.pay-btn{
-  width:100%;
-  margin-top:20px;
-}
-
-.pay-btn:disabled{
-  opacity:.4;
-  cursor:not-allowed;
-}
-
+.price-box span{display:block;color:var(--muted);font-size:13px}
+.price-box strong{display:block;font-size:34px;margin-top:5px}
+.pay-btn{width:100%;margin-top:20px}
+.pay-btn:disabled{opacity:.4;cursor:not-allowed}
 .notice{
   color:var(--muted);
   font-size:12px;
   margin-top:14px;
   text-align:center;
 }
-
 #payment-message{
   margin-top:14px;
   color:#ffb6b6;
   font-size:14px;
   text-align:center;
 }
-
 #request-form{
   display:none;
   margin-top:28px;
   padding-top:25px;
   border-top:1px solid var(--border);
 }
-
 #request-form.visible{display:block}
-
 footer{
   border-top:1px solid var(--border);
   background:#050d18;
 }
-
 .footer-inner{
   max-width:1150px;
   margin:auto;
@@ -327,18 +243,8 @@ footer{
   align-items:center;
   gap:20px;
 }
-
-.footer-brand{
-  font-weight:800;
-  font-size:20px;
-}
-
-.footer-inner p{
-  color:var(--muted);
-  font-size:13px;
-  margin:5px 0;
-}
-
+.footer-brand{font-weight:800;font-size:20px}
+.footer-inner p{color:var(--muted);font-size:13px;margin:5px 0}
 .footer-cta{
   display:inline-block;
   padding:12px 18px;
@@ -347,7 +253,6 @@ footer{
   font-size:14px;
   font-weight:700;
 }
-
 @media(max-width:700px){
   .header-inner{
     display:flex;
@@ -355,23 +260,18 @@ footer{
     gap:10px;
     padding:15px;
   }
-
   nav{
     display:flex;
     justify-content:center;
     gap:17px;
     flex-wrap:wrap;
   }
-
   .brand{font-size:23px}
   .hero{padding-top:75px}
   section{padding:55px 17px}
   .services-grid{grid-template-columns:1fr}
   .tariff-panel{padding:20px}
-  .footer-inner{
-    flex-direction:column;
-    text-align:center;
-  }
+  .footer-inner{flex-direction:column;text-align:center}
 }
 </style>
 </head>
@@ -380,8 +280,7 @@ footer{
 
 <header>
   <div class="header-inner">
-
-    <a class="brand" href="#accueil" data-target="accueil"><span>ebagz</span><span class="brand-blue">unlock</span></a>
+    <a class="brand" href="#accueil" data-target="accueil">ebagzunlock</a>
 
     <nav aria-label="Navigation principale">
       <a href="#accueil" data-target="accueil">Accueil</a>
@@ -390,14 +289,12 @@ footer{
 
       <div class="contact-wrap">
         <button class="contact-toggle" id="contact-toggle" type="button" aria-expanded="false">Contact</button>
-
         <div class="contact-menu" id="contact-menu">
           <a href="mailto:ebagzunlock@outlook.fr" aria-label="Email" title="Email">✉</a>
           <a href="https://wa.me/33644676361" target="_blank" rel="noopener" aria-label="Nous joindre" title="Nous joindre">☏</a>
         </div>
       </div>
     </nav>
-
   </div>
 </header>
 
@@ -411,46 +308,45 @@ footer{
 </section>
 
 <section id="services">
-
   <div class="section-heading">
     <h2>Nos services</h2>
     <p>Sélectionnez une prestation pour continuer.</p>
   </div>
 
   <div class="services-grid">
-
     <button class="service-card" type="button" data-service="Déverrouillage iCloud">
+      <span class="service-number">SERVICE 01</span>
       <h3>Déverrouillage iCloud</h3>
       <p>IMEI ou numéro de série</p>
     </button>
 
     <button class="service-card" type="button" data-service="Déverrouillage Opérateur">
+      <span class="service-number">SERVICE 02</span>
       <h3>Déverrouillage Opérateur</h3>
       <p>IMEI uniquement</p>
     </button>
 
     <button class="service-card" type="button" data-service="Suppression Blocage &Limitation Propriétaire">
+      <span class="service-number">SERVICE 03</span>
       <h3>Suppression Blocage &amp;Limitation Propriétaire</h3>
       <p>IMEI / Numéro de série</p>
     </button>
 
     <button class="service-card" type="button" data-service="Résolution Blocage DFU & Mode de Récupération">
+      <span class="service-number">SERVICE 04</span>
       <h3>Résolution Blocage DFU &amp; Mode de Récupération</h3>
       <p>IMEI / numéro de série</p>
     </button>
-
   </div>
 </section>
 
 <section id="tarifs">
-
   <div class="section-heading">
     <h2>Tarifs</h2>
     <p>Choisissez votre service et votre modèle pour afficher le tarif.</p>
   </div>
 
   <div class="tariff-panel">
-
     <div class="field">
       <label for="service">Service</label>
       <select id="service">
@@ -486,42 +382,32 @@ footer{
     </div>
 
     <button class="pay-btn" id="pay-button" type="button" disabled>Procéder au paiement</button>
-
     <div id="payment-message" role="status"></div>
-
     <p class="notice">Les prestations sont soumises à vérification de propriété ou d'autorisation. Les protections de sécurité du propriétaire ne sont pas contournées.</p>
 
     <form id="request-form">
-
       <h3>Votre demande</h3>
-
       <div class="field">
         <label for="customer-name">Nom et prénom</label>
         <input id="customer-name" name="name" autocomplete="name" required>
       </div>
-
       <div class="field">
         <label for="customer-email">Adresse email</label>
         <input id="customer-email" name="email" type="email" autocomplete="email" required>
       </div>
-
       <div class="field">
         <label for="customer-phone">Numéro de téléphone</label>
         <input id="customer-phone" name="phone" type="tel" autocomplete="tel" required>
       </div>
-
       <div class="field">
         <label for="serial">IMEI ou numéro de série</label>
         <input id="serial" name="serial" required>
       </div>
-
       <div class="field">
         <label for="details">Informations complémentaires</label>
         <textarea id="details" name="details" rows="4"></textarea>
       </div>
-
       <button class="pay-btn" type="submit">Envoyer ma demande</button>
-
     </form>
   </div>
 </section>
@@ -534,17 +420,14 @@ footer{
       <div class="footer-brand">ebagzunlock</div>
       <p>Services dédiés aux appareils Apple.</p>
     </div>
-
     <a class="footer-cta" href="https://wa.me/33644676361" target="_blank" rel="noopener">Joindre ebagzunlock</a>
   </div>
 </footer>
 
 <script>
-
-/* NAVIGATION */
+/* NAVIGATION : défilement direct vers chaque section */
 function goToSection(id){
-  const section=document.getElementById(id);
-
+  const section = document.getElementById(id);
   if(section){
     section.scrollIntoView({behavior:"smooth",block:"start"});
     history.replaceState(null,"","#"+id);
@@ -587,7 +470,6 @@ const catalogue={
     "iPhone 17":69,"iPhone 17 Pro":70,"iPhone 17 Pro Max":77,"iPhone 17e":75,"iPhone 17 Air":79,
     "iPhone 18":85,"iPhone 18 Pro":89,"iPhone 18 Pro Max":100,"iPhone 18 Duo":95
   },
-
   "MacBook":{
     "MacBook Air Intel 2008–2020":35,"MacBook Air M1":38,
     "MacBook Air M2 13/15 pouces":38,"MacBook Air M3 13/15 pouces":40,
@@ -598,23 +480,16 @@ const catalogue={
     "MacBook Pro M6 14 pouces":55,"MacBook 12 pouces 2015–2017":30,
     "MacBook Neo A18 Pro":133
   },
-
   "iPad":{
     "iPad classique 1re–11e génération (A16 inclus)":37,
-    "iPad mini 1–6 (A17 Pro inclus)":39,
-    "iPad Air 1–5":37,
-    "iPad Air M2/M3/M4 11/13 pouces":35,
-    "iPad Pro 9,7 pouces":39,
-    "iPad Pro 10,5 pouces":39,
-    "iPad Pro 11 pouces générations 1–5":45,
+    "iPad mini 1–6 (A17 Pro inclus)":39,"iPad Air 1–5":37,
+    "iPad Air M2/M3/M4 11/13 pouces":35,"iPad Pro 9,7 pouces":39,
+    "iPad Pro 10,5 pouces":39,"iPad Pro 11 pouces générations 1–5":45,
     "iPad Pro 12,9 pouces générations 1–6":49,
-    "iPad Pro M4 11/13 pouces":52,
-    "iPad Pro M5 11/13 pouces":55
+    "iPad Pro M4 11/13 pouces":52,"iPad Pro M5 11/13 pouces":55
   },
-
   "Apple Watch":{
-    "Apple Watch Series 1–12":54,
-    "Apple Watch SE 1/2/3":63,
+    "Apple Watch Series 1–12":54,"Apple Watch SE 1/2/3":63,
     "Apple Watch Ultra 1/2/3/4":69
   }
 };
@@ -632,21 +507,17 @@ let paymentVerified=false;
 
 function updatePrice(){
   const amount=catalogue[deviceSelect.value]?.[modelSelect.value];
-
   priceDisplay.textContent=amount ? amount+" €" : "— €";
-
   currentSelection=amount ? {
     service:serviceSelect.value,
     device:deviceSelect.value,
     model:modelSelect.value
   } : null;
-
   payButton.disabled=!(serviceSelect.value && currentSelection);
 }
 
 function fillModels(){
   const device=deviceSelect.value;
-
   modelSelect.innerHTML='<option value="">Sélectionner un modèle</option>';
   modelSelect.disabled=!device;
 
@@ -658,7 +529,6 @@ function fillModels(){
       modelSelect.appendChild(option);
     });
   }
-
   updatePrice();
 }
 
@@ -672,21 +542,16 @@ modelSelect.addEventListener("change",updatePrice);
 document.querySelectorAll(".service-card").forEach(card=>{
   card.addEventListener("click",()=>{
     serviceSelect.value=card.dataset.service;
-
-    document.querySelectorAll(".service-card").forEach(item=>{
-      item.classList.remove("selected");
-    });
-
+    document.querySelectorAll(".service-card").forEach(item=>item.classList.remove("selected"));
     card.classList.add("selected");
     updatePrice();
     goToSection("tarifs");
   });
 });
 
-/* VÉRIFICATION DU PAIEMENT */
+/* PAIEMENT : nécessite les fonctions Stripe côté serveur */
 async function verifyReturnedPayment(){
   const sessionId=new URLSearchParams(location.search).get("session_id");
-
   if(!sessionId)return;
 
   message.textContent="Vérification du paiement…";
@@ -703,17 +568,13 @@ async function verifyReturnedPayment(){
     requestForm.classList.add("visible");
     message.style.color="#8ee0ad";
     message.textContent="Paiement confirmé. Vous pouvez envoyer votre demande.";
-
     requestForm.scrollIntoView({behavior:"smooth",block:"start"});
-
     history.replaceState({},document.title,location.pathname+"#tarifs");
-
   }catch(error){
     message.textContent=error.message || "Impossible de vérifier le paiement.";
   }
 }
 
-/* CRÉATION DU PAIEMENT */
 payButton.addEventListener("click",async()=>{
   if(!currentSelection)return;
 
@@ -734,14 +595,12 @@ payButton.addEventListener("click",async()=>{
     }
 
     location.href=data.url;
-
   }catch(error){
     message.textContent=error.message || "Une erreur est survenue.";
     payButton.disabled=false;
   }
 });
 
-/* ENVOI DE LA DEMANDE */
 requestForm.addEventListener("submit",event=>{
   event.preventDefault();
 
@@ -752,7 +611,6 @@ requestForm.addEventListener("submit",event=>{
 
   const formData=new FormData(requestForm);
   const subject=encodeURIComponent("Nouvelle demande ebagzunlock");
-
   const body=encodeURIComponent(
     "Service : "+(currentSelection?.service || "")+"\n"+
     "Appareil : "+(currentSelection?.device || "")+"\n"+
@@ -768,8 +626,6 @@ requestForm.addEventListener("submit",event=>{
 });
 
 verifyReturnedPayment();
-
 </script>
-
 </body>
 </html>
