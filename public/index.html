@@ -3,10 +3,10 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#081321">
+  <meta name="description" content="Services dédiés aux appareils Apple.">
   <title>ebagzunlock — Services Apple</title>
-  <meta name="description" content="Services dédiés aux appareils Apple. Prise en charge professionnelle et paiement sécurisé.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,16 +14,16 @@
 
   <style>
     :root {
-      --bg: #081321;
-      --panel: #101f31;
-      --panel-light: #14263b;
+      --background: #081321;
+      --surface: #101f31;
+      --surface-2: #14263b;
       --blue: #477fb5;
       --blue-light: #6da5dc;
       --white: #f5f8fc;
       --muted: #aab7c7;
-      --border: rgba(255,255,255,.10);
+      --border: rgba(255,255,255,.11);
       --success: #55c995;
-      --danger: #ff7777;
+      --error: #ff7777;
     }
 
     * { box-sizing: border-box; }
@@ -35,18 +35,19 @@
 
     body {
       margin: 0;
-      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--background);
       color: var(--white);
       font-family: Inter, sans-serif;
       line-height: 1.6;
     }
 
+    main { flex: 1; }
+
     a { color: inherit; }
-
-    button, input, select, textarea {
-      font: inherit;
-    }
-
+    button, input, select, textarea { font: inherit; }
     button { cursor: pointer; }
 
     .container {
@@ -54,51 +55,65 @@
       margin-inline: auto;
     }
 
-    /* HEADER */
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(8,19,33,.96);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(14px);
-    }
-
-    .header-inner {
-      min-height: 82px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
     .logo {
       color: var(--white);
-      text-decoration: none;
       font-size: 23px;
       font-weight: 800;
       letter-spacing: -1px;
+      text-decoration: none;
       white-space: nowrap;
     }
 
     .logo-blue { color: var(--blue-light); }
 
+    /* EN-TÊTE ET NAVIGATION */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(8,19,33,.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    .header-inner {
+      min-height: 82px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header-logo {
+      grid-column: 2;
+      justify-self: center;
+    }
+
+    .header-right {
+      grid-column: 3;
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
     .main-nav {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 23px;
     }
 
     .main-nav a,
     .main-nav button {
-      border: 0;
       padding: 8px 0;
+      border: 0;
       background: transparent;
       color: var(--white);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       text-decoration: none;
+      white-space: nowrap;
       transition: color .2s;
     }
 
@@ -111,7 +126,7 @@
     .contact-icons {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .contact-icons[hidden] {
@@ -119,14 +134,14 @@
     }
 
     .contact-icons a {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      color: white;
       border: 1px solid var(--blue);
       border-radius: 50%;
+      color: white;
       text-decoration: none;
       transition: .2s;
     }
@@ -141,33 +156,45 @@
       height: 19px;
     }
 
-    /* HERO */
+    /* ACCUEIL */
 
     .hero {
-      min-height: 540px;
+      min-height: 535px;
       display: flex;
       align-items: center;
-      padding: 90px 0;
+      justify-content: center;
+      padding: 85px 0;
       background:
         radial-gradient(ellipse at 80% 35%, rgba(71,127,181,.17), transparent 48%),
-        var(--bg);
+        var(--background);
+      text-align: center;
+    }
+
+    .hero-content {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
 
     .eyebrow {
+      margin-bottom: 20px;
       color: var(--blue-light);
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      text-align: center;
     }
 
     h1 {
       max-width: 760px;
-      margin: 0;
+      margin: 0 auto;
       font-size: clamp(43px, 7vw, 76px);
       line-height: 1.08;
       letter-spacing: -3px;
+      text-align: center;
     }
 
     h1 span { display: block; }
@@ -175,16 +202,17 @@
 
     .hero-description {
       max-width: 600px;
-      margin: 25px 0 30px;
+      margin: 25px auto 30px;
       color: var(--muted);
       font-size: 17px;
+      text-align: center;
     }
 
     .primary-button {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
       min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 0 24px;
       border: 0;
       border-radius: 8px;
@@ -200,11 +228,19 @@
       transform: translateY(-2px);
     }
 
+    .primary-button:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .hero .primary-button {
+      margin-inline: auto;
+    }
+
     /* SECTIONS */
 
-    section.content-section {
-      padding: 85px 0;
-    }
+    .content-section { padding: 85px 0; }
 
     .section-heading {
       margin-bottom: 38px;
@@ -222,7 +258,7 @@
       color: var(--muted);
     }
 
-    /* SERVICES */
+    /* CARTES SERVICES */
 
     .services-grid {
       display: grid;
@@ -236,18 +272,19 @@
       padding: 26px;
       border: 1px solid var(--border);
       border-radius: 13px;
-      background: var(--panel);
+      background: var(--surface);
       color: var(--white);
       text-align: left;
       transition: .2s;
     }
 
     .service-card:hover,
-    .service-card:focus-visible {
+    .service-card:focus-visible,
+    .service-card.selected {
       border-color: var(--blue-light);
-      background: var(--panel-light);
-      transform: translateY(-3px);
+      background: var(--surface-2);
       outline: none;
+      transform: translateY(-2px);
     }
 
     .service-card h3 {
@@ -270,7 +307,7 @@
       font-weight: 700;
     }
 
-    /* PRICING */
+    /* TARIFS ET SÉLECTION */
 
     #tarifs { background: #0b1929; }
 
@@ -280,7 +317,7 @@
       padding: 30px;
       border: 1px solid var(--border);
       border-radius: 14px;
-      background: var(--panel);
+      background: var(--surface);
     }
 
     .field { margin-bottom: 20px; }
@@ -328,9 +365,7 @@
       background: #0b1929;
     }
 
-    .price-display span:first-child {
-      color: var(--muted);
-    }
+    .price-display span:first-child { color: var(--muted); }
 
     #priceValue {
       color: var(--blue-light);
@@ -353,10 +388,10 @@
       text-align: center;
     }
 
-    .status-message.error { color: var(--danger); }
+    .status-message.error { color: var(--error); }
     .status-message.success { color: var(--success); }
 
-    /* REQUEST FORM */
+    /* FORMULAIRE APRÈS PAIEMENT */
 
     #requestSection {
       display: none;
@@ -391,11 +426,12 @@
       accent-color: var(--blue);
     }
 
-    /* FOOTER */
+    /* PIED DE PAGE */
 
     .site-footer {
       width: 100%;
-      padding: 55px 20px 35px;
+      margin-top: auto;
+      padding: 48px 20px 32px;
       border-top: 1px solid var(--border);
       text-align: center;
     }
@@ -415,42 +451,52 @@
       font-size: 14px;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 850px) {
       .header-inner {
-        padding: 16px 0;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 10px;
+        padding: 14px 0;
+      }
+
+      .header-logo,
+      .header-right {
+        grid-column: 1;
+        justify-self: center;
+      }
+
+      .header-right {
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
       }
 
       .main-nav {
-        width: 100%;
         justify-content: center;
-        gap: clamp(13px, 4vw, 23px);
+        flex-wrap: wrap;
+        gap: 18px;
       }
 
-      .main-nav a,
-      .main-nav button {
-        font-size: 13px;
-      }
+      .contact-icons { justify-content: center; }
+    }
 
-      .contact-icons {
-        justify-content: center;
-      }
-
+    @media (max-width: 600px) {
       .hero {
         min-height: 460px;
-        padding: 70px 0;
+        padding: 65px 0;
       }
 
       h1 { letter-spacing: -2px; }
 
-      .services-grid {
-        grid-template-columns: 1fr;
-      }
+      .services-grid { grid-template-columns: 1fr; }
 
-      section.content-section { padding: 65px 0; }
+      .content-section { padding: 65px 0; }
 
       .pricing-panel { padding: 20px; }
+
+      .main-nav { gap: 14px; }
+
+      .main-nav a,
+      .main-nav button { font-size: 12px; }
     }
   </style>
 </head>
@@ -460,53 +506,55 @@
   <header class="site-header">
     <div class="container header-inner">
 
-      <a href="#accueil" class="logo" aria-label="ebagzunlock accueil">
+      <a href="#accueil" class="logo header-logo" aria-label="ebagzunlock accueil">
         ebagz<span class="logo-blue">unlock</span>
       </a>
 
-      <nav class="main-nav" aria-label="Navigation principale">
-        <a href="#accueil">Accueil</a>
-        <a href="#accueil">Services</a>
-        <a href="#tarifs">Tarifs</a>
-        <button type="button" id="contactToggle" aria-expanded="false">
-          Contact
-        </button>
-      </nav>
+      <div class="header-right">
+        <nav class="main-nav" aria-label="Navigation principale">
+          <a href="#accueil" data-nav="home">Accueil</a>
+          <a href="#accueil" data-nav="services">Services</a>
+          <a href="#tarifs" data-nav="prices">Tarifs</a>
+          <button type="button" id="contactToggle" aria-expanded="false">
+            Contact
+          </button>
+        </nav>
 
-      <div class="contact-icons" id="contactIcons" hidden>
-        <a href="mailto:ebagzunlock@outlook.fr"
-           aria-label="Envoyer un e-mail"
-           title="Envoyer un e-mail">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="3" y="5" width="18" height="14" rx="2"
-              stroke="currentColor" stroke-width="1.8"/>
-            <path d="m4 7 8 6 8-6"
-              stroke="currentColor" stroke-width="1.8"
-              stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+        <div class="contact-icons" id="contactIcons" hidden>
+          <a href="mailto:ebagzunlock@outlook.fr"
+             aria-label="Envoyer un e-mail"
+             title="Envoyer un e-mail">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2"
+                stroke="currentColor" stroke-width="1.8"/>
+              <path d="m4 7 8 6 8-6"
+                stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
 
-        <a href="https://wa.me/33644676361"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Envoyer un message"
-           title="Envoyer un message">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M20 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.2A8.5 8.5 0 1 1 20 11.5Z"
-              stroke="currentColor" stroke-width="1.8"
-              stroke-linejoin="round"/>
-            <path d="M8 8.2c.4-.5.8-.4 1.1.1l.8 1.5c.2.3.1.6-.2.9l-.5.5c.6 1.1 1.4 1.9 2.6 2.5l.5-.6c.2-.3.5-.4.9-.2l1.5.7c.5.2.6.7.2 1.1-.5.6-1.1.9-1.9.8-2.8-.4-5.8-3.3-6.1-6.1-.1-.5.3-1 .8-1.2Z"
-              fill="currentColor"/>
-          </svg>
-        </a>
+          <a href="https://wa.me/33644676361"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Envoyer un message"
+             title="Envoyer un message">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M20 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.2A8.5 8.5 0 1 1 20 11.5Z"
+                stroke="currentColor" stroke-width="1.8"
+                stroke-linejoin="round"/>
+              <path d="M8 8.2c.4-.5.8-.4 1.1.1l.8 1.5c.2.3.1.6-.2.9l-.5.5c.6 1.1 1.4 1.9 2.6 2.5l.5-.6c.2-.3.5-.4.9-.2l1.5.7c.5.2.6.7.2 1.1-.5.6-1.1.9-1.9.8-2.8-.4-5.8-3.3-6.1-6.1-.1-.5.3-1 .8-1.2Z"
+                fill="currentColor"/>
+            </svg>
+          </a>
+        </div>
       </div>
-
     </div>
   </header>
 
   <main>
+
     <section class="hero" id="accueil">
-      <div class="container">
+      <div class="container hero-content">
         <div class="eyebrow">
           SERVICES DE DÉVERROUILLAGE POUR APPAREILS APPLE
         </div>
@@ -534,6 +582,7 @@
         </div>
 
         <div class="services-grid">
+
           <button class="service-card" type="button"
             data-service="Déverrouillage iCloud">
             <h3>Déverrouillage iCloud</h3>
@@ -561,6 +610,7 @@
             <p>IMEI / numéro de série</p>
             <span class="card-hint">Sélectionner ce service →</span>
           </button>
+
         </div>
       </div>
     </section>
@@ -578,17 +628,17 @@
             <label for="serviceSelect">Service</label>
             <select id="serviceSelect">
               <option value="">Choisir un service</option>
-              <option>Déverrouillage iCloud</option>
-              <option>Déverrouillage Opérateur</option>
-              <option>Suppression Blocage &amp;Limitation Propriétaire</option>
-              <option>Résolution Blocage DFU &amp; Mode de Récupération</option>
+              <option value="Déverrouillage iCloud">Déverrouillage iCloud</option>
+              <option value="Déverrouillage Opérateur">Déverrouillage Opérateur</option>
+              <option value="Suppression Blocage &Limitation Propriétaire">Suppression Blocage &amp;Limitation Propriétaire</option>
+              <option value="Résolution Blocage DFU & Mode de Récupération">Résolution Blocage DFU &amp; Mode de Récupération</option>
             </select>
           </div>
 
           <div class="field">
             <label for="deviceSelect">Catégorie d'appareil</label>
             <select id="deviceSelect" disabled>
-              <option value="">Choisir un appareil</option>
+              <option value="">Choisir une catégorie</option>
               <option value="iPhone">iPhone</option>
               <option value="MacBook">MacBook</option>
               <option value="iPad">iPad</option>
@@ -608,7 +658,8 @@
             <strong id="priceValue">— €</strong>
           </div>
 
-          <button class="primary-button full-width" id="payButton" type="button" disabled>
+          <button class="primary-button full-width" id="payButton"
+            type="button" disabled>
             Procéder au paiement sécurisé
           </button>
 
@@ -627,17 +678,19 @@
             <form id="requestForm">
               <div class="field">
                 <label for="customerName">Nom et prénom</label>
-                <input id="customerName" name="name" required>
+                <input id="customerName" name="name" autocomplete="name" required>
               </div>
 
               <div class="field">
                 <label for="customerEmail">Adresse e-mail</label>
-                <input id="customerEmail" name="email" type="email" required>
+                <input id="customerEmail" name="email" type="email"
+                  autocomplete="email" required>
               </div>
 
               <div class="field">
                 <label for="customerPhone">Numéro de téléphone</label>
-                <input id="customerPhone" name="phone" type="tel" required>
+                <input id="customerPhone" name="phone" type="tel"
+                  autocomplete="tel" required>
               </div>
 
               <div class="field">
@@ -654,7 +707,7 @@
               <label class="consent">
                 <input type="checkbox" id="ownershipConsent" required>
                 <span>
-                  Je confirme être le propriétaire de l'appareil ou être autorisé à effectuer cette demande. Je comprends que toute intervention doit respecter les droits du propriétaire et les règles applicables.
+                  Je confirme être le propriétaire de l'appareil ou être autorisé à effectuer cette demande. Toute intervention sera limitée aux opérations légales et autorisées.
                 </span>
               </label>
 
@@ -669,6 +722,7 @@
         </div>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">
@@ -679,82 +733,84 @@
   </footer>
 
   <script>
+    "use strict";
+
     const CATALOGUE = {
       "iPhone": {
-        "iPhone X":25,
-        "iPhone XR":25,
-        "iPhone XS":25,
-        "iPhone XS Max":25,
-        "iPhone 11":25,
-        "iPhone 11 Pro":25,
-        "iPhone 11 Pro Max":27,
-        "iPhone 12 mini":25,
-        "iPhone 12":25,
-        "iPhone 12 Pro":29,
-        "iPhone 12 Pro Max":32,
-        "iPhone 13 mini":39,
-        "iPhone 13":40,
-        "iPhone 13 Pro":40,
-        "iPhone 13 Pro Max":42,
-        "iPhone 14":40,
-        "iPhone 14 Plus":40,
-        "iPhone 14 Pro":43,
-        "iPhone 14 Pro Max":49,
-        "iPhone 15":53,
-        "iPhone 15 Plus":55,
-        "iPhone 15 Pro":55,
-        "iPhone 15 Pro Max":59,
-        "iPhone 16":64,
-        "iPhone 16 Plus":59,
-        "iPhone 16 Pro":62,
-        "iPhone 16 Pro Max":69,
-        "iPhone 16e":65,
-        "iPhone 17":69,
-        "iPhone 17 Pro":70,
-        "iPhone 17 Pro Max":77,
-        "iPhone 17e":75,
-        "iPhone 17 Air":79,
-        "iPhone 18":85,
-        "iPhone 18 Pro":89,
-        "iPhone 18 Pro Max":100,
-        "iPhone 18 Duo":95
+        "iPhone X": 25,
+        "iPhone XR": 25,
+        "iPhone XS": 25,
+        "iPhone XS Max": 25,
+        "iPhone 11": 25,
+        "iPhone 11 Pro": 25,
+        "iPhone 11 Pro Max": 27,
+        "iPhone 12 mini": 25,
+        "iPhone 12": 25,
+        "iPhone 12 Pro": 29,
+        "iPhone 12 Pro Max": 32,
+        "iPhone 13 mini": 39,
+        "iPhone 13": 40,
+        "iPhone 13 Pro": 40,
+        "iPhone 13 Pro Max": 42,
+        "iPhone 14": 40,
+        "iPhone 14 Plus": 40,
+        "iPhone 14 Pro": 43,
+        "iPhone 14 Pro Max": 49,
+        "iPhone 15": 53,
+        "iPhone 15 Plus": 55,
+        "iPhone 15 Pro": 55,
+        "iPhone 15 Pro Max": 59,
+        "iPhone 16": 64,
+        "iPhone 16 Plus": 59,
+        "iPhone 16 Pro": 62,
+        "iPhone 16 Pro Max": 69,
+        "iPhone 16e": 65,
+        "iPhone 17": 69,
+        "iPhone 17 Pro": 70,
+        "iPhone 17 Pro Max": 77,
+        "iPhone 17e": 75,
+        "iPhone 17 Air": 79,
+        "iPhone 18": 85,
+        "iPhone 18 Pro": 89,
+        "iPhone 18 Pro Max": 100,
+        "iPhone 18 Duo": 95
       },
 
       "MacBook": {
-        "MacBook Air Intel 2008–2020":35,
-        "MacBook Air M1":38,
-        "MacBook Air M2 13/15 pouces":38,
-        "MacBook Air M3 13/15 pouces":40,
-        "MacBook Air M4 13/15 pouces":40,
-        "MacBook Air M5 13/15 pouces":42,
-        "MacBook Pro Intel":40,
-        "MacBook Pro M1 13/14/16 pouces":45,
-        "MacBook Pro M2":45,
-        "MacBook Pro M3 14/16 pouces":45,
-        "MacBook Pro M4 14/16 pouces":49,
-        "MacBook Pro M5 14/16 pouces":49,
-        "MacBook Pro M6 14 pouces":55,
-        "MacBook 12 pouces 2015–2017":30,
-        "MacBook Neo A18 Pro":133
+        "MacBook Air Intel 2008–2020": 35,
+        "MacBook Air M1": 38,
+        "MacBook Air M2 13/15 pouces": 38,
+        "MacBook Air M3 13/15 pouces": 40,
+        "MacBook Air M4 13/15 pouces": 40,
+        "MacBook Air M5 13/15 pouces": 42,
+        "MacBook Pro Intel": 40,
+        "MacBook Pro M1 13/14/16 pouces": 45,
+        "MacBook Pro M2": 45,
+        "MacBook Pro M3 14/16 pouces": 45,
+        "MacBook Pro M4 14/16 pouces": 49,
+        "MacBook Pro M5 14/16 pouces": 49,
+        "MacBook Pro M6 14 pouces": 55,
+        "MacBook 12 pouces 2015–2017": 30,
+        "MacBook Neo A18 Pro": 133
       },
 
       "iPad": {
-        "iPad classique 1re–11e génération (A16 inclus)":37,
-        "iPad mini 1–6 (A17 Pro inclus)":39,
-        "iPad Air 1–5":37,
-        "iPad Air M2/M3/M4 11/13 pouces":35,
-        "iPad Pro 9.7 pouces":39,
-        "iPad Pro 10.5 pouces":39,
-        "iPad Pro 11 pouces générations 1–5":45,
-        "iPad Pro 12.9 pouces générations 1–6":49,
-        "iPad Pro M4 11/13 pouces":52,
-        "iPad Pro M5 11/13 pouces":55
+        "iPad classique 1re–11e génération (A16 inclus)": 37,
+        "iPad mini 1–6 (A17 Pro inclus)": 39,
+        "iPad Air 1–5": 37,
+        "iPad Air M2/M3/M4 11/13 pouces": 35,
+        "iPad Pro 9.7 pouces": 39,
+        "iPad Pro 10.5 pouces": 39,
+        "iPad Pro 11 pouces générations 1–5": 45,
+        "iPad Pro 12.9 pouces générations 1–6": 49,
+        "iPad Pro M4 11/13 pouces": 52,
+        "iPad Pro M5 11/13 pouces": 55
       },
 
       "Apple Watch": {
-        "Apple Watch Series 1–12":54,
-        "Apple Watch SE 1/2/3":63,
-        "Apple Watch Ultra 1/2/3/4":69
+        "Apple Watch Series 1–12": 54,
+        "Apple Watch SE 1/2/3": 63,
+        "Apple Watch Ultra 1/2/3/4": 69
       }
     };
 
@@ -770,29 +826,78 @@
     let verifiedSelection = null;
     let verifiedSessionId = null;
 
-    function setStatus(element, message, type = "") {
+    function showStatus(element, message, type = "") {
       element.textContent = message;
       element.className = "status-message " + type;
     }
 
-    function resetPrice() {
+    function resetModelAndPrice() {
+      modelSelect.innerHTML =
+        '<option value="">Choisir un modèle</option>';
+      modelSelect.disabled = true;
+
       selectedPrice = null;
       priceValue.textContent = "— €";
       payButton.disabled = true;
     }
 
-    function refreshModels() {
-      const device = deviceSelect.value;
+    function selectService(serviceName) {
+      const exists = Array.from(serviceSelect.options)
+        .some(option => option.value === serviceName);
 
-      modelSelect.innerHTML = '<option value="">Choisir un modèle</option>';
-      resetPrice();
+      if (!exists) return;
+
+      serviceSelect.value = serviceName;
+
+      // Active la catégorie dès que le service est choisi.
+      deviceSelect.disabled = false;
+      deviceSelect.value = "";
+
+      resetModelAndPrice();
+
+      document.querySelectorAll(".service-card").forEach(card => {
+        card.classList.toggle(
+          "selected",
+          card.dataset.service === serviceName
+        );
+      });
+
+      showStatus(paymentStatus, "");
+    }
+
+    serviceSelect.addEventListener("change", () => {
+      if (!serviceSelect.value) {
+        deviceSelect.disabled = true;
+        deviceSelect.value = "";
+        resetModelAndPrice();
+        return;
+      }
+
+      selectService(serviceSelect.value);
+    });
+
+    document.querySelectorAll(".service-card").forEach(card => {
+      card.addEventListener("click", () => {
+        selectService(card.dataset.service);
+
+        document.getElementById("tarifs").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      });
+    });
+
+    deviceSelect.addEventListener("change", () => {
+      resetModelAndPrice();
+
+      const device = deviceSelect.value;
 
       if (!device || !CATALOGUE[device]) {
         modelSelect.disabled = true;
         return;
       }
 
-      Object.keys(CATALOGUE[device]).forEach(model => {
+      Object.entries(CATALOGUE[device]).forEach(([model]) => {
         const option = document.createElement("option");
         option.value = model;
         option.textContent = model;
@@ -800,95 +905,92 @@
       });
 
       modelSelect.disabled = false;
-    }
+    });
 
-    function refreshPrice() {
+    modelSelect.addEventListener("change", () => {
       const device = deviceSelect.value;
       const model = modelSelect.value;
 
-      if (!device || !model || !CATALOGUE[device] ||
-          CATALOGUE[device][model] === undefined) {
-        resetPrice();
+      if (
+        !device ||
+        !model ||
+        !CATALOGUE[device] ||
+        !Object.prototype.hasOwnProperty.call(CATALOGUE[device], model)
+      ) {
+        selectedPrice = null;
+        priceValue.textContent = "— €";
+        payButton.disabled = true;
         return;
       }
 
       selectedPrice = CATALOGUE[device][model];
       priceValue.textContent = selectedPrice + " €";
       payButton.disabled = !serviceSelect.value;
-    }
-
-    serviceSelect.addEventListener("change", () => {
-      resetPrice();
-      if (modelSelect.value) refreshPrice();
-      payButton.disabled = !serviceSelect.value || !selectedPrice;
     });
 
-    deviceSelect.addEventListener("change", refreshModels);
-    modelSelect.addEventListener("change", refreshPrice);
-
-    document.querySelectorAll(".service-card").forEach(card => {
-      card.addEventListener("click", () => {
-        serviceSelect.value = card.dataset.service;
-        payButton.disabled = !selectedPrice;
-        document.getElementById("tarifs").scrollIntoView({behavior:"smooth"});
-      });
-    });
-
-    /* NAVIGATION CONTACT */
+    /* CONTACT : les deux icônes apparaissent uniquement au clic */
 
     const contactToggle = document.getElementById("contactToggle");
     const contactIcons = document.getElementById("contactIcons");
 
     contactToggle.addEventListener("click", () => {
-      const willShow = contactIcons.hidden;
-      contactIcons.hidden = !willShow;
-      contactToggle.setAttribute("aria-expanded", String(willShow));
+      const shouldShow = contactIcons.hidden;
+      contactIcons.hidden = !shouldShow;
+      contactToggle.setAttribute("aria-expanded", String(shouldShow));
     });
 
-    document.querySelectorAll('.main-nav a').forEach(link => {
+    document.querySelectorAll(".main-nav a").forEach(link => {
       link.addEventListener("click", () => {
         contactIcons.hidden = true;
         contactToggle.setAttribute("aria-expanded", "false");
       });
     });
 
-    /* CREATION DE LA SESSION STRIPE */
+    /* PAIEMENT STRIPE */
 
     payButton.addEventListener("click", async () => {
-      if (!serviceSelect.value || !deviceSelect.value ||
-          !modelSelect.value || !selectedPrice) {
-        setStatus(paymentStatus, "Veuillez sélectionner un service et un appareil.", "error");
+      const service = serviceSelect.value;
+      const device = deviceSelect.value;
+      const model = modelSelect.value;
+
+      if (!service || !device || !model || selectedPrice === null) {
+        showStatus(
+          paymentStatus,
+          "Sélectionnez un service, une catégorie et un modèle.",
+          "error"
+        );
         return;
       }
 
       payButton.disabled = true;
-      setStatus(paymentStatus, "Préparation du paiement sécurisé…");
+      showStatus(paymentStatus, "Préparation du paiement sécurisé…");
 
       try {
         const response = await fetch("/api/create-checkout-session", {
           method: "POST",
-          headers: {"Content-Type":"application/json"},
-          body: JSON.stringify({
-            service: serviceSelect.value,
-            device: deviceSelect.value,
-            model: modelSelect.value
-          })
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ service, device, model })
         });
 
         const data = await response.json();
 
         if (!response.ok || !data.url) {
-          throw new Error(data.error || "Impossible de créer la session de paiement.");
+          throw new Error(data.error || "Impossible de préparer le paiement.");
         }
 
-        window.location.href = data.url;
+        window.location.assign(data.url);
+
       } catch (error) {
-        setStatus(paymentStatus, error.message || "Une erreur est survenue.", "error");
+        showStatus(
+          paymentStatus,
+          error.message || "Une erreur est survenue.",
+          "error"
+        );
         payButton.disabled = false;
       }
     });
 
-    /* VERIFICATION DU PAIEMENT AU RETOUR DE STRIPE */
+    /* VÉRIFICATION DU PAIEMENT AU RETOUR DE STRIPE */
 
     async function verifyReturnedPayment() {
       const params = new URLSearchParams(window.location.search);
@@ -896,32 +998,47 @@
 
       if (!sessionId) return;
 
-      setStatus(paymentStatus, "Vérification de votre paiement…");
+      showStatus(paymentStatus, "Vérification de votre paiement…");
 
       try {
         const response = await fetch(
-          "/api/verify-checkout-session?session_id=" + encodeURIComponent(sessionId)
+          "/api/verify-checkout-session?session_id=" +
+          encodeURIComponent(sessionId)
         );
 
         const data = await response.json();
 
-        if (!response.ok || !data.paid || !data.selection) {
-          throw new Error("Le paiement n'a pas pu être confirmé.");
+        if (
+          !response.ok ||
+          data.paid !== true ||
+          !data.selection ||
+          !data.selection.service ||
+          !data.selection.device ||
+          !data.selection.model
+        ) {
+          throw new Error(
+            "Le paiement n'a pas pu être confirmé. Si tu as payé, contacte-nous."
+          );
         }
 
         verifiedSelection = data.selection;
         verifiedSessionId = sessionId;
 
-        serviceSelect.value = data.selection.service || "";
-        deviceSelect.value = data.selection.device || "";
+        selectService(data.selection.service);
 
-        refreshModels();
-        modelSelect.value = data.selection.model || "";
-        refreshPrice();
+        deviceSelect.value = data.selection.device;
+        deviceSelect.dispatchEvent(new Event("change"));
+
+        modelSelect.value = data.selection.model;
+        modelSelect.dispatchEvent(new Event("change"));
 
         requestSection.classList.add("visible");
 
-        setStatus(paymentStatus, "Paiement vérifié. Vous pouvez envoyer votre demande.", "success");
+        showStatus(
+          paymentStatus,
+          "Paiement vérifié. Tu peux maintenant envoyer ta demande.",
+          "success"
+        );
 
         history.replaceState(
           {},
@@ -929,33 +1046,43 @@
           window.location.pathname + "#tarifs"
         );
 
-        requestSection.scrollIntoView({behavior:"smooth", block:"start"});
+        requestSection.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
       } catch (error) {
-        setStatus(paymentStatus, error.message, "error");
+        showStatus(
+          paymentStatus,
+          error.message || "Erreur lors de la vérification du paiement.",
+          "error"
+        );
       }
     }
 
-    /* ENVOI DE LA DEMANDE PAR E-MAIL */
+    /* FORMULAIRE DE DEMANDE */
 
     document.getElementById("requestForm").addEventListener("submit", event => {
       event.preventDefault();
 
+      const requestStatus = document.getElementById("requestStatus");
+      const form = event.currentTarget;
+
       if (!verifiedSelection || !verifiedSessionId) {
-        setStatus(
-          document.getElementById("requestStatus"),
+        showStatus(
+          requestStatus,
           "Aucun paiement vérifié n'est associé à cette demande.",
           "error"
         );
         return;
       }
 
-      const form = event.currentTarget;
-
       if (!form.reportValidity()) return;
 
       const formData = new FormData(form);
 
       const subject = "Nouvelle demande — ebagzunlock";
+
       const body = [
         "Nouvelle demande après paiement vérifié",
         "",
@@ -978,9 +1105,9 @@
         "?subject=" + encodeURIComponent(subject) +
         "&body=" + encodeURIComponent(body);
 
-      setStatus(
-        document.getElementById("requestStatus"),
-        "Votre application e-mail va s'ouvrir pour envoyer votre demande.",
+      showStatus(
+        requestStatus,
+        "Ton application e-mail va s'ouvrir pour envoyer la demande.",
         "success"
       );
 
