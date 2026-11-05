@@ -271,7 +271,7 @@ document.querySelectorAll(".stripe-pay").forEach((button) => {
     button.disabled = true;
     button.textContent = "Redirection vers Stripe…";
     try {
-      const response = await fetch("/.netlify/functions/create-checkout-session", {
+      const response = await fetch("/api/create-checkout-session", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({productId: button.dataset.productId})
