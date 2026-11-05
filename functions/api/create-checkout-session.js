@@ -4,7 +4,7 @@ const SERVICES = [
   "Déverrouillage Opérateur",
   "Suppression Blocage &Limitation Propriétaire",
   "Résolution Blocage DFU & Mode de Récupération",
-  "Mise à jour"
+  "Mise à jour iOS / macOS"
 ];
 
 const UPDATE_PRICES = {
@@ -25,6 +25,7 @@ const CATALOGUE = {
     "iPhone 17":69,"iPhone 17 Pro":70,"iPhone 17 Pro Max":77,"iPhone 17e":75,"iPhone 17 Air":79,
     "iPhone 18":85,"iPhone 18 Pro":89,"iPhone 18 Pro Max":100,"iPhone 18 Duo":95
   },
+
   "MacBook": {
     "MacBook Air Intel 2008–2020":35,"MacBook Air M1":38,
     "MacBook Air M2 13/15 pouces":38,"MacBook Air M3 13/15 pouces":40,
@@ -35,14 +36,16 @@ const CATALOGUE = {
     "MacBook Pro M6 14 pouces":55,"MacBook 12 pouces 2015–2017":30,
     "MacBook Neo A18 Pro":133
   },
+
   "iPad": {
     "iPad classique 1re–11e génération (A16 inclus)":37,
     "iPad mini 1–6 (A17 Pro inclus)":39,"iPad Air 1–5":37,
-    "iPad Air M2/M3/M4 11/13 pouces":35,"iPad Pro 9,7 pouces":39,
+    "iPad Air M2/M3/M4 11/13 pouces":35,"iPad Pro 9.7 pouces":39,
     "iPad Pro 10,5 pouces":39,"iPad Pro 11 pouces générations 1–5":45,
-    "iPad Pro 12,9 pouces générations 1–6":49,
+    "iPad Pro 12.9 pouces générations 1–6":49,
     "iPad Pro M4 11/13 pouces":52,"iPad Pro M5 11/13 pouces":55
   },
+
   "Apple Watch": {
     "Apple Watch Series 1–12":54,"Apple Watch SE 1/2/3":63,
     "Apple Watch Ultra 1/2/3/4":69
@@ -89,17 +92,20 @@ export async function onRequestPost({ request, env }) {
 
   let amount;
 
-  if (service === "Mise à jour") {
+  if (service === "Mise à jour iOS / macOS") {
     if (
       typeof model !== "string" ||
-      !Object.prototype.hasOwnProperty.call(UPDATE_PRICES, model)
+      !Object.prototype.hasOwnProperty.call(UPDATE_PRICES, model) ||
+      device !== model
     ) {
       return Response.json(
         { error: "Option de mise à jour invalide." },
         { status: 400 }
       );
     }
+
     amount = UPDATE_PRICES[model];
+
   } else {
     if (
       typeof device !== "string" ||
@@ -112,27 +118,41 @@ export async function onRequestPost({ request, env }) {
         { status: 400 }
       );
     }
+
     amount = CATALOGUE[device][model];
   }
 
   const params = new URLSearchParams();
+
   params.set("mode", "payment");
   params.set("line_items[0][quantity]", "1");
   params.set("line_items[0][price_data][currency]", "eur");
-  params.set("line_items[0][price_data][unit_amount]", String(amount * 100));
+  params.set(
+    "line_items[0][price_data][unit_amount]",
+    String(amount * 100)
+  );
 
-  const productName = service === "Mise à jour"
+  const productName = service === "Mise à jour iOS / macOS"
     ? `Mise à jour — ${model}`
     : `${service} — ${device} — ${model}`;
 
-  params.set("line_items[0][price_data][product_data][name]", productName);
+  params.set(
+    "line_items[0][price_data][product_data][name]",
+    productName
+  );
+
   params.set(
     "line_items[0][price_data][product_data][description]",
     "Prestation réalisée uniquement dans un cadre légal, avec l'autorisation du propriétaire."
   );
+
   params.set("billing_address_collection", "auto");
-  params.set("success_url", `${siteOrigin}/?session_id={CHECKOUT_SESSION_ID}#tarifs`);
+  params.set(
+    "success_url",
+    `${siteOrigin}/?session_id={CHECKOUT_SESSION_ID}#tarifs`
+  );
   params.set("cancel_url", `${siteOrigin}/#tarifs`);
+
   params.set("metadata[service]", service);
   params.set("metadata[device]", device || "");
   params.set("metadata[model]", model);
@@ -155,6 +175,7 @@ export async function onRequestPost({ request, env }) {
 
     if (!stripeResponse.ok) {
       console.error("Stripe error:", session);
+
       return Response.json(
         { error: "Stripe n'a pas pu créer le paiement." },
         { status: 502 }
@@ -162,8 +183,10 @@ export async function onRequestPost({ request, env }) {
     }
 
     return Response.json({ url: session.url });
+
   } catch (error) {
     console.error("Checkout error:", error);
+
     return Response.json(
       { error: "Impossible de contacter Stripe." },
       { status: 502 }
