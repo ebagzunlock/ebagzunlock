@@ -1,69 +1,118 @@
-const PRODUCTS = [
-  { id: "update", name: "UPDATE", amount: 500 },
-  { id: "iphone-service-1", name: "iPhone X – iPhone 12 Pro", amount: 3800 },
-  { id: "iphone-service-2", name: "iPhone 12 Pro Max – iPhone 14", amount: 5500 },
-  { id: "iphone-service-3", name: "iPhone 14 Plus – iPhone 15", amount: 6000 },
-  { id: "iphone-service-4", name: "iPhone 15 Plus – iPhone 16", amount: 6700 },
-  { id: "iphone-service-5", name: "iPhone 16 Plus – iPhone 16e", amount: 7100 },
-  { id: "iphone-service-6", name: "iPhone 17 – iPhone 17e", amount: 11500 },
-  { id: "iphone-service-7", name: "iPhone 18 Pro", amount: 13500 },
-  { id: "iphone-service-8", name: "iPhone 18 Pro Max", amount: 15500 },
-  { id: "iphone-service-9", name: "iPhone Duo", amount: 13250 },
-  { id: "iphone-service-10", name: "iPhone 17 Air", amount: 11950 }
+
+const SERVICES = [
+  "Déverrouillage iCloud",
+  "Déverrouillage Opérateur",
+  "Suppression Blocage &Limitation Propriétaire",
+  "Résolution Blocage DFU & Mode de Récupération"
 ];
 
+const CATALOGUE = {
+  "iPhone": {
+    "iPhone X":25,"iPhone XR":25,"iPhone XS":25,"iPhone XS Max":25,
+    "iPhone 11":25,"iPhone 11 Pro":25,"iPhone 11 Pro Max":27,
+    "iPhone 12 mini":25,"iPhone 12":25,"iPhone 12 Pro":29,"iPhone 12 Pro Max":32,
+    "iPhone 13 mini":39,"iPhone 13":40,"iPhone 13 Pro":40,"iPhone 13 Pro Max":42,
+    "iPhone 14":40,"iPhone 14 Plus":40,"iPhone 14 Pro":43,"iPhone 14 Pro Max":49,
+    "iPhone 15":53,"iPhone 15 Plus":55,"iPhone 15 Pro":55,"iPhone 15 Pro Max":59,
+    "iPhone 16":64,"iPhone 16 Plus":59,"iPhone 16 Pro":62,"iPhone 16 Pro Max":69,"iPhone 16e":65,
+    "iPhone 17":69,"iPhone 17 Pro":70,"iPhone 17 Pro Max":77,"iPhone 17e":75,"iPhone 17 Air":79,
+    "iPhone 18":85,"iPhone 18 Pro":89,"iPhone 18 Pro Max":100,"iPhone 18 Duo":95
+  },
+  "MacBook": {
+    "MacBook Air Intel 2008–2020":35,"MacBook Air M1":38,
+    "MacBook Air M2 13/15 pouces":38,"MacBook Air M3 13/15 pouces":40,
+    "MacBook Air M4 13/15 pouces":40,"MacBook Air M5 13/15 pouces":42,
+    "MacBook Pro Intel":40,"MacBook Pro M1 13/14/16 pouces":45,
+    "MacBook Pro M2":45,"MacBook Pro M3 14/16 pouces":45,
+    "MacBook Pro M4 14/16 pouces":49,"MacBook Pro M5 14/16 pouces":49,
+    "MacBook Pro M6 14 pouces":55,"MacBook 12 pouces 2015–2017":30,
+    "MacBook Neo A18 Pro":133
+  },
+  "iPad": {
+    "iPad classique 1re–11e génération (A16 inclus)":37,
+    "iPad mini 1–6 (A17 Pro inclus)":39,"iPad Air 1–5":37,
+    "iPad Air M2/M3/M4 11/13 pouces":35,"iPad Pro 9,7 pouces":39,
+    "iPad Pro 10,5 pouces":39,"iPad Pro 11 pouces générations 1–5":45,
+    "iPad Pro 12,9 pouces générations 1–6":49,
+    "iPad Pro M4 11/13 pouces":52,"iPad Pro M5 11/13 pouces":55
+  },
+  "Apple Watch": {
+    "Apple Watch Series 1–12":54,"Apple Watch SE 1/2/3":63,
+    "Apple Watch Ultra 1/2/3/4":69
+  }
+};
+
 export async function onRequestPost({ request, env }) {
- if (!env.STRIPE_SECRET_KEY) {
-  return Response.json(
-    { error: "La clé Stripe n'est pas configurée." },
-    { status: 503 }
-  );
-}
+  if (!env.STRIPE_SECRET_KEY) {
+    return Response.json(
+      { error: "La clé Stripe n'est pas configurée." },
+      { status: 503 }
+    );
+  }
 
   const origin = request.headers.get("Origin");
+  const siteOrigin = new URL(request.url).origin;
 
-  if (origin && origin !== new URL(request.url).origin) {
-  return Response.json({ error: "Origine non autorisée." }, { status: 403 });
-}
+  if (origin && origin !== siteOrigin) {
+    return Response.json(
+      { error: "Origine non autorisée." },
+      { status: 403 }
+    );
+  }
 
   let payload;
+
   try {
     payload = await request.json();
   } catch {
-    return Response.json({ error: "Requête invalide." }, { status: 400 });
+    return Response.json(
+      { error: "Requête invalide." },
+      { status: 400 }
+    );
   }
 
-  const product = PRODUCTS.find((item) => item.id === payload?.productId);
+  const { service, device, model } = payload || {};
 
-  if (!product) {
-    return Response.json({ error: "Prestation inconnue." }, { status: 400 });
+  if (
+    !SERVICES.includes(service) ||
+    typeof device !== "string" ||
+    typeof model !== "string" ||
+    !Object.prototype.hasOwnProperty.call(CATALOGUE, device) ||
+    !Object.prototype.hasOwnProperty.call(CATALOGUE[device], model)
+  ) {
+    return Response.json(
+      { error: "Sélection de prestation ou d'appareil invalide." },
+      { status: 400 }
+    );
   }
+
+  const amount = CATALOGUE[device][model];
 
   const params = new URLSearchParams();
   params.set("mode", "payment");
- 
   params.set("line_items[0][quantity]", "1");
   params.set("line_items[0][price_data][currency]", "eur");
-  params.set("line_items[0][price_data][unit_amount]", String(product.amount));
+  params.set("line_items[0][price_data][unit_amount]", String(amount * 100));
   params.set(
     "line_items[0][price_data][product_data][name]",
-    `Prestation de désimlockage opérateur autorisé — ${product.name}`
+    `${service} — ${device} — ${model}`
   );
   params.set(
     "line_items[0][price_data][product_data][description]",
-    "Prestation sur un appareil appartenant au client ou pour lequel il dispose d'une autorisation."
+    "Prestation réalisée uniquement dans un cadre légal, avec l'autorisation du propriétaire."
   );
   params.set("billing_address_collection", "auto");
- params.set(
-  "success_url",
-  `${new URL(request.url).origin}/paiement-reussi.html?session_id={CHECKOUT_SESSION_ID}`
-);
-params.set(
-  "cancel_url",
-  `${new URL(request.url).origin}/paiement-annule.html`
-);
-  params.set("metadata[product_id]", product.id);
-  params.set("metadata[service_type]", "authorized_carrier_unlock");
+
+  params.set(
+    "success_url",
+    `${siteOrigin}/?session_id={CHECKOUT_SESSION_ID}#tarifs`
+  );
+  params.set("cancel_url", `${siteOrigin}/#tarifs`);
+
+  params.set("metadata[service]", service);
+  params.set("metadata[device]", device);
+  params.set("metadata[model]", model);
+  params.set("metadata[amount_eur]", String(amount));
 
   try {
     const stripeResponse = await fetch(
@@ -89,6 +138,7 @@ params.set(
     }
 
     return Response.json({ url: session.url });
+
   } catch (error) {
     console.error("Checkout error:", error);
     return Response.json(
