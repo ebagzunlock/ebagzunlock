@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -89,30 +90,34 @@ backdrop-filter:blur(12px)
 }
 
 .header-inner{
-min-height:82px;
-display:grid;
-grid-template-columns:1fr auto 1fr;
+min-height:0;
+display:flex;
+flex-direction:column;
 align-items:center;
-gap:20px
+justify-content:center;
+gap:15px;
+padding:19px 0 17px
 }
 
 .header-logo{
-grid-column:2;
 justify-self:center
 }
 
 .header-right{
-grid-column:3;
-justify-self:end;
+width:100%;
 display:flex;
+flex-direction:column;
 align-items:center;
-gap:18px
+justify-content:center;
+gap:9px
 }
 
 .main-nav{
 display:flex;
 align-items:center;
-gap:23px
+justify-content:center;
+flex-wrap:wrap;
+gap:10px 25px
 }
 
 .main-nav a,
@@ -136,9 +141,10 @@ color:var(--blue-light)
 
 .lang-toggle{
 min-width:42px;
-padding:7px 10px!important;
+padding:7px 12px!important;
 border:1px solid var(--border)!important;
 border-radius:7px!important;
+background:transparent!important;
 color:var(--blue-light)!important
 }
 
@@ -173,12 +179,14 @@ width:19px;
 height:19px
 }
 
+/* PREMIÈRE PAGE */
+
 .hero{
-min-height:535px;
+min-height:calc(100svh - 160px);
 display:flex;
 align-items:center;
 justify-content:center;
-padding:85px 0;
+padding:65px 0 75px;
 background:
 radial-gradient(ellipse at 80% 35%,rgba(71,127,181,.17),transparent 48%),
 var(--background);
@@ -193,22 +201,32 @@ align-items:center;
 text-align:center
 }
 
+/* Cadre transparent du titre supérieur */
 .eyebrow{
-margin-bottom:20px;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+max-width:100%;
+margin:0 auto 39px;
+padding:10px 20px;
+border:1px solid var(--border);
+border-radius:7px;
+background:transparent;
 color:var(--blue-light);
-font-size:12px;
+font-size:11px;
 font-weight:700;
-letter-spacing:2px;
+letter-spacing:1.7px;
+line-height:1.6;
 text-transform:uppercase;
 text-align:center
 }
 
 h1{
-max-width:760px;
+max-width:850px;
 margin:0 auto;
-font-size:clamp(43px,7vw,76px);
-line-height:1.08;
-letter-spacing:-3px;
+font-size:clamp(39px,6.5vw,72px);
+line-height:1.18;
+letter-spacing:-2.5px;
 text-align:center
 }
 
@@ -216,30 +234,34 @@ h1 span{display:block}
 h1 .blue{color:var(--blue-light)}
 
 .hero-description{
-max-width:600px;
-margin:25px auto 30px;
+max-width:620px;
+margin:34px auto 0;
 color:var(--muted);
-font-size:17px;
+font-size:16px;
+line-height:2;
 text-align:center
 }
 
+/* Cadre transparent du bouton Découvrir nos offres */
 .primary-button{
-min-height:48px;
+min-height:49px;
 display:inline-flex;
 align-items:center;
 justify-content:center;
-padding:0 24px;
-border:0;
-border-radius:8px;
-background:var(--blue);
-color:white;
+padding:0 25px;
+border:1px solid var(--border);
+border-radius:7px;
+background:transparent;
+color:var(--blue-light);
 font-weight:700;
 text-decoration:none;
 transition:.2s
 }
 
 .primary-button:hover{
-background:var(--blue-light);
+border-color:var(--blue-light);
+background:rgba(71,127,181,.12);
+color:var(--white);
 transform:translateY(-2px)
 }
 
@@ -249,7 +271,23 @@ cursor:not-allowed;
 transform:none
 }
 
-.hero .primary-button{margin-inline:auto}
+.hero .primary-button{
+margin:39px auto 0
+}
+
+/* Les boutons de paiement gardent leur apparence pleine */
+#payButton,
+#requestForm button{
+border:0;
+border-radius:8px;
+background:var(--blue);
+color:white
+}
+
+#payButton:hover,
+#requestForm button:hover{
+background:var(--blue-light)
+}
 
 .content-section{padding:85px 0}
 
@@ -527,9 +565,7 @@ padding:23px 0 19px
 }
 
 body.order-confirmed .header-logo{
-font-size:28px;
-grid-column:auto;
-justify-self:auto
+font-size:28px
 }
 
 body.order-confirmed .header-right{
@@ -538,9 +574,7 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-gap:11px;
-grid-column:auto;
-justify-self:auto
+gap:11px
 }
 
 body.order-confirmed .main-nav{
@@ -551,7 +585,6 @@ align-items:center;
 gap:10px 25px
 }
 
-/* Contact reste sans cadre */
 body.order-confirmed .main-nav a,
 body.order-confirmed .main-nav button{
 padding:4px 0;
@@ -569,13 +602,13 @@ body.order-confirmed .main-nav button:hover{
 color:var(--blue-light)
 }
 
-/* EN seul sur sa propre ligne, avec un cadre */
-body.order-confirmed .main-nav .lang-toggle{
+body.order-confirmed .lang-toggle{
 min-width:43px;
 margin-top:4px;
 padding:5px 11px!important;
 border:1px solid var(--border)!important;
 border-radius:6px!important;
+background:transparent!important;
 color:var(--blue-light)!important
 }
 
@@ -691,26 +724,12 @@ background:var(--surface)
 
 @media(max-width:850px){
 .header-inner{
-grid-template-columns:1fr;
-justify-items:center;
-gap:10px;
-padding:14px 0
-}
-
-.header-logo,.header-right{
-grid-column:1;
-justify-self:center
-}
-
-.header-right{
-flex-direction:column;
-gap:8px
+gap:12px;
+padding:15px 0
 }
 
 .main-nav{
-justify-content:center;
-flex-wrap:wrap;
-gap:18px
+gap:10px 19px
 }
 
 .contact-icons{justify-content:center}
@@ -718,17 +737,43 @@ gap:18px
 
 @media(max-width:600px){
 .hero{
-min-height:460px;
-padding:65px 0
+min-height:calc(100svh - 155px);
+padding:48px 0 55px
 }
 
-h1{letter-spacing:-2px}
+.eyebrow{
+max-width:100%;
+margin-bottom:31px;
+padding:9px 13px;
+font-size:9px;
+letter-spacing:1.2px
+}
+
+h1{
+font-size:clamp(37px,10vw,49px);
+letter-spacing:-1.8px;
+line-height:1.2
+}
+
+.hero-description{
+max-width:340px;
+margin-top:27px;
+font-size:14px;
+line-height:1.9
+}
+
+.hero .primary-button{
+margin-top:31px
+}
+
 .services-grid{grid-template-columns:1fr}
 .content-section{padding:65px 0}
 .pricing-panel{padding:20px}
-.main-nav{gap:14px}
 
-.main-nav a,.main-nav button{
+.main-nav{gap:9px 15px}
+
+.main-nav a,
+.main-nav button{
 font-size:12px
 }
 
@@ -787,8 +832,9 @@ ebagz<span class="logo-blue">unlock</span>
 <a href="#tarifs" data-i18n="navPrices">Tarifs</a>
 <a href="#fonctionnement" data-i18n="navHow">Fonctionnement</a>
 <button type="button" id="contactToggle" aria-expanded="false" data-i18n="contact">Contact</button>
-<button type="button" id="langToggle" class="lang-toggle" aria-label="Switch to English">EN</button>
 </nav>
+
+<button type="button" id="langToggle" class="lang-toggle" aria-label="Switch to English">EN</button>
 
 <div class="contact-icons" id="contactIcons" hidden>
 <a href="mailto:ebagzunlock@outlook.fr" aria-label="Envoyer un e-mail" title="Envoyer un e-mail">
@@ -813,13 +859,18 @@ ebagz<span class="logo-blue">unlock</span>
 <main>
 <section class="hero" id="accueil">
 <div class="container hero-content">
-<div class="eyebrow" data-i18n="eyebrow">SERVICES DE DÉVERROUILLAGE POUR APPAREILS APPLE</div>
+
+<div class="eyebrow" data-i18n="eyebrow">SERVICE DE DÉVERROUILLAGE POUR APPAREILS APPLE</div>
+
 <h1>
-<span data-i18n="heroLine1">Votre appareil.</span>
-<span class="blue" data-i18n="heroLine2">Notre expertise.</span>
+<span data-i18n="heroLine1">Votre appareil,</span>
+<span class="blue" data-i18n="heroLine2">notre expertise.</span>
 </h1>
+
 <p class="hero-description" data-i18n="heroDesc">Des solutions adaptées à vos appareils Apple, avec une prise en charge rapide et professionnelle.</p>
-<a href="#services" class="primary-button" data-i18n="discover">Découvrir nos services</a>
+
+<a href="#services" class="primary-button" data-i18n="discover">Découvrir nos offres</a>
+
 </div>
 </section>
 
@@ -1113,11 +1164,11 @@ navServices:"Services",
 navPrices:"Tarifs",
 navHow:"Fonctionnement",
 contact:"Contact",
-eyebrow:"SERVICES DE DÉVERROUILLAGE POUR APPAREILS APPLE",
-heroLine1:"Votre appareil.",
-heroLine2:"Notre expertise.",
+eyebrow:"SERVICE DE DÉVERROUILLAGE POUR APPAREILS APPLE",
+heroLine1:"Votre appareil,",
+heroLine2:"notre expertise.",
 heroDesc:"Des solutions adaptées à vos appareils Apple, avec une prise en charge rapide et professionnelle.",
-discover:"Découvrir nos services",
+discover:"Découvrir nos offres",
 servicesTitle:"Nos services",
 servicesDesc:"Sélectionnez un service pour commencer votre demande.",
 svcIcloud:"Déverrouillage iCloud",
@@ -1191,11 +1242,11 @@ navServices:"Services",
 navPrices:"Pricing",
 navHow:"How it works",
 contact:"Contact",
-eyebrow:"UNLOCKING SERVICES FOR APPLE DEVICES",
-heroLine1:"Your device.",
-heroLine2:"Our expertise.",
+eyebrow:"APPLE DEVICE UNLOCKING SERVICE",
+heroLine1:"Your device,",
+heroLine2:"our expertise.",
 heroDesc:"Solutions tailored to your Apple devices, with fast and professional support.",
-discover:"Explore our services",
+discover:"Discover our offers",
 servicesTitle:"Our services",
 servicesDesc:"Select a service to start your request.",
 svcIcloud:"iCloud Unlock",
@@ -1307,7 +1358,7 @@ element.textContent=message;
 element.className="status-message "+type;
 }
 
-/* Retour à l'accueil avec actualisation complète */
+/* Retour à l'accueil, toujours tout en haut */
 function goToHome(event){
 
 if(event){
@@ -1320,7 +1371,10 @@ if(
 window.location.origin==="https://ebagzunlock.com" &&
 window.location.pathname==="/"
 ){
-window.location.reload();
+if(window.location.hash||window.location.search){
+window.history.replaceState(null,"",homeUrl);
+}
+window.scrollTo({top:0,behavior:"smooth"});
 }else{
 window.location.assign(homeUrl);
 }
@@ -1820,12 +1874,9 @@ document.body.classList.add("order-confirmed");
 
 const siteUrl="https://ebagzunlock.com/";
 
-/* Logo du haut */
 const headerLogo=document.querySelector(".header-logo");
-
 headerLogo.href=siteUrl;
 
-/* Navigation */
 document.querySelectorAll(".main-nav a").forEach(link=>{
 
 const key=link.getAttribute("data-i18n");
@@ -1850,7 +1901,6 @@ link.href=siteUrl+"#"+targets[key];
 
 });
 
-/* Création de la page de confirmation */
 const confirmation=document.createElement("main");
 confirmation.id="confirmationScreen";
 
@@ -1888,20 +1938,16 @@ OK
 
 document.querySelector(".site-header").after(confirmation);
 
-/* Le logo du bas recharge aussi l'accueil */
 confirmation
 .querySelector(".confirmation-logo")
 .addEventListener("click",goToHome);
 
-/* Le bouton OK retourne à l'accueil */
 confirmation
 .querySelector(".confirmation-ok")
 .addEventListener("click",goToHome);
 
-/* Met à jour la langue de la confirmation */
 applyLanguage(currentLang);
 
-/* Affiche le haut de la page */
 window.scrollTo({top:0,behavior:"instant"});
 
 }
@@ -1952,7 +1998,6 @@ if(!response.ok||result.success!==true){
 throw new Error(result.error||t("sendError"));
 }
 
-/* Le formulaire est envoyé : afficher la confirmation */
 requestForm.reset();
 showConfirmationPage();
 
