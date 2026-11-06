@@ -87,7 +87,8 @@ export async function onRequestPost({ request, env }) {
         method: "POST",
         headers: {
           Authorization: `Bearer ${env.RESEND_API_KEY}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Idempotency-Key": `commande-${sessionId}`
         },
         body: JSON.stringify({
           from: "ebagzunlock <commandes@ebagzunlock.com>",
