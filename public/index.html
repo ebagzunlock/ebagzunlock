@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -741,17 +740,27 @@ requestForm.addEventListener("submit", async event => {
       );
     }
 
-    showStatus(
-      requestStatus,
-      "Commande envoyée avec succès ! Nous avons bien reçu tes informations.",
-      "success"
-    );
-
+    // ÉCRAN FINAL APRÈS CONFIRMATION DE L'ENVOI
     requestForm.reset();
 
-    requestForm.querySelectorAll("input, textarea, button").forEach(element => {
-      element.disabled = true;
-    });
+    requestSection.innerHTML = `
+      <div style="text-align:center;padding:35px 15px;">
+        <div style="font-size:55px;color:#55c995;margin-bottom:15px;">✓</div>
+
+        <h2 style="font-size:27px;margin:0 0 15px;">
+          Demande envoyée avec succès !
+        </h2>
+
+        <p style="color:#aab7c7;margin-bottom:25px;">
+          Votre paiement a été vérifié et vos informations ont bien été reçues.
+          Merci pour votre confiance.
+        </p>
+
+        <a href="/" class="primary-button">
+          Retour à l’accueil
+        </a>
+      </div>
+    `;
 
   } catch (error) {
     showStatus(
