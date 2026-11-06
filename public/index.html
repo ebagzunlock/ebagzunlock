@@ -60,7 +60,9 @@ margin:0;
 min-height:100vh;
 display:flex;
 flex-direction:column;
-background:var(--background);
+background:
+radial-gradient(ellipse at 50% -15%,rgba(52,119,190,.25),transparent 52%),
+linear-gradient(145deg,#050b16 0%,#0a1a2d 48%,#07101e 100%);
 color:var(--white);
 font-family:Inter,sans-serif;
 line-height:1.6
@@ -191,19 +193,56 @@ html.home-page .site-footer{
 display:none!important
 }
 
+/* NOUVEAU FOND 3D DE LA PAGE D'ACCUEIL */
+
 html.home-page .hero{
+position:relative;
+isolation:isolate;
+overflow:hidden;
 min-height:calc(100svh - 145px);
 display:flex;
 align-items:center;
 justify-content:center;
 padding:35px 0 48px;
 background:
-radial-gradient(ellipse at 80% 35%,rgba(71,127,181,.17),transparent 48%),
-var(--background);
+radial-gradient(ellipse at 50% 42%,rgba(48,119,190,.23),transparent 43%),
+radial-gradient(ellipse at 10% 85%,rgba(24,77,137,.19),transparent 42%),
+radial-gradient(ellipse at 90% 15%,rgba(55,139,218,.17),transparent 38%),
+linear-gradient(145deg,#07101e 0%,#0b1d33 52%,#050c18 100%);
 text-align:center
 }
 
+html.home-page .hero::before{
+content:"";
+position:absolute;
+inset:-15%;
+z-index:-1;
+background:
+radial-gradient(circle at 20% 25%,rgba(91,165,235,.20),transparent 19%),
+radial-gradient(circle at 78% 68%,rgba(45,112,188,.23),transparent 23%),
+radial-gradient(ellipse at 50% 50%,rgba(65,132,200,.10),transparent 55%);
+filter:blur(32px);
+pointer-events:none
+}
+
+html.home-page .hero::after{
+content:"";
+position:absolute;
+inset:0;
+z-index:-1;
+opacity:.32;
+background-image:
+linear-gradient(rgba(116,170,220,.055) 1px,transparent 1px),
+linear-gradient(90deg,rgba(116,170,220,.055) 1px,transparent 1px);
+background-size:70px 70px;
+-webkit-mask-image:radial-gradient(ellipse at center,black 0%,transparent 75%);
+mask-image:radial-gradient(ellipse at center,black 0%,transparent 75%);
+pointer-events:none
+}
+
 .hero-content{
+position:relative;
+z-index:1;
 width:100%;
 display:flex;
 flex-direction:column;
@@ -1416,7 +1455,7 @@ homeNavLink.href="https://ebagzunlock.com/";
 homeNavLink.addEventListener("click",goToHome);
 }
 
-/* CORRECTION : redirections directes vers chaque section des offres */
+/* Navigation directe vers les sections des offres */
 const offerNavigation={
 navServices:"services",
 navPrices:"tarifs",
