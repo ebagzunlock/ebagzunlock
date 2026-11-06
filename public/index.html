@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -81,6 +82,14 @@ h1 .blue{color:var(--blue-light)}
 .footer-logo{display:inline-block;color:var(--white);font-size:25px;font-weight:800;letter-spacing:-1px;text-decoration:none}
 .site-footer p{margin:9px 0 0;color:var(--muted);font-size:14px}
 
+/* Styles de la section Fonctionnement */
+.process-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:900px;margin:0 auto}
+.process-card{padding:23px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+.process-number{width:34px;height:34px;display:flex;align-items:center;justify-content:center;margin-bottom:13px;border-radius:50%;background:var(--surface-2);color:var(--blue-light);font-weight:800}
+.process-card h3{margin:0 0 8px;font-size:17px}
+.process-card p{margin:0;color:var(--muted);font-size:14px}
+.process-notice{max-width:900px;margin:20px auto 0;padding:16px 18px;border:1px solid var(--border);border-radius:10px;color:var(--muted);font-size:13px;background:var(--surface)}
+
 @media(max-width:850px){
 .header-inner{grid-template-columns:1fr;justify-items:center;gap:10px;padding:14px 0}
 .header-logo,.header-right{grid-column:1;justify-self:center}
@@ -96,6 +105,7 @@ h1{letter-spacing:-2px}
 .pricing-panel{padding:20px}
 .main-nav{gap:14px}
 .main-nav a,.main-nav button{font-size:12px}
+.process-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -111,6 +121,7 @@ h1{letter-spacing:-2px}
 <a href="#accueil">Accueil</a>
 <a href="#services">Services</a>
 <a href="#tarifs">Tarifs</a>
+<a href="#fonctionnement">Fonctionnement</a>
 <button type="button" id="contactToggle" aria-expanded="false">Contact</button>
 </nav>
 
@@ -277,6 +288,46 @@ h1{letter-spacing:-2px}
 </div>
 </section>
 
+<!-- Section Fonctionnement : placée tout en bas, après les tarifs -->
+<section class="content-section" id="fonctionnement">
+<div class="container">
+<div class="section-heading">
+<h2>Comment ça fonctionne ?</h2>
+<p>Les étapes de votre demande, de la sélection du service à son traitement.</p>
+</div>
+
+<div class="process-grid">
+<div class="process-card">
+<div class="process-number">1</div>
+<h3>Choisissez votre prestation</h3>
+<p>Sélectionnez le service, la catégorie de votre appareil et son modèle. Le tarif correspondant s'affiche avant le paiement.</p>
+</div>
+
+<div class="process-card">
+<div class="process-number">2</div>
+<h3>Effectuez le paiement sécurisé</h3>
+<p>Réglez votre prestation via Stripe. Votre demande ne peut être envoyée qu’après confirmation du paiement.</p>
+</div>
+
+<div class="process-card">
+<div class="process-number">3</div>
+<h3>Transmettez vos informations</h3>
+<p>Après vérification du paiement, remplissez le formulaire avec vos coordonnées et les informations nécessaires sur l’appareil. Vous devez en être propriétaire ou être autorisé à effectuer la demande.</p>
+</div>
+
+<div class="process-card">
+<div class="process-number">4</div>
+<h3>Étude et suivi de la demande</h3>
+<p>Nous examinons les informations reçues et vous contactons pour vous préciser les prochaines étapes ainsi que le délai estimé, selon le service et le modèle.</p>
+</div>
+</div>
+
+<div class="process-notice">
+<strong>À savoir :</strong> les délais et la faisabilité varient selon l’appareil, le service demandé et les vérifications nécessaires. Aucune durée ni aucun résultat ne peut être garanti avant l’étude de votre dossier. Les demandes doivent concerner des appareils que vous possédez ou pour lesquels vous disposez d’une autorisation légitime.
+</div>
+</div>
+</section>
+
 </main>
 
 <footer class="site-footer">
@@ -344,10 +395,36 @@ const requestStatus = document.getElementById("requestStatus");
 let selectedPrice = null;
 let verifiedSelection = null;
 let verifiedSessionId = null;
+let isRestoringVerifiedSelection = false;
 
 function showStatus(element, message, type = "") {
   element.textContent = message;
   element.className = "status-message " + type;
+}
+
+/* Réinitialise l'ancien paiement vérifié si le client change sa sélection */
+function invalidateVerifiedOrder() {
+  if (isRestoringVerifiedSelection || !verifiedSessionId) {
+    return;
+  }
+
+  payButton.textContent = "Procéder au paiement sécurisé";
+
+  verifiedSelection = null;
+  verifiedSessionId = null;
+
+  requestSection.classList.remove("visible");
+  requestForm.reset();
+
+  requestForm.querySelectorAll("input, textarea, button").forEach(element => {
+    element.disabled = false;
+  });
+
+  const submitButton = requestForm.querySelector('button[type="submit"]');
+  submitButton.textContent = "Envoyer ma demande";
+
+  showStatus(requestStatus, "");
+  showStatus(paymentStatus, "");
 }
 
 function resetModelAndPrice() {
@@ -407,7 +484,14 @@ function selectService(name) {
 }
 
 serviceSelect.addEventListener("change", () => {
+  invalidateVerifiedOrder();
+
   if (!serviceSelect.value) {
+    document.querySelectorAll(".service-card").forEach(card => {
+      card.classList.remove("selected");
+    });
+
+    deviceSelect.value = "";
     deviceSelect.disabled = true;
     resetModelAndPrice();
     modelField.hidden = false;
@@ -419,7 +503,10 @@ serviceSelect.addEventListener("change", () => {
 
 document.querySelectorAll(".service-card").forEach(card => {
   card.addEventListener("click", () => {
+    invalidateVerifiedOrder();
+
     selectService(card.dataset.service);
+
     document.getElementById("tarifs").scrollIntoView({
       behavior: "smooth",
       block: "start"
@@ -428,6 +515,8 @@ document.querySelectorAll(".service-card").forEach(card => {
 });
 
 deviceSelect.addEventListener("change", () => {
+  invalidateVerifiedOrder();
+
   selectedPrice = null;
   priceValue.textContent = "— €";
   payButton.disabled = true;
@@ -458,6 +547,8 @@ deviceSelect.addEventListener("change", () => {
 });
 
 modelSelect.addEventListener("change", () => {
+  invalidateVerifiedOrder();
+
   const device = deviceSelect.value;
   const model = modelSelect.value;
 
@@ -557,15 +648,25 @@ async function verifyReturnedPayment() {
     verifiedSelection = data.selection;
     verifiedSessionId = sessionId;
 
-    selectService(data.selection.service);
+    isRestoringVerifiedSelection = true;
 
-    deviceSelect.value = data.selection.device;
-    deviceSelect.dispatchEvent(new Event("change"));
+    try {
+      selectService(data.selection.service);
 
-    if (data.selection.service !== UPDATE_SERVICE) {
-      modelSelect.value = data.selection.model;
-      modelSelect.dispatchEvent(new Event("change"));
+      deviceSelect.value = data.selection.device;
+      deviceSelect.dispatchEvent(new Event("change"));
+
+      if (data.selection.service !== UPDATE_SERVICE) {
+        modelSelect.value = data.selection.model;
+        modelSelect.dispatchEvent(new Event("change"));
+      }
+    } finally {
+      isRestoringVerifiedSelection = false;
     }
+
+    // Le paiement est confirmé : empêcher le lancement d'un second paiement.
+    payButton.disabled = true;
+    payButton.textContent = "Paiement déjà effectué";
 
     requestSection.classList.add("visible");
 
