@@ -22,103 +22,744 @@ f.parentNode.insertBefore(j,f);
 <meta name="theme-color" content="#081321">
 <meta name="description" content="EBAGZUNLOCK : déverrouillage et assistance informatique pour iPhone, iPad, MacBook et Apple Watch. Services en France et en Europe.">
 <title>EBAGZUNLOCK — Déverrouillage et assistance informatique Apple</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-:root{--background:#081321;--surface:#101f31;--surface-2:#14263b;--blue:#477fb5;--blue-light:#6da5dc;--white:#f5f8fc;--muted:#aab7c7;--border:rgba(255,255,255,.11);--success:#55c995;--error:#ff7777}
+:root{
+--background:#081321;
+--surface:#101f31;
+--surface-2:#14263b;
+--blue:#477fb5;
+--blue-light:#6da5dc;
+--white:#f5f8fc;
+--muted:#aab7c7;
+--border:rgba(255,255,255,.11);
+--success:#55c995;
+--error:#ff7777
+}
+
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:100px}
-body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:var(--background);color:var(--white);font-family:Inter,sans-serif;line-height:1.6}
+
+html{
+scroll-behavior:smooth;
+scroll-padding-top:100px
+}
+
+body{
+margin:0;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+background:var(--background);
+color:var(--white);
+font-family:Inter,sans-serif;
+line-height:1.6
+}
+
 main{flex:1}
 a{color:inherit}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-.container{width:min(1120px,calc(100% - 40px));margin-inline:auto}
-.logo{color:var(--white);font-size:23px;font-weight:800;letter-spacing:-1px;text-decoration:none;white-space:nowrap}
+
+.container{
+width:min(1120px,calc(100% - 40px));
+margin-inline:auto
+}
+
+.logo{
+color:var(--white);
+font-size:23px;
+font-weight:800;
+letter-spacing:-1px;
+text-decoration:none;
+white-space:nowrap
+}
+
 .logo-blue{color:var(--blue-light)}
-.site-header{position:sticky;top:0;z-index:50;background:rgba(8,19,33,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
-.header-inner{min-height:82px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px}
-.header-logo{grid-column:2;justify-self:center}
-.header-right{grid-column:3;justify-self:end;display:flex;align-items:center;gap:18px}
-.main-nav{display:flex;align-items:center;gap:23px}
-.main-nav a,.main-nav button{padding:8px 0;border:0;background:transparent;color:var(--white);font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:color .2s}
-.main-nav a:hover,.main-nav button:hover,.main-nav button[aria-expanded=true]{color:var(--blue-light)}
-.lang-toggle{min-width:42px;padding:7px 10px!important;border:1px solid var(--border)!important;border-radius:7px!important;color:var(--blue-light)!important}
-.contact-icons{display:flex;align-items:center;gap:10px}
+
+.site-header{
+position:sticky;
+top:0;
+z-index:50;
+background:rgba(8,19,33,.97);
+border-bottom:1px solid var(--border);
+backdrop-filter:blur(12px)
+}
+
+.header-inner{
+min-height:82px;
+display:grid;
+grid-template-columns:1fr auto 1fr;
+align-items:center;
+gap:20px
+}
+
+.header-logo{
+grid-column:2;
+justify-self:center
+}
+
+.header-right{
+grid-column:3;
+justify-self:end;
+display:flex;
+align-items:center;
+gap:18px
+}
+
+.main-nav{
+display:flex;
+align-items:center;
+gap:23px
+}
+
+.main-nav a,
+.main-nav button{
+padding:8px 0;
+border:0;
+background:transparent;
+color:var(--white);
+font-size:13px;
+font-weight:600;
+text-decoration:none;
+white-space:nowrap;
+transition:color .2s
+}
+
+.main-nav a:hover,
+.main-nav button:hover,
+.main-nav button[aria-expanded=true]{
+color:var(--blue-light)
+}
+
+.lang-toggle{
+min-width:42px;
+padding:7px 10px!important;
+border:1px solid var(--border)!important;
+border-radius:7px!important;
+color:var(--blue-light)!important
+}
+
+.contact-icons{
+display:flex;
+align-items:center;
+gap:10px
+}
+
 .contact-icons[hidden]{display:none!important}
-.contact-icons a{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--blue);border-radius:50%;color:white;text-decoration:none;transition:.2s}
-.contact-icons a:hover{background:var(--blue);transform:translateY(-2px)}
-.contact-icons svg{width:19px;height:19px}
-.hero{min-height:535px;display:flex;align-items:center;justify-content:center;padding:85px 0;background:radial-gradient(ellipse at 80% 35%,rgba(71,127,181,.17),transparent 48%),var(--background);text-align:center}
-.hero-content{width:100%;display:flex;flex-direction:column;align-items:center;text-align:center}
-.eyebrow{margin-bottom:20px;color:var(--blue-light);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:center}
-h1{max-width:760px;margin:0 auto;font-size:clamp(43px,7vw,76px);line-height:1.08;letter-spacing:-3px;text-align:center}
+
+.contact-icons a{
+width:38px;
+height:38px;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+border:1px solid var(--blue);
+border-radius:50%;
+color:white;
+text-decoration:none;
+transition:.2s
+}
+
+.contact-icons a:hover{
+background:var(--blue);
+transform:translateY(-2px)
+}
+
+.contact-icons svg{
+width:19px;
+height:19px
+}
+
+.hero{
+min-height:535px;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:85px 0;
+background:
+radial-gradient(ellipse at 80% 35%,rgba(71,127,181,.17),transparent 48%),
+var(--background);
+text-align:center
+}
+
+.hero-content{
+width:100%;
+display:flex;
+flex-direction:column;
+align-items:center;
+text-align:center
+}
+
+.eyebrow{
+margin-bottom:20px;
+color:var(--blue-light);
+font-size:12px;
+font-weight:700;
+letter-spacing:2px;
+text-transform:uppercase;
+text-align:center
+}
+
+h1{
+max-width:760px;
+margin:0 auto;
+font-size:clamp(43px,7vw,76px);
+line-height:1.08;
+letter-spacing:-3px;
+text-align:center
+}
+
 h1 span{display:block}
 h1 .blue{color:var(--blue-light)}
-.hero-description{max-width:600px;margin:25px auto 30px;color:var(--muted);font-size:17px;text-align:center}
-.primary-button{min-height:48px;display:inline-flex;align-items:center;justify-content:center;padding:0 24px;border:0;border-radius:8px;background:var(--blue);color:white;font-weight:700;text-decoration:none;transition:.2s}
-.primary-button:hover{background:var(--blue-light);transform:translateY(-2px)}
-.primary-button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+.hero-description{
+max-width:600px;
+margin:25px auto 30px;
+color:var(--muted);
+font-size:17px;
+text-align:center
+}
+
+.primary-button{
+min-height:48px;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:0 24px;
+border:0;
+border-radius:8px;
+background:var(--blue);
+color:white;
+font-weight:700;
+text-decoration:none;
+transition:.2s
+}
+
+.primary-button:hover{
+background:var(--blue-light);
+transform:translateY(-2px)
+}
+
+.primary-button:disabled{
+opacity:.45;
+cursor:not-allowed;
+transform:none
+}
+
 .hero .primary-button{margin-inline:auto}
+
 .content-section{padding:85px 0}
-.section-heading{margin-bottom:38px;text-align:center}
-.section-heading h2{margin:0 0 10px;font-size:clamp(28px,4vw,40px);letter-spacing:-1px}
-.section-heading p{margin:0;color:var(--muted)}
-.services-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.service-card{width:100%;min-height:175px;padding:26px;border:1px solid var(--border);border-radius:13px;background:var(--surface);color:var(--white);text-align:left;transition:.2s}
-.service-card:hover,.service-card:focus-visible,.service-card.selected{border-color:var(--blue-light);background:var(--surface-2);outline:none;transform:translateY(-2px)}
-.service-card h3{margin:0 0 12px;font-size:19px;line-height:1.4}
-.service-card p{margin:0;color:var(--muted);font-size:14px}
-.card-hint{display:inline-block;margin-top:18px;color:var(--blue-light);font-size:13px;font-weight:700}
+
+.section-heading{
+margin-bottom:38px;
+text-align:center
+}
+
+.section-heading h2{
+margin:0 0 10px;
+font-size:clamp(28px,4vw,40px);
+letter-spacing:-1px
+}
+
+.section-heading p{
+margin:0;
+color:var(--muted)
+}
+
+.services-grid{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:18px
+}
+
+.service-card{
+width:100%;
+min-height:175px;
+padding:26px;
+border:1px solid var(--border);
+border-radius:13px;
+background:var(--surface);
+color:var(--white);
+text-align:left;
+transition:.2s
+}
+
+.service-card:hover,
+.service-card:focus-visible,
+.service-card.selected{
+border-color:var(--blue-light);
+background:var(--surface-2);
+outline:none;
+transform:translateY(-2px)
+}
+
+.service-card h3{
+margin:0 0 12px;
+font-size:19px;
+line-height:1.4
+}
+
+.service-card p{
+margin:0;
+color:var(--muted);
+font-size:14px
+}
+
+.card-hint{
+display:inline-block;
+margin-top:18px;
+color:var(--blue-light);
+font-size:13px;
+font-weight:700
+}
+
 #tarifs{background:#0b1929}
-.pricing-panel{max-width:760px;margin:auto;padding:30px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+
+.pricing-panel{
+max-width:760px;
+margin:auto;
+padding:30px;
+border:1px solid var(--border);
+border-radius:14px;
+background:var(--surface)
+}
+
 .field{margin-bottom:20px}
 .field[hidden]{display:none!important}
-.field label{display:block;margin-bottom:8px;color:var(--white);font-size:14px;font-weight:600}
-.field select,.field input,.field textarea{width:100%;min-height:48px;padding:12px 14px;border:1px solid var(--border);border-radius:8px;outline:none;background:#0b1929;color:var(--white)}
-.field select:focus,.field input:focus,.field textarea:focus{border-color:var(--blue-light)}
-.field select:disabled{opacity:.55;cursor:not-allowed}
-.price-display{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:25px 0;padding:18px;border-radius:9px;background:#0b1929}
+
+.field label{
+display:block;
+margin-bottom:8px;
+color:var(--white);
+font-size:14px;
+font-weight:600
+}
+
+.field select,
+.field input,
+.field textarea{
+width:100%;
+min-height:48px;
+padding:12px 14px;
+border:1px solid var(--border);
+border-radius:8px;
+outline:none;
+background:#0b1929;
+color:var(--white)
+}
+
+.field select:focus,
+.field input:focus,
+.field textarea:focus{
+border-color:var(--blue-light)
+}
+
+.field select:disabled{
+opacity:.55;
+cursor:not-allowed
+}
+
+.price-display{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+margin:25px 0;
+padding:18px;
+border-radius:9px;
+background:#0b1929
+}
+
 .price-display span:first-child{color:var(--muted)}
-#priceValue{color:var(--blue-light);font-size:26px;font-weight:800}
+
+#priceValue{
+color:var(--blue-light);
+font-size:26px;
+font-weight:800
+}
+
 .full-width{width:100%}
-.notice{margin-top:17px;color:var(--muted);font-size:12px;text-align:center}
-.status-message{margin:15px 0;font-size:14px;text-align:center}
+
+.notice{
+margin-top:17px;
+color:var(--muted);
+font-size:12px;
+text-align:center
+}
+
+.status-message{
+margin:15px 0;
+font-size:14px;
+text-align:center
+}
+
 .status-message.error{color:var(--error)}
 .status-message.success{color:var(--success)}
-#requestSection{display:none;margin-top:25px;padding-top:25px;border-top:1px solid var(--border)}
+
+#requestSection{
+display:none;
+margin-top:25px;
+padding-top:25px;
+border-top:1px solid var(--border)
+}
+
 #requestSection.visible{display:block}
-#requestSection h3{margin-top:0;font-size:21px}
-.field textarea{min-height:100px;resize:vertical}
-.consent{display:flex;align-items:flex-start;gap:10px;margin:18px 0;color:var(--muted);font-size:13px}
-.consent input{margin-top:5px;accent-color:var(--blue)}
-.site-footer{width:100%;margin-top:auto;padding:48px 20px 32px;border-top:1px solid var(--border);text-align:center}
-.footer-logo{display:inline-block;color:var(--white);font-size:25px;font-weight:800;letter-spacing:-1px;text-decoration:none}
-.site-footer p{margin:9px 0 0;color:var(--muted);font-size:14px}
-.process-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:900px;margin:0 auto}
-.process-card{padding:23px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
-.process-number{width:34px;height:34px;display:flex;align-items:center;justify-content:center;margin-bottom:13px;border-radius:50%;background:var(--surface-2);color:var(--blue-light);font-weight:800}
-.process-card h3{margin:0 0 8px;font-size:17px}
-.process-card p{margin:0;color:var(--muted);font-size:14px}
-.process-notice{max-width:900px;margin:20px auto 0;padding:16px 18px;border:1px solid var(--border);border-radius:10px;color:var(--muted);font-size:13px;background:var(--surface)}
+
+#requestSection h3{
+margin-top:0;
+font-size:21px
+}
+
+.field textarea{
+min-height:100px;
+resize:vertical
+}
+
+.consent{
+display:flex;
+align-items:flex-start;
+gap:10px;
+margin:18px 0;
+color:var(--muted);
+font-size:13px
+}
+
+.consent input{
+margin-top:5px;
+accent-color:var(--blue)
+}
+
+.site-footer{
+width:100%;
+margin-top:auto;
+padding:48px 20px 32px;
+border-top:1px solid var(--border);
+text-align:center
+}
+
+.footer-logo{
+display:inline-block;
+color:var(--white);
+font-size:25px;
+font-weight:800;
+letter-spacing:-1px;
+text-decoration:none
+}
+
+.site-footer p{
+margin:9px 0 0;
+color:var(--muted);
+font-size:14px
+}
+
+.process-grid{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:16px;
+max-width:900px;
+margin:0 auto
+}
+
+.process-card{
+padding:23px;
+border:1px solid var(--border);
+border-radius:12px;
+background:var(--surface)
+}
+
+.process-number{
+width:34px;
+height:34px;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-bottom:13px;
+border-radius:50%;
+background:var(--surface-2);
+color:var(--blue-light);
+font-weight:800
+}
+
+.process-card h3{
+margin:0 0 8px;
+font-size:17px
+}
+
+.process-card p{
+margin:0;
+color:var(--muted);
+font-size:14px
+}
+
+.process-notice{
+max-width:900px;
+margin:20px auto 0;
+padding:16px 18px;
+border:1px solid var(--border);
+border-radius:10px;
+color:var(--muted);
+font-size:13px;
+background:var(--surface)
+}
+
+/* PAGE DE CONFIRMATION */
+
+body.order-confirmed{
+min-height:100vh
+}
+
+body.order-confirmed .site-header{
+position:relative;
+top:auto
+}
+
+body.order-confirmed .header-inner{
+min-height:0;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:16px;
+padding:23px 0 19px
+}
+
+body.order-confirmed .header-logo{
+font-size:28px;
+grid-column:auto;
+justify-self:auto
+}
+
+body.order-confirmed .header-right{
+width:100%;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:11px;
+grid-column:auto;
+justify-self:auto
+}
+
+body.order-confirmed .main-nav{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+align-items:center;
+gap:10px 25px
+}
+
+/* Contact reste sans cadre */
+body.order-confirmed .main-nav a,
+body.order-confirmed .main-nav button{
+padding:4px 0;
+border:0;
+border-radius:0;
+background:transparent;
+color:var(--muted);
+font-size:12px;
+font-weight:400;
+text-decoration:none
+}
+
+body.order-confirmed .main-nav a:hover,
+body.order-confirmed .main-nav button:hover{
+color:var(--blue-light)
+}
+
+/* EN seul sur sa propre ligne, avec un cadre */
+body.order-confirmed .main-nav .lang-toggle{
+min-width:43px;
+margin-top:4px;
+padding:5px 11px!important;
+border:1px solid var(--border)!important;
+border-radius:6px!important;
+color:var(--blue-light)!important
+}
+
+body.order-confirmed .contact-icons{
+justify-content:center;
+margin-top:2px
+}
+
+body.order-confirmed > main:not(#confirmationScreen),
+body.order-confirmed > .site-footer{
+display:none!important
+}
+
+#confirmationScreen{
+width:100%;
+flex:1;
+min-height:570px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:space-between;
+padding:55px 20px 34px;
+text-align:center
+}
+
+.confirmation-center{
+width:100%;
+flex:1;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:22px;
+padding:35px 0
+}
+
+.confirmation-check{
+width:54px;
+height:54px;
+display:flex;
+align-items:center;
+justify-content:center;
+border:2px solid var(--success);
+border-radius:50%;
+color:var(--success);
+font-size:30px;
+font-weight:500;
+line-height:1
+}
+
+.confirmation-title{
+max-width:650px;
+margin:0;
+color:var(--white);
+font-size:clamp(23px,4vw,30px);
+font-weight:600;
+line-height:1.4;
+letter-spacing:-.6px;
+text-align:center
+}
+
+.confirmation-bottom{
+width:100%;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:8px;
+padding-top:28px
+}
+
+.confirmation-message{
+margin:0;
+color:var(--muted);
+font-size:13px;
+line-height:1.5;
+text-align:center
+}
+
+.confirmation-logo{
+display:inline-block;
+margin:0;
+color:var(--white);
+font-size:25px;
+font-weight:800;
+letter-spacing:-1px;
+line-height:1.4;
+text-decoration:none;
+white-space:nowrap
+}
+
+.confirmation-ok{
+min-width:66px;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+margin-top:9px;
+padding:6px 19px;
+border:1px solid var(--border);
+border-radius:6px;
+background:transparent;
+color:var(--white);
+font-size:12px;
+font-weight:500;
+text-decoration:none;
+transition:background .2s,border-color .2s
+}
+
+.confirmation-ok:hover{
+border-color:var(--blue);
+background:var(--surface)
+}
+
 @media(max-width:850px){
-.header-inner{grid-template-columns:1fr;justify-items:center;gap:10px;padding:14px 0}
-.header-logo,.header-right{grid-column:1;justify-self:center}
-.header-right{flex-direction:column;gap:8px}
-.main-nav{justify-content:center;flex-wrap:wrap;gap:18px}
+.header-inner{
+grid-template-columns:1fr;
+justify-items:center;
+gap:10px;
+padding:14px 0
+}
+
+.header-logo,.header-right{
+grid-column:1;
+justify-self:center
+}
+
+.header-right{
+flex-direction:column;
+gap:8px
+}
+
+.main-nav{
+justify-content:center;
+flex-wrap:wrap;
+gap:18px
+}
+
 .contact-icons{justify-content:center}
 }
+
 @media(max-width:600px){
-.hero{min-height:460px;padding:65px 0}
+.hero{
+min-height:460px;
+padding:65px 0
+}
+
 h1{letter-spacing:-2px}
 .services-grid{grid-template-columns:1fr}
 .content-section{padding:65px 0}
 .pricing-panel{padding:20px}
 .main-nav{gap:14px}
-.main-nav a,.main-nav button{font-size:12px}
+
+.main-nav a,.main-nav button{
+font-size:12px
+}
+
 .process-grid{grid-template-columns:1fr}
+
+body.order-confirmed .header-inner{
+gap:14px;
+padding:20px 0 17px
+}
+
+body.order-confirmed .header-logo{font-size:26px}
+
+body.order-confirmed .main-nav{
+max-width:350px;
+gap:9px 17px
+}
+
+#confirmationScreen{
+min-height:535px;
+padding:38px 18px 27px
+}
+
+.confirmation-center{gap:18px}
+
+.confirmation-title{
+font-size:23px;
+letter-spacing:-.4px
+}
+
+.confirmation-bottom{padding-top:25px}
 }
 </style>
 </head>
@@ -134,9 +775,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 
 <header class="site-header">
 <div class="container header-inner">
-<a href="#accueil" class="logo header-logo" aria-label="ebagzunlock accueil">ebagz<span class="logo-blue">unlock</span></a>
+
+<a href="#accueil" class="logo header-logo" aria-label="ebagzunlock accueil">
+ebagz<span class="logo-blue">unlock</span>
+</a>
 
 <div class="header-right">
+
 <nav class="main-nav" aria-label="Navigation principale">
 <a href="#accueil" data-i18n="navHome">Accueil</a>
 <a href="#services" data-i18n="navServices">Services</a>
@@ -148,12 +793,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 
 <div class="contact-icons" id="contactIcons" hidden>
 <a href="mailto:ebagzunlock@outlook.fr" aria-label="Envoyer un e-mail" title="Envoyer un e-mail">
-<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+<rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/>
+<path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
 </a>
+
 <a href="https://wa.me/33644676361" target="_blank" rel="noopener noreferrer" aria-label="Envoyer un message" title="Envoyer un message">
-<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.2A8.5 8.5 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 8.2c.4-.5.8-.4 1.1.1l.8 1.5c.2.3.1.6-.2.9l-.5.5c.6 1.1 1.4 1.9 2.6 2.5l.5-.6c.2-.3.5-.4.9-.2l1.5.7c.5.2.6.7.2 1.1-.5.6-1.1.9-1.9.8-2.8-.4-5.8-3.3-6.1-6.1-.1-.5.3-1 .8-1.2Z" fill="currentColor"/></svg>
+<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+<path d="M20 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.2A8.5 8.5 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M8 8.2c.4-.5.8-.4 1.1.1l.8 1.5c.2.3.1.6-.2.9l-.5.5c.6 1.1 1.4 1.9 2.6 2.5l.5-.6c.2-.3.5-.4.9-.2l1.5.7c.5.2.6.7.2 1.1-.5.6-1.1.9-1.9.8-2.8-.4-5.8-3.3-6.1-6.1-.1-.5.3-1 .8-1.2Z" fill="currentColor"/>
+</svg>
 </a>
 </div>
+
 </div>
 </div>
 </header>
@@ -162,7 +815,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <section class="hero" id="accueil">
 <div class="container hero-content">
 <div class="eyebrow" data-i18n="eyebrow">SERVICES DE DÉVERROUILLAGE POUR APPAREILS APPLE</div>
-<h1><span data-i18n="heroLine1">Votre appareil.</span><span class="blue" data-i18n="heroLine2">Notre expertise.</span></h1>
+<h1>
+<span data-i18n="heroLine1">Votre appareil.</span>
+<span class="blue" data-i18n="heroLine2">Notre expertise.</span>
+</h1>
 <p class="hero-description" data-i18n="heroDesc">Des solutions adaptées à vos appareils Apple, avec une prise en charge rapide et professionnelle.</p>
 <a href="#services" class="primary-button" data-i18n="discover">Découvrir nos services</a>
 </div>
@@ -176,33 +832,51 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </div>
 
 <div class="services-grid">
+
 <button class="service-card" type="button" data-service="Déverrouillage iCloud">
-<h3 data-i18n="svcIcloud">Déverrouillage iCloud</h3><p data-i18n="imeiSerial">IMEI ou numéro de série</p><span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
+<h3 data-i18n="svcIcloud">Déverrouillage iCloud</h3>
+<p data-i18n="imeiSerial">IMEI ou numéro de série</p>
+<span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
 </button>
+
 <button class="service-card" type="button" data-service="Déverrouillage Opérateur">
-<h3 data-i18n="svcCarrier">Déverrouillage Opérateur</h3><p data-i18n="imeiOnly">IMEI uniquement</p><span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
+<h3 data-i18n="svcCarrier">Déverrouillage Opérateur</h3>
+<p data-i18n="imeiOnly">IMEI uniquement</p>
+<span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
 </button>
+
 <button class="service-card" type="button" data-service="Suppression Blocage &Limitation Propriétaire">
-<h3 data-i18n="svcOwner">Suppression Blocage &amp; Limitation Propriétaire</h3><p data-i18n="imeiSerial">IMEI / Numéro de série</p><span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
+<h3 data-i18n="svcOwner">Suppression Blocage &amp; Limitation Propriétaire</h3>
+<p data-i18n="imeiSerial">IMEI / Numéro de série</p>
+<span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
 </button>
+
 <button class="service-card" type="button" data-service="Résolution Blocage DFU & Mode de Récupération">
-<h3 data-i18n="svcDfu">Résolution Blocage DFU &amp; Mode de Récupération</h3><p data-i18n="imeiSerial">IMEI / numéro de série</p><span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
+<h3 data-i18n="svcDfu">Résolution Blocage DFU &amp; Mode de Récupération</h3>
+<p data-i18n="imeiSerial">IMEI / numéro de série</p>
+<span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
 </button>
+
 <button class="service-card" type="button" data-service="Mise à jour iOS / macOS">
-<h3 data-i18n="svcUpdate">Mise à jour iOS / macOS</h3><p data-i18n="updateChoicesDesc">Choisissez iOS, macOS ou ebagzunlock</p><span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
+<h3 data-i18n="svcUpdate">Mise à jour iOS / macOS</h3>
+<p data-i18n="updateChoicesDesc">Choisissez iOS, macOS ou ebagzunlock</p>
+<span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
 </button>
+
 </div>
 </div>
 </section>
 
 <section class="content-section" id="tarifs">
 <div class="container">
+
 <div class="section-heading">
 <h2 data-i18n="pricesTitle">Tarifs</h2>
 <p data-i18n="pricesDesc">Choisissez votre service et votre appareil pour afficher le tarif.</p>
 </div>
 
 <div class="pricing-panel">
+
 <div class="field">
 <label for="serviceSelect" data-i18n="serviceLabel">Service</label>
 <select id="serviceSelect">
@@ -228,7 +902,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 
 <div class="field" id="modelField">
 <label for="modelSelect" data-i18n="modelLabel">Modèle</label>
-<select id="modelSelect" disabled><option value="" data-i18n="chooseModel">Choisir un modèle</option></select>
+<select id="modelSelect" disabled>
+<option value="" data-i18n="chooseModel">Choisir un modèle</option>
+</select>
 </div>
 
 <div class="price-display">
@@ -237,65 +913,100 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </div>
 
 <button class="primary-button full-width" id="payButton" type="button" disabled data-i18n="payButton">Procéder au paiement sécurisé</button>
+
 <div id="paymentStatus" class="status-message" role="status" aria-live="polite"></div>
+
 <p class="notice" data-i18n="stripeNotice">Le paiement est traité de manière sécurisée par Stripe.</p>
 
 <div id="requestSection">
+
 <h3 data-i18n="yourRequest">Votre demande</h3>
+
 <p class="notice" style="text-align:left;margin:0 0 20px" data-i18n="paidNotice">Paiement vérifié. Complétez les informations nécessaires à votre demande.</p>
 
 <form id="requestForm">
+
 <div class="field">
 <label for="customerName" data-i18n="nameLabel">Nom et prénom</label>
 <input id="customerName" name="name" autocomplete="name" required>
 </div>
+
 <div class="field">
 <label for="customerEmail" data-i18n="emailLabel">Adresse e-mail</label>
 <input id="customerEmail" name="email" type="email" autocomplete="email" required>
 </div>
+
 <div class="field">
 <label for="customerPhone" data-i18n="phoneLabel">Numéro de téléphone</label>
 <input id="customerPhone" name="phone" type="tel" autocomplete="tel" required>
 </div>
+
 <div class="field">
 <label for="deviceIdentifier" data-i18n="identifierLabel">IMEI ou numéro de série</label>
 <input id="deviceIdentifier" name="identifier" required>
 </div>
+
 <div class="field">
 <label for="customerMessage" data-i18n="messageLabel">Informations complémentaires</label>
 <textarea id="customerMessage" name="message" data-i18n-placeholder="messagePlaceholder" placeholder="Décrivez votre demande si nécessaire."></textarea>
 </div>
+
 <label class="consent">
 <input type="checkbox" id="ownershipConsent" required>
 <span data-i18n="consentText">Je confirme être le propriétaire de l'appareil ou être autorisé à effectuer cette demande. Toute intervention sera limitée aux opérations légales et autorisées.</span>
 </label>
+
 <button class="primary-button full-width" type="submit" data-i18n="submitRequest">Envoyer ma demande</button>
 </form>
 
 <div id="requestStatus" class="status-message" role="status" aria-live="polite"></div>
 </div>
+
 </div>
 </div>
 </section>
 
 <section class="content-section" id="fonctionnement">
 <div class="container">
+
 <div class="section-heading">
 <h2 data-i18n="howTitle">Comment ça fonctionne ?</h2>
 <p data-i18n="howDesc">Les étapes de votre demande, de la sélection du service à son traitement.</p>
 </div>
 
 <div class="process-grid">
-<div class="process-card"><div class="process-number">1</div><h3 data-i18n="step1Title">Choisissez votre prestation</h3><p data-i18n="step1Text">Sélectionnez le service, la catégorie de votre appareil et son modèle. Le tarif correspondant s'affiche avant le paiement.</p></div>
-<div class="process-card"><div class="process-number">2</div><h3 data-i18n="step2Title">Effectuez le paiement sécurisé</h3><p data-i18n="step2Text">Réglez votre prestation via Stripe. Votre demande ne peut être envoyée qu’après confirmation du paiement.</p></div>
-<div class="process-card"><div class="process-number">3</div><h3 data-i18n="step3Title">Transmettez vos informations</h3><p data-i18n="step3Text">Après vérification du paiement, remplissez le formulaire avec vos coordonnées et les informations nécessaires sur l’appareil. Vous devez en être propriétaire ou être autorisé à effectuer la demande.</p></div>
-<div class="process-card"><div class="process-number">4</div><h3 data-i18n="step4Title">Étude et suivi de la demande</h3><p data-i18n="step4Text">Nous examinons les informations reçues et vous contactons pour vous préciser les prochaines étapes ainsi que le délai estimé, selon le service et le modèle.</p></div>
+
+<div class="process-card">
+<div class="process-number">1</div>
+<h3 data-i18n="step1Title">Choisissez votre prestation</h3>
+<p data-i18n="step1Text">Sélectionnez le service, la catégorie de votre appareil et son modèle. Le tarif correspondant s'affiche avant le paiement.</p>
+</div>
+
+<div class="process-card">
+<div class="process-number">2</div>
+<h3 data-i18n="step2Title">Effectuez le paiement sécurisé</h3>
+<p data-i18n="step2Text">Réglez votre prestation via Stripe. Votre demande ne peut être envoyée qu’après confirmation du paiement.</p>
+</div>
+
+<div class="process-card">
+<div class="process-number">3</div>
+<h3 data-i18n="step3Title">Transmettez vos informations</h3>
+<p data-i18n="step3Text">Après vérification du paiement, remplissez le formulaire avec vos coordonnées et les informations nécessaires sur l’appareil. Vous devez en être propriétaire ou être autorisé à effectuer la demande.</p>
+</div>
+
+<div class="process-card">
+<div class="process-number">4</div>
+<h3 data-i18n="step4Title">Étude et suivi de la demande</h3>
+<p data-i18n="step4Text">Nous examinons les informations reçues et vous contactons pour vous préciser les prochaines étapes ainsi que le délai estimé, selon le service et le modèle.</p>
+</div>
+
 </div>
 
 <div class="process-notice">
 <strong data-i18n="noteTitle">À savoir :</strong>
 <span data-i18n="noteText">les délais et la faisabilité varient selon l’appareil, le service demandé et les vérifications nécessaires. Aucune durée ni aucun résultat ne peut être garanti avant l’étude de votre dossier. Les demandes doivent concerner des appareils que vous possédez ou pour lesquels vous disposez d’une autorisation légitime.</span>
 </div>
+
 </div>
 </section>
 </main>
@@ -308,111 +1019,254 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <script>
 "use strict";
 
-/* Catalogue et tarifs conservés */
+/* Catalogue des appareils et tarifs */
 const CATALOGUE = {
 "iPhone":{
-"iPhone X":25,"iPhone XR":25,"iPhone XS":25,"iPhone XS Max":25,
-"iPhone 11":25,"iPhone 11 Pro":25,"iPhone 11 Pro Max":27,
-"iPhone 12 mini":25,"iPhone 12":25,"iPhone 12 Pro":29,
-"iPhone 12 Pro Max":32,"iPhone 13 mini":39,"iPhone 13":40,
-"iPhone 13 Pro":40,"iPhone 13 Pro Max":42,"iPhone 14":40,
-"iPhone 14 Plus":40,"iPhone 14 Pro":43,"iPhone 14 Pro Max":49,
-"iPhone 15":53,"iPhone 15 Plus":55,"iPhone 15 Pro":55,
-"iPhone 15 Pro Max":59,"iPhone 16":64,"iPhone 16 Plus":59,
-"iPhone 16 Pro":62,"iPhone 16 Pro Max":69,"iPhone 16e":65,
-"iPhone 17":69,"iPhone 17 Pro":70,"iPhone 17 Pro Max":77,
-"iPhone 17e":75,"iPhone 17 Air":79,"iPhone 18":85,
-"iPhone 18 Pro":89,"iPhone 18 Pro Max":100,"iPhone 18 Duo":95
+"iPhone X":25,
+"iPhone XR":25,
+"iPhone XS":25,
+"iPhone XS Max":25,
+"iPhone 11":25,
+"iPhone 11 Pro":25,
+"iPhone 11 Pro Max":27,
+"iPhone 12 mini":25,
+"iPhone 12":25,
+"iPhone 12 Pro":29,
+"iPhone 12 Pro Max":32,
+"iPhone 13 mini":39,
+"iPhone 13":40,
+"iPhone 13 Pro":40,
+"iPhone 13 Pro Max":42,
+"iPhone 14":40,
+"iPhone 14 Plus":40,
+"iPhone 14 Pro":43,
+"iPhone 14 Pro Max":49,
+"iPhone 15":53,
+"iPhone 15 Plus":55,
+"iPhone 15 Pro":55,
+"iPhone 15 Pro Max":59,
+"iPhone 16":64,
+"iPhone 16 Plus":59,
+"iPhone 16 Pro":62,
+"iPhone 16 Pro Max":69,
+"iPhone 16e":65,
+"iPhone 17":69,
+"iPhone 17 Pro":70,
+"iPhone 17 Pro Max":77,
+"iPhone 17e":75,
+"iPhone 17 Air":79,
+"iPhone 18":85,
+"iPhone 18 Pro":89,
+"iPhone 18 Pro Max":100,
+"iPhone 18 Duo":95
 },
+
 "MacBook":{
-"MacBook Air Intel 2008–2020":35,"MacBook Air M1":38,
-"MacBook Air M2 13/15 pouces":38,"MacBook Air M3 13/15 pouces":40,
-"MacBook Air M4 13/15 pouces":40,"MacBook Air M5 13/15 pouces":42,
-"MacBook Pro Intel":40,"MacBook Pro M1 13/14/16 pouces":45,
-"MacBook Pro M2":45,"MacBook Pro M3 14/16 pouces":45,
-"MacBook Pro M4 14/16 pouces":49,"MacBook Pro M5 14/16 pouces":49,
-"MacBook Pro M6 14 pouces":55,"MacBook 12 pouces 2015–2017":30,
+"MacBook Air Intel 2008–2020":35,
+"MacBook Air M1":38,
+"MacBook Air M2 13/15 pouces":38,
+"MacBook Air M3 13/15 pouces":40,
+"MacBook Air M4 13/15 pouces":40,
+"MacBook Air M5 13/15 pouces":42,
+"MacBook Pro Intel":40,
+"MacBook Pro M1 13/14/16 pouces":45,
+"MacBook Pro M2":45,
+"MacBook Pro M3 14/16 pouces":45,
+"MacBook Pro M4 14/16 pouces":49,
+"MacBook Pro M5 14/16 pouces":49,
+"MacBook Pro M6 14 pouces":55,
+"MacBook 12 pouces 2015–2017":30,
 "MacBook Neo A18 Pro":133
 },
+
 "iPad":{
 "iPad classique 1re–11e génération (A16 inclus)":37,
-"iPad mini 1–6 (A17 Pro inclus)":39,"iPad Air 1–5":37,
-"iPad Air M2/M3/M4 11/13 pouces":35,"iPad Pro 9.7 pouces":39,
-"iPad Pro 10.5 pouces":39,"iPad Pro 11 pouces générations 1–5":45,
+"iPad mini 1–6 (A17 Pro inclus)":39,
+"iPad Air 1–5":37,
+"iPad Air M2/M3/M4 11/13 pouces":35,
+"iPad Pro 9.7 pouces":39,
+"iPad Pro 10.5 pouces":39,
+"iPad Pro 11 pouces générations 1–5":45,
 "iPad Pro 12.9 pouces générations 1–6":49,
-"iPad Pro M4 11/13 pouces":52,"iPad Pro M5 11/13 pouces":55
+"iPad Pro M4 11/13 pouces":52,
+"iPad Pro M5 11/13 pouces":55
 },
+
 "Apple Watch":{
-"Apple Watch Series 1–12":54,"Apple Watch SE 1/2/3":63,
+"Apple Watch Series 1–12":54,
+"Apple Watch SE 1/2/3":63,
 "Apple Watch Ultra 1/2/3/4":69
 }
 };
 
 const UPDATE_SERVICE="Mise à jour iOS / macOS";
-const UPDATE_PRICES={"iOS":7,"macOS":15,"ebagzunlock":2};
+const UPDATE_PRICES={
+"iOS":7,
+"macOS":15,
+"ebagzunlock":2
+};
 
+/* Traductions */
 const I18N={
 fr:{
-navHome:"Accueil",navServices:"Services",navPrices:"Tarifs",navHow:"Fonctionnement",contact:"Contact",
-eyebrow:"SERVICES DE DÉVERROUILLAGE POUR APPAREILS APPLE",heroLine1:"Votre appareil.",heroLine2:"Notre expertise.",
-heroDesc:"Des solutions adaptées à vos appareils Apple, avec une prise en charge rapide et professionnelle.",discover:"Découvrir nos services",
-servicesTitle:"Nos services",servicesDesc:"Sélectionnez un service pour commencer votre demande.",
-svcIcloud:"Déverrouillage iCloud",svcCarrier:"Déverrouillage Opérateur",svcOwner:"Suppression Blocage & Limitation Propriétaire",
-svcDfu:"Résolution Blocage DFU & Mode de Récupération",svcUpdate:"Mise à jour iOS / macOS",
-imeiSerial:"IMEI ou numéro de série",imeiOnly:"IMEI uniquement",selectService:"Sélectionner ce service →",
-updateChoicesDesc:"Choisissez iOS, macOS ou ebagzunlock",pricesTitle:"Tarifs",pricesDesc:"Choisissez votre service et votre appareil pour afficher le tarif.",
-serviceLabel:"Service",chooseService:"Choisir un service",deviceCategory:"Catégorie d'appareil",chooseCategory:"Choisir une catégorie",
-modelLabel:"Modèle",chooseModel:"Choisir un modèle",servicePrice:"Prix de la prestation",payButton:"Procéder au paiement sécurisé",
-stripeNotice:"Le paiement est traité de manière sécurisée par Stripe.",yourRequest:"Votre demande",paidNotice:"Paiement vérifié. Complétez les informations nécessaires à votre demande.",
-nameLabel:"Nom et prénom",emailLabel:"Adresse e-mail",phoneLabel:"Numéro de téléphone",identifierLabel:"IMEI ou numéro de série",
-messageLabel:"Informations complémentaires",messagePlaceholder:"Décrivez votre demande si nécessaire.",
+navHome:"Accueil",
+navServices:"Services",
+navPrices:"Tarifs",
+navHow:"Fonctionnement",
+contact:"Contact",
+eyebrow:"SERVICES DE DÉVERROUILLAGE POUR APPAREILS APPLE",
+heroLine1:"Votre appareil.",
+heroLine2:"Notre expertise.",
+heroDesc:"Des solutions adaptées à vos appareils Apple, avec une prise en charge rapide et professionnelle.",
+discover:"Découvrir nos services",
+servicesTitle:"Nos services",
+servicesDesc:"Sélectionnez un service pour commencer votre demande.",
+svcIcloud:"Déverrouillage iCloud",
+svcCarrier:"Déverrouillage Opérateur",
+svcOwner:"Suppression Blocage & Limitation Propriétaire",
+svcDfu:"Résolution Blocage DFU & Mode de Récupération",
+svcUpdate:"Mise à jour iOS / macOS",
+imeiSerial:"IMEI ou numéro de série",
+imeiOnly:"IMEI uniquement",
+selectService:"Sélectionner ce service →",
+updateChoicesDesc:"Choisissez iOS, macOS ou ebagzunlock",
+pricesTitle:"Tarifs",
+pricesDesc:"Choisissez votre service et votre appareil pour afficher le tarif.",
+serviceLabel:"Service",
+chooseService:"Choisir un service",
+deviceCategory:"Catégorie d'appareil",
+chooseCategory:"Choisir une catégorie",
+modelLabel:"Modèle",
+chooseModel:"Choisir un modèle",
+servicePrice:"Prix de la prestation",
+payButton:"Procéder au paiement sécurisé",
+stripeNotice:"Le paiement est traité de manière sécurisée par Stripe.",
+yourRequest:"Votre demande",
+paidNotice:"Paiement vérifié. Complétez les informations nécessaires à votre demande.",
+nameLabel:"Nom et prénom",
+emailLabel:"Adresse e-mail",
+phoneLabel:"Numéro de téléphone",
+identifierLabel:"IMEI ou numéro de série",
+messageLabel:"Informations complémentaires",
+messagePlaceholder:"Décrivez votre demande si nécessaire.",
 consentText:"Je confirme être le propriétaire de l'appareil ou être autorisé à effectuer cette demande. Toute intervention sera limitée aux opérations légales et autorisées.",
-submitRequest:"Envoyer ma demande",howTitle:"Comment ça fonctionne ?",howDesc:"Les étapes de votre demande, de la sélection du service à son traitement.",
-step1Title:"Choisissez votre prestation",step1Text:"Sélectionnez le service, la catégorie de votre appareil et son modèle. Le tarif correspondant s'affiche avant le paiement.",
-step2Title:"Effectuez le paiement sécurisé",step2Text:"Réglez votre prestation via Stripe. Votre demande ne peut être envoyée qu’après confirmation du paiement.",
-step3Title:"Transmettez vos informations",step3Text:"Après vérification du paiement, remplissez le formulaire avec vos coordonnées et les informations nécessaires sur l’appareil. Vous devez en être propriétaire ou être autorisé à effectuer la demande.",
-step4Title:"Étude et suivi de la demande",step4Text:"Nous examinons les informations reçues et vous contactons pour vous préciser les prochaines étapes ainsi que le délai estimé, selon le service et le modèle.",
-noteTitle:"À savoir :",noteText:"les délais et la faisabilité varient selon l’appareil, le service demandé et les vérifications nécessaires. Aucune durée ni aucun résultat ne peut être garanti avant l’étude de votre dossier. Les demandes doivent concerner des appareils que vous possédez ou pour lesquels vous disposez d’une autorisation légitime.",
-footerText:"Services dédiés aux appareils Apple.",chooseOption:"Choisir une option",updateChoice:"Choix de la prestation",
-preparing:"Préparation du paiement sécurisé…",verify:"Vérification de votre paiement…",verified:"Paiement vérifié. Vous pouvez maintenant envoyer votre demande.",
-invalidSelection:"Sélectionnez une prestation pour afficher son tarif.",paymentNotConfirmed:"Le paiement n'a pas pu être confirmé. Si vous avez payé, contactez-nous.",
-alreadyPaid:"Paiement déjà effectué",sendSecure:"Envoi sécurisé de votre commande…",sending:"Envoi de la commande…",
-noVerified:"Aucun paiement vérifié n'est associé à cette demande.",sendError:"Impossible d'envoyer la commande. Contactez-nous.",
-successTitle:"Demande envoyée avec succès !",successText:"Votre paiement a été vérifié et vos informations ont bien été reçues. Merci pour votre confiance.",home:"Retour à l’accueil",
-switchLabel:"Switch to English",errorGeneric:"Une erreur est survenue."
+submitRequest:"Envoyer ma demande",
+howTitle:"Comment ça fonctionne ?",
+howDesc:"Les étapes de votre demande, de la sélection du service à son traitement.",
+step1Title:"Choisissez votre prestation",
+step1Text:"Sélectionnez le service, la catégorie de votre appareil et son modèle. Le tarif correspondant s'affiche avant le paiement.",
+step2Title:"Effectuez le paiement sécurisé",
+step2Text:"Réglez votre prestation via Stripe. Votre demande ne peut être envoyée qu’après confirmation du paiement.",
+step3Title:"Transmettez vos informations",
+step3Text:"Après vérification du paiement, remplissez le formulaire avec vos coordonnées et les informations nécessaires sur l’appareil. Vous devez en être propriétaire ou être autorisé à effectuer la demande.",
+step4Title:"Étude et suivi de la demande",
+step4Text:"Nous examinons les informations reçues et vous contactons pour vous préciser les prochaines étapes ainsi que le délai estimé, selon le service et le modèle.",
+noteTitle:"À savoir :",
+noteText:"les délais et la faisabilité varient selon l’appareil, le service demandé et les vérifications nécessaires. Aucune durée ni aucun résultat ne peut être garanti avant l’étude de votre dossier. Les demandes doivent concerner des appareils que vous possédez ou pour lesquels vous disposez d’une autorisation légitime.",
+footerText:"Services dédiés aux appareils Apple.",
+chooseOption:"Choisir une option",
+updateChoice:"Choix de la prestation",
+preparing:"Préparation du paiement sécurisé…",
+verify:"Vérification de votre paiement…",
+verified:"Paiement vérifié. Vous pouvez maintenant envoyer votre demande.",
+invalidSelection:"Sélectionnez une prestation pour afficher son tarif.",
+paymentNotConfirmed:"Le paiement n'a pas pu être confirmé. Si vous avez payé, contactez-nous.",
+alreadyPaid:"Paiement déjà effectué",
+sendSecure:"Envoi sécurisé de votre commande…",
+sending:"Envoi de la commande…",
+noVerified:"Aucun paiement vérifié n'est associé à cette demande.",
+sendError:"Impossible d'envoyer la commande. Contactez-nous.",
+successTitle:"Paiement et informations reçus.",
+successText:"Vous recevrez bientôt des mises à jour de l'équipe",
+home:"Retour à l’accueil",
+confirmationTitle:"Paiement et informations reçus.",
+confirmationUpdates:"Vous recevrez bientôt des mises à jour de l'équipe",
+okLabel:"OK",
+switchLabel:"Passer en anglais",
+errorGeneric:"Une erreur est survenue."
 },
+
 en:{
-navHome:"Home",navServices:"Services",navPrices:"Pricing",navHow:"How it works",contact:"Contact",
-eyebrow:"UNLOCKING SERVICES FOR APPLE DEVICES",heroLine1:"Your device.",heroLine2:"Our expertise.",
-heroDesc:"Solutions tailored to your Apple devices, with fast and professional support.",discover:"Explore our services",
-servicesTitle:"Our services",servicesDesc:"Select a service to start your request.",
-svcIcloud:"iCloud Unlock",svcCarrier:"Carrier Unlock",svcOwner:"Owner Lock & Restriction Removal",
-svcDfu:"DFU & Recovery Mode Issue Resolution",svcUpdate:"iOS / macOS Update",
-imeiSerial:"IMEI or serial number",imeiOnly:"IMEI only",selectService:"Select this service →",
-updateChoicesDesc:"Choose iOS, macOS or ebagzunlock",pricesTitle:"Pricing",pricesDesc:"Choose your service and device to display the price.",
-serviceLabel:"Service",chooseService:"Choose a service",deviceCategory:"Device category",chooseCategory:"Choose a category",
-modelLabel:"Model",chooseModel:"Choose a model",servicePrice:"Service price",payButton:"Proceed to secure payment",
-stripeNotice:"Payment is processed securely by Stripe.",yourRequest:"Your request",paidNotice:"Payment verified. Complete the information required for your request.",
-nameLabel:"Full name",emailLabel:"Email address",phoneLabel:"Phone number",identifierLabel:"IMEI or serial number",
-messageLabel:"Additional information",messagePlaceholder:"Describe your request if necessary.",
+navHome:"Home",
+navServices:"Services",
+navPrices:"Pricing",
+navHow:"How it works",
+contact:"Contact",
+eyebrow:"UNLOCKING SERVICES FOR APPLE DEVICES",
+heroLine1:"Your device.",
+heroLine2:"Our expertise.",
+heroDesc:"Solutions tailored to your Apple devices, with fast and professional support.",
+discover:"Explore our services",
+servicesTitle:"Our services",
+servicesDesc:"Select a service to start your request.",
+svcIcloud:"iCloud Unlock",
+svcCarrier:"Carrier Unlock",
+svcOwner:"Owner Lock & Restriction Removal",
+svcDfu:"DFU & Recovery Mode Issue Resolution",
+svcUpdate:"iOS / macOS Update",
+imeiSerial:"IMEI or serial number",
+imeiOnly:"IMEI only",
+selectService:"Select this service →",
+updateChoicesDesc:"Choose iOS, macOS or ebagzunlock",
+pricesTitle:"Pricing",
+pricesDesc:"Choose your service and device to display the price.",
+serviceLabel:"Service",
+chooseService:"Choose a service",
+deviceCategory:"Device category",
+chooseCategory:"Choose a category",
+modelLabel:"Model",
+chooseModel:"Choose a model",
+servicePrice:"Service price",
+payButton:"Proceed to secure payment",
+stripeNotice:"Payment is processed securely by Stripe.",
+yourRequest:"Your request",
+paidNotice:"Payment verified. Complete the information required for your request.",
+nameLabel:"Full name",
+emailLabel:"Email address",
+phoneLabel:"Phone number",
+identifierLabel:"IMEI or serial number",
+messageLabel:"Additional information",
+messagePlaceholder:"Describe your request if necessary.",
 consentText:"I confirm that I own the device or am authorized to make this request. Any work will be limited to lawful and authorized operations.",
-submitRequest:"Submit my request",howTitle:"How does it work?",howDesc:"The steps of your request, from service selection to processing.",
-step1Title:"Choose your service",step1Text:"Select the service, your device category and its model. The corresponding price is displayed before payment.",
-step2Title:"Make a secure payment",step2Text:"Pay for your service through Stripe. Your request can only be submitted after payment has been confirmed.",
-step3Title:"Provide your information",step3Text:"Once payment is verified, complete the form with your contact details and the required device information. You must own the device or be authorized to make the request.",
-step4Title:"Request review and follow-up",step4Text:"We review the information received and contact you with the next steps and an estimated timeframe, depending on the service and model.",
-noteTitle:"Please note:",noteText:"Timeframes and feasibility vary depending on the device, requested service and required checks. No duration or result can be guaranteed before your case has been reviewed. Requests must concern devices you own or for which you have legitimate authorization.",
-footerText:"Services dedicated to Apple devices.",chooseOption:"Choose an option",updateChoice:"Service option",
-preparing:"Preparing secure payment…",verify:"Verifying your payment…",verified:"Payment verified. You can now submit your request.",
-invalidSelection:"Select a service to display its price.",paymentNotConfirmed:"Your payment could not be confirmed. If you have paid, please contact us.",
-alreadyPaid:"Payment already completed",sendSecure:"Securely submitting your request…",sending:"Submitting your request…",
-noVerified:"No verified payment is associated with this request.",sendError:"Unable to submit the request. Please contact us.",
-successTitle:"Request submitted successfully!",successText:"Your payment has been verified and your information has been received. Thank you for your trust.",home:"Back to home",
-switchLabel:"Passer en français",errorGeneric:"An error occurred."
+submitRequest:"Submit my request",
+howTitle:"How does it work?",
+howDesc:"The steps of your request, from service selection to processing.",
+step1Title:"Choose your service",
+step1Text:"Select the service, your device category and its model. The corresponding price is displayed before payment.",
+step2Title:"Make a secure payment",
+step2Text:"Pay for your service through Stripe. Your request can only be submitted after payment has been confirmed.",
+step3Title:"Provide your information",
+step3Text:"Once payment is verified, complete the form with your contact details and the required device information. You must own the device or be authorized to make the request.",
+step4Title:"Request review and follow-up",
+step4Text:"We review the information received and contact you with the next steps and an estimated timeframe, depending on the service and model.",
+noteTitle:"Please note:",
+noteText:"Timeframes and feasibility vary depending on the device, requested service and required checks. No duration or result can be guaranteed before your case has been reviewed. Requests must concern devices you own or for which you have legitimate authorization.",
+footerText:"Services dedicated to Apple devices.",
+chooseOption:"Choose an option",
+updateChoice:"Service option",
+preparing:"Preparing secure payment…",
+verify:"Verifying your payment…",
+verified:"Payment verified. You can now submit your request.",
+invalidSelection:"Select a service to display its price.",
+paymentNotConfirmed:"Your payment could not be confirmed. If you have paid, please contact us.",
+alreadyPaid:"Payment already completed",
+sendSecure:"Securely submitting your request…",
+sending:"Submitting your request…",
+noVerified:"No verified payment is associated with this request.",
+sendError:"Unable to submit the request. Please contact us.",
+successTitle:"Payment and information received.",
+successText:"You will soon receive updates from the team",
+home:"Back to home",
+confirmationTitle:"Payment and information received.",
+confirmationUpdates:"You will soon receive updates from the team",
+okLabel:"OK",
+switchLabel:"Switch to French",
+errorGeneric:"An error occurred."
 }
 };
 
 const $=id=>document.getElementById(id);
+
 const serviceSelect=$("serviceSelect");
 const deviceSelect=$("deviceSelect");
 const modelSelect=$("modelSelect");
@@ -435,496 +1289,638 @@ let isRestoringVerifiedSelection=false;
 let isSubmittingOrder=false;
 
 function t(key){
- return I18N[currentLang][key]||I18N.fr[key]||key;
+return I18N[currentLang][key]||I18N.fr[key]||key;
 }
 
 function translateModelName(name){
- if(currentLang==="fr")return name;
- return name
-  .replace(/ pouces/g," inches")
-  .replace(/ générations/g," generations")
-  .replace(/ génération/g," generation")
-  .replace(/ classique/g," standard")
-  .replace(/ inclus/g," included");
+if(currentLang==="fr")return name;
+
+return name
+.replace(/ pouces/g," inches")
+.replace(/ générations/g," generations")
+.replace(/ génération/g," generation")
+.replace(/ classique/g," standard")
+.replace(/ inclus/g," included");
 }
 
 function showStatus(element,message,type=""){
- element.textContent=message;
- element.className="status-message "+type;
+element.textContent=message;
+element.className="status-message "+type;
 }
 
 function refreshSelectLabels(){
- const labels={
-  "Déverrouillage iCloud":t("svcIcloud"),
-  "Déverrouillage Opérateur":t("svcCarrier"),
-  "Suppression Blocage &Limitation Propriétaire":t("svcOwner"),
-  "Résolution Blocage DFU & Mode de Récupération":t("svcDfu"),
-  [UPDATE_SERVICE]:t("svcUpdate")
- };
 
- Array.from(serviceSelect.options).forEach(option=>{
-  option.textContent=option.value?(labels[option.value]||option.value):t("chooseService");
- });
+const labels={
+"Déverrouillage iCloud":t("svcIcloud"),
+"Déverrouillage Opérateur":t("svcCarrier"),
+"Suppression Blocage &Limitation Propriétaire":t("svcOwner"),
+"Résolution Blocage DFU & Mode de Récupération":t("svcDfu"),
+[UPDATE_SERVICE]:t("svcUpdate")
+};
 
- if(deviceSelect.options.length && !deviceSelect.options[0].value){
-  deviceSelect.options[0].textContent=
-   serviceSelect.value===UPDATE_SERVICE?t("chooseOption"):t("chooseCategory");
- }
+Array.from(serviceSelect.options).forEach(option=>{
+option.textContent=option.value
+?(labels[option.value]||option.value)
+:t("chooseService");
+});
 
- if(modelSelect.options.length){
-  if(!modelSelect.options[0].value){
-   modelSelect.options[0].textContent=t("chooseModel");
-  }
-  Array.from(modelSelect.options).forEach(option=>{
-   if(option.value)option.textContent=translateModelName(option.value);
-  });
- }
+if(deviceSelect.options.length&&!deviceSelect.options[0].value){
+deviceSelect.options[0].textContent=
+serviceSelect.value===UPDATE_SERVICE
+?t("chooseOption")
+:t("chooseCategory");
+}
 
- deviceLabel.textContent=
-  serviceSelect.value===UPDATE_SERVICE?t("updateChoice"):t("deviceCategory");
+if(modelSelect.options.length){
+if(!modelSelect.options[0].value){
+modelSelect.options[0].textContent=t("chooseModel");
+}
+
+Array.from(modelSelect.options).forEach(option=>{
+if(option.value){
+option.textContent=translateModelName(option.value);
+}
+});
+}
+
+deviceLabel.textContent=
+serviceSelect.value===UPDATE_SERVICE
+?t("updateChoice")
+:t("deviceCategory");
 }
 
 function applyLanguage(lang){
- currentLang=lang==="en"?"en":"fr";
- document.documentElement.lang=currentLang;
 
- document.querySelectorAll("[data-i18n]").forEach(element=>{
-  const key=element.getAttribute("data-i18n");
-  if(I18N[currentLang][key]){
-   element.textContent=I18N[currentLang][key];
-  }
- });
+currentLang=lang==="en"?"en":"fr";
+document.documentElement.lang=currentLang;
 
- document.querySelectorAll("[data-i18n-placeholder]").forEach(element=>{
-  element.placeholder=t(element.getAttribute("data-i18n-placeholder"));
- });
+document.querySelectorAll("[data-i18n]").forEach(element=>{
+const key=element.getAttribute("data-i18n");
 
- $("langToggle").textContent=currentLang==="fr"?"EN":"FR";
- $("langToggle").setAttribute("aria-label",t("switchLabel"));
+if(I18N[currentLang][key]){
+element.textContent=I18N[currentLang][key];
+}
+});
 
- document.title=currentLang==="fr"
-  ?"EBAGZUNLOCK — Déverrouillage et assistance informatique Apple"
-  :"EBAGZUNLOCK — Apple Unlocking and IT Support";
+document.querySelectorAll("[data-i18n-placeholder]").forEach(element=>{
+element.placeholder=t(element.getAttribute("data-i18n-placeholder"));
+});
 
- refreshSelectLabels();
+$("langToggle").textContent=currentLang==="fr"?"EN":"FR";
+$("langToggle").setAttribute("aria-label",t("switchLabel"));
 
- if(verifiedSessionId){
-  payButton.textContent=t("alreadyPaid");
- }
+document.title=currentLang==="fr"
+?"EBAGZUNLOCK — Déverrouillage et assistance informatique Apple"
+:"EBAGZUNLOCK — Apple Unlocking and IT Support";
+
+refreshSelectLabels();
+
+if(verifiedSessionId){
+payButton.textContent=t("alreadyPaid");
+}
 }
 
 $("langToggle").addEventListener("click",()=>{
- const next=currentLang==="fr"?"en":"fr";
- try{
-  localStorage.setItem("ebagzunlock-language",next);
- }catch(error){}
- applyLanguage(next);
+const next=currentLang==="fr"?"en":"fr";
+
+try{
+localStorage.setItem("ebagzunlock-language",next);
+}catch(error){}
+
+applyLanguage(next);
 });
 
 function invalidateVerifiedOrder(){
- if(isRestoringVerifiedSelection||!verifiedSessionId)return;
 
- verifiedSelection=null;
- verifiedSessionId=null;
- isSubmittingOrder=false;
+if(isRestoringVerifiedSelection||!verifiedSessionId)return;
 
- payButton.textContent=t("payButton");
- requestSection.classList.remove("visible");
- requestForm.reset();
+verifiedSelection=null;
+verifiedSessionId=null;
+isSubmittingOrder=false;
 
- requestForm.querySelectorAll("input,textarea,button").forEach(element=>{
-  element.disabled=false;
- });
+payButton.textContent=t("payButton");
+requestSection.classList.remove("visible");
+requestForm.reset();
 
- requestForm.querySelector('button[type="submit"]').textContent=t("submitRequest");
- showStatus(requestStatus,"");
- showStatus(paymentStatus,"");
+requestForm.querySelectorAll("input,textarea,button").forEach(element=>{
+element.disabled=false;
+});
+
+requestForm.querySelector('button[type="submit"]').textContent=t("submitRequest");
+
+showStatus(requestStatus,"");
+showStatus(paymentStatus,"");
 }
 
 function resetModelAndPrice(){
- modelSelect.innerHTML="";
- const option=document.createElement("option");
- option.value="";
- option.textContent=t("chooseModel");
- modelSelect.appendChild(option);
 
- modelSelect.disabled=true;
- selectedPrice=null;
- priceValue.textContent="— €";
- payButton.disabled=true;
+modelSelect.innerHTML="";
+
+const option=document.createElement("option");
+option.value="";
+option.textContent=t("chooseModel");
+
+modelSelect.appendChild(option);
+modelSelect.disabled=true;
+
+selectedPrice=null;
+priceValue.textContent="— €";
+payButton.disabled=true;
 }
 
 function resetUpdateChoices(){
- deviceSelect.innerHTML="";
 
- const choices=[
-  ["",t("chooseOption")],
-  ["iOS","iOS — 7 €"],
-  ["macOS","macOS — 15 €"],
-  ["ebagzunlock","ebagzunlock — 2 €"]
- ];
+deviceSelect.innerHTML="";
 
- choices.forEach(([value,label])=>{
-  const option=document.createElement("option");
-  option.value=value;
-  option.textContent=label;
-  deviceSelect.appendChild(option);
- });
+const choices=[
+["",t("chooseOption")],
+["iOS","iOS — 7 €"],
+["macOS","macOS — 15 €"],
+["ebagzunlock","ebagzunlock — 2 €"]
+];
 
- deviceSelect.disabled=false;
- deviceLabel.textContent=t("updateChoice");
- modelField.hidden=true;
- modelSelect.value="";
+choices.forEach(([value,label])=>{
+const option=document.createElement("option");
+option.value=value;
+option.textContent=label;
+deviceSelect.appendChild(option);
+});
+
+deviceSelect.disabled=false;
+deviceLabel.textContent=t("updateChoice");
+modelField.hidden=true;
+modelSelect.value="";
 }
 
 function resetDeviceChoices(){
- deviceSelect.innerHTML="";
 
- const choices=[
-  ["",t("chooseCategory")],
-  ["iPhone","iPhone"],
-  ["MacBook","MacBook"],
-  ["iPad","iPad"],
-  ["Apple Watch","Apple Watch"]
- ];
+deviceSelect.innerHTML="";
 
- choices.forEach(([value,label])=>{
-  const option=document.createElement("option");
-  option.value=value;
-  option.textContent=label;
-  deviceSelect.appendChild(option);
- });
+const choices=[
+["",t("chooseCategory")],
+["iPhone","iPhone"],
+["MacBook","MacBook"],
+["iPad","iPad"],
+["Apple Watch","Apple Watch"]
+];
 
- deviceLabel.textContent=t("deviceCategory");
- deviceSelect.disabled=false;
- modelField.hidden=false;
- resetModelAndPrice();
+choices.forEach(([value,label])=>{
+const option=document.createElement("option");
+option.value=value;
+option.textContent=label;
+deviceSelect.appendChild(option);
+});
+
+deviceLabel.textContent=t("deviceCategory");
+deviceSelect.disabled=false;
+modelField.hidden=false;
+
+resetModelAndPrice();
 }
 
 function selectService(name){
- const serviceExists=Array.from(serviceSelect.options).some(option=>option.value===name);
- if(!serviceExists)return false;
 
- serviceSelect.value=name;
- selectedPrice=null;
- priceValue.textContent="— €";
- payButton.disabled=true;
+const serviceExists=Array.from(serviceSelect.options)
+.some(option=>option.value===name);
 
- if(name===UPDATE_SERVICE){
-  resetUpdateChoices();
- }else{
-  resetDeviceChoices();
- }
+if(!serviceExists)return false;
 
- document.querySelectorAll(".service-card").forEach(card=>{
-  card.classList.toggle("selected",card.dataset.service===name);
- });
+serviceSelect.value=name;
+selectedPrice=null;
+priceValue.textContent="— €";
+payButton.disabled=true;
 
- showStatus(paymentStatus,"");
- refreshSelectLabels();
- return true;
+if(name===UPDATE_SERVICE){
+resetUpdateChoices();
+}else{
+resetDeviceChoices();
+}
+
+document.querySelectorAll(".service-card").forEach(card=>{
+card.classList.toggle("selected",card.dataset.service===name);
+});
+
+showStatus(paymentStatus,"");
+refreshSelectLabels();
+
+return true;
 }
 
 serviceSelect.addEventListener("change",()=>{
- invalidateVerifiedOrder();
 
- if(!serviceSelect.value){
-  document.querySelectorAll(".service-card").forEach(card=>{
-   card.classList.remove("selected");
-  });
+invalidateVerifiedOrder();
 
-  deviceSelect.value="";
-  deviceSelect.disabled=true;
-  resetModelAndPrice();
-  modelField.hidden=false;
-  return;
- }
+if(!serviceSelect.value){
 
- selectService(serviceSelect.value);
+document.querySelectorAll(".service-card").forEach(card=>{
+card.classList.remove("selected");
+});
+
+deviceSelect.value="";
+deviceSelect.disabled=true;
+
+resetModelAndPrice();
+modelField.hidden=false;
+
+return;
+}
+
+selectService(serviceSelect.value);
 });
 
 document.querySelectorAll(".service-card").forEach(card=>{
- card.addEventListener("click",()=>{
-  invalidateVerifiedOrder();
 
-  if(!selectService(card.dataset.service))return;
+card.addEventListener("click",()=>{
 
-  $("tarifs").scrollIntoView({behavior:"smooth",block:"start"});
- });
+invalidateVerifiedOrder();
+
+if(!selectService(card.dataset.service))return;
+
+$("tarifs").scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+});
 });
 
 deviceSelect.addEventListener("change",()=>{
- invalidateVerifiedOrder();
 
- selectedPrice=null;
- priceValue.textContent="— €";
- payButton.disabled=true;
+invalidateVerifiedOrder();
 
- const device=deviceSelect.value;
+selectedPrice=null;
+priceValue.textContent="— €";
+payButton.disabled=true;
 
- if(serviceSelect.value===UPDATE_SERVICE){
-  if(Object.prototype.hasOwnProperty.call(UPDATE_PRICES,device)){
-   selectedPrice=UPDATE_PRICES[device];
-   priceValue.textContent=selectedPrice+" €";
-   payButton.disabled=false;
-  }
-  return;
- }
+const device=deviceSelect.value;
 
- resetModelAndPrice();
+if(serviceSelect.value===UPDATE_SERVICE){
 
- if(!device||!CATALOGUE[device])return;
+if(Object.prototype.hasOwnProperty.call(UPDATE_PRICES,device)){
+selectedPrice=UPDATE_PRICES[device];
+priceValue.textContent=selectedPrice+" €";
+payButton.disabled=false;
+}
 
- Object.keys(CATALOGUE[device]).forEach(model=>{
-  const option=document.createElement("option");
-  option.value=model;
-  option.textContent=translateModelName(model);
-  modelSelect.appendChild(option);
- });
+return;
+}
 
- modelSelect.disabled=false;
+resetModelAndPrice();
+
+if(!device||!CATALOGUE[device])return;
+
+Object.keys(CATALOGUE[device]).forEach(model=>{
+
+const option=document.createElement("option");
+option.value=model;
+option.textContent=translateModelName(model);
+
+modelSelect.appendChild(option);
+
+});
+
+modelSelect.disabled=false;
 });
 
 modelSelect.addEventListener("change",()=>{
- invalidateVerifiedOrder();
 
- const device=deviceSelect.value;
- const model=modelSelect.value;
+invalidateVerifiedOrder();
 
- if(!CATALOGUE[device]||
-    !Object.prototype.hasOwnProperty.call(CATALOGUE[device],model)){
-  selectedPrice=null;
-  priceValue.textContent="— €";
-  payButton.disabled=true;
-  return;
- }
+const device=deviceSelect.value;
+const model=modelSelect.value;
 
- selectedPrice=CATALOGUE[device][model];
- priceValue.textContent=selectedPrice+" €";
- payButton.disabled=!serviceSelect.value;
+if(!CATALOGUE[device]||
+!Object.prototype.hasOwnProperty.call(CATALOGUE[device],model)){
+
+selectedPrice=null;
+priceValue.textContent="— €";
+payButton.disabled=true;
+
+return;
+}
+
+selectedPrice=CATALOGUE[device][model];
+priceValue.textContent=selectedPrice+" €";
+payButton.disabled=!serviceSelect.value;
 });
 
 contactToggle.addEventListener("click",()=>{
- const show=contactIcons.hidden;
- contactIcons.hidden=!show;
- contactToggle.setAttribute("aria-expanded",String(show));
+
+const show=contactIcons.hidden;
+
+contactIcons.hidden=!show;
+contactToggle.setAttribute("aria-expanded",String(show));
+
 });
 
 document.querySelectorAll(".main-nav a").forEach(link=>{
- link.addEventListener("click",()=>{
-  contactIcons.hidden=true;
-  contactToggle.setAttribute("aria-expanded","false");
- });
+
+link.addEventListener("click",()=>{
+contactIcons.hidden=true;
+contactToggle.setAttribute("aria-expanded","false");
 });
 
-/*
- * Paiement Stripe.
- * Les routes et les noms des champs envoyés au backend sont conservés.
- */
+});
+
+/* Paiement Stripe */
 payButton.addEventListener("click",async()=>{
- const service=serviceSelect.value;
- const device=deviceSelect.value;
- let model=modelSelect.value;
 
- if(!service||!device||selectedPrice===null){
-  showStatus(paymentStatus,t("invalidSelection"),"error");
-  return;
- }
+const service=serviceSelect.value;
+const device=deviceSelect.value;
+let model=modelSelect.value;
 
- if(service===UPDATE_SERVICE){
-  model=device;
- }
-
- payButton.disabled=true;
- showStatus(paymentStatus,t("preparing"));
-
- try{
-  const response=await fetch("/api/create-checkout-session",{
-   method:"POST",
-   headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({service,device,model})
-  });
-
-  const data=await response.json();
-
-  if(!response.ok||!data.url){
-   throw new Error(data.error||t("errorGeneric"));
-  }
-
-  window.location.assign(data.url);
-
- }catch(error){
-  showStatus(paymentStatus,error.message||t("errorGeneric"),"error");
-  payButton.disabled=false;
- }
-});
-
-/*
- * Vérifie le paiement auprès du serveur avant de montrer le formulaire.
- * Les valeurs reçues doivent correspondre au catalogue existant.
- */
-async function verifyReturnedPayment(){
- const sessionId=new URLSearchParams(location.search).get("session_id");
- if(!sessionId)return;
-
- showStatus(paymentStatus,t("verify"));
-
- try{
-  const response=await fetch(
-   "/api/verify-checkout-session?session_id="+encodeURIComponent(sessionId)
-  );
-
-  const data=await response.json();
-  const selection=data.selection||{};
-
-  if(!response.ok||data.paid!==true||!selection.service){
-   throw new Error(t("paymentNotConfirmed"));
-  }
-
-  const isUpdate=selection.service===UPDATE_SERVICE;
-  const restoredDevice=selection.device||selection.model;
-
-  if(isUpdate){
-   if(!Object.prototype.hasOwnProperty.call(UPDATE_PRICES,restoredDevice)){
-    throw new Error(t("paymentNotConfirmed"));
-   }
-  }else{
-   if(!CATALOGUE[selection.device]||
-      !Object.prototype.hasOwnProperty.call(CATALOGUE[selection.device],selection.model)){
-    throw new Error(t("paymentNotConfirmed"));
-   }
-  }
-
-  if(!Array.from(serviceSelect.options).some(option=>option.value===selection.service)){
-   throw new Error(t("paymentNotConfirmed"));
-  }
-
-  isRestoringVerifiedSelection=true;
-
-  try{
-   const serviceSelected=selectService(selection.service);
-   if(!serviceSelected){
-    throw new Error(t("paymentNotConfirmed"));
-   }
-
-   deviceSelect.value=restoredDevice;
-
-   if(deviceSelect.value!==restoredDevice){
-    throw new Error(t("paymentNotConfirmed"));
-   }
-
-   deviceSelect.dispatchEvent(new Event("change"));
-
-   if(!isUpdate){
-    modelSelect.value=selection.model;
-
-    if(modelSelect.value!==selection.model){
-     throw new Error(t("paymentNotConfirmed"));
-    }
-
-    modelSelect.dispatchEvent(new Event("change"));
-   }
-  }finally{
-   isRestoringVerifiedSelection=false;
-  }
-
-  verifiedSelection=selection;
-  verifiedSessionId=sessionId;
-
-  payButton.disabled=true;
-  payButton.textContent=t("alreadyPaid");
-
-  requestSection.classList.add("visible");
-  showStatus(paymentStatus,t("verified"),"success");
-
-  history.replaceState({},document.title,location.pathname+"#tarifs");
-
-  requestSection.scrollIntoView({
-   behavior:"smooth",
-   block:"start"
-  });
-
- }catch(error){
-  isRestoringVerifiedSelection=false;
-  verifiedSelection=null;
-  verifiedSessionId=null;
-  showStatus(paymentStatus,error.message||t("paymentNotConfirmed"),"error");
- }
+if(!service||!device||selectedPrice===null){
+showStatus(paymentStatus,t("invalidSelection"),"error");
+return;
 }
 
-/*
- * Envoi de la commande après confirmation du paiement côté serveur.
- */
+if(service===UPDATE_SERVICE){
+model=device;
+}
+
+payButton.disabled=true;
+showStatus(paymentStatus,t("preparing"));
+
+try{
+
+const response=await fetch("/api/create-checkout-session",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({service,device,model})
+});
+
+const data=await response.json();
+
+if(!response.ok||!data.url){
+throw new Error(data.error||t("errorGeneric"));
+}
+
+window.location.assign(data.url);
+
+}catch(error){
+
+showStatus(paymentStatus,error.message||t("errorGeneric"),"error");
+payButton.disabled=false;
+
+}
+
+});
+
+/* Vérification du paiement après le retour Stripe */
+async function verifyReturnedPayment(){
+
+const sessionId=new URLSearchParams(location.search).get("session_id");
+
+if(!sessionId)return;
+
+showStatus(paymentStatus,t("verify"));
+
+try{
+
+const response=await fetch(
+"/api/verify-checkout-session?session_id="+encodeURIComponent(sessionId)
+);
+
+const data=await response.json();
+const selection=data.selection||{};
+
+if(!response.ok||data.paid!==true||!selection.service){
+throw new Error(t("paymentNotConfirmed"));
+}
+
+const isUpdate=selection.service===UPDATE_SERVICE;
+const restoredDevice=selection.device||selection.model;
+
+if(isUpdate){
+
+if(!Object.prototype.hasOwnProperty.call(UPDATE_PRICES,restoredDevice)){
+throw new Error(t("paymentNotConfirmed"));
+}
+
+}else{
+
+if(!CATALOGUE[selection.device]||
+!Object.prototype.hasOwnProperty.call(CATALOGUE[selection.device],selection.model)){
+throw new Error(t("paymentNotConfirmed"));
+}
+
+}
+
+if(!Array.from(serviceSelect.options).some(option=>option.value===selection.service)){
+throw new Error(t("paymentNotConfirmed"));
+}
+
+isRestoringVerifiedSelection=true;
+
+try{
+
+const serviceSelected=selectService(selection.service);
+
+if(!serviceSelected){
+throw new Error(t("paymentNotConfirmed"));
+}
+
+deviceSelect.value=restoredDevice;
+
+if(deviceSelect.value!==restoredDevice){
+throw new Error(t("paymentNotConfirmed"));
+}
+
+deviceSelect.dispatchEvent(new Event("change"));
+
+if(!isUpdate){
+
+modelSelect.value=selection.model;
+
+if(modelSelect.value!==selection.model){
+throw new Error(t("paymentNotConfirmed"));
+}
+
+modelSelect.dispatchEvent(new Event("change"));
+
+}
+
+}finally{
+
+isRestoringVerifiedSelection=false;
+
+}
+
+verifiedSelection=selection;
+verifiedSessionId=sessionId;
+
+payButton.disabled=true;
+payButton.textContent=t("alreadyPaid");
+
+requestSection.classList.add("visible");
+showStatus(paymentStatus,t("verified"),"success");
+
+history.replaceState({},document.title,location.pathname+"#tarifs");
+
+requestSection.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+}catch(error){
+
+isRestoringVerifiedSelection=false;
+verifiedSelection=null;
+verifiedSessionId=null;
+
+showStatus(paymentStatus,error.message||t("paymentNotConfirmed"),"error");
+
+}
+
+}
+
+/* Création de la nouvelle page de confirmation */
+function showConfirmationPage(){
+
+document.body.classList.add("order-confirmed");
+
+/* Liens de navigation vers le site principal */
+const siteUrl="https://ebagzunlock.com/";
+
+const headerLogo=document.querySelector(".header-logo");
+headerLogo.href=siteUrl+"#accueil";
+
+/* Les liens restent fonctionnels depuis la page de confirmation */
+document.querySelectorAll(".main-nav a").forEach(link=>{
+
+const target=link.getAttribute("href");
+
+link.href=siteUrl+target;
+
+});
+
+/* Le logo du pied de page n'est pas utilisé sur la confirmation */
+const confirmation=document.createElement("main");
+confirmation.id="confirmationScreen";
+
+confirmation.innerHTML=`
+<div class="confirmation-center">
+
+<div class="confirmation-check" aria-hidden="true">✓</div>
+
+<h1 class="confirmation-title" data-i18n="confirmationTitle">
+Paiement et informations reçus.
+</h1>
+
+</div>
+
+<div class="confirmation-bottom">
+
+<p class="confirmation-message" data-i18n="confirmationUpdates">
+Vous recevrez bientôt des mises à jour de l'équipe
+</p>
+
+<a href="https://ebagzunlock.com/#accueil"
+class="confirmation-logo"
+aria-label="EBAGZUNLOCK accueil">
+ebagz<span class="logo-blue">unlock</span>.
+</a>
+
+<a href="https://ebagzunlock.com/#accueil"
+class="confirmation-ok"
+data-i18n="okLabel">
+OK
+</a>
+
+</div>
+`;
+
+document.querySelector(".site-header").after(confirmation);
+
+/* Met à jour immédiatement la langue de la confirmation */
+applyLanguage(currentLang);
+
+/* Masque les anciennes sections sans supprimer leur contenu */
+window.scrollTo({top:0,behavior:"instant"});
+
+}
+
+/* Envoi de la commande après vérification du paiement */
 requestForm.addEventListener("submit",async event=>{
- event.preventDefault();
 
- if(isSubmittingOrder)return;
+event.preventDefault();
 
- if(!verifiedSelection||!verifiedSessionId){
-  showStatus(requestStatus,t("noVerified"),"error");
-  return;
- }
+if(isSubmittingOrder)return;
 
- if(!requestForm.reportValidity())return;
+if(!verifiedSelection||!verifiedSessionId){
+showStatus(requestStatus,t("noVerified"),"error");
+return;
+}
 
- const submitButton=requestForm.querySelector('button[type="submit"]');
- const formData=new FormData(requestForm);
+if(!requestForm.reportValidity())return;
 
- const order={
-  sessionId:verifiedSessionId,
-  name:String(formData.get("name")||"").trim(),
-  email:String(formData.get("email")||"").trim(),
-  phone:String(formData.get("phone")||"").trim(),
-  identifier:String(formData.get("identifier")||"").trim(),
-  message:String(formData.get("message")||"").trim()
- };
+const submitButton=requestForm.querySelector('button[type="submit"]');
+const formData=new FormData(requestForm);
 
- isSubmittingOrder=true;
- submitButton.disabled=true;
- submitButton.textContent=t("sending");
- showStatus(requestStatus,t("sendSecure"));
+const order={
+sessionId:verifiedSessionId,
+name:String(formData.get("name")||"").trim(),
+email:String(formData.get("email")||"").trim(),
+phone:String(formData.get("phone")||"").trim(),
+identifier:String(formData.get("identifier")||"").trim(),
+message:String(formData.get("message")||"").trim()
+};
 
- try{
-  const response=await fetch("/api/submit-order",{
-   method:"POST",
-   headers:{"Content-Type":"application/json"},
-   body:JSON.stringify(order)
-  });
+isSubmittingOrder=true;
+submitButton.disabled=true;
+submitButton.textContent=t("sending");
 
-  const result=await response.json();
+showStatus(requestStatus,t("sendSecure"));
 
-  if(!response.ok||result.success!==true){
-   throw new Error(result.error||t("sendError"));
-  }
+try{
 
-  requestForm.reset();
+const response=await fetch("/api/submit-order",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify(order)
+});
 
-  requestSection.innerHTML=`
-   <div style="text-align:center;padding:35px 15px;">
-    <div style="font-size:55px;color:#55c995;margin-bottom:15px;">✓</div>
-    <h2 style="font-size:27px;margin:0 0 15px;">${t("successTitle")}</h2>
-    <p style="color:#aab7c7;margin-bottom:25px;">${t("successText")}</p>
-    <a href="/" class="primary-button">${t("home")}</a>
-   </div>`;
+const result=await response.json();
 
- }catch(error){
-  isSubmittingOrder=false;
-  showStatus(requestStatus,error.message||t("sendError"),"error");
-  submitButton.disabled=false;
-  submitButton.textContent=t("submitRequest");
- }
+if(!response.ok||result.success!==true){
+throw new Error(result.error||t("sendError"));
+}
+
+/* Le formulaire est envoyé : afficher la confirmation */
+requestForm.reset();
+showConfirmationPage();
+
+}catch(error){
+
+isSubmittingOrder=false;
+
+showStatus(
+requestStatus,
+error.message||t("sendError"),
+"error"
+);
+
+submitButton.disabled=false;
+submitButton.textContent=t("submitRequest");
+
+}
+
 });
 
 /* Langue mémorisée sur cet appareil */
 try{
- const savedLanguage=localStorage.getItem("ebagzunlock-language");
- if(savedLanguage==="en"){
-  currentLang="en";
- }
+
+const savedLanguage=localStorage.getItem("ebagzunlock-language");
+
+if(savedLanguage==="en"){
+currentLang="en";
+}
+
 }catch(error){}
 
 applyLanguage(currentLang);
 verifyReturnedPayment();
+
 </script>
 </body>
 </html>
