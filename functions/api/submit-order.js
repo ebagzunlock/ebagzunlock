@@ -90,7 +90,7 @@ export async function onRequestPost({ request, env }) {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          from: "ebagzunlock <onboarding@resend.dev>",
+          from: "ebagzunlock <commandes@ebagzunlock.com>",
           to: ["ebagzunlock@outlook.fr"],
           reply_to: email,
           subject: `Nouvelle commande payée — ${model}`,
