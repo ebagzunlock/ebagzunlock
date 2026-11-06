@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -776,14 +775,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <header class="site-header">
 <div class="container header-inner">
 
-<a href="#accueil" class="logo header-logo" aria-label="ebagzunlock accueil">
+<a href="https://ebagzunlock.com/" class="logo header-logo" aria-label="ebagzunlock accueil">
 ebagz<span class="logo-blue">unlock</span>
 </a>
 
 <div class="header-right">
 
 <nav class="main-nav" aria-label="Navigation principale">
-<a href="#accueil" data-i18n="navHome">Accueil</a>
+<a href="https://ebagzunlock.com/" data-i18n="navHome">Accueil</a>
 <a href="#services" data-i18n="navServices">Services</a>
 <a href="#tarifs" data-i18n="navPrices">Tarifs</a>
 <a href="#fonctionnement" data-i18n="navHow">Fonctionnement</a>
@@ -1012,7 +1011,7 @@ ebagz<span class="logo-blue">unlock</span>
 </main>
 
 <footer class="site-footer">
-<a href="#accueil" class="footer-logo">ebagz<span class="logo-blue">unlock</span></a>
+<a href="https://ebagzunlock.com/" class="footer-logo">ebagz<span class="logo-blue">unlock</span></a>
 <p data-i18n="footerText">Services dédiés aux appareils Apple.</p>
 </footer>
 
@@ -1306,6 +1305,46 @@ return name
 function showStatus(element,message,type=""){
 element.textContent=message;
 element.className="status-message "+type;
+}
+
+/* Retour à l'accueil avec actualisation complète */
+function goToHome(event){
+
+if(event){
+event.preventDefault();
+}
+
+const homeUrl="https://ebagzunlock.com/";
+
+if(
+window.location.origin==="https://ebagzunlock.com" &&
+window.location.pathname==="/"
+){
+window.location.reload();
+}else{
+window.location.assign(homeUrl);
+}
+
+}
+
+/* Les logos et le lien Accueil fonctionnent sur toutes les pages */
+const headerLogo=document.querySelector(".header-logo");
+const footerLogo=document.querySelector(".footer-logo");
+const homeNavLink=document.querySelector('.main-nav a[data-i18n="navHome"]');
+
+if(headerLogo){
+headerLogo.href="https://ebagzunlock.com/";
+headerLogo.addEventListener("click",goToHome);
+}
+
+if(footerLogo){
+footerLogo.href="https://ebagzunlock.com/";
+footerLogo.addEventListener("click",goToHome);
+}
+
+if(homeNavLink){
+homeNavLink.href="https://ebagzunlock.com/";
+homeNavLink.addEventListener("click",goToHome);
 }
 
 function refreshSelectLabels(){
@@ -1779,22 +1818,39 @@ function showConfirmationPage(){
 
 document.body.classList.add("order-confirmed");
 
-/* Liens de navigation vers le site principal */
 const siteUrl="https://ebagzunlock.com/";
 
+/* Logo du haut */
 const headerLogo=document.querySelector(".header-logo");
-headerLogo.href=siteUrl+"#accueil";
 
-/* Les liens restent fonctionnels depuis la page de confirmation */
+headerLogo.href=siteUrl;
+
+/* Navigation */
 document.querySelectorAll(".main-nav a").forEach(link=>{
 
-const target=link.getAttribute("href");
+const key=link.getAttribute("data-i18n");
 
-link.href=siteUrl+target;
+if(key==="navHome"){
+
+link.href=siteUrl;
+
+}else{
+
+const targets={
+navServices:"services",
+navPrices:"tarifs",
+navHow:"fonctionnement"
+};
+
+if(targets[key]){
+link.href=siteUrl+"#"+targets[key];
+}
+
+}
 
 });
 
-/* Le logo du pied de page n'est pas utilisé sur la confirmation */
+/* Création de la page de confirmation */
 const confirmation=document.createElement("main");
 confirmation.id="confirmationScreen";
 
@@ -1815,13 +1871,13 @@ Paiement et informations reçus.
 Vous recevrez bientôt des mises à jour de l'équipe
 </p>
 
-<a href="https://ebagzunlock.com/#accueil"
+<a href="${siteUrl}"
 class="confirmation-logo"
 aria-label="EBAGZUNLOCK accueil">
 ebagz<span class="logo-blue">unlock</span>.
 </a>
 
-<a href="https://ebagzunlock.com/#accueil"
+<a href="${siteUrl}"
 class="confirmation-ok"
 data-i18n="okLabel">
 OK
@@ -1832,10 +1888,20 @@ OK
 
 document.querySelector(".site-header").after(confirmation);
 
-/* Met à jour immédiatement la langue de la confirmation */
+/* Le logo du bas recharge aussi l'accueil */
+confirmation
+.querySelector(".confirmation-logo")
+.addEventListener("click",goToHome);
+
+/* Le bouton OK retourne à l'accueil */
+confirmation
+.querySelector(".confirmation-ok")
+.addEventListener("click",goToHome);
+
+/* Met à jour la langue de la confirmation */
 applyLanguage(currentLang);
 
-/* Masque les anciennes sections sans supprimer leur contenu */
+/* Affiche le haut de la page */
 window.scrollTo({top:0,behavior:"instant"});
 
 }
