@@ -184,9 +184,7 @@ width:19px;
 height:19px
 }
 
-/* =========================================
-   PAGE D'ACCUEIL : UNIQUEMENT LA PRÉSENTATION
-========================================= */
+/* PAGE D'ACCUEIL */
 
 html.home-page main > .content-section,
 html.home-page .site-footer{
@@ -213,8 +211,6 @@ align-items:center;
 justify-content:center;
 text-align:center
 }
-
-/* Grande affiche transparente */
 
 .eyebrow{
 width:min(950px,100%);
@@ -258,8 +254,6 @@ line-height:2.1;
 text-align:center
 }
 
-/* Bouton transparent */
-
 .primary-button{
 min-height:49px;
 display:inline-flex;
@@ -292,9 +286,7 @@ transform:none
 margin:37px auto 0
 }
 
-/* =========================================
-   PAGE DES OFFRES
-========================================= */
+/* PAGE DES OFFRES */
 
 html.offers-page .hero{
 display:none!important
@@ -852,9 +844,9 @@ ebagz<span class="logo-blue">unlock</span>
 
 <nav class="main-nav" aria-label="Navigation principale">
 <a href="https://ebagzunlock.com/" data-i18n="navHome">Accueil</a>
-<a href="?page=offres#services" data-i18n="navServices">Services</a>
-<a href="?page=offres#tarifs" data-i18n="navPrices">Tarifs</a>
-<a href="?page=offres#fonctionnement" data-i18n="navHow">Fonctionnement</a>
+<a href="https://ebagzunlock.com/?page=offres#services" data-i18n="navServices">Services</a>
+<a href="https://ebagzunlock.com/?page=offres#tarifs" data-i18n="navPrices">Tarifs</a>
+<a href="https://ebagzunlock.com/?page=offres#fonctionnement" data-i18n="navHow">Fonctionnement</a>
 <button type="button" id="contactToggle" aria-expanded="false" data-i18n="contact">Contact</button>
 </nav>
 
@@ -882,8 +874,6 @@ ebagz<span class="logo-blue">unlock</span>
 
 <main>
 
-<!-- ACCUEIL : LE BOUTON EST LA FIN DE LA PREMIÈRE PAGE -->
-
 <section class="hero" id="accueil">
 <div class="container hero-content">
 
@@ -900,14 +890,12 @@ SERVICE DE DÉVERROUILLAGE POUR APPAREILS APPLE
 Des solutions adaptées à vos appareils Apple, avec une prise en charge rapide et professionnelle.
 </p>
 
-<a href="?page=offres#services" class="primary-button" data-i18n="discover">
+<a href="https://ebagzunlock.com/?page=offres#services" class="primary-button" data-i18n="discover">
 Découvrir nos offres
 </a>
 
 </div>
 </section>
-
-<!-- LES OFFRES SONT AFFICHÉES UNIQUEMENT DANS LA VUE ?page=offres -->
 
 <section class="content-section" id="services">
 <div class="container">
@@ -1402,13 +1390,13 @@ element.textContent=message;
 element.className="status-message "+type;
 }
 
-/* Retour à l'accueil */
+/* Retour à l'accueil : recharge réellement la page */
 function goToHome(event){
 if(event)event.preventDefault();
-window.location.assign("https://ebagzunlock.com/");
+window.location.href="https://ebagzunlock.com/";
 }
 
-/* Liens du site */
+/* Logo et bouton Accueil */
 const headerLogo=document.querySelector(".header-logo");
 const footerLogo=document.querySelector(".footer-logo");
 const homeNavLink=document.querySelector('.main-nav a[data-i18n="navHome"]');
@@ -1428,11 +1416,22 @@ homeNavLink.href="https://ebagzunlock.com/";
 homeNavLink.addEventListener("click",goToHome);
 }
 
-/* Navigation des offres */
-document.querySelectorAll('.main-nav a[data-i18n="navServices"],.main-nav a[data-i18n="navPrices"],.main-nav a[data-i18n="navHow"]').forEach(link=>{
-link.href="?page=offres"+link.getAttribute("href");
+/* CORRECTION : redirections directes vers chaque section des offres */
+const offerNavigation={
+navServices:"services",
+navPrices:"tarifs",
+navHow:"fonctionnement"
+};
+
+Object.entries(offerNavigation).forEach(([key,sectionId])=>{
+const link=document.querySelector('.main-nav a[data-i18n="'+key+'"]');
+
+if(link){
+link.href="https://ebagzunlock.com/?page=offres#"+sectionId;
+}
 });
 
+/* Traduction des listes */
 function refreshSelectLabels(){
 
 const labels={
@@ -1729,6 +1728,7 @@ priceValue.textContent=selectedPrice+" €";
 payButton.disabled=!serviceSelect.value;
 });
 
+/* Contact : affiche les moyens de contact */
 contactToggle.addEventListener("click",()=>{
 
 const show=contactIcons.hidden;
@@ -1738,6 +1738,7 @@ contactToggle.setAttribute("aria-expanded",String(show));
 
 });
 
+/* Fermer les moyens de contact après navigation */
 document.querySelectorAll(".main-nav a").forEach(link=>{
 link.addEventListener("click",()=>{
 contactIcons.hidden=true;
