@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -22,6 +21,14 @@ f.parentNode.insertBefore(j,f);
 <meta name="theme-color" content="#081321">
 <meta name="description" content="EBAGZUNLOCK : déverrouillage et assistance informatique pour iPhone, iPad, MacBook et Apple Watch. Services en France et en Europe.">
 <title>EBAGZUNLOCK — Déverrouillage et assistance informatique Apple</title>
+
+<script>
+if(new URLSearchParams(location.search).get("page")==="offres"){
+document.documentElement.classList.add("offers-page");
+}else{
+document.documentElement.classList.add("home-page");
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,9 +106,7 @@ gap:15px;
 padding:19px 0 17px
 }
 
-.header-logo{
-justify-self:center
-}
+.header-logo{justify-self:center}
 
 .header-right{
 width:100%;
@@ -179,14 +184,21 @@ width:19px;
 height:19px
 }
 
-/* PREMIÈRE PAGE */
+/* =========================================
+   PAGE D'ACCUEIL : UNIQUEMENT LA PRÉSENTATION
+========================================= */
 
-.hero{
-min-height:auto;
+html.home-page main > .content-section,
+html.home-page .site-footer{
+display:none!important
+}
+
+html.home-page .hero{
+min-height:calc(100svh - 145px);
 display:flex;
-align-items:flex-start;
+align-items:center;
 justify-content:center;
-padding:38px 0 85px;
+padding:35px 0 48px;
 background:
 radial-gradient(ellipse at 80% 35%,rgba(71,127,181,.17),transparent 48%),
 var(--background);
@@ -198,10 +210,11 @@ width:100%;
 display:flex;
 flex-direction:column;
 align-items:center;
+justify-content:center;
 text-align:center
 }
 
-/* GRANDE AFFICHE TRANSPARENTE SOUS L'ENTÊTE */
+/* Grande affiche transparente */
 
 .eyebrow{
 width:min(950px,100%);
@@ -209,7 +222,7 @@ min-height:125px;
 display:flex;
 align-items:center;
 justify-content:center;
-margin:0 auto 43px;
+margin:0 auto 42px;
 padding:26px 42px;
 border:1px solid rgba(109,165,220,.55);
 border-radius:9px;
@@ -237,15 +250,15 @@ h1 span{display:block}
 h1 .blue{color:var(--blue-light)}
 
 .hero-description{
-max-width:620px;
-margin:38px auto 0;
+max-width:650px;
+margin:35px auto 0;
 color:var(--muted);
 font-size:16px;
-line-height:2.15;
+line-height:2.1;
 text-align:center
 }
 
-/* CADRE TRANSPARENT DU BOUTON DÉCOUVRIR NOS OFFRES */
+/* Bouton transparent */
 
 .primary-button{
 min-height:49px;
@@ -276,22 +289,23 @@ transform:none
 }
 
 .hero .primary-button{
-margin:39px auto 0
+margin:37px auto 0
 }
 
-/* Les boutons de paiement gardent leur apparence pleine */
+/* =========================================
+   PAGE DES OFFRES
+========================================= */
 
-#payButton,
-#requestForm button{
-border:0;
-border-radius:8px;
-background:var(--blue);
-color:white
+html.offers-page .hero{
+display:none!important
 }
 
-#payButton:hover,
-#requestForm button:hover{
-background:var(--blue-light)
+html.offers-page main > .content-section{
+display:block
+}
+
+html.offers-page .site-footer{
+display:block
 }
 
 .content-section{padding:85px 0}
@@ -475,6 +489,19 @@ margin-top:5px;
 accent-color:var(--blue)
 }
 
+#payButton,
+#requestForm button{
+border:0;
+border-radius:8px;
+background:var(--blue);
+color:white
+}
+
+#payButton:hover,
+#requestForm button:hover{
+background:var(--blue-light)
+}
+
 .site-footer{
 width:100%;
 margin-top:auto;
@@ -569,9 +596,7 @@ gap:16px;
 padding:23px 0 19px
 }
 
-body.order-confirmed .header-logo{
-font-size:28px
-}
+body.order-confirmed .header-logo{font-size:28px}
 
 body.order-confirmed .header-right{
 width:100%;
@@ -732,29 +757,25 @@ background:var(--surface)
 gap:12px;
 padding:15px 0
 }
-
-.main-nav{
-gap:10px 19px
-}
-
+.main-nav{gap:10px 19px}
 .contact-icons{justify-content:center}
 }
 
 @media(max-width:600px){
 
-.hero{
-min-height:auto;
-padding:27px 0 60px
+html.home-page .hero{
+min-height:calc(100svh - 145px);
+padding:24px 0 35px
 }
 
 .eyebrow{
 width:100%;
 min-height:105px;
-margin-bottom:33px;
-padding:20px 15px;
+margin-bottom:31px;
+padding:19px 15px;
 font-size:13px;
-letter-spacing:1.3px;
-line-height:1.65
+letter-spacing:1.1px;
+line-height:1.55
 }
 
 h1{
@@ -765,25 +786,20 @@ line-height:1.2
 
 .hero-description{
 max-width:340px;
-margin-top:29px;
+margin-top:27px;
 font-size:14px;
 line-height:2
 }
 
-.hero .primary-button{
-margin-top:32px
-}
+.hero .primary-button{margin-top:30px}
 
 .services-grid{grid-template-columns:1fr}
 .content-section{padding:65px 0}
 .pricing-panel{padding:20px}
-
 .main-nav{gap:9px 15px}
 
 .main-nav a,
-.main-nav button{
-font-size:12px
-}
+.main-nav button{font-size:12px}
 
 .process-grid{grid-template-columns:1fr}
 
@@ -828,7 +844,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <header class="site-header">
 <div class="container header-inner">
 
-<a href="https://ebagzunlock.com/" class="logo header-logo" aria-label="ebagzunlock accueil">
+<a href="https://ebagzunlock.com/" class="logo header-logo" aria-label="EBAGZUNLOCK accueil">
 ebagz<span class="logo-blue">unlock</span>
 </a>
 
@@ -836,9 +852,9 @@ ebagz<span class="logo-blue">unlock</span>
 
 <nav class="main-nav" aria-label="Navigation principale">
 <a href="https://ebagzunlock.com/" data-i18n="navHome">Accueil</a>
-<a href="#services" data-i18n="navServices">Services</a>
-<a href="#tarifs" data-i18n="navPrices">Tarifs</a>
-<a href="#fonctionnement" data-i18n="navHow">Fonctionnement</a>
+<a href="?page=offres#services" data-i18n="navServices">Services</a>
+<a href="?page=offres#tarifs" data-i18n="navPrices">Tarifs</a>
+<a href="?page=offres#fonctionnement" data-i18n="navHow">Fonctionnement</a>
 <button type="button" id="contactToggle" aria-expanded="false" data-i18n="contact">Contact</button>
 </nav>
 
@@ -866,26 +882,36 @@ ebagz<span class="logo-blue">unlock</span>
 
 <main>
 
+<!-- ACCUEIL : LE BOUTON EST LA FIN DE LA PREMIÈRE PAGE -->
+
 <section class="hero" id="accueil">
 <div class="container hero-content">
 
-<!-- GRANDE AFFICHE DE TÊTE -->
-<div class="eyebrow" data-i18n="eyebrow">SERVICE DE DÉVERROUILLAGE POUR APPAREILS APPLE</div>
+<div class="eyebrow" data-i18n="eyebrow">
+SERVICE DE DÉVERROUILLAGE POUR APPAREILS APPLE
+</div>
 
 <h1>
 <span data-i18n="heroLine1">Votre appareil,</span>
-<span class="blue" data-i18n="heroLine2">notre expertise.</span>
+<span class="blue" data-i18n="heroLine2">Notre expertise.</span>
 </h1>
 
-<p class="hero-description" data-i18n="heroDesc">Des solutions adaptées à vos appareils Apple, avec une prise en charge rapide et professionnelle.</p>
+<p class="hero-description" data-i18n="heroDesc">
+Des solutions adaptées à vos appareils Apple, avec une prise en charge rapide et professionnelle.
+</p>
 
-<a href="#services" class="primary-button" data-i18n="discover">Découvrir nos offres</a>
+<a href="?page=offres#services" class="primary-button" data-i18n="discover">
+Découvrir nos offres
+</a>
 
 </div>
 </section>
 
+<!-- LES OFFRES SONT AFFICHÉES UNIQUEMENT DANS LA VUE ?page=offres -->
+
 <section class="content-section" id="services">
 <div class="container">
+
 <div class="section-heading">
 <h2 data-i18n="servicesTitle">Nos services</h2>
 <p data-i18n="servicesDesc">Sélectionnez un service pour commencer votre demande.</p>
@@ -900,20 +926,20 @@ ebagz<span class="logo-blue">unlock</span>
 </button>
 
 <button class="service-card" type="button" data-service="Déverrouillage Opérateur">
-<h3 data-i18n="svcCarrier">Déverrouillage Opérateur</h3>
+<h3 data-i18n="svcCarrier">Déverrouillage opérateur</h3>
 <p data-i18n="imeiOnly">IMEI uniquement</p>
 <span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
 </button>
 
-<button class="service-card" type="button" data-service="Suppression Blocage &Limitation Propriétaire">
-<h3 data-i18n="svcOwner">Suppression Blocage &amp; Limitation Propriétaire</h3>
-<p data-i18n="imeiSerial">IMEI / Numéro de série</p>
+<button class="service-card" type="button" data-service="Suppression Blocage & Limitation Propriétaire">
+<h3 data-i18n="svcOwner">Suppression de blocage et de limitation propriétaire</h3>
+<p data-i18n="imeiSerial">IMEI ou numéro de série</p>
 <span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
 </button>
 
 <button class="service-card" type="button" data-service="Résolution Blocage DFU & Mode de Récupération">
-<h3 data-i18n="svcDfu">Résolution Blocage DFU &amp; Mode de Récupération</h3>
-<p data-i18n="imeiSerial">IMEI / numéro de série</p>
+<h3 data-i18n="svcDfu">Résolution des blocages DFU et du mode de récupération</h3>
+<p data-i18n="imeiSerial">IMEI ou numéro de série</p>
 <span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
 </button>
 
@@ -942,9 +968,9 @@ ebagz<span class="logo-blue">unlock</span>
 <select id="serviceSelect">
 <option value="" data-i18n="chooseService">Choisir un service</option>
 <option value="Déverrouillage iCloud">Déverrouillage iCloud</option>
-<option value="Déverrouillage Opérateur">Déverrouillage Opérateur</option>
-<option value="Suppression Blocage &Limitation Propriétaire">Suppression Blocage &amp;Limitation Propriétaire</option>
-<option value="Résolution Blocage DFU & Mode de Récupération">Résolution Blocage DFU &amp; Mode de Récupération</option>
+<option value="Déverrouillage Opérateur">Déverrouillage opérateur</option>
+<option value="Suppression Blocage & Limitation Propriétaire">Suppression de blocage et de limitation propriétaire</option>
+<option value="Résolution Blocage DFU & Mode de Récupération">Résolution des blocages DFU et du mode de récupération</option>
 <option value="Mise à jour iOS / macOS">Mise à jour iOS / macOS</option>
 </select>
 </div>
@@ -972,7 +998,9 @@ ebagz<span class="logo-blue">unlock</span>
 <strong id="priceValue">— €</strong>
 </div>
 
-<button class="primary-button full-width" id="payButton" type="button" disabled data-i18n="payButton">Procéder au paiement sécurisé</button>
+<button class="primary-button full-width" id="payButton" type="button" disabled data-i18n="payButton">
+Procéder au paiement sécurisé
+</button>
 
 <div id="paymentStatus" class="status-message" role="status" aria-live="polite"></div>
 
@@ -982,7 +1010,9 @@ ebagz<span class="logo-blue">unlock</span>
 
 <h3 data-i18n="yourRequest">Votre demande</h3>
 
-<p class="notice" style="text-align:left;margin:0 0 20px" data-i18n="paidNotice">Paiement vérifié. Complétez les informations nécessaires à votre demande.</p>
+<p class="notice" style="text-align:left;margin:0 0 20px" data-i18n="paidNotice">
+Paiement vérifié. Complétez les informations nécessaires à votre demande.
+</p>
 
 <form id="requestForm">
 
@@ -1016,7 +1046,10 @@ ebagz<span class="logo-blue">unlock</span>
 <span data-i18n="consentText">Je confirme être le propriétaire de l'appareil ou être autorisé à effectuer cette demande. Toute intervention sera limitée aux opérations légales et autorisées.</span>
 </label>
 
-<button class="primary-button full-width" type="submit" data-i18n="submitRequest">Envoyer ma demande</button>
+<button class="primary-button full-width" type="submit" data-i18n="submitRequest">
+Envoyer ma demande
+</button>
+
 </form>
 
 <div id="requestStatus" class="status-message" role="status" aria-live="polite"></div>
@@ -1069,6 +1102,7 @@ ebagz<span class="logo-blue">unlock</span>
 
 </div>
 </section>
+
 </main>
 
 <footer class="site-footer">
@@ -1176,15 +1210,15 @@ navHow:"Fonctionnement",
 contact:"Contact",
 eyebrow:"SERVICE DE DÉVERROUILLAGE POUR APPAREILS APPLE",
 heroLine1:"Votre appareil,",
-heroLine2:"notre expertise.",
+heroLine2:"Notre expertise.",
 heroDesc:"Des solutions adaptées à vos appareils Apple, avec une prise en charge rapide et professionnelle.",
 discover:"Découvrir nos offres",
 servicesTitle:"Nos services",
 servicesDesc:"Sélectionnez un service pour commencer votre demande.",
 svcIcloud:"Déverrouillage iCloud",
-svcCarrier:"Déverrouillage Opérateur",
-svcOwner:"Suppression Blocage & Limitation Propriétaire",
-svcDfu:"Résolution Blocage DFU & Mode de Récupération",
+svcCarrier:"Déverrouillage opérateur",
+svcOwner:"Suppression de blocage et de limitation propriétaire",
+svcDfu:"Résolution des blocages DFU et du mode de récupération",
 svcUpdate:"Mise à jour iOS / macOS",
 imeiSerial:"IMEI ou numéro de série",
 imeiOnly:"IMEI uniquement",
@@ -1222,7 +1256,7 @@ step3Text:"Après vérification du paiement, remplissez le formulaire avec vos c
 step4Title:"Étude et suivi de la demande",
 step4Text:"Nous examinons les informations reçues et vous contactons pour vous préciser les prochaines étapes ainsi que le délai estimé, selon le service et le modèle.",
 noteTitle:"À savoir :",
-noteText:"les délais et la faisabilité varient selon l’appareil, le service demandé et les vérifications nécessaires. Aucune durée ni aucun résultat ne peut être garanti avant l’étude de votre dossier. Les demandes doivent concerner des appareils que vous possédez ou pour lesquels vous disposez d’une autorisation légitime.",
+noteText:"Les délais et la faisabilité varient selon l’appareil, le service demandé et les vérifications nécessaires. Aucune durée ni aucun résultat ne peut être garanti avant l’étude de votre dossier. Les demandes doivent concerner des appareils que vous possédez ou pour lesquels vous disposez d’une autorisation légitime.",
 footerText:"Services dédiés aux appareils Apple.",
 chooseOption:"Choisir une option",
 updateChoice:"Choix de la prestation",
@@ -1254,16 +1288,16 @@ navHow:"How it works",
 contact:"Contact",
 eyebrow:"APPLE DEVICE UNLOCKING SERVICE",
 heroLine1:"Your device,",
-heroLine2:"our expertise.",
+heroLine2:"Our expertise.",
 heroDesc:"Solutions tailored to your Apple devices, with fast and professional support.",
 discover:"Discover our offers",
 servicesTitle:"Our services",
 servicesDesc:"Select a service to start your request.",
 svcIcloud:"iCloud Unlock",
-svcCarrier:"Carrier Unlock",
-svcOwner:"Owner Lock & Restriction Removal",
-svcDfu:"DFU & Recovery Mode Issue Resolution",
-svcUpdate:"iOS / macOS Update",
+svcCarrier:"Carrier unlock",
+svcOwner:"Owner lock and restriction removal",
+svcDfu:"DFU and recovery mode issue resolution",
+svcUpdate:"iOS / macOS update",
 imeiSerial:"IMEI or serial number",
 imeiOnly:"IMEI only",
 selectService:"Select this service →",
@@ -1368,30 +1402,13 @@ element.textContent=message;
 element.className="status-message "+type;
 }
 
-/* Retour à l'accueil, toujours tout en haut */
+/* Retour à l'accueil */
 function goToHome(event){
-
-if(event){
-event.preventDefault();
+if(event)event.preventDefault();
+window.location.assign("https://ebagzunlock.com/");
 }
 
-const homeUrl="https://ebagzunlock.com/";
-
-if(
-window.location.origin==="https://ebagzunlock.com" &&
-window.location.pathname==="/"
-){
-if(window.location.hash||window.location.search){
-window.history.replaceState(null,"",homeUrl);
-}
-window.scrollTo({top:0,behavior:"smooth"});
-}else{
-window.location.assign(homeUrl);
-}
-
-}
-
-/* Les logos et le lien Accueil fonctionnent sur toutes les pages */
+/* Liens du site */
 const headerLogo=document.querySelector(".header-logo");
 const footerLogo=document.querySelector(".footer-logo");
 const homeNavLink=document.querySelector('.main-nav a[data-i18n="navHome"]');
@@ -1411,12 +1428,17 @@ homeNavLink.href="https://ebagzunlock.com/";
 homeNavLink.addEventListener("click",goToHome);
 }
 
+/* Navigation des offres */
+document.querySelectorAll('.main-nav a[data-i18n="navServices"],.main-nav a[data-i18n="navPrices"],.main-nav a[data-i18n="navHow"]').forEach(link=>{
+link.href="?page=offres"+link.getAttribute("href");
+});
+
 function refreshSelectLabels(){
 
 const labels={
 "Déverrouillage iCloud":t("svcIcloud"),
 "Déverrouillage Opérateur":t("svcCarrier"),
-"Suppression Blocage &Limitation Propriétaire":t("svcOwner"),
+"Suppression Blocage & Limitation Propriétaire":t("svcOwner"),
 "Résolution Blocage DFU & Mode de Récupération":t("svcDfu"),
 [UPDATE_SERVICE]:t("svcUpdate")
 };
@@ -1717,12 +1739,10 @@ contactToggle.setAttribute("aria-expanded",String(show));
 });
 
 document.querySelectorAll(".main-nav a").forEach(link=>{
-
 link.addEventListener("click",()=>{
 contactIcons.hidden=true;
 contactToggle.setAttribute("aria-expanded","false");
 });
-
 });
 
 /* Paiement Stripe */
@@ -1858,7 +1878,7 @@ payButton.textContent=t("alreadyPaid");
 requestSection.classList.add("visible");
 showStatus(paymentStatus,t("verified"),"success");
 
-history.replaceState({},document.title,location.pathname+"#tarifs");
+history.replaceState({},document.title,location.pathname+"?page=offres#tarifs");
 
 requestSection.scrollIntoView({
 behavior:"smooth",
@@ -1877,7 +1897,7 @@ showStatus(paymentStatus,error.message||t("paymentNotConfirmed"),"error");
 
 }
 
-/* Création de la nouvelle page de confirmation */
+/* Création de la page de confirmation */
 function showConfirmationPage(){
 
 document.body.classList.add("order-confirmed");
@@ -1892,11 +1912,8 @@ document.querySelectorAll(".main-nav a").forEach(link=>{
 const key=link.getAttribute("data-i18n");
 
 if(key==="navHome"){
-
 link.href=siteUrl;
-
 }else{
-
 const targets={
 navServices:"services",
 navPrices:"tarifs",
@@ -1904,9 +1921,8 @@ navHow:"fonctionnement"
 };
 
 if(targets[key]){
-link.href=siteUrl+"#"+targets[key];
+link.href=siteUrl+"?page=offres#"+targets[key];
 }
-
 }
 
 });
