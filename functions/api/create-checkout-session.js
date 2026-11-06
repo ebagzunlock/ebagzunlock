@@ -147,11 +147,18 @@ export async function onRequestPost({ request, env }) {
   );
 
   params.set("billing_address_collection", "auto");
+
+  // Retour après paiement : page des offres avec l'identifiant Stripe
   params.set(
     "success_url",
-    `${siteOrigin}/?session_id={CHECKOUT_SESSION_ID}#tarifs`
+    `${siteOrigin}/?page=offres&session_id={CHECKOUT_SESSION_ID}#tarifs`
   );
-  params.set("cancel_url", `${siteOrigin}/#tarifs`);
+
+  // Retour si le client annule le paiement
+  params.set(
+    "cancel_url",
+    `${siteOrigin}/?page=offres#tarifs`
+  );
 
   params.set("metadata[service]", service);
   params.set("metadata[device]", device || "");
