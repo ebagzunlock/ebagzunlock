@@ -3,6 +3,13 @@ export async function onRequest({ request, env }) {
     return new Response("Méthode non autorisée", { status: 405 });
   }
 
+  const url = new URL(request.url);
+  const token = url.searchParams.get("token");
+
+  if (!env.RECOVERY_TOKEN || token !== env.RECOVERY_TOKEN) {
+    return Response.json({ error: "Accès refusé" }, { status: 403 });
+  }
+
   if (!env.STRIPE_SECRET_KEY) {
     return Response.json({ error: "Clé Stripe absente" }, { status: 500 });
   }
@@ -15,7 +22,7 @@ export async function onRequest({ request, env }) {
   });
 
   const response = await fetch(
-    "https://api.stripe.com/v1/checkout/sessions?" + params,
+    "https://api.stripe.com/v1/checkout/sessions?" + params.toString(),
     {
       headers: {
         Authorization: "Bearer " + env.STRIPE_SECRET_KEY
@@ -27,16 +34,22 @@ export async function onRequest({ request, env }) {
 
   if (!response.ok) {
     return Response.json(
-      { error: "Erreur Stripe", details: data.error?.message },
+      { error: data.error?.message || "Erreur Stripe" },
       { status: 502 }
     );
   }
 
   const session = data.data?.[0];
 
-  if (!session || session.payment_status !== "paid") {
+  if (
+    !session ||
+    session.payment_status !== "paid" ||
+    session.payment_intent !== paymentIntent ||
+    session.amount_total !== 200 ||
+    session.currency !== "eur"
+  ) {
     return Response.json(
-      { error: "Session payée introuvable" },
+      { error: "Session payée correspondante introuvable" },
       { status: 404 }
     );
   }
@@ -45,3 +58,4 @@ export async function onRequest({ request, env }) {
     success: true,
     sessionId: session.id
   });
+}
