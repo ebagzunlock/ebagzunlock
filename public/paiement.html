@@ -54,7 +54,13 @@ h2{font-size:17px;margin:0 0 16px}.line{display:flex;justify-content:space-betwe
 "use strict";
 const PUBLISHABLE_KEY="pk_live_51UXyGX75EdsO57RNKonjBJn7r6Q2m2tGmlhzXpz9eQMs2c1ZDmVsp7oecok3jBg3xvcFsUkL3dyjZcKrvGs9iAic00hn3wyox8";
 const params=new URLSearchParams(location.search);
-const selection={service:params.get("service")||"",device:params.get("device")||"",model:params.get("model")||""};
+let savedSelection={};
+try{savedSelection=JSON.parse(sessionStorage.getItem("ebagzunlock-pending-payment")||"{}");}catch(error){}
+const selection={
+service:params.get("service")||savedSelection.service||"",
+device:params.get("device")||savedSelection.device||"",
+model:params.get("model")||savedSelection.model||""
+};
 const updatePrices={iOS:7,macOS:15,ebagzunlock:2};
 const prices={
 "iPhone":{"iPhone X":25,"iPhone XR":25,"iPhone XS":25,"iPhone XS Max":25,"iPhone 11":25,"iPhone 11 Pro":25,"iPhone 11 Pro Max":27,"iPhone 12 mini":25,"iPhone 12":25,"iPhone 12 Pro":29,"iPhone 12 Pro Max":32,"iPhone 13 mini":39,"iPhone 13":40,"iPhone 13 Pro":40,"iPhone 13 Pro Max":42,"iPhone 14":40,"iPhone 14 Plus":40,"iPhone 14 Pro":43,"iPhone 14 Pro Max":49,"iPhone 15":53,"iPhone 15 Plus":55,"iPhone 15 Pro":55,"iPhone 15 Pro Max":59,"iPhone 16":64,"iPhone 16 Plus":59,"iPhone 16 Pro":62,"iPhone 16 Pro Max":69,"iPhone 16e":65,"iPhone 17":69,"iPhone 17 Pro":70,"iPhone 17 Pro Max":77,"iPhone 17e":75,"iPhone 17 Air":79,"iPhone 18":85,"iPhone 18 Pro":89,"iPhone 18 Pro Max":100,"iPhone 18 Duo":95},
