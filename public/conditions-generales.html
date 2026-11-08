@@ -85,7 +85,7 @@ html[data-theme="light"] .logo,html[data-theme="light"] .logo .apple-mark,html[d
 <header class="site-header">
 <div class="container header-inner">
 
-<a href="https://ebagzunlock.com/" class="logo header-logo" aria-label="EBAGZUNLOCK accueil">
+<a href="https://ebagzunlock.com/" class="logo header-logo notranslate" translate="no" aria-label="EBAGZUNLOCK accueil">
 ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span>
 </a>
 
@@ -135,10 +135,10 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <h1>CONDITIONS GÉNÉRALES D’ACHAT</h1>
 
 <h2>1. Objet</h2>
-<p>Les présentes conditions encadrent les achats de prestations de services et services proposés par <span class="brand-inline">ebagz<span class="brand-blue">unlock</span><span class="apple-mark"> </span></span>.</p>
-<p><span class="brand-inline">ebagz<span class="brand-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></span> propose un contournement sans restriction si blocage MAJ, cela inclut un contournement sans jailbreak &amp; bypass avec un accès à l’opérateur mobile <span class="operator-nowrap">4/5G sans restriction</span>.</p>
-<p><span class="brand-inline">ebagz<span class="brand-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></span> est un service dépendant du DarkWeb pour la réception des codes d’accès à votre appareil.</p>
-<p><span class="brand-inline">ebagz<span class="brand-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></span> est un service de contournement du système Apple ainsi que de la base de données iOS -macOS -iPadOS. Après confirmation de votre paiement, vous recevrez une autorisation/code à utiliser avec les instructions nécessaires par courrier ainsi que votre facture.</p>
+<p>Les présentes conditions encadrent les achats de prestations de services et services proposés par <span class="brand-inline notranslate" translate="no">ebagz<span class="brand-blue">unlock</span><span class="apple-mark"> </span></span>.</p>
+<p><span class="brand-inline notranslate" translate="no">ebagz<span class="brand-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></span> propose un contournement sans restriction si blocage MAJ, cela inclut un contournement sans jailbreak &amp; bypass avec un accès à l’opérateur mobile <span class="operator-nowrap">4/5G sans restriction</span>.</p>
+<p><span class="brand-inline notranslate" translate="no">ebagz<span class="brand-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></span> est un service dépendant du DarkWeb pour la réception des codes d’accès à votre appareil.</p>
+<p><span class="brand-inline notranslate" translate="no">ebagz<span class="brand-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></span> est un service de contournement du système Apple ainsi que de la base de données iOS -macOS -iPadOS. Après confirmation de votre paiement, vous recevrez une autorisation/code à utiliser avec les instructions nécessaires par courrier ainsi que votre facture.</p>
 <p>Ces codes que vous recevrez seront chiffrés et vous permettront d’effectuer vous-même les étapes de la procédure sur votre appareil. Éventuellement sans ordinateur, portable, vous aurez besoin de votre appareil ainsi qu’un câble d’alimentation à brancher sur secteur.</p>
 
 <h2>2. Informations sur le vendeur</h2>
@@ -214,7 +214,7 @@ function googleTranslateElementInit(){if(window.google&&google.translate){new go
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 <footer class="site-footer">
-<a href="https://ebagzunlock.com/" class="footer-logo">ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></a>
+<a href="https://ebagzunlock.com/" class="footer-logo notranslate" translate="no">ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></a>
 <p data-i18n="footerText">Services dédiés aux appareils Apple.</p>
 <p class="footer-legal"><a href="/conditions-generales.html">Conditions générales d’achat</a></p>
 </footer>
@@ -240,36 +240,31 @@ function googleTranslateElementInit(){if(window.google&&google.translate){new go
  .site-header .main-nav a,.site-header .main-nav button{font-size:9px!important;letter-spacing:0!important}
 }
 </style>
-<script id="ebagz-header-active-link">
-(()=> {
- const path=location.pathname.toLowerCase().replace(/\/+$/,"")||"/";
- const links=document.querySelectorAll(".site-header .main-nav a[href]");
- links.forEach(a=>{
-  try{
-   const target=new URL(a.href,location.href).pathname.toLowerCase().replace(/\/+$/,"")||"/";
-   const active=(target===path)||(path==="/"&&target==="/index.html");
-   a.classList.toggle("is-active",active);
-   if(active)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");
-  }catch(e){}
- });
- const contact=document.getElementById("contactToggle");
- const icons=document.getElementById("contactIcons");
- if(contact&&icons){
-  const sync=()=>{
-   const active=!icons.hidden;
-   contact.classList.toggle("is-active",active);
-   if(active)contact.setAttribute("aria-current","page");
-   else contact.removeAttribute("aria-current");
-  };
-  sync();
-  contact.addEventListener("click",()=>requestAnimationFrame(sync));
- }
-})();
-</script>
 <style id="ebagz-contact-display-fix">
 .site-header .header-right.contact-open{flex-wrap:wrap!important}
 .site-header .header-right .contact-icons{display:flex!important;flex:0 0 100%!important;width:100%!important;justify-content:center!important;align-items:center!important;gap:12px!important;margin:5px auto 2px!important}
 .site-header .header-right .contact-icons[hidden]{display:none!important}
 </style>
+<style id="ebagz-final-nav-translation-rules">
+html body .site-header .main-nav a[aria-current="page"],html body .site-header .main-nav a.is-active{color:#6da5dc!important;font-weight:500!important}
+html body .site-header .main-nav a:not([aria-current="page"]):not(.is-active){color:#fff!important;font-weight:500!important}
+html body .site-header .main-nav button[aria-current="page"],html body .site-header .main-nav button.is-active{color:#6da5dc!important}
+html body .site-header .main-nav button:not([aria-current="page"]):not(.is-active){color:#fff!important}
+.site-header .header-logo,.site-header .header-logo *, .site-footer .footer-logo,.site-footer .footer-logo *, .brand-inline,.brand-inline *{translate:no!important;-webkit-translate:no!important}
+</style>
+<script id="ebagz-final-nav-translation-script">
+(()=>{
+ const clean=p=>(p||"/").split("?")[0].split("#")[0].replace(/\/+$/,"")||"/";
+ const current=clean(location.pathname);
+ document.querySelectorAll(".site-header .main-nav a[href]").forEach(a=>{
+  try{const target=clean(new URL(a.getAttribute("href"),location.origin).pathname);const active=target===current||((current==="/"||current==="/index.html")&&(target==="/"||target==="/index.html"));a.classList.toggle("is-active",active);if(active)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");}catch(e){}
+ });
+ document.querySelectorAll(".site-header .header-logo,.site-footer .footer-logo,.brand-inline").forEach(el=>{el.classList.add("notranslate");el.setAttribute("translate","no")});
+ document.querySelectorAll(".site-header .apple-mark,.site-footer .apple-mark").forEach(el=>{el.classList.add("notranslate");el.setAttribute("translate","no")});
+ const lang=document.getElementById("languageSelect");let saved="fr";try{saved=localStorage.getItem("ebagzunlock-language")||"fr"}catch(e){}if(lang&&Array.from(lang.options).some(o=>o.value===saved))lang.value=saved;
+ const applySavedTranslation=()=>{if(saved==="fr")return;const cookie=document.cookie.split(";").some(x=>x.trim().startsWith("googtrans=/fr/"+saved));if(!cookie){document.cookie="googtrans=/fr/"+saved+";path=/;max-age=31536000;SameSite=Lax";document.cookie="googtrans=/fr/"+saved+";domain="+location.hostname+";path=/;max-age=31536000;SameSite=Lax";} };
+ applySavedTranslation();
+})();
+</script>
 </body>
 </html>
