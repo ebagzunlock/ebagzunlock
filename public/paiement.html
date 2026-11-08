@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#081321">
-<title>Paiement sécurisé — E-BAGS UNLOCK</title>
+<title>Récapitulatif — E-BAGS UNLOCK</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://js.stripe.com/v3/"></script>
@@ -14,13 +14,13 @@
 header{padding:22px 20px;border-bottom:1px solid var(--border);background:rgba(8,19,33,.95);text-align:center}
 .logo{font-size:25px;font-weight:800;letter-spacing:-1px;text-decoration:none;color:var(--white)}.logo span{color:var(--blue)}
 nav{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 24px;margin-top:13px}nav a{font-size:13px;color:var(--muted);text-decoration:none}
-main{width:min(760px,calc(100% - 32px));margin:45px auto 70px}
-h1{margin:0 0 8px;text-align:center;font-size:clamp(25px,5vw,34px)}.intro{text-align:center;color:var(--muted);font-size:14px;margin:0 0 28px}
+main{width:min(760px,calc(100% - 32px));margin:40px auto 70px}
+h1{margin:0 0 24px;text-align:center;font-size:clamp(30px,5vw,40px);letter-spacing:-1px}
 .panel{padding:25px;border:1px solid var(--border);border-radius:14px;background:var(--panel);margin-bottom:18px}
-h2{font-size:17px;margin:0 0 16px}.line{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}.line:last-child{border:0}.line span{color:var(--muted)}.amount{color:var(--blue);font-size:24px;font-weight:800}
+h2{font-size:18px;margin:0 0 16px}.line{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}.line:last-child{border:0}.line span{color:var(--muted)}.line strong{text-align:right;overflow-wrap:anywhere}.amount{color:var(--blue);font-size:24px;font-weight:800}
 #checkout{min-height:150px}#status{margin-top:14px;text-align:center;color:var(--error);font-size:14px;white-space:pre-wrap}
 .back{display:block;text-align:center;color:var(--blue);font-size:13px;text-decoration:none;margin-top:20px}
-@media(max-width:520px){main{margin-top:28px}.panel{padding:18px}}
+@media(max-width:520px){main{margin-top:28px}.panel{padding:18px}.line{gap:10px;font-size:13px}}
 </style>
 </head>
 <body>
@@ -34,18 +34,20 @@ h2{font-size:17px;margin:0 0 16px}.line{display:flex;justify-content:space-betwe
 </nav>
 </header>
 <main>
-<h1>Récapitulatif de votre commande</h1>
-<p class="intro">Vérifiez les détails de votre prestation avant de procéder au règlement.</p>
+<h1>Récapitulatif</h1>
 <section class="panel" aria-labelledby="summary-title">
-<h2 id="summary-title">Votre commande</h2>
+<h2 id="summary-title">Détails de votre commande</h2>
 <div class="line"><span>Prestation</span><strong id="service">—</strong></div>
 <div class="line"><span>Appareil / option</span><strong id="device">—</strong></div>
 <div class="line"><span>Modèle</span><strong id="model">—</strong></div>
+<div class="line"><span>Nom</span><strong id="customer-name">—</strong></div>
+<div class="line"><span>E-mail</span><strong id="customer-email">—</strong></div>
+<div class="line"><span>Téléphone</span><strong id="customer-phone">—</strong></div>
+<div class="line"><span>IMEI / numéro de série</span><strong id="customer-identifier">—</strong></div>
 <div class="line"><span>Total à payer</span><strong class="amount" id="amount">—</strong></div>
 </section>
-<section class="panel">
-<h2>Paiement sécurisé</h2>
-<p class="intro" style="text-align:left;margin:0 0 18px">Choisissez votre moyen de paiement parmi les options proposées ci-dessous.</p>
+<section class="panel" aria-labelledby="payment-title">
+<h2 id="payment-title">Mode de paiement</h2>
 <div id="checkout"></div>
 <div id="status" role="alert"></div>
 </section>
@@ -55,8 +57,9 @@ h2{font-size:17px;margin:0 0 16px}.line{display:flex;justify-content:space-betwe
 "use strict";
 const PUBLISHABLE_KEY="pk_live_51UXyGX75EdsO57RNKonjBJn7r6Q2m2tGmlhzXpz9eQMs2c1ZDmVsp7oecok3jBg3xvcFsUkL3dyjZcKrvGs9iAic00hn3wyox8";
 const params=new URLSearchParams(location.search);
-let savedSelection={};
+let savedSelection={},customer={};
 try{savedSelection=JSON.parse(sessionStorage.getItem("ebagzunlock-pending-payment")||"{}");}catch(error){}
+try{customer=JSON.parse(sessionStorage.getItem("ebagzunlock-pending-order")||"{}");}catch(error){}
 const selection={
 service:params.get("service")||savedSelection.service||"",
 device:params.get("device")||savedSelection.device||"",
@@ -69,14 +72,19 @@ const prices={
 "iPad":{"iPad classique 1re–11e génération (A16 inclus)":37,"iPad mini 1–6 (A17 Pro inclus)":39,"iPad Air 1–5":37,"iPad Air M2/M3/M4 11/13 pouces":35,"iPad Pro 9.7 pouces":39,"iPad Pro 10.5 pouces":39,"iPad Pro 11 pouces générations 1–5":45,"iPad Pro 12.9 pouces générations 1–6":49,"iPad Pro M4 11/13 pouces":52,"iPad Pro M5 11/13 pouces":55},
 "Apple Watch":{"Apple Watch Series 1–12":54,"Apple Watch SE 1/2/3":63,"Apple Watch Ultra 1/2/3/4":69}};
 const updateService="Mise à jour iOS / macOS";
-let amount=selection.service===updateService?updatePrices[selection.model]:prices[selection.device]?.[selection.model];
+const amount=selection.service===updateService?updatePrices[selection.model]:prices[selection.device]?.[selection.model];
+const validCustomer=customer.name&&customer.email&&customer.phone&&customer.identifier;
 if(selection.service===updateService&&selection.device!==selection.model)amount=null;
-if(!selection.service||!selection.device||!selection.model||!Number.isFinite(amount)){
-document.getElementById("status").textContent="Sélection invalide. Retournez aux offres et choisissez votre prestation.";
+if(!selection.service||!selection.device||!selection.model||!Number.isFinite(amount)||!validCustomer){
+document.getElementById("status").textContent="Récapitulatif incomplet. Retournez sur le site et vérifiez les informations de votre commande.";
 }else{
 document.getElementById("service").textContent=selection.service;
 document.getElementById("device").textContent=selection.device;
 document.getElementById("model").textContent=selection.model;
+document.getElementById("customer-name").textContent=customer.name;
+document.getElementById("customer-email").textContent=customer.email;
+document.getElementById("customer-phone").textContent=customer.phone;
+document.getElementById("customer-identifier").textContent=customer.identifier;
 document.getElementById("amount").textContent=amount+" €";
 startCheckout();
 }
@@ -86,7 +94,11 @@ if(!window.Stripe)throw new Error("Le service de paiement Stripe ne se charge pa
 const stripe=Stripe(PUBLISHABLE_KEY);
 const checkout=await stripe.initEmbeddedCheckout({
 fetchClientSecret:async()=>{
-const response=await fetch("/api/create-checkout-session",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(selection)});
+const response=await fetch("/api/create-checkout-session",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({...selection,customer})
+});
 const data=await response.json();
 if(!response.ok||!data.client_secret)throw new Error(data.error||"Impossible de préparer le paiement.");
 return data.client_secret;
