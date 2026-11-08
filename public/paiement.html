@@ -106,7 +106,7 @@ const clientSecretPromise=(async()=>{
 const response=await fetch("/api/create-checkout-session",{
 method:"POST",
 headers:{"Content-Type":"application/json"},
-body:JSON.stringify({...selection,customer})
+body:JSON.stringify({...selection,customer,locale:(localStorage.getItem("ebagzunlock-language")||"fr")})
 });
 const data=await response.json();
 if(!response.ok||!data.client_secret)throw new Error(data.error||"Impossible de préparer le paiement.");
