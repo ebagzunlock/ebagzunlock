@@ -41,7 +41,13 @@ export async function onRequestPost({ request, env }) {
   try { payload = await request.json(); }
   catch { return Response.json({ error: "Requête invalide." }, { status: 400 }); }
 
-  const { service, device, model, customer = {} } = payload || {};
+  const { service, device, model, customer = {}, locale: requestedLocale = "fr" } = payload || {};
+
+  // Stripe Checkout Elements : locale de la session, dérivée du choix du site.
+  const supportedLocales = new Set(["auto","bg","cs","da","de","el","en","en-GB","es","es-419","et","fi","fil","fr","fr-CA","hr","hu","id","it","ja","ko","lt","lv","ms","mt","nb","nl","pl","pt","pt-BR","ro","ru","sk","sl","sv","th","tr","vi","zh","zh-HK","zh-TW"]);
+  const localeAliases = { "zh-CN": "zh", "pt": "pt", "en": "en", "fr": "fr" };
+  const stripeLocale = localeAliases[requestedLocale] || requestedLocale;
+  const checkoutLocale = supportedLocales.has(stripeLocale) ? stripeLocale : "auto";
   if (!SERVICES.includes(service)) return Response.json({ error: "Prestation invalide." }, { status: 400 });
 
   const name = String(customer.name || "").trim().slice(0, 120);
@@ -69,6 +75,7 @@ export async function onRequestPost({ request, env }) {
 
   const params = new URLSearchParams();
   params.set("mode", "payment");
+  params.set("locale", checkoutLocale);
   params.set("ui_mode", "elements");
     params.set("invoice_creation[enabled]", "true");
   params.set("customer_creation", "always");
