@@ -29,6 +29,11 @@ h1{margin:0 0 24px;text-align:center;font-size:clamp(30px,5vw,40px);font-weight:
 .panel{padding:25px;border:1px solid var(--border);border-radius:14px;background:var(--panel);margin-bottom:18px}
 h2{font-size:18px;font-weight:500;text-transform:none;margin:0 0 16px}#summary-title{font-size:14px;font-weight:500;margin:0 0 16px}#payment-title{text-align:center;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px;margin:0 0 22px}.line{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}.line:last-child{border:0}.line span{color:var(--muted)}.line strong{text-align:right;overflow-wrap:anywhere}.amount{color:var(--blue);font-size:24px;font-weight:800}
 #payment-element{min-height:150px}
+.info-notice{margin:0 0 18px;padding:18px;border:1px solid rgba(109,165,220,.55);border-radius:12px;background:rgba(109,165,220,.09)}
+.info-brand{font-size:16px;font-weight:800;letter-spacing:-.3px;margin:0 0 9px}.info-brand .apple-mark{font-family:Arial,sans-serif;margin-left:4px}
+.info-notice p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
+.acknowledgement{display:flex;align-items:flex-start;gap:11px;margin:18px 0 6px;padding:14px;border:1px solid var(--border);border-radius:9px;font-size:13px;line-height:1.55;color:var(--white);cursor:pointer}
+.acknowledgement input{width:18px;height:18px;flex:0 0 18px;margin:1px 0 0;accent-color:var(--blue)}
 #pay-button{display:block;width:100%;margin-top:20px;padding:16px 24px;border:0;border-radius:9px;background:var(--blue);color:#071321;font:800 16px Inter,sans-serif;letter-spacing:.08em;cursor:pointer}
 #pay-button:disabled{opacity:.55;cursor:wait}
 #status{margin-top:14px;text-align:center;color:var(--error);font-size:14px;white-space:pre-wrap}
@@ -67,6 +72,15 @@ h2{font-size:18px;font-weight:500;text-transform:none;margin:0 0 16px}#summary-t
 <div class="line"><span>Total à payer</span><strong class="amount" id="amount">—</strong></div>
 </section>
 <section class="panel" aria-labelledby="payment-title">
+<div class="info-notice" role="note" aria-labelledby="info-brand">
+<div class="info-brand" id="info-brand">ebagz<span style="color:var(--blue)">unlock</span><span class="apple-mark" aria-hidden="true"> </span></div>
+<p>Selon la prestation choisie, vous recevrez après confirmation du paiement une autorisation, un code ou les instructions nécessaires par e-mail. Ces éléments vous permettront d’effectuer vous-même les étapes de la procédure sur votre appareil. Le paiement ne signifie donc pas que votre appareil sera déverrouillé instantanément ou à distance.</p>
+<p style="margin-top:8px">E-BAGZUNLOCK est un service indépendant et n’est pas affilié à Apple.</p>
+</div>
+<label class="acknowledgement" for="service-acknowledgement">
+<input id="service-acknowledgement" type="checkbox" required>
+<span>Je comprends que je recevrai par e-mail, selon la prestation, une autorisation, un code ou des instructions pour effectuer moi-même la procédure sur mon appareil.</span>
+</label>
 <h2 id="payment-title">MODE DE PAIEMENT</h2>
 <div id="payment-element"></div>
 <button id="pay-button" type="button" disabled>PAYER</button>
@@ -135,6 +149,9 @@ startCheckout();
 async function startCheckout(){
 const status=document.getElementById("status");
 const button=document.getElementById("pay-button");
+const acknowledgement=document.getElementById("service-acknowledgement");
+let stripeReady=false;
+acknowledgement.addEventListener("change",()=>{button.disabled=!stripeReady||!acknowledgement.checked;});
 button.disabled=true;
 try{
 if(!window.Stripe)throw new Error("Le service de paiement Stripe ne se charge pas. Actualisez la page.");
@@ -169,9 +186,10 @@ const actions=loaded.actions;
 const session=await actions.getSession();
 const total=session?.total?.total?.amount;
 if(typeof total==="number")document.getElementById("amount").textContent=new Intl.NumberFormat("fr-FR",{style:"currency",currency:session.currency||"eur"}).format(total);
-button.disabled=false;
+stripeReady=true;
+button.disabled=!acknowledgement.checked;
 button.addEventListener("click",async()=>{
-if(button.disabled)return;
+if(button.disabled||!acknowledgement.checked)return;
 button.disabled=true;
 status.textContent="";
 try{
