@@ -2263,9 +2263,6 @@ new google.translate.TranslateElement({pageLanguage:"fr",includedLanguages:"en,e
 .site-header .main-nav a:hover,.site-header .main-nav button:hover{color:#6da5dc!important}
 html[data-theme="light"] .site-header .site-menu,html[data-theme="light"] .site-header .site-menu a,html[data-theme="light"] .site-header .site-menu button{background:#101f31!important;color:#f5f8fc!important;border-color:rgba(255,255,255,.11)!important}
 </style>
-<script id="ebagz-header-active-link">
-(()=>{let path=location.pathname.toLowerCase();while(path.length>1&&path.endsWith("/"))path=path.slice(0,-1);document.querySelectorAll(".site-header .main-nav a[href]").forEach(a=>{try{const u=new URL(a.href,location.href);let target=u.pathname.toLowerCase();while(target.length>1&&target.endsWith("/"))target=target.slice(0,-1);if(target===path||(path==="/"&&target==="/index.html")){a.setAttribute("aria-current","page");a.classList.add("is-active");}}catch(e){}});const contact=document.getElementById("contactToggle"),icons=document.getElementById("contactIcons");if(contact&&icons){const sync=()=>{const active=!icons.hidden;contact.classList.toggle("is-active",active);if(active)contact.setAttribute("aria-current","page");else contact.removeAttribute("aria-current");};sync();contact.addEventListener("click",()=>setTimeout(sync,0));}})();
-</script>
 <style id="ebagz-header-original-brand-colors">
 /* En-tête identique quel que soit le thème : logo blanc/bleu d'origine. */
 .site-header,html[data-theme="light"] .site-header,html[data-theme="light"] header.site-header{background:#0b1b2b!important;color:#fff!important}
@@ -2275,6 +2272,45 @@ html[data-theme="light"] .site-header .site-menu,html[data-theme="light"] .site-
 .site-header .main-nav a[aria-current="page"],.site-header .main-nav a.is-active,.site-header .main-nav button[aria-current="page"],.site-header .main-nav button.is-active{color:#6da5dc!important}
 .site-header .language-globe,.site-header .theme-toggle{border-color:rgba(255,255,255,.2)!important}
 </style>
+<style id="ebagz-nav-spacing-active-state">
+/* Navigation plus lisible, espacée sans graisse excessive. */
+.site-header .header-right{gap:clamp(6px,1.35vw,15px)!important}
+.site-header .main-nav{gap:clamp(9px,1.5vw,18px)!important}
+.site-header .main-nav a,.site-header .main-nav button{font-weight:500!important;letter-spacing:.01em!important;padding-left:1px!important;padding-right:1px!important}
+.site-header .main-nav a.is-active,.site-header .main-nav a[aria-current="page"],.site-header .main-nav button.is-active,.site-header .main-nav button[aria-current="page"]{color:#6da5dc!important}
+.site-header .main-nav a:not(.is-active):not([aria-current="page"]),.site-header .main-nav button:not(.is-active):not([aria-current="page"]){color:#fff!important}
+@media(max-width:420px){
+ .site-header .header-right{gap:4px!important}
+ .site-header .main-nav{gap:clamp(6px,1.5vw,9px)!important}
+ .site-header .main-nav a,.site-header .main-nav button{font-size:9px!important;letter-spacing:0!important}
+}
+</style>
+<script id="ebagz-header-active-link">
+(()=> {
+ const path=location.pathname.toLowerCase().replace(/\/+$/,"")||"/";
+ const links=document.querySelectorAll(".site-header .main-nav a[href]");
+ links.forEach(a=>{
+  try{
+   const target=new URL(a.href,location.href).pathname.toLowerCase().replace(/\/+$/,"")||"/";
+   const active=(target===path)||(path==="/"&&target==="/index.html");
+   a.classList.toggle("is-active",active);
+   if(active)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");
+  }catch(e){}
+ });
+ const contact=document.getElementById("contactToggle");
+ const icons=document.getElementById("contactIcons");
+ if(contact&&icons){
+  const sync=()=>{
+   const active=!icons.hidden;
+   contact.classList.toggle("is-active",active);
+   if(active)contact.setAttribute("aria-current","page");
+   else contact.removeAttribute("aria-current");
+  };
+  sync();
+  contact.addEventListener("click",()=>requestAnimationFrame(sync));
+ }
+})();
+</script>
 </body>
 </html>
 
