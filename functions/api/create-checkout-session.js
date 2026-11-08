@@ -74,7 +74,6 @@ export async function onRequestPost({ request, env }) {
   params.set("invoice_creation[enabled]", "true");
   params.set("customer_creation", "always");
   params.set("customer_email", email);
-  params.set("submit_type", "pay");
   params.set("line_items[0][quantity]", "1");
   params.set("line_items[0][price_data][currency]", "eur");
   params.set("line_items[0][price_data][unit_amount]", String(amount * 100));
