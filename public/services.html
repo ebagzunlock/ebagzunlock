@@ -1225,6 +1225,15 @@ html[data-theme="light"] .site-header .site-menu,html[data-theme="light"] .site-
 <script id="ebagz-header-active-link">
 (()=>{let path=location.pathname.toLowerCase();while(path.length>1&&path.endsWith("/"))path=path.slice(0,-1);document.querySelectorAll(".site-header .main-nav a[href]").forEach(a=>{try{const u=new URL(a.href,location.href);let target=u.pathname.toLowerCase();while(target.length>1&&target.endsWith("/"))target=target.slice(0,-1);if(target===path||(path==="/"&&target==="/index.html")){a.setAttribute("aria-current","page");a.classList.add("is-active");}}catch(e){}});const contact=document.getElementById("contactToggle"),icons=document.getElementById("contactIcons");if(contact&&icons){const sync=()=>{const active=!icons.hidden;contact.classList.toggle("is-active",active);if(active)contact.setAttribute("aria-current","page");else contact.removeAttribute("aria-current");};sync();contact.addEventListener("click",()=>setTimeout(sync,0));}})();
 </script>
+<style id="ebagz-header-original-brand-colors">
+/* En-tête identique quel que soit le thème : logo blanc/bleu d'origine. */
+.site-header,html[data-theme="light"] .site-header,html[data-theme="light"] header.site-header{background:#0b1b2b!important;color:#fff!important}
+.site-header .logo,.site-header .apple-mark{color:#fff!important}
+.site-header .logo .logo-blue,.site-header .logo-blue{color:#6da5dc!important}
+.site-header .main-nav a,.site-header .main-nav button,.site-header .language-globe,.site-header .theme-toggle{color:#fff!important}
+.site-header .main-nav a[aria-current="page"],.site-header .main-nav a.is-active,.site-header .main-nav button[aria-current="page"],.site-header .main-nav button.is-active{color:#6da5dc!important}
+.site-header .language-globe,.site-header .theme-toggle{border-color:rgba(255,255,255,.2)!important}
+</style>
 </body>
 </html>
 
