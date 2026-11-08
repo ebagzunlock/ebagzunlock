@@ -1882,7 +1882,7 @@ sessionStorage.setItem("ebagzunlock-pending-payment",JSON.stringify({service,dev
 sessionStorage.setItem("ebagzunlock-pending-order",JSON.stringify(customer));
 }catch(error){showStatus(paymentStatus,"Impossible de préparer votre commande. Réessayez.","error");return;}
 const params=new URLSearchParams({service,device,model});
-window.location.href="/paiement.html?"+params.toString();
+window.location.href="/recapitulatif.html?"+params.toString();
 });
 
 /* Vérification du paiement après le retour Stripe */
