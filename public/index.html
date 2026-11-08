@@ -163,6 +163,11 @@ gap:10px
 }
 
 .contact-icons[hidden]{display:none!important}
+.language-picker{display:inline-flex;align-items:center}
+.language-picker select{min-width:132px;min-height:38px;padding:7px 28px 7px 11px;border:1px solid var(--border);border-radius:7px;background:#0b1929;color:var(--white);font-size:13px;font-weight:600;cursor:pointer}
+.language-picker select option{background:#0b1929;color:#f5f8fc}
+.goog-te-banner-frame{display:none!important}body{top:0!important}
+
 
 .contact-icons a{
 width:38px;
@@ -917,7 +922,9 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <button type="button" id="contactToggle" aria-expanded="false" data-i18n="contact">Contact</button>
 </nav>
 
-<button type="button" id="langToggle" class="lang-toggle" aria-label="Switch to English">EN</button>
+<label class="language-picker" aria-label="Choisir la langue"><select id="languageSelect" class="lang-toggle" aria-label="Choisir la langue">
+<option value="fr">Français</option><option value="en">English</option><option value="es">Español</option><option value="pt">Português</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="ar">العربية</option><option value="zh-CN">中文</option><option value="ja">日本語</option><option value="hi">हिन्दी</option><option value="ru">Русский</option><option value="nl">Nederlands</option>
+</select></label><div id="google_translate_element" hidden></div>
 
 <div class="contact-icons" id="contactIcons" hidden>
 <a href="mailto:ebagzunlock@outlook.fr" aria-label="Envoyer un e-mail" title="Envoyer un e-mail">
@@ -1563,8 +1570,8 @@ document.querySelectorAll("[data-i18n-placeholder]").forEach(element=>{
 element.placeholder=t(element.getAttribute("data-i18n-placeholder"));
 });
 
-$("langToggle").textContent=currentLang==="fr"?"EN":"FR";
-$("langToggle").setAttribute("aria-label",t("switchLabel"));
+const languageSelect=$("languageSelect");
+if(languageSelect)languageSelect.value=currentLang;
 
 document.title=currentLang==="fr"
 ?"EBAGZUNLOCK — Déverrouillage et assistance informatique Apple"
@@ -1577,14 +1584,18 @@ payButton.textContent=t("alreadyPaid");
 }
 }
 
-$("langToggle").addEventListener("click",()=>{
-const next=currentLang==="fr"?"en":"fr";
-
-try{
-localStorage.setItem("ebagzunlock-language",next);
-}catch(error){}
-
+$("languageSelect").addEventListener("change",event=>{
+const next=event.target.value;
+try{localStorage.setItem("ebagzunlock-language",next);}catch(error){}
+if(next==="fr"||next==="en"){
+document.cookie="googtrans=;path=/;max-age=0";
+document.cookie="googtrans=;domain="+location.hostname+";path=/;max-age=0";
 applyLanguage(next);
+}else{
+document.cookie="googtrans=/fr/"+next+";path=/;max-age=31536000;SameSite=Lax";
+document.cookie="googtrans=/fr/"+next+";domain="+location.hostname+";path=/;max-age=31536000;SameSite=Lax";
+location.reload();
+}
 });
 
 function invalidateVerifiedOrder(){
@@ -2042,12 +2053,20 @@ const savedLanguage=localStorage.getItem("ebagzunlock-language");
 
 if(savedLanguage==="en"){
 currentLang="en";
+}else if(savedLanguage&&savedLanguage!=="fr"){
+currentLang="fr";
 }
 
 }catch(error){}
 
 applyLanguage(currentLang);
 
+function googleTranslateElementInit(){
+if(window.google&&google.translate){
+new google.translate.TranslateElement({pageLanguage:"fr",includedLanguages:"en,es,pt,de,it,ar,zh-CN,ja,hi,ru,nl",autoDisplay:false}, "google_translate_element");
+}
+}
 </script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body>
 </html>
