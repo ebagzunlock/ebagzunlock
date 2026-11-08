@@ -4,6 +4,28 @@
 body{margin:0;min-height:100vh;display:grid;place-items:center;background:#050914;color:#f4f8ff;font:16px Arial,sans-serif}
 main{width:min(560px,88%);padding:32px;border:1px solid #28466d;border-radius:20px;background:#0b1426;text-align:center}
 h1{color:#45d7ff}p{color:#b8c7dc;line-height:1.6}a{display:inline-block;margin-top:16px;padding:12px 18px;border-radius:10px;background:#168bff;color:white;text-decoration:none;font-weight:bold}
-</style></head><body><main><h1>Paiement non finalisé</h1>
+</style></head><body><main><div class="notranslate" translate="no" style="font-weight:800;font-size:22px;margin-bottom:18px">ebagzunlock <span aria-hidden="true"></span></div><label for="languageSelect" style="display:block;margin:0 auto 18px;font-size:13px">Langue / Language <select id="languageSelect"><option value="fr">Français</option><option value="en">English</option><option value="es">Español</option><option value="pt">Português</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="ar">العربية</option><option value="zh-CN">中文</option><option value="ja">日本語</option><option value="hi">हिन्दी</option><option value="ru">Русский</option><option value="nl">Nederlands</option></select></label><div id="google_translate_element" hidden></div><h1>Paiement non finalisé</h1>
 <p>Vous avez quitté la page de paiement. Aucun paiement n'a été confirmé par ce retour. Vous pouvez reprendre votre commande depuis les tarifs.</p>
-<a href="/#tarifs">Revenir aux tarifs</a></main></body></html>
+<a href="/#tarifs">Revenir aux tarifs</a></main>
+<script>
+const languageSelect=document.getElementById("languageSelect");
+let savedLanguage="fr";try{savedLanguage=localStorage.getItem("ebagzunlock-language")||"fr"}catch(e){}
+if(languageSelect)languageSelect.value=savedLanguage;
+if(savedLanguage!=="fr"){document.cookie="googtrans=/fr/"+savedLanguage+";path=/;max-age=31536000;SameSite=Lax";document.cookie="googtrans=/fr/"+savedLanguage+";domain="+location.hostname+";path=/;max-age=31536000;SameSite=Lax";}
+if(languageSelect)languageSelect.addEventListener("change",e=>{const lang=e.target.value;try{localStorage.setItem("ebagzunlock-language",lang)}catch(err){};document.cookie="googtrans=;path=/;max-age=0";document.cookie="googtrans=;domain="+location.hostname+";path=/;max-age=0";if(lang!=="fr"){document.cookie="googtrans=/fr/"+lang+";path=/;max-age=31536000;SameSite=Lax";document.cookie="googtrans=/fr/"+lang+";domain="+location.hostname+";path=/;max-age=31536000;SameSite=Lax";}location.reload();});
+function googleTranslateElementInit(){if(window.google&&google.translate)new google.translate.TranslateElement({pageLanguage:"fr",includedLanguages:"en,es,pt,de,it,ar,zh-CN,ja,hi,ru,nl",autoDisplay:false},"google_translate_element");}
+</script><script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script><script id="ebagz-translate-all-visible-text">
+(()=> {
+ document.documentElement.setAttribute("translate","yes");
+ if(document.body)document.body.setAttribute("translate","yes");
+ const protectBrand=()=>{
+  document.querySelectorAll(".site-header .header-logo,.site-footer .footer-logo,header .logo,.brand-inline,.apple-mark").forEach(el=>{
+   el.classList.add("notranslate");
+   el.setAttribute("translate","no");
+  });
+ };
+ protectBrand();
+ document.addEventListener("DOMContentLoaded",protectBrand);
+})();
+</script>
+</body></html>
