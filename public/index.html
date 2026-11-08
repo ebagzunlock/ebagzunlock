@@ -1021,6 +1021,12 @@ Découvrir nos offres
 <span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
 </button>
 
+<button class="service-card" type="button" data-service="SNAP-error/ban">
+<h3 data-i18n="svcSnap">SNAP-error/ban</h3>
+<p data-i18n="imeiSerial">IMEI ou numéro de série</p>
+<span class="card-hint" data-i18n="selectService">Sélectionner ce service →</span>
+</button>
+
 <button class="service-card" type="button" data-service="Suppression Blocage & Limitation Propriétaire">
 <h3 data-i18n="svcOwner">Suppression de blocage et de limitation propriétaire</h3>
 <p data-i18n="imeiSerial">IMEI ou numéro de série</p>
@@ -1059,6 +1065,7 @@ Découvrir nos offres
 <option value="" data-i18n="chooseService">Choisir un service</option>
 <option value="Déverrouillage iCloud">Déverrouillage iCloud</option>
 <option value="Déverrouillage Opérateur">Déverrouillage opérateur</option>
+<option value="SNAP-error/ban">SNAP-error/ban</option>
 <option value="Suppression Blocage & Limitation Propriétaire">Suppression de blocage et de limitation propriétaire</option>
 <option value="Résolution Blocage DFU & Mode de Récupération">Résolution des blocages DFU et du mode de récupération</option>
 <option value="Mise à jour iOS / macOS">Mise à jour iOS / macOS</option>
@@ -1301,6 +1308,7 @@ servicesTitle:"Nos services",
 servicesDesc:"Sélectionnez un service pour commencer votre demande.",
 svcIcloud:"Déverrouillage iCloud",
 svcCarrier:"Déverrouillage opérateur",
+svcSnap:"SNAP-error/ban",
 svcOwner:"Suppression de blocage et de limitation propriétaire",
 svcDfu:"Résolution des blocages DFU et du mode de récupération",
 svcUpdate:"Mise à jour iOS / macOS",
@@ -1378,6 +1386,7 @@ servicesTitle:"Our services",
 servicesDesc:"Select a service to start your request.",
 svcIcloud:"iCloud Unlock",
 svcCarrier:"Carrier unlock",
+svcSnap:"SNAP-error/ban",
 svcOwner:"Owner lock and restriction removal",
 svcDfu:"DFU and recovery mode issue resolution",
 svcUpdate:"iOS / macOS update",
@@ -1531,6 +1540,7 @@ function refreshSelectLabels(){
 const labels={
 "Déverrouillage iCloud":t("svcIcloud"),
 "Déverrouillage Opérateur":t("svcCarrier"),
+"SNAP-error/ban":t("svcSnap"),
 "Suppression Blocage & Limitation Propriétaire":t("svcOwner"),
 "Résolution Blocage DFU & Mode de Récupération":t("svcDfu"),
 [UPDATE_SERVICE]:t("svcUpdate")
@@ -1685,9 +1695,7 @@ deviceSelect.innerHTML="";
 const choices=[
 ["",t("chooseCategory")],
 ["iPhone","iPhone"],
-["MacBook","MacBook"],
-["iPad","iPad"],
-["Apple Watch","Apple Watch"]
+...(serviceSelect.value==="SNAP-error/ban"?[]:[["MacBook","MacBook"],["iPad","iPad"],["Apple Watch","Apple Watch"]])
 ];
 
 choices.forEach(([value,label])=>{
@@ -1794,6 +1802,7 @@ return;
 resetModelAndPrice();
 
 if(!device||!CATALOGUE[device])return;
+if(serviceSelect.value==="SNAP-error/ban"&&device!=="iPhone")return;
 
 Object.keys(CATALOGUE[device]).forEach(model=>{
 
@@ -1852,6 +1861,10 @@ contactToggle.setAttribute("aria-expanded","false");
 payButton.addEventListener("click",()=>{
 const service=serviceSelect.value;
 const device=deviceSelect.value;
+if(service==="SNAP-error/ban"&&device!=="iPhone"){
+showStatus(paymentStatus,"Ce service est disponible uniquement pour iPhone.");
+return;
+}
 let model=modelSelect.value;
 if(!service||!device||selectedPrice===null){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
 if(!requestForm.reportValidity())return;
