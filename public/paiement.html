@@ -44,6 +44,7 @@ h2{font-size:18px;margin:0 0 16px}.line{display:flex;justify-content:space-betwe
 <div class="line"><span>E-mail</span><strong id="customer-email">—</strong></div>
 <div class="line"><span>Téléphone</span><strong id="customer-phone">—</strong></div>
 <div class="line"><span>IMEI / numéro de série</span><strong id="customer-identifier">—</strong></div>
+<div class="line" id="message-row" hidden><span>Informations complémentaires</span><strong id="customer-message">—</strong></div>
 <div class="line"><span>Total à payer</span><strong class="amount" id="amount">—</strong></div>
 </section>
 <section class="panel" aria-labelledby="payment-title">
@@ -85,6 +86,7 @@ document.getElementById("customer-name").textContent=customer.name;
 document.getElementById("customer-email").textContent=customer.email;
 document.getElementById("customer-phone").textContent=customer.phone;
 document.getElementById("customer-identifier").textContent=customer.identifier;
+if(customer.message){document.getElementById("customer-message").textContent=customer.message;document.getElementById("message-row").hidden=false;}
 document.getElementById("amount").textContent=amount+" €";
 startCheckout();
 }
