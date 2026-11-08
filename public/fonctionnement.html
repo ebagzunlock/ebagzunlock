@@ -984,6 +984,11 @@ html[data-theme="light"] .site-menu a,html[data-theme="light"] .site-menu button
 html[data-theme="light"] .theme-toggle{color:#172638}
 html[data-theme="light"] .logo,html[data-theme="light"] .logo .apple-mark,html[data-theme="light"] .footer-logo,html[data-theme="light"] .footer-logo .apple-mark{color:#172638}
 </style>
+<style id="ebagz-compact-menu">
+.site-menu{width:max-content!important;min-width:210px!important;max-width:min(78vw,280px)!important;padding:6px 10px!important}
+.site-menu a,.site-menu button{display:block;width:100%;padding:10px 7px!important;border:0!important;white-space:normal!important}
+.site-menu .contact-icons{width:100%;justify-content:center!important;margin:4px auto!important}
+</style>
 </head>
 
 <body>
@@ -2019,35 +2024,16 @@ new google.translate.TranslateElement({pageLanguage:"fr",includedLanguages:"en,e
 
 <script id="ebagz-hamburger-menu-script">
 (()=> {
- const toggle=document.getElementById("siteMenuToggle");
- const menu=document.getElementById("siteMenu");
- const contact=document.getElementById("contactIcons");
- const contactToggle=document.getElementById("contactToggle");
- const contactAction=document.getElementById("siteMenuContact");
- if(toggle&&menu){
-  toggle.addEventListener("click",()=>{
-   const opening=menu.hidden;
-   menu.hidden=!opening;
-   toggle.setAttribute("aria-expanded",String(opening));
-   if(opening&&contact)contact.hidden=true;
-   if(contactToggle)contactToggle.setAttribute("aria-expanded","false");
-  });
-  document.addEventListener("click",event=>{
-   if(!menu.hidden&&!menu.contains(event.target)&&!toggle.contains(event.target)){
-    menu.hidden=true;toggle.setAttribute("aria-expanded","false");
-   }
-  });
-  document.addEventListener("keydown",event=>{
-   if(event.key==="Escape"){menu.hidden=true;toggle.setAttribute("aria-expanded","false");}
-  });
- }
- if(contactAction){
-  contactAction.addEventListener("click",()=>{
-   if(menu)menu.hidden=true;
-   if(toggle)toggle.setAttribute("aria-expanded","false");
-   if(contact){contact.hidden=!contact.hidden;contact.scrollIntoView({behavior:"smooth",block:"nearest"});}
-  });
- }
+ const toggle=document.getElementById("siteMenuToggle"),menu=document.getElementById("siteMenu"),contact=document.getElementById("contactIcons"),contactAction=document.getElementById("siteMenuContact");
+ if(!toggle||!menu)return;
+ const home=contact&&contact.parentNode?document.createComment("contact-icons-home"):null;
+ if(home)contact.parentNode.insertBefore(home,contact);
+ const restore=()=>{if(contact&&home&&home.parentNode){contact.hidden=true;contact.style.width="";contact.style.justifyContent="";home.parentNode.insertBefore(contact,home.nextSibling)}if(contactAction)contactAction.hidden=false};
+ const close=()=>{menu.hidden=true;toggle.setAttribute("aria-expanded","false");restore()};
+ toggle.addEventListener("click",()=>{if(menu.hidden){restore();menu.hidden=false;toggle.setAttribute("aria-expanded","true")}else close()});
+ document.addEventListener("click",e=>{if(!menu.hidden&&!menu.contains(e.target)&&!toggle.contains(e.target))close()});
+ document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+ if(contactAction&&contact)contactAction.addEventListener("click",()=>{contactAction.hidden=true;contact.hidden=false;contact.style.width="100%";contact.style.justifyContent="center";contactAction.insertAdjacentElement("afterend",contact)});
 })();
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
