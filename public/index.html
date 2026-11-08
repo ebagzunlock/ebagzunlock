@@ -1799,6 +1799,7 @@ return;
 if(service===UPDATE_SERVICE)model=device;
 
 const params=new URLSearchParams({service,device,model});
+try{sessionStorage.setItem("ebagzunlock-pending-payment",JSON.stringify({service,device,model}));}catch(error){}
 window.location.href="/paiement.html?"+params.toString();
 });
 
