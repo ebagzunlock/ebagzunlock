@@ -16,9 +16,9 @@ header{padding:22px 20px;border-bottom:1px solid var(--border);background:rgba(8
 nav{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 24px;margin-top:13px}nav a{font-size:13px;color:var(--muted);text-decoration:none}
 .site-footer{margin-top:auto;padding:24px 20px;text-align:center;border-top:1px solid var(--border);background:rgba(8,19,33,.72)}.footer-logo{display:inline-block;color:var(--white);font-size:22px;font-weight:800;letter-spacing:-1px;text-decoration:none}.footer-logo span:not(.apple-mark){color:var(--blue)}.footer-logo .apple-mark{color:var(--white);margin-left:5px;font-family:Arial,sans-serif;font-size:.95em}
 main{width:min(760px,calc(100% - 32px));margin:40px auto 70px}
-h1{margin:0 0 24px;text-align:center;font-size:clamp(30px,5vw,40px);letter-spacing:-1px}
+h1{margin:0 0 24px;text-align:center;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px}
 .panel{padding:25px;border:1px solid var(--border);border-radius:14px;background:var(--panel);margin-bottom:18px}
-h2{font-size:18px;margin:0 0 16px}#payment-title{text-align:center;font-size:clamp(30px,5vw,40px);letter-spacing:-1px;margin:0 0 22px}.line{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}.line:last-child{border:0}.line span{color:var(--muted)}.line strong{text-align:right;overflow-wrap:anywhere}.amount{color:var(--blue);font-size:24px;font-weight:800}
+h2{font-size:18px;font-weight:500;text-transform:none;margin:0 0 16px}#summary-title{font-size:14px;font-weight:500;margin:0 0 16px}#payment-title{text-align:center;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px;margin:0 0 22px}.line{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}.line:last-child{border:0}.line span{color:var(--muted)}.line strong{text-align:right;overflow-wrap:anywhere}.amount{color:var(--blue);font-size:24px;font-weight:800}
 #checkout{min-height:150px}#status{margin-top:14px;text-align:center;color:var(--error);font-size:14px;white-space:pre-wrap}
 .back{display:block;text-align:center;color:var(--blue);font-size:13px;text-decoration:none;margin-top:20px}
 @media(max-width:520px){main{margin-top:28px}.panel{padding:18px}.line{gap:10px;font-size:13px}}
@@ -35,7 +35,7 @@ h2{font-size:18px;margin:0 0 16px}#payment-title{text-align:center;font-size:cla
 </nav>
 </header>
 <main>
-<h1>Récapitulatif</h1>
+<h1>RÉCAPITULATIF</h1>
 <section class="panel" aria-labelledby="summary-title">
 <h2 id="summary-title">Détails de votre commande</h2>
 <div class="line"><span>Prestation</span><strong id="service">—</strong></div>
@@ -49,7 +49,7 @@ h2{font-size:18px;margin:0 0 16px}#payment-title{text-align:center;font-size:cla
 <div class="line"><span>Total à payer</span><strong class="amount" id="amount">—</strong></div>
 </section>
 <section class="panel" aria-labelledby="payment-title">
-<h2 id="payment-title">Mode de paiement</h2>
+<h2 id="payment-title">MODE DE PAIEMENT</h2>
 <div id="checkout"></div>
 <div id="status" role="alert"></div>
 </section>
