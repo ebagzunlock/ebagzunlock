@@ -1143,30 +1143,43 @@ function googleTranslateElementInit(){
  const toggle=document.getElementById("siteMenuToggle");
  const menu=document.getElementById("siteMenu");
  const contact=document.getElementById("contactIcons");
- const contactToggle=document.getElementById("contactToggle");
  const contactAction=document.getElementById("siteMenuContact");
- if(toggle&&menu){
-  toggle.addEventListener("click",()=>{
-   const opening=menu.hidden;
-   menu.hidden=!opening;
-   toggle.setAttribute("aria-expanded",String(opening));
-   if(opening&&contact)contact.hidden=true;
-   if(contactToggle)contactToggle.setAttribute("aria-expanded","false");
-  });
-  document.addEventListener("click",event=>{
-   if(!menu.hidden&&!menu.contains(event.target)&&!toggle.contains(event.target)){
-    menu.hidden=true;toggle.setAttribute("aria-expanded","false");
-   }
-  });
-  document.addEventListener("keydown",event=>{
-   if(event.key==="Escape"){menu.hidden=true;toggle.setAttribute("aria-expanded","false");}
-  });
+ const contactToggle=document.getElementById("contactToggle");
+ if(!toggle||!menu)return;
+ let contactHome=null;
+ if(contact&&contact.parentNode){
+  contactHome=document.createComment("contact-icons-home");
+  contact.parentNode.insertBefore(contactHome,contact);
  }
- if(contactAction){
+ const restoreContact=()=>{
+  if(contact&&contactHome&&contactHome.parentNode){
+   contact.hidden=true;
+   contactHome.parentNode.insertBefore(contact,contactHome.nextSibling);
+  }
+  if(contactAction)contactAction.hidden=false;
+ };
+ const closeMenu=()=>{
+  menu.hidden=true;
+  toggle.setAttribute("aria-expanded","false");
+  restoreContact();
+ };
+ toggle.addEventListener("click",()=>{
+  const opening=menu.hidden;
+  if(opening){restoreContact();menu.hidden=false;toggle.setAttribute("aria-expanded","true");}
+  else closeMenu();
+  if(contactToggle)contactToggle.setAttribute("aria-expanded","false");
+ });
+ document.addEventListener("click",event=>{
+  if(!menu.hidden&&!menu.contains(event.target)&&!toggle.contains(event.target))closeMenu();
+ });
+ document.addEventListener("keydown",event=>{if(event.key==="Escape")closeMenu();});
+ if(contactAction&&contact){
   contactAction.addEventListener("click",()=>{
-   if(menu)menu.hidden=true;
-   if(toggle)toggle.setAttribute("aria-expanded","false");
-   if(contact){contact.hidden=!contact.hidden;contact.scrollIntoView({behavior:"smooth",block:"nearest"});}
+   contactAction.hidden=true;
+   contact.hidden=false;
+   contact.style.width="100%";
+   contact.style.justifyContent="center";
+   contactAction.insertAdjacentElement("afterend",contact);
   });
  }
 })();
