@@ -103,7 +103,7 @@ const lang=event.target.value;
 try{localStorage.setItem("ebagzunlock-language",lang);}catch(error){}
 document.cookie="googtrans=;path=/;max-age=0";
 document.cookie="googtrans=;domain="+location.hostname+";path=/;max-age=0";
-if(lang!=="fr"&&lang!=="en"){
+if(lang!=="fr"){
 document.cookie="googtrans=/fr/"+lang+";path=/;max-age=31536000;SameSite=Lax";
 document.cookie="googtrans=/fr/"+lang+";domain="+location.hostname+";path=/;max-age=31536000;SameSite=Lax";
 }
