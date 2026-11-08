@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#081321">
+<title>Récapitulatif — EBAGZUNLOCK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/dahlia/stripe.js"></script>
+<style>
+:root{color-scheme:dark;--bg:#081321;--panel:#101f31;--blue:#6da5dc;--white:#f5f8fc;--muted:#aab7c7;--border:rgba(255,255,255,.12);--error:#ff7777}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -15%,rgba(52,119,190,.25),transparent 52%),linear-gradient(145deg,#050b16,#0a1a2d 48%,#07101e);color:var(--white);font-family:Inter,sans-serif}
+header{padding:19px 20px 17px;border-bottom:1px solid var(--border);background:rgba(8,19,33,.97);text-align:center}
+.logo{display:inline-block;font-size:25px;font-weight:800;letter-spacing:-1px;text-decoration:none;color:var(--white)}.logo span{color:var(--blue)}.logo .apple-mark{color:var(--white);margin-left:5px;font-family:Arial,sans-serif;font-size:.95em}
+nav{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px 22px;margin-top:15px}
+nav a{font-size:13px;font-weight:600;color:var(--white);text-decoration:none}
+.language-picker{display:inline-flex;align-items:center;justify-content:center;position:relative;width:38px;height:38px;flex:0 0 38px;cursor:pointer}
+.language-globe{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--blue);border-radius:50%;color:var(--white);pointer-events:none}
+.language-globe svg{width:19px;height:19px}
+.language-picker select{position:absolute;inset:0;width:38px;height:38px;min-width:38px;margin:0;padding:0;border:0;border-radius:50%;background:transparent;color:transparent;font-size:0;opacity:0;cursor:pointer;appearance:none;z-index:2}
+.language-picker select option{background:#0b1929;color:#f5f8fc;font-size:14px}
+#google_translate_element{display:none!important}
+.goog-te-banner-frame{display:none!important}body{top:0!important}
+@media(max-width:520px){header{padding:16px 12px}nav{gap:9px 13px}nav a{font-size:11px}.language-picker,.language-globe,.language-picker select{width:36px;height:36px;min-width:36px;flex-basis:36px}}
+.site-footer{margin-top:auto;padding:24px 20px;text-align:center;border-top:1px solid var(--border);background:rgba(8,19,33,.72)}.footer-logo{display:inline-block;color:var(--white);font-size:22px;font-weight:800;letter-spacing:-1px;text-decoration:none}.footer-logo span:not(.apple-mark){color:var(--blue)}.footer-logo .apple-mark{color:var(--white);margin-left:5px;font-family:Arial,sans-serif;font-size:.95em}
+main{width:min(760px,calc(100% - 32px));margin:40px auto 70px}
+h1{margin:0 0 24px;text-align:center;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px}
+.panel{padding:25px;border:1px solid var(--border);border-radius:14px;background:var(--panel);margin-bottom:18px}
+h2{font-size:18px;font-weight:500;text-transform:none;margin:0 0 16px}#summary-title{font-size:14px;font-weight:500;margin:0 0 16px}#payment-title{text-align:center;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px;margin:0 0 22px}.line{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}.line:last-child{border:0}.line span{color:var(--muted)}.line strong{text-align:right;overflow-wrap:anywhere}.amount{color:var(--blue);font-size:24px;font-weight:800}
+#payment-element{min-height:150px}
+.info-notice{margin:0 0 18px;padding:18px;border:1px solid rgba(109,165,220,.55);border-radius:12px;background:rgba(109,165,220,.09)}
+.info-brand{font-size:16px;font-weight:800;letter-spacing:-.3px;margin:0 0 9px}.info-brand .apple-mark{font-family:Arial,sans-serif;margin-left:4px}
+.info-notice p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
+.acknowledgement{display:flex;align-items:flex-start;gap:11px;margin:18px 0 6px;padding:14px;border:1px solid var(--border);border-radius:9px;font-size:13px;line-height:1.55;color:var(--white);cursor:pointer}
+.acknowledgement input{width:18px;height:18px;flex:0 0 18px;margin:1px 0 0;accent-color:var(--blue)}
+#pay-button{display:block;width:100%;margin-top:20px;padding:16px 24px;border:0;border-radius:9px;background:var(--blue);color:#071321;font:800 16px Inter,sans-serif;letter-spacing:.08em;cursor:pointer}
+#pay-button:disabled{opacity:.55;cursor:wait}
+#status{margin-top:14px;text-align:center;color:var(--error);font-size:14px;white-space:pre-wrap}
+.back{display:block;text-align:center;color:var(--blue);font-size:13px;text-decoration:none;margin-top:20px}
+@media(max-width:520px){main{margin-top:28px}.panel{padding:18px}.line{gap:10px;font-size:13px}}
+
+.service-description{margin:0 0 16px;color:var(--muted);font-size:13px;line-height:1.75;white-space:normal}
+.assistance-title{margin-top:24px!important}
+.assistance-links{display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.assistance-links a{display:block;padding:12px 14px;border:1px solid var(--border);border-radius:9px;color:var(--white);text-decoration:none;font-size:14px;font-weight:600}
+.assistance-links a:hover{border-color:var(--blue);background:rgba(109,165,220,.08)}
+#proceed-button{display:block;width:100%;margin-top:20px;padding:16px 20px;border:0;border-radius:9px;background:var(--blue);color:#071321;font:800 15px Inter,sans-serif;letter-spacing:.04em;cursor:pointer}
+#proceed-button:disabled{opacity:.5;cursor:not-allowed}
+</style>
+</head>
+<body>
+<header>
+<a class="logo" href="https://ebagzunlock.com/">ebagz<span>unlock</span><span class="apple-mark" aria-hidden="true"> </span></a>
+<nav aria-label="Navigation principale">
+<a href="https://ebagzunlock.com/">Accueil</a>
+<a href="https://ebagzunlock.com/?page=offres#services">Services</a>
+<a href="https://ebagzunlock.com/?page=offres#tarifs">Tarifs</a>
+<a href="https://ebagzunlock.com/?page=offres#fonctionnement">Fonctionnement</a>
+<label class="language-picker" aria-label="Choisir la langue">
+<span class="language-globe" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M3 12h18M12 3c2.2 2.4 3.2 5.4 3.2 9s-1 6.6-3.2 9c-2.2-2.4-3.2-5.4-3.2-9S9.8 5.4 12 3Z" stroke="currentColor" stroke-width="1.5"/></svg></span>
+<select id="languageSelect" aria-label="Choisir la langue">
+<option value="fr">Français</option><option value="en">English</option><option value="es">Español</option><option value="pt">Português</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="ar">العربية</option><option value="zh-CN">中文</option><option value="ja">日本語</option><option value="hi">हिन्दी</option><option value="ru">Русский</option><option value="nl">Nederlands</option>
+</select></label>
+</nav>
+<div id="google_translate_element" hidden></div>
+</header>
+<main>
+<h1>RÉCAPITULATIF</h1>
+<section class="panel" aria-labelledby="summary-title">
+<h2 id="summary-title">Détails de votre commande</h2>
+<div class="line"><span>Prestation</span><strong id="service">—</strong></div>
+<div class="line"><span>Appareil / Option</span><strong id="device">—</strong></div>
+<div class="line"><span>Modèle</span><strong id="model">—</strong></div>
+<div class="line"><span>Nom</span><strong id="customer-name">—</strong></div>
+<div class="line"><span>E-mail</span><strong id="customer-email">—</strong></div>
+<div class="line"><span>Téléphone</span><strong id="customer-phone">—</strong></div>
+<div class="line"><span>IMEI / Numéro de série</span><strong id="customer-identifier">—</strong></div>
+<div class="line" id="message-row" hidden><span>Informations complémentaires</span><strong id="customer-message">—</strong></div>
+<div class="line"><span>Total à payer</span><strong class="amount" id="amount">—</strong></div>
+</section>
+
+<section class="panel" aria-labelledby="service-information-title">
+<div class="info-notice">
+<p>ebagzunlock  est un service de contournement du système Apple ainsi que de la base de données iOS -macOS -iPadOS.Après confirmation de votre paiement, vous recevrez une  autorisation/code à utiliser avec instructions nécessaires par courrier ainsi que votre facture .</p>
+<p>Ces codes que vous recevrez seront chiffrés  et vous permettront d’effectuer vous-même les étapes de la procédure sur votre appareil. Éventuellement sans ordinateur, vous aurez besoin de votre appareil ainsi qu’un câble d’alimentation à brancher sur secteur .</p>
+</div>
+
+<h2 id="service-information-title">SERVICE RENDU PAR LE SITE /</h2>
+<p class="service-description">ebagzunlock  propose un contournement sans restriction si blocage MAJ ,cela inclut un contournement sans jailbreak &amp; bypass avec un accès à l’opérateur mobile 4/5G<br>sans restriction .<br>    ebagzunlock  est un service dépend du DarkWeb pour la réception des codes d’accès à votre appareil .</p>
+
+<h2 class="assistance-title">Assistance :</h2>
+<p class="service-description">Support &amp; Asssistance instantané,privé  en cas de questionnement ou besoins d’accompagnement.</p>
+<div class="assistance-links">
+<a href="tel:+33764027733" aria-label="Appeler le +33 7 64 02 77 33">📞 Appeler : +33 7 64 02 77 33</a>
+<a href="https://wa.me/33644676361" target="_blank" rel="noopener noreferrer" aria-label="Ouvrir WhatsApp">WhatsApp : +33 6 44 67 63 61</a>
+</div>
+
+<label class="acknowledgement" for="cgv-acknowledgement">
+<input id="cgv-acknowledgement" type="checkbox" required>
+<span>J’accepte les conditions générales de vente.</span>
+</label>
+<button id="proceed-button" type="button" disabled>PROCÉDER AU PAIEMENT</button>
+<div id="status" role="alert"></div>
+</section>
+<a class="back" href="https://ebagzunlock.com/?page=offres#tarifs">← Retour aux offres</a>
+</main>
+<script>
+"use strict";
+const PUBLISHABLE_KEY="pk_live_51UXyGX75EdsO57RNKonjBJn7r6Q2m2tGmlhzXpz9eQMs2c1ZDmVsp7oecok3jBg3xvcFsUkL3dyjZcKrvGs9iAic00hn3wyox8";
+const params=new URLSearchParams(location.search);
+
+// Synchroniser le sélecteur de langue avec le choix déjà fait sur le site.
+const languageSelect=document.getElementById("languageSelect");
+let selectedLanguage="fr";
+try{selectedLanguage=localStorage.getItem("ebagzunlock-language")||"fr";}catch(error){}
+if(languageSelect)languageSelect.value=Array.from(languageSelect.options).some(o=>o.value===selectedLanguage)?selectedLanguage:"fr";
+if(languageSelect)languageSelect.addEventListener("change",event=>{
+const lang=event.target.value;
+try{localStorage.setItem("ebagzunlock-language",lang);}catch(error){}
+document.cookie="googtrans=;path=/;max-age=0";
+document.cookie="googtrans=;domain="+location.hostname+";path=/;max-age=0";
+if(lang!=="fr"&&lang!=="en"){
+document.cookie="googtrans=/fr/"+lang+";path=/;max-age=31536000;SameSite=Lax";
+document.cookie="googtrans=/fr/"+lang+";domain="+location.hostname+";path=/;max-age=31536000;SameSite=Lax";
+}
+location.reload();
+});
+function googleTranslateElementInit(){
+if(window.google&&google.translate){
+new google.translate.TranslateElement({pageLanguage:"fr",includedLanguages:"en,es,pt,de,it,ar,zh-CN,ja,hi,ru,nl",autoDisplay:false},"google_translate_element");
+}
+}
+let savedSelection={},customer={};
+try{savedSelection=JSON.parse(sessionStorage.getItem("ebagzunlock-pending-payment")||"{}");}catch(error){}
+try{customer=JSON.parse(sessionStorage.getItem("ebagzunlock-pending-order")||"{}");}catch(error){}
+const selection={
+service:params.get("service")||savedSelection.service||"",
+device:params.get("device")||savedSelection.device||"",
+model:params.get("model")||savedSelection.model||""
+};
+const updatePrices={iOS:7,macOS:15,ebagzunlock:2};
+const prices={
+"iPhone":{"iPhone X":25,"iPhone XR":25,"iPhone XS":25,"iPhone XS Max":25,"iPhone 11":25,"iPhone 11 Pro":25,"iPhone 11 Pro Max":27,"iPhone 12 mini":25,"iPhone 12":25,"iPhone 12 Pro":29,"iPhone 12 Pro Max":32,"iPhone 13 mini":39,"iPhone 13":40,"iPhone 13 Pro":40,"iPhone 13 Pro Max":42,"iPhone 14":40,"iPhone 14 Plus":40,"iPhone 14 Pro":43,"iPhone 14 Pro Max":49,"iPhone 15":53,"iPhone 15 Plus":55,"iPhone 15 Pro":55,"iPhone 15 Pro Max":59,"iPhone 16":64,"iPhone 16 Plus":59,"iPhone 16 Pro":62,"iPhone 16 Pro Max":69,"iPhone 16e":65,"iPhone 17":69,"iPhone 17 Pro":70,"iPhone 17 Pro Max":77,"iPhone 17e":75,"iPhone 17 Air":79,"iPhone 18":85,"iPhone 18 Pro":89,"iPhone 18 Pro Max":100,"iPhone 18 Duo":95},
+"MacBook":{"MacBook Air Intel 2008–2020":35,"MacBook Air M1":38,"MacBook Air M2 13/15 pouces":38,"MacBook Air M3 13/15 pouces":40,"MacBook Air M4 13/15 pouces":40,"MacBook Air M5 13/15 pouces":42,"MacBook Pro Intel":40,"MacBook Pro M1 13/14/16 pouces":45,"MacBook Pro M2":45,"MacBook Pro M3 14/16 pouces":45,"MacBook Pro M4 14/16 pouces":49,"MacBook Pro M5 14/16 pouces":49,"MacBook Pro M6 14 pouces":55,"MacBook 12 pouces 2015–2017":30,"MacBook Neo A18 Pro":133},
+"iPad":{"iPad classique 1re–11e génération (A16 inclus)":37,"iPad mini 1–6 (A17 Pro inclus)":39,"iPad Air 1–5":37,"iPad Air M2/M3/M4 11/13 pouces":35,"iPad Pro 9.7 pouces":39,"iPad Pro 10.5 pouces":39,"iPad Pro 11 pouces générations 1–5":45,"iPad Pro 12.9 pouces générations 1–6":49,"iPad Pro M4 11/13 pouces":52,"iPad Pro M5 11/13 pouces":55},
+"Apple Watch":{"Apple Watch Series 1–12":54,"Apple Watch SE 1/2/3":63,"Apple Watch Ultra 1/2/3/4":69}};
+const updateService="Mise à jour iOS / macOS";
+const amount=selection.service===updateService?updatePrices[selection.model]:prices[selection.device]?.[selection.model];
+const validCustomer=customer.name&&customer.email&&customer.phone&&customer.identifier;
+if(selection.service===updateService&&selection.device!==selection.model)amount=null;
+if(!selection.service||!selection.device||!selection.model||!Number.isFinite(amount)||!validCustomer){
+document.getElementById("status").textContent="Récapitulatif incomplet. Retournez sur le site et vérifiez les informations de votre commande.";
+}else{
+document.getElementById("service").textContent=selection.service;
+document.getElementById("device").textContent=selection.device;
+document.getElementById("model").textContent=selection.model;
+document.getElementById("customer-name").textContent=customer.name;
+document.getElementById("customer-email").textContent=customer.email;
+document.getElementById("customer-phone").textContent=customer.phone;
+document.getElementById("customer-identifier").textContent=customer.identifier;
+if(customer.message){document.getElementById("customer-message").textContent=customer.message;document.getElementById("message-row").hidden=false;}
+document.getElementById("amount").textContent=amount+" €";
+
+}
+
+const consentBox=document.getElementById("cgv-acknowledgement");
+const proceedButton=document.getElementById("proceed-button");
+consentBox.addEventListener("change",()=>{proceedButton.disabled=!consentBox.checked;});
+proceedButton.addEventListener("click",()=>{
+ if(!consentBox.checked)return;
+ try{sessionStorage.setItem("ebagzunlock-consent-accepted","true");}
+ catch(error){document.getElementById("status").textContent="Impossible de mémoriser votre consentement. Réessayez." ;return;}
+ window.location.href="/paiement.html";
+});
+</script>
+</body>
+</html>
