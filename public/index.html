@@ -1785,9 +1785,8 @@ contactToggle.setAttribute("aria-expanded","false");
 });
 });
 
-/* Paiement Stripe */
-payButton.addEventListener("click",async()=>{
-
+/* Ouverture de la page de paiement intégrée E-BAGS UNLOCK */
+payButton.addEventListener("click",()=>{
 const service=serviceSelect.value;
 const device=deviceSelect.value;
 let model=modelSelect.value;
@@ -1797,36 +1796,10 @@ showStatus(paymentStatus,t("invalidSelection"),"error");
 return;
 }
 
-if(service===UPDATE_SERVICE){
-model=device;
-}
+if(service===UPDATE_SERVICE)model=device;
 
-payButton.disabled=true;
-showStatus(paymentStatus,t("preparing"));
-
-try{
-
-const response=await fetch("/api/create-checkout-session",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({service,device,model})
-});
-
-const data=await response.json();
-
-if(!response.ok||!data.url){
-throw new Error(data.error||t("errorGeneric"));
-}
-
-window.location.assign(data.url);
-
-}catch(error){
-
-showStatus(paymentStatus,error.message||t("errorGeneric"),"error");
-payButton.disabled=false;
-
-}
-
+const params=new URLSearchParams({service,device,model});
+window.location.href="/paiement.html?"+params.toString();
 });
 
 /* Vérification du paiement après le retour Stripe */
