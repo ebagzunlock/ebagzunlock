@@ -2,7 +2,7 @@
 const SERVICES = [
   "Déverrouillage iCloud",
   "Déverrouillage Opérateur",
-  "Suppression Blocage &Limitation Propriétaire",
+  "Suppression Blocage & Limitation Propriétaire",
   "Résolution Blocage DFU & Mode de Récupération",
   "Mise à jour iOS / macOS"
 ];
@@ -125,6 +125,9 @@ export async function onRequestPost({ request, env }) {
   const params = new URLSearchParams();
 
   params.set("mode", "payment");
+  params.set("ui_mode", "embedded");
+  params.set("redirect_on_completion", "always");
+  params.set("invoice_creation[enabled]", "true");
   params.set("line_items[0][quantity]", "1");
   params.set("line_items[0][price_data][currency]", "eur");
   params.set(
@@ -148,16 +151,10 @@ export async function onRequestPost({ request, env }) {
 
   params.set("billing_address_collection", "auto");
 
-  // Retour après paiement : page des offres avec l'identifiant Stripe
+  // Retour après paiement intégré : vérification serveur de la session.
   params.set(
-    "success_url",
+    "return_url",
     `${siteOrigin}/?page=offres&session_id={CHECKOUT_SESSION_ID}#tarifs`
-  );
-
-  // Retour si le client annule le paiement
-  params.set(
-    "cancel_url",
-    `${siteOrigin}/?page=offres#tarifs`
   );
 
   params.set("metadata[service]", service);
@@ -189,7 +186,7 @@ export async function onRequestPost({ request, env }) {
       );
     }
 
-    return Response.json({ url: session.url });
+    return Response.json({ client_secret: session.client_secret });
 
   } catch (error) {
     console.error("Checkout error:", error);
