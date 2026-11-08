@@ -390,5 +390,16 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
  }
 })();
 </script>
+<style id="ebagz-navigation-size-and-active-fix">
+/* Navigation plus lisible sous le logo, sans modifier le logo ni le fond de l'en-tête. */
+.site-header .main-nav{gap:clamp(7px,1.5vw,16px)!important}
+.site-header .main-nav a,.site-header .main-nav button{font-size:clamp(11px,1.1vw,14px)!important;font-weight:600!important;padding:7px 1px!important;line-height:1.25!important}
+.site-header .main-nav a[aria-current="page"],.site-header .main-nav a.is-active,.site-header .main-nav button[aria-expanded="true"],.site-header .main-nav button.is-active{color:#6da5dc!important}
+.site-header .main-nav a:not([aria-current="page"]):not(.is-active),.site-header .main-nav button[aria-expanded="false"]:not(.is-active){color:#fff!important}
+@media(max-width:420px){
+ .site-header .main-nav{gap:clamp(5px,1.4vw,8px)!important}
+ .site-header .main-nav a,.site-header .main-nav button{font-size:10.5px!important;letter-spacing:0!important;padding:7px 0!important}
+}
+</style>
 </body>
 </html>
