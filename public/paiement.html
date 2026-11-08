@@ -14,6 +14,7 @@
 header{padding:22px 20px;border-bottom:1px solid var(--border);background:rgba(8,19,33,.95);text-align:center}
 .logo{font-size:25px;font-weight:800;letter-spacing:-1px;text-decoration:none;color:var(--white)}.logo span{color:var(--blue)}.logo .apple-mark{color:var(--white);margin-left:5px;font-family:Arial,sans-serif;font-size:.95em}
 nav{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 24px;margin-top:13px}nav a{font-size:13px;color:var(--muted);text-decoration:none}
+.site-footer{margin-top:auto;padding:24px 20px;text-align:center;border-top:1px solid var(--border);background:rgba(8,19,33,.72)}.footer-logo{display:inline-block;color:var(--white);font-size:22px;font-weight:800;letter-spacing:-1px;text-decoration:none}.footer-logo span:not(.apple-mark){color:var(--blue)}.footer-logo .apple-mark{color:var(--white);margin-left:5px;font-family:Arial,sans-serif;font-size:.95em}
 main{width:min(760px,calc(100% - 32px));margin:40px auto 70px}
 h1{margin:0 0 24px;text-align:center;font-size:clamp(30px,5vw,40px);letter-spacing:-1px}
 .panel{padding:25px;border:1px solid var(--border);border-radius:14px;background:var(--panel);margin-bottom:18px}
@@ -110,5 +111,6 @@ checkout.mount("#checkout");
 }catch(error){document.getElementById("status").textContent=error.message||"Une erreur est survenue.";}
 }
 </script>
+<footer class="site-footer"><a class="footer-logo" href="https://ebagzunlock.com/">ebagz<span>unlock</span><span class="apple-mark" aria-hidden="true"> </span></a></footer>
 </body>
 </html>
