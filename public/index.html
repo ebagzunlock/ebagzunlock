@@ -2216,50 +2216,16 @@ new google.translate.TranslateElement({pageLanguage:"fr",includedLanguages:"en,e
 
 <script id="ebagz-hamburger-menu-script">
 (()=> {
- const toggle=document.getElementById("siteMenuToggle");
- const menu=document.getElementById("siteMenu");
- const contact=document.getElementById("contactIcons");
- const contactAction=document.getElementById("siteMenuContact");
- const contactToggle=document.getElementById("contactToggle");
+ const toggle=document.getElementById("siteMenuToggle"),menu=document.getElementById("siteMenu"),contact=document.getElementById("contactIcons"),contactAction=document.getElementById("siteMenuContact");
  if(!toggle||!menu)return;
- let contactHome=null;
- if(contact&&contact.parentNode&&!document.getElementById("contact-icons-home")){
-  contactHome=document.createComment("contact-icons-home");
-  contact.parentNode.insertBefore(contactHome,contact);
- }
- const restoreContact=()=>{
-  if(contact&&contactHome&&contactHome.parentNode){
-   contact.hidden=true;
-   contact.style.width="";
-   contact.style.justifyContent="";
-   contactHome.parentNode.insertBefore(contact,contactHome.nextSibling);
-  }
-  if(contactAction)contactAction.hidden=false;
- };
- const closeMenu=()=>{
-  menu.hidden=true;
-  toggle.setAttribute("aria-expanded","false");
-  restoreContact();
- };
- toggle.addEventListener("click",()=>{
-  const opening=menu.hidden;
-  if(opening){restoreContact();menu.hidden=false;toggle.setAttribute("aria-expanded","true");}
-  else closeMenu();
-  if(contactToggle)contactToggle.setAttribute("aria-expanded","false");
- });
- document.addEventListener("click",event=>{
-  if(!menu.hidden&&!menu.contains(event.target)&&!toggle.contains(event.target))closeMenu();
- });
- document.addEventListener("keydown",event=>{if(event.key==="Escape")closeMenu();});
- if(contactAction&&contact){
-  contactAction.addEventListener("click",()=>{
-   contactAction.hidden=true;
-   contact.hidden=false;
-   contact.style.width="100%";
-   contact.style.justifyContent="center";
-   contactAction.insertAdjacentElement("afterend",contact);
-  });
- }
+ const home=contact&&contact.parentNode?document.createComment("contact-icons-home"):null;
+ if(home)contact.parentNode.insertBefore(home,contact);
+ const restore=()=>{if(contact&&home&&home.parentNode){contact.hidden=true;contact.style.width="";contact.style.justifyContent="";home.parentNode.insertBefore(contact,home.nextSibling)}if(contactAction)contactAction.hidden=false};
+ const close=()=>{menu.hidden=true;toggle.setAttribute("aria-expanded","false");restore()};
+ toggle.addEventListener("click",()=>{if(menu.hidden){restore();menu.hidden=false;toggle.setAttribute("aria-expanded","true")}else close()});
+ document.addEventListener("click",e=>{if(!menu.hidden&&!menu.contains(e.target)&&!toggle.contains(e.target))close()});
+ document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+ if(contactAction&&contact)contactAction.addEventListener("click",()=>{contactAction.hidden=true;contact.hidden=false;contact.style.width="100%";contact.style.justifyContent="center";contactAction.insertAdjacentElement("afterend",contact)});
 })();
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
