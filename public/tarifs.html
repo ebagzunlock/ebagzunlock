@@ -1554,19 +1554,17 @@ homeNavLink.href="https://ebagzunlock.com/";
 homeNavLink.addEventListener("click",goToHome);
 }
 
-/* Navigation directe vers les sections des offres */
-const offerNavigation={
-navServices:"services",
-navPrices:"tarifs",
-navHow:"fonctionnement"
+/* Navigation entre de vraies pages indépendantes.
+   Ne pas réécrire ces liens vers des ancres de la page d'accueil. */
+const pageNavigation={
+  navHome:"/",
+  navServices:"/services.html",
+  navPrices:"/tarifs.html",
+  navHow:"/fonctionnement.html"
 };
-
-Object.entries(offerNavigation).forEach(([key,sectionId])=>{
-const link=document.querySelector('.main-nav a[data-i18n="'+key+'"]');
-
-if(link){
-link.href="https://ebagzunlock.com/?page=offres#"+sectionId;
-}
+Object.entries(pageNavigation).forEach(([key,path])=>{
+  const link=document.querySelector('.main-nav a[data-i18n="'+key+'"]');
+  if(link) link.href=path;
 });
 
 /* Traduction des listes */
