@@ -109,6 +109,7 @@ h2{font-size:18px;font-weight:500;text-transform:none;margin:0 0 16px}#summary-t
 "use strict";
 const PUBLISHABLE_KEY="pk_live_51UXyGX75EdsO57RNKonjBJn7r6Q2m2tGmlhzXpz9eQMs2c1ZDmVsp7oecok3jBg3xvcFsUkL3dyjZcKrvGs9iAic00hn3wyox8";
 const params=new URLSearchParams(location.search);
+try{sessionStorage.removeItem("ebagzunlock-consent-accepted");}catch(error){}
 
 // Synchroniser le sélecteur de langue avec le choix déjà fait sur le site.
 const languageSelect=document.getElementById("languageSelect");
