@@ -933,6 +933,25 @@ letter-spacing:-.4px
 .section-heading h2{width:100%;text-align:center!important}
 .service-card,.service-card *{text-decoration:none!important}
 </style>
+
+<style id="ebagz-hamburger-menu-style">
+.site-header,header{position:relative}
+.menu-toggle{width:30px;height:30px;flex:0 0 30px;display:inline-flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:0;border:0;background:transparent;color:var(--white,#fff);cursor:pointer}
+.menu-toggle span{display:block;width:19px;height:2px;border-radius:2px;background:currentColor}
+.header-right{gap:clamp(5px,1.4vw,16px)!important;flex-wrap:nowrap!important;min-width:0}
+.main-nav,header nav{display:flex;align-items:center;justify-content:center;flex-wrap:nowrap!important;gap:clamp(5px,1.4vw,16px)!important;white-space:nowrap}
+.main-nav a,.main-nav button,header nav a{font-size:clamp(10px,2.65vw,13px)!important;white-space:nowrap}
+.language-picker{flex:0 0 auto}
+.site-menu{position:absolute;z-index:80;top:100%;left:0;width:min(100%,360px);padding:12px 16px 16px;background:rgba(8,19,33,.99);border:1px solid var(--border,#26384b);border-top:0;border-radius:0 0 12px 0;box-shadow:0 14px 30px rgba(0,0,0,.3)}
+.site-menu[hidden]{display:none!important}
+.site-menu a,.site-menu button{display:block;width:100%;padding:14px 8px;border:0;border-bottom:1px solid rgba(255,255,255,.08);background:transparent;color:var(--white,#fff);font:700 14px/1.3 inherit;text-align:left;text-decoration:none;text-transform:uppercase;cursor:pointer}
+.site-menu a:last-child{border-bottom:0}
+.contact-icons{display:flex;align-items:center;justify-content:center;gap:12px}
+.contact-icons[hidden]{display:none!important}
+.contact-icons a{width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-size:18px}
+.contact-icons svg{width:20px;height:20px}
+@media(max-width:390px){.header-right{gap:5px!important}.main-nav,header nav{gap:5px!important}.main-nav a,.main-nav button,header nav a{font-size:10px!important}.menu-toggle{width:25px;flex-basis:25px}.menu-toggle span{width:17px}}
+</style>
 </head>
 
 <body>
@@ -953,6 +972,7 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 
 <div class="header-right">
 
+<button type="button" class="menu-toggle" id="siteMenuToggle" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
 <nav class="main-nav" aria-label="Navigation principale">
 <a href="https://ebagzunlock.com/" data-i18n="navHome">Accueil</a>
 <a href="/services.html" data-i18n="navServices">Services</a>
@@ -976,11 +996,20 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <path d="M8 8.2c.4-.5.8-.4 1.1.1l.8 1.5c.2.3.1.6-.2.9l-.5.5c.6 1.1 1.4 1.9 2.6 2.5l.5-.6c.2-.3.5-.4.9-.2l1.5.7c.5.2.6.7.2 1.1-.5.6-1.1.9-1.9.8-2.8-.4-5.8-3.3-6.1-6.1-.1-.5.3-1 .8-1.2Z" fill="currentColor"/>
 </svg>
 </a>
+<a href="tel:+33644676361" aria-label="Téléphone" title="Téléphone"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3.5h3l1.5 4-2 1.5a15 15 0 0 0 5.5 5.5l1.5-2 4 1.5v3c0 1.1-.9 2-2 2C10 19 5 14 5 5.5c0-1.1.9-2 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></a>
 </div>
 
 </div>
 </div>
 </header>
+<div class="site-menu" id="siteMenu" hidden aria-label="Menu principal">
+<a href="/services.html">DÉCOUVRIR NOS OFFRES</a>
+<a href="/services.html#service-and-assistance-title">SERVICES RENDUS</a>
+<a href="/services.html#assistance-heading">ASSISTANCE</a>
+<button type="button" id="siteMenuContact">CONTACT</button>
+<a href="/conditions-generales.html">CONDITIONS GÉNÉRALES</a>
+</div>
+
 
 <main>
 <section class="content-section" id="services">
@@ -1044,7 +1073,7 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <p><span class="brand-inline">ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></span> est un service de contournement du système Apple ainsi que de la base de données iOS -macOS -iPadOS.Après confirmation de votre paiement, vous recevrez une  autorisation/code à utiliser avec instructions nécessaires par courrier ainsi que votre facture .</p>
 <p>Ces codes que vous recevrez seront chiffrés  et vous permettront d’effectuer vous-même les étapes de la procédure sur votre appareil. Éventuellement sans ordinateur, vous aurez besoin de votre appareil ainsi qu’un câble d’alimentation à brancher sur secteur .</p>
 </div>
-<h2 class="assistance-heading">ASSISTANCE</h2>
+<h2 id="assistance-heading" class="assistance-heading">ASSISTANCE</h2>
 <p class="assistance-copy">Support &amp; Asssistance instantané,privé  en cas de questionnement ou besoins d’accompagnement.</p>
 <div class="assistance-actions">
 <a href="tel:+33764027733" aria-label="Appeler le service d’assistance" title="Appeler">📞</a>
@@ -1098,6 +1127,40 @@ function googleTranslateElementInit(){
   new google.translate.TranslateElement({pageLanguage:"fr",includedLanguages:"en,es,pt,de,it,ar,zh-CN,ja,hi,ru,nl",autoDisplay:false},"google_translate_element");
  }
 }
+</script>
+
+<script id="ebagz-hamburger-menu-script">
+(()=> {
+ const toggle=document.getElementById("siteMenuToggle");
+ const menu=document.getElementById("siteMenu");
+ const contact=document.getElementById("contactIcons");
+ const contactToggle=document.getElementById("contactToggle");
+ const contactAction=document.getElementById("siteMenuContact");
+ if(toggle&&menu){
+  toggle.addEventListener("click",()=>{
+   const opening=menu.hidden;
+   menu.hidden=!opening;
+   toggle.setAttribute("aria-expanded",String(opening));
+   if(opening&&contact)contact.hidden=true;
+   if(contactToggle)contactToggle.setAttribute("aria-expanded","false");
+  });
+  document.addEventListener("click",event=>{
+   if(!menu.hidden&&!menu.contains(event.target)&&!toggle.contains(event.target)){
+    menu.hidden=true;toggle.setAttribute("aria-expanded","false");
+   }
+  });
+  document.addEventListener("keydown",event=>{
+   if(event.key==="Escape"){menu.hidden=true;toggle.setAttribute("aria-expanded","false");}
+  });
+ }
+ if(contactAction){
+  contactAction.addEventListener("click",()=>{
+   if(menu)menu.hidden=true;
+   if(toggle)toggle.setAttribute("aria-expanded","false");
+   if(contact){contact.hidden=!contact.hidden;contact.scrollIntoView({behavior:"smooth",block:"nearest"});}
+  });
+ }
+})();
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body>
