@@ -23,11 +23,13 @@ f.parentNode.insertBefore(j,f);
 <title>EBAGZUNLOCK — Déverrouillage et assistance informatique Apple</title>
 
 <script>
-if(new URLSearchParams(location.search).get("page")==="offres"){
-document.documentElement.classList.add("offers-page");
-}else{
-document.documentElement.classList.add("home-page");
-}
+const currentFile=(location.pathname.replace(/\/+$/,"").split("/").pop()||"index.html").toLowerCase();
+const pageClass={
+  "services.html":"services-page",
+  "tarifs.html":"tarifs-page",
+  "fonctionnement.html":"fonctionnement-page"
+}[currentFile]||"home-page";
+document.documentElement.classList.add(pageClass);
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -201,6 +203,17 @@ height:19px
 html.home-page main > .content-section{
 display:none!important
 }
+
+/* Chaque rubrique possède sa propre page, sans mélanger les sections. */
+html.services-page main > .content-section:not(#services),
+html.services-page main > .home-showcase,
+html.tarifs-page main > .content-section:not(#tarifs),
+html.tarifs-page main > .home-showcase,
+html.fonctionnement-page main > .content-section:not(#fonctionnement),
+html.fonctionnement-page main > .home-showcase{display:none!important}
+html.services-page #services,
+html.tarifs-page #tarifs,
+html.fonctionnement-page #fonctionnement{display:block!important}
 
 /* VITRINE PROMOTIONNELLE DE LA PAGE D'ACCUEIL */
 html.offers-page .home-showcase{display:none!important}
@@ -941,9 +954,9 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 
 <nav class="main-nav" aria-label="Navigation principale">
 <a href="https://ebagzunlock.com/" data-i18n="navHome">Accueil</a>
-<a href="https://ebagzunlock.com/?page=offres#services" data-i18n="navServices">Services</a>
-<a href="https://ebagzunlock.com/?page=offres#tarifs" data-i18n="navPrices">Tarifs</a>
-<a href="https://ebagzunlock.com/?page=offres#fonctionnement" data-i18n="navHow">Fonctionnement</a>
+<a href="/services.html" data-i18n="navServices">Services</a>
+<a href="/tarifs.html" data-i18n="navPrices">Tarifs</a>
+<a href="/fonctionnement.html" data-i18n="navHow">Fonctionnement</a>
 <button type="button" id="contactToggle" aria-expanded="false" data-i18n="contact">Contact</button>
 </nav>
 
@@ -986,7 +999,7 @@ SERVICE DE DÉVERROUILLAGE POUR APPAREILS APPLE
 Des solutions adaptées à vos appareils Apple, avec une prise en charge rapide et professionnelle.
 </p>
 
-<a href="https://ebagzunlock.com/?page=offres#services" class="primary-button" data-i18n="discover">
+<a href="/services.html" class="primary-button" data-i18n="discover">
 Découvrir nos offres
 </a>
 
@@ -1000,10 +1013,10 @@ Découvrir nos offres
 <p>Découvrez nos solutions dédiées à vos appareils Apple.</p>
 </div>
 <div class="showcase-track">
-<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/v/iphone/home/ci/images/meta/iphone__cud4q04omsuq_og.png" alt="iPhone" loading="lazy"></div><h3>iPhone</h3><p>Un accompagnement dédié à votre iPhone et à ses fonctionnalités.</p><a class="showcase-link" href="https://ebagzunlock.com/?page=offres#services">Découvrir nos services →</a></article>
-<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/newsroom/images/2025/03/apple-introduces-the-new-macbook-air-with-the-m4-chip-and-a-sky-blue-color/article/Apple-MacBook-Air-sky-blue-250305_big.jpg.large.jpg" alt="MacBook Air" loading="lazy"></div><h3>MacBook</h3><p>Des solutions adaptées à votre ordinateur Apple.</p><a class="showcase-link" href="https://ebagzunlock.com/?page=offres#services">Découvrir nos services →</a></article>
-<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/newsroom/images/product/ipad/standard/Apple-iPad-10th-gen-silver-2up-221018_big.jpg.large_2x.jpg" alt="iPad" loading="lazy"></div><h3>iPad</h3><p>Une assistance pensée pour votre tablette et votre usage.</p><a class="showcase-link" href="https://ebagzunlock.com/?page=offres#services">Découvrir nos services →</a></article>
-<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/v/apple-watch-series-11/c/images/overview/product-viewer/product_display_endframe__baw4nxfmflbm_large.jpg" alt="Apple Watch" loading="lazy"></div><h3>Apple Watch</h3><p>Retrouvez un accompagnement pour votre montre connectée.</p><a class="showcase-link" href="https://ebagzunlock.com/?page=offres#services">Découvrir nos services →</a></article>
+<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/v/iphone/home/ci/images/meta/iphone__cud4q04omsuq_og.png" alt="iPhone" loading="lazy"></div><h3>iPhone</h3><p>Un accompagnement dédié à votre iPhone et à ses fonctionnalités.</p><a class="showcase-link" href="/services.html">Découvrir nos services →</a></article>
+<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/newsroom/images/2025/03/apple-introduces-the-new-macbook-air-with-the-m4-chip-and-a-sky-blue-color/article/Apple-MacBook-Air-sky-blue-250305_big.jpg.large.jpg" alt="MacBook Air" loading="lazy"></div><h3>MacBook</h3><p>Des solutions adaptées à votre ordinateur Apple.</p><a class="showcase-link" href="/services.html">Découvrir nos services →</a></article>
+<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/newsroom/images/product/ipad/standard/Apple-iPad-10th-gen-silver-2up-221018_big.jpg.large_2x.jpg" alt="iPad" loading="lazy"></div><h3>iPad</h3><p>Une assistance pensée pour votre tablette et votre usage.</p><a class="showcase-link" href="/services.html">Découvrir nos services →</a></article>
+<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/v/apple-watch-series-11/c/images/overview/product-viewer/product_display_endframe__baw4nxfmflbm_large.jpg" alt="Apple Watch" loading="lazy"></div><h3>Apple Watch</h3><p>Retrouvez un accompagnement pour votre montre connectée.</p><a class="showcase-link" href="/services.html">Découvrir nos services →</a></article>
 </div>
 </section>
 
@@ -1769,6 +1782,10 @@ refreshSelectLabels();
 return true;
 }
 
+/* Préselection du service transmis depuis la page Services. */
+const requestedService=new URLSearchParams(location.search).get("service");
+if(requestedService){selectService(requestedService);}
+
 serviceSelect.addEventListener("change",()=>{
 
 invalidateVerifiedOrder();
@@ -1799,10 +1816,7 @@ invalidateVerifiedOrder();
 
 if(!selectService(card.dataset.service))return;
 
-$("tarifs").scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
+window.location.href="/tarifs.html?service="+encodeURIComponent(card.dataset.service);
 
 });
 });
@@ -2046,7 +2060,7 @@ navHow:"fonctionnement"
 };
 
 if(targets[key]){
-link.href=siteUrl+"?page=offres#"+targets[key];
+link.href=siteUrl+targets[key]+".html";
 }
 }
 
