@@ -42,7 +42,7 @@ export async function onRequestPost({ request, env }) {
   try { payload = await request.json(); }
   catch { return Response.json({ error: "Requête invalide." }, { status: 400 }); }
 
-  const { service, device, model, customer = {}, locale: requestedLocale = "fr" } = payload || {};
+  const { service, device, model, customer = {}, consentAccepted = false, locale: requestedLocale = "fr" } = payload || {};
 
   // Stripe Checkout Elements : locale de la session, dérivée du choix du site.
   const supportedLocales = new Set(["auto","bg","cs","da","de","el","en","en-GB","es","es-419","et","fi","fil","fr","fr-CA","hr","hu","id","it","ja","ko","lt","lv","ms","mt","nb","nl","pl","pt","pt-BR","ro","ru","sk","sl","sv","th","tr","vi","zh","zh-HK","zh-TW"]);
@@ -51,6 +51,7 @@ export async function onRequestPost({ request, env }) {
   const checkoutLocale = supportedLocales.has(stripeLocale) ? stripeLocale : "auto";
   if (!SERVICES.includes(service)) return Response.json({ error: "Prestation invalide." }, { status: 400 });
   if (service === "SNAP-error/ban" && device !== "iPhone") return Response.json({ error: "Ce service est disponible uniquement pour iPhone." }, { status: 400 });
+  if (consentAccepted !== true) return Response.json({ error: "Veuillez accepter les conditions générales de vente avant de procéder au paiement." }, { status: 400 });
 
   const name = String(customer.name || "").trim().slice(0, 120);
   const email = String(customer.email || "").trim().slice(0, 200);
@@ -92,7 +93,7 @@ export async function onRequestPost({ request, env }) {
   params.set("billing_address_collection", "auto");
   params.set("return_url", `${siteOrigin}/confirmation.html?session_id={CHECKOUT_SESSION_ID}`);
 
-  const metadata = { service, device: device || "", model, amount_eur: String(amount), customer_name: name, customer_email: email, customer_phone: phone, customer_identifier: identifier, customer_message: message };
+  const metadata = { service, device: device || "", model, amount_eur: String(amount), customer_name: name, customer_email: email, customer_phone: phone, customer_identifier: identifier, customer_message: message, consent_accepted: "yes" };
   for (const [key, value] of Object.entries(metadata)) params.set(`metadata[${key}]`, value);
 
   try {
