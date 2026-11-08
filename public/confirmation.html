@@ -42,9 +42,11 @@ button{min-width:95px;padding:12px 28px;border:1px solid var(--border);border-ra
 const sessionId=new URLSearchParams(location.search).get("session_id");
 const statusEl=document.getElementById("status");
 let busy=false;
+let attempts=0;
 async function confirmOrder(){
 if(busy)return;
 busy=true;
+attempts++;
 document.getElementById("retry").style.display="none";
 statusEl.textContent="";
 try{
@@ -65,6 +67,7 @@ statusEl.textContent=error.message||"Une erreur est survenue.";
 document.getElementById("title").textContent="Confirmation en attente";
 document.getElementById("message").textContent="Votre paiement peut avoir été effectué. Nous n'avons pas encore terminé la confirmation de la commande.";
 document.getElementById("retry").style.display="inline-block";
+if(attempts<5)setTimeout(confirmOrder,2500);
 }finally{busy=false;}
 }
 document.getElementById("ok").addEventListener("click",()=>{location.href="https://ebagzunlock.com/";});
