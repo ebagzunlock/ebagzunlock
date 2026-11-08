@@ -1050,7 +1050,7 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <select id="languageSelect" class="lang-toggle" aria-label="Choisir la langue">
 <option value="fr">Français</option><option value="en">English</option><option value="es">Español</option><option value="pt">Português</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="ar">العربية</option><option value="zh-CN">中文</option><option value="ja">日本語</option><option value="hi">हिन्दी</option><option value="ru">Русский</option><option value="nl">Nederlands</option>
 </select></label>
-<div id="google_translate_element" hidden></div>
+<div id="google_translate_element"></div>
 
 <div class="contact-icons" id="contactIcons" hidden>
 <a href="mailto:ebagzunlock@outlook.fr?subject=Demande%20de%20contact%20%E2%80%93%20EBAGZUNLOCK" aria-label="Envoyer un e-mail" title="Envoyer un e-mail">✉️</a>
@@ -2322,6 +2322,33 @@ html body .site-header .main-nav button:not([aria-current="page"]):not(.is-activ
  const lang=document.getElementById("languageSelect");let saved="fr";try{saved=localStorage.getItem("ebagzunlock-language")||"fr"}catch(e){}if(lang&&Array.from(lang.options).some(o=>o.value===saved))lang.value=saved;
  const applySavedTranslation=()=>{if(saved==="fr")return;const cookie=document.cookie.split(";").some(x=>x.trim().startsWith("googtrans=/fr/"+saved));if(!cookie){document.cookie="googtrans=/fr/"+saved+";path=/;max-age=31536000;SameSite=Lax";document.cookie="googtrans=/fr/"+saved+";domain="+location.hostname+";path=/;max-age=31536000;SameSite=Lax";} };
  applySavedTranslation();
+})();
+</script>
+<style id="ebagz-translate-entire-page-style">
+#google_translate_element{position:fixed!important;left:-10000px!important;top:0!important;width:1px!important;height:1px!important;overflow:hidden!important;display:block!important;visibility:hidden!important}
+html body main,html body #service-and-assistance,html body .service-and-assistance,html body .site-footer{translate:yes!important}
+</style>
+<script id="ebagz-translate-entire-page-fix">
+(()=>{
+ const markTranslatable=()=>{
+  ["main","#service-and-assistance",".service-and-assistance",".site-footer"].forEach(sel=>{
+   document.querySelectorAll(sel).forEach(el=>{el.setAttribute("translate","yes");el.classList.remove("notranslate")});
+  });
+  document.querySelectorAll("#service-and-assistance .brand-inline,.site-header .header-logo,.site-footer .footer-logo,.brand-inline").forEach(el=>{
+   el.classList.add("notranslate");el.setAttribute("translate","no");
+  });
+ };
+ markTranslatable();
+ const select=document.getElementById("languageSelect");
+ let lang="fr";try{lang=localStorage.getItem("ebagzunlock-language")||"fr"}catch(e){}
+ if(select&&Array.from(select.options).some(o=>o.value===lang))select.value=lang;
+ window.addEventListener("load",()=>{
+  markTranslatable();
+  if(lang!=="fr"){
+   document.cookie="googtrans=/fr/"+lang+";path=/;max-age=31536000;SameSite=Lax";
+   document.cookie="googtrans=/fr/"+lang+";domain="+location.hostname+";path=/;max-age=31536000;SameSite=Lax";
+  }
+ });
 })();
 </script>
 </body>
