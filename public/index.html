@@ -114,11 +114,13 @@ padding:19px 0 17px
 .header-right{
 width:100%;
 display:flex;
-flex-direction:column;
+flex-direction:row;
 align-items:center;
 justify-content:center;
-gap:9px
+gap:20px
 }
+.header-right .main-nav{flex:0 1 auto}
+.header-right .language-picker{flex:0 0 38px}
 
 .main-nav{
 display:flex;
@@ -667,11 +669,12 @@ body.order-confirmed .header-logo{font-size:28px}
 body.order-confirmed .header-right{
 width:100%;
 display:flex;
-flex-direction:column;
+flex-direction:row;
 align-items:center;
 justify-content:center;
-gap:11px
+gap:20px
 }
+body.order-confirmed .header-right .language-picker{flex:0 0 38px}
 
 body.order-confirmed .main-nav{
 display:flex;
@@ -823,11 +826,18 @@ background:var(--surface)
 gap:12px;
 padding:15px 0
 }
-.main-nav{gap:10px 19px}
+.header-right{gap:14px}
+.main-nav{gap:10px 16px}
 .contact-icons{justify-content:center}
 }
 
 @media(max-width:600px){
+.header-right{gap:10px}
+.main-nav{gap:8px 11px}
+.main-nav a,.main-nav button{font-size:11px}
+.language-picker{width:36px;height:36px;flex-basis:36px}
+.language-globe{width:36px;height:36px}
+.language-picker select{width:36px;height:36px;min-width:36px}
 
 html.home-page .hero{
 min-height:calc(100svh - 145px);
