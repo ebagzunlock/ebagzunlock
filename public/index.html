@@ -1642,14 +1642,15 @@ payButton.textContent=t("alreadyPaid");
 $("languageSelect").addEventListener("change",event=>{
 const next=event.target.value;
 try{localStorage.setItem("ebagzunlock-language",next);}catch(error){}
-if(next==="fr"||next==="en"){
+if(next==="fr"){
 document.cookie="googtrans=;path=/;max-age=0";
 document.cookie="googtrans=;domain="+location.hostname+";path=/;max-age=0";
 applyLanguage(next);
 }else{
 document.cookie="googtrans=/fr/"+next+";path=/;max-age=31536000;SameSite=Lax";
 document.cookie="googtrans=/fr/"+next+";domain="+location.hostname+";path=/;max-age=31536000;SameSite=Lax";
-location.reload();
+if(next==="en"){applyLanguage(next);}
+else{location.reload();}
 }
 });
 
@@ -2108,7 +2109,10 @@ requestForm.addEventListener("submit",event=>event.preventDefault());
 try{
 
 const savedLanguage=localStorage.getItem("ebagzunlock-language");
-
+if(savedLanguage&&savedLanguage!=="fr"){
+document.cookie="googtrans=/fr/"+savedLanguage+";path=/;max-age=31536000;SameSite=Lax";
+document.cookie="googtrans=/fr/"+savedLanguage+";domain="+location.hostname+";path=/;max-age=31536000;SameSite=Lax";
+}
 if(savedLanguage==="en"){
 currentLang="en";
 }else if(savedLanguage&&savedLanguage!=="fr"){
