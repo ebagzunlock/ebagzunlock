@@ -2260,6 +2260,23 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
  .site-header .main-nav a,.site-header .main-nav button{font-size:10.5px!important;letter-spacing:0!important;padding:7px 0!important}
 }
 </style>
+<script id="ebagz-translation-explicit-content-scope">
+(()=> {
+ const protect='.site-header .header-logo,.site-footer .footer-logo,.brand-inline,.apple-mark';
+ const mark=()=>{
+  document.querySelectorAll('body *').forEach(el=>{
+   if(el.matches(protect)||el.closest(protect)){
+    el.classList.add('notranslate');el.setAttribute('translate','no');
+   }else{
+    el.classList.remove('notranslate');el.setAttribute('translate','yes');
+   }
+  });
+ };
+ mark();
+ window.addEventListener('load',mark);
+ setTimeout(mark,500);
+})();
+</script>
 </body>
 </html>
 
