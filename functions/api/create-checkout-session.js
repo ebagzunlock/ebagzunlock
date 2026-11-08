@@ -125,7 +125,7 @@ export async function onRequestPost({ request, env }) {
   const params = new URLSearchParams();
 
   params.set("mode", "payment");
-  params.set("ui_mode", "embedded");
+  params.set("ui_mode", "embedded_page");
   params.set("redirect_on_completion", "always");
   params.set("invoice_creation[enabled]", "true");
   params.set("line_items[0][quantity]", "1");
