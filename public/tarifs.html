@@ -2122,6 +2122,19 @@ new google.translate.TranslateElement({pageLanguage:"fr",includedLanguages:"en,e
 <script id="ebagz-theme-toggle-script">
 (()=>{const root=document.documentElement;const button=document.getElementById("themeToggle");if(!button)return;const apply=theme=>{root.setAttribute("data-theme",theme);button.setAttribute("aria-pressed",String(theme==="light"));button.setAttribute("aria-label",theme==="dark"?"Activer le thème clair":"Activer le thème sombre");button.title=theme==="dark"?"Activer le thème clair":"Activer le thème sombre";const icon=button.querySelector(".theme-icon");if(icon)icon.textContent=theme==="dark"?"☀":"☾";};let saved="dark";try{saved=localStorage.getItem("ebagz-theme")||"dark"}catch(e){}apply(saved);button.addEventListener("click",()=>{const next=root.getAttribute("data-theme")==="dark"?"light":"dark";apply(next);try{localStorage.setItem("ebagz-theme",next)}catch(e){}});})();
 </script>
+
+<style id="ebagz-header-theme-lock">
+/* Le thème clair/sombre ne modifie jamais l'en-tête. */
+.site-header,html[data-theme="light"] .site-header,html[data-theme="light"] header.site-header{background:rgba(8,19,33,.97)!important;color:#f5f8fc!important;border-bottom:1px solid rgba(255,255,255,.11)!important}
+.site-header .logo,.site-header .logo-blue,.site-header .apple-mark,.site-header .main-nav a,.site-header .main-nav button,.site-header .language-globe,.site-header .theme-toggle{color:#f5f8fc!important}
+.site-header .language-globe,.site-header .theme-toggle{border-color:rgba(255,255,255,.2)!important}
+.site-header .main-nav a[aria-current="page"],.site-header .main-nav a.is-active,.site-header .main-nav button[aria-current="page"],.site-header .main-nav button.is-active{color:#6da5dc!important}
+.site-header .main-nav a:hover,.site-header .main-nav button:hover{color:#6da5dc!important}
+html[data-theme="light"] .site-header .site-menu,html[data-theme="light"] .site-header .site-menu a,html[data-theme="light"] .site-header .site-menu button{background:#101f31!important;color:#f5f8fc!important;border-color:rgba(255,255,255,.11)!important}
+</style>
+<script id="ebagz-header-active-link">
+(()=>{let path=location.pathname.toLowerCase();while(path.length>1&&path.endsWith("/"))path=path.slice(0,-1);document.querySelectorAll(".site-header .main-nav a[href]").forEach(a=>{try{const u=new URL(a.href,location.href);let target=u.pathname.toLowerCase();while(target.length>1&&target.endsWith("/"))target=target.slice(0,-1);if(target===path||(path==="/"&&target==="/index.html")){a.setAttribute("aria-current","page");a.classList.add("is-active");}}catch(e){}});const contact=document.getElementById("contactToggle"),icons=document.getElementById("contactIcons");if(contact&&icons){const sync=()=>{const active=!icons.hidden;contact.classList.toggle("is-active",active);if(active)contact.setAttribute("aria-current","page");else contact.removeAttribute("aria-current");};sync();contact.addEventListener("click",()=>setTimeout(sync,0));}})();
+</script>
 </body>
 </html>
 
