@@ -961,6 +961,11 @@ letter-spacing:-.4px
 .service-copy p,.assistance-copy{ text-align:center!important;margin-left:auto!important;margin-right:auto!important}
 .assistance-actions{justify-content:center!important;margin-left:auto!important;margin-right:auto!important}
 </style>
+<style id="ebagz-compact-menu">
+.site-menu{width:max-content!important;min-width:210px!important;max-width:min(78vw,280px)!important;padding:6px 10px!important}
+.site-menu a,.site-menu button{padding:10px 7px!important;border-bottom:0!important;white-space:normal!important}
+.site-menu .contact-icons{width:100%;justify-content:center!important;margin:4px auto!important}
+</style>
 </head>
 
 <body>
@@ -2192,13 +2197,15 @@ new google.translate.TranslateElement({pageLanguage:"fr",includedLanguages:"en,e
  const contactToggle=document.getElementById("contactToggle");
  if(!toggle||!menu)return;
  let contactHome=null;
- if(contact&&contact.parentNode){
+ if(contact&&contact.parentNode&&!document.getElementById("contact-icons-home")){
   contactHome=document.createComment("contact-icons-home");
   contact.parentNode.insertBefore(contactHome,contact);
  }
  const restoreContact=()=>{
   if(contact&&contactHome&&contactHome.parentNode){
    contact.hidden=true;
+   contact.style.width="";
+   contact.style.justifyContent="";
    contactHome.parentNode.insertBefore(contact,contactHome.nextSibling);
   }
   if(contactAction)contactAction.hidden=false;
