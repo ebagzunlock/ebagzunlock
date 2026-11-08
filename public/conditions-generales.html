@@ -201,12 +201,15 @@ function googleTranslateElementInit(){if(window.google&&google.translate){new go
   if(menuContact)menuContact.setAttribute("aria-expanded",String(visible));
  };
  const closeMenu=()=>{menu.hidden=true;toggle.setAttribute("aria-expanded","false")};
+ const toggleContact=()=>setContactVisible(!!(contact&&contact.hidden));
  toggle.addEventListener("click",()=>{const open=menu.hidden;menu.hidden=!open;toggle.setAttribute("aria-expanded",String(open))});
- document.addEventListener("click",e=>{if(!menu.hidden&&!menu.contains(e.target)&&!toggle.contains(e.target))closeMenu()});
+ document.addEventListener("click",e=>{
+  const target=e.target;
+  if(target&&target.closest&&target.closest("#contactToggle")){e.preventDefault();e.stopImmediatePropagation();toggleContact();return;}
+  if(target&&target.closest&&target.closest("#siteMenuContact")){e.preventDefault();e.stopImmediatePropagation();closeMenu();setContactVisible(true);return;}
+  if(!menu.hidden&&!menu.contains(target)&&!toggle.contains(target))closeMenu();
+ },true);
  document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenu()});
- const toggleContact=()=>{const show=!!(contact&&contact.hidden);setContactVisible(show)};
- if(contactButton)contactButton.addEventListener("click",toggleContact);
- if(menuContact)menuContact.addEventListener("click",()=>{closeMenu();setContactVisible(true)});
 })();
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
