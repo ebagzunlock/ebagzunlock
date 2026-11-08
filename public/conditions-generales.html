@@ -16,12 +16,17 @@ main{width:min(850px,calc(100% - 32px));margin:42px auto 70px;padding:30px;borde
 h1{font-size:clamp(27px,5vw,38px);line-height:1.2}h2{margin-top:28px;font-size:19px}p,li{color:var(--muted);font-size:14px}.draft{padding:14px 16px;border:1px solid #b88b46;border-radius:9px;background:rgba(184,139,70,.1);color:#f0d5a5;font-size:13px}
 .back{display:inline-block;margin-top:20px;color:var(--blue);text-decoration:none}
 @media(max-width:560px){main{padding:20px;margin-top:25px}}
+.language-picker{display:inline-flex;align-items:center;justify-content:center;position:relative;width:38px;height:38px;flex:0 0 38px}.language-picker select{width:100%;height:100%;border:1px solid var(--blue);border-radius:50%;background:#0b1929;color:var(--white);font-size:10px;cursor:pointer}
+#google_translate_element{display:none!important}.goog-te-banner-frame{display:none!important}body{top:0!important}
 </style>
 </head>
 <body>
 <header>
 <a class="logo" href="/">ebagz<span>unlock</span> </a>
-<nav aria-label="Navigation principale"><a href="/">Accueil</a><a href="/?page=offres#services">Services</a><a href="/?page=offres#tarifs">Tarifs</a><a href="/?page=offres#fonctionnement">Fonctionnement</a></nav>
+<nav aria-label="Navigation principale"><a href="/">Accueil</a><a href="/?page=offres#services">Services</a><a href="/?page=offres#tarifs">Tarifs</a><a href="/?page=offres#fonctionnement">Fonctionnement</a>
+<label class="language-picker" aria-label="Choisir la langue"><select id="languageSelect" aria-label="Choisir la langue">
+<option value="fr">Français</option><option value="en">English</option><option value="es">Español</option><option value="pt">Português</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="ar">العربية</option><option value="zh-CN">中文</option><option value="ja">日本語</option><option value="hi">हिन्दी</option><option value="ru">Русский</option><option value="nl">Nederlands</option>
+</select></label></nav><div id="google_translate_element" hidden></div>
 </header>
 <main>
 <h1>CONDITIONS GÉNÉRALES D’ACHAT</h1>
@@ -44,5 +49,21 @@ h1{font-size:clamp(27px,5vw,38px);line-height:1.2}h2{margin-top:28px;font-size:1
 <p>Le droit applicable, les coordonnées du médiateur de la consommation lorsqu’il est requis et les modalités de règlement des litiges doivent être complétés en fonction de l’établissement du vendeur et des règles applicables.</p>
 <a class="back" href="/recapitulatif.html">← Retour au récapitulatif</a>
 </main>
+<script>
+const languageSelect=document.getElementById("languageSelect");
+let savedLanguage="fr";
+try{savedLanguage=localStorage.getItem("ebagzunlock-language")||"fr";}catch(error){}
+if(languageSelect)languageSelect.value=Array.from(languageSelect.options).some(o=>o.value===savedLanguage)?savedLanguage:"fr";
+if(savedLanguage!=="fr"){document.cookie="googtrans=/fr/"+savedLanguage+";path=/;max-age=31536000;SameSite=Lax";document.cookie="googtrans=/fr/"+savedLanguage+";domain="+location.hostname+";path=/;max-age=31536000;SameSite=Lax";}
+if(languageSelect)languageSelect.addEventListener("change",event=>{
+const lang=event.target.value;
+try{localStorage.setItem("ebagzunlock-language",lang);}catch(error){}
+if(lang==="fr"){document.cookie="googtrans=;path=/;max-age=0";document.cookie="googtrans=;domain="+location.hostname+";path=/;max-age=0";}
+else{document.cookie="googtrans=/fr/"+lang+";path=/;max-age=31536000;SameSite=Lax";document.cookie="googtrans=/fr/"+lang+";domain="+location.hostname+";path=/;max-age=31536000;SameSite=Lax";}
+location.reload();
+});
+function googleTranslateElementInit(){if(window.google&&google.translate){new google.translate.TranslateElement({pageLanguage:"fr",includedLanguages:"en,es,pt,de,it,ar,zh-CN,ja,hi,ru,nl",autoDisplay:false},"google_translate_element");}}
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body>
 </html>
