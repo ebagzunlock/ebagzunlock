@@ -263,30 +263,52 @@ if(result?.type==="error")throw new Error(result.error?.message||"Le paiement n'
 </footer>
 
 <script id="ebagz-hamburger-menu-script">
-(()=>{
+(()=> {
  const toggle=document.getElementById("siteMenuToggle");
  const menu=document.getElementById("siteMenu");
  const contact=document.getElementById("contactIcons");
  const contactButton=document.getElementById("contactToggle");
  const menuContact=document.getElementById("siteMenuContact");
  const headerRight=document.querySelector(".site-header .header-right");
- if(!toggle||!menu)return;
- const setContactVisible=(visible)=>{
-  if(contact)contact.hidden=!visible;
-  if(headerRight)headerRight.classList.toggle("contact-open",visible);
-  if(contactButton)contactButton.setAttribute("aria-expanded",String(visible));
+ if(!toggle||!menu||!contact||!contactButton||!headerRight)return;
+ const setContactVisible=visible=>{
+  contact.hidden=!visible;
+  headerRight.classList.toggle("contact-open",visible);
+  contactButton.setAttribute("aria-expanded",String(visible));
+  contactButton.classList.toggle("is-active",visible);
   if(menuContact)menuContact.setAttribute("aria-expanded",String(visible));
  };
- const closeMenu=()=>{menu.hidden=true;toggle.setAttribute("aria-expanded","false")};
- const toggleContact=()=>setContactVisible(!!(contact&&contact.hidden));
- toggle.addEventListener("click",()=>{const open=menu.hidden;menu.hidden=!open;toggle.setAttribute("aria-expanded",String(open))});
- document.addEventListener("click",e=>{
-  const target=e.target;
-  if(target&&target.closest&&target.closest("#contactToggle")){e.preventDefault();e.stopImmediatePropagation();toggleContact();return;}
-  if(target&&target.closest&&target.closest("#siteMenuContact")){e.preventDefault();e.stopImmediatePropagation();closeMenu();setContactVisible(true);return;}
-  if(!menu.hidden&&!menu.contains(target)&&!toggle.contains(target))closeMenu();
- },true);
- document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenu()});
+ const closeMenu=()=>{
+  menu.hidden=true;
+  toggle.setAttribute("aria-expanded","false");
+ };
+ toggle.addEventListener("click",event=>{
+  event.preventDefault();
+  const open=menu.hidden;
+  menu.hidden=!open;
+  toggle.setAttribute("aria-expanded",String(open));
+ });
+ contactButton.addEventListener("click",event=>{
+  event.preventDefault();
+  event.stopPropagation();
+  setContactVisible(contact.hidden);
+ });
+ if(menuContact)menuContact.addEventListener("click",event=>{
+  event.preventDefault();
+  event.stopPropagation();
+  closeMenu();
+  setContactVisible(true);
+ });
+ document.querySelectorAll(".site-header .main-nav a").forEach(link=>{
+  link.addEventListener("click",()=>{
+   setContactVisible(false);
+   closeMenu();
+  });
+ });
+ document.addEventListener("click",event=>{
+  if(!menu.hidden&&!menu.contains(event.target)&&!toggle.contains(event.target))closeMenu();
+ });
+ document.addEventListener("keydown",event=>{if(event.key==="Escape")closeMenu();});
 })();
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
@@ -426,5 +448,54 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
  setTimeout(mark,500);
 })();
 </script>
+<style id="ebagz-contact-navigation-final-fix">
+/* Les trois moyens de contact apparaissent sous la navigation, dans l'en-tête. */
+.site-header .header-right.contact-open{
+ display:flex!important;
+ flex-flow:row wrap!important;
+ justify-content:center!important;
+ align-items:center!important;
+ row-gap:7px!important;
+}
+.site-header .header-right.contact-open .main-nav{
+ flex:0 0 100%!important;
+ order:1!important;
+ justify-content:center!important;
+}
+.site-header .header-right.contact-open .contact-icons{
+ display:flex!important;
+ visibility:visible!important;
+ position:static!important;
+ order:2!important;
+ flex:0 0 100%!important;
+ width:100%!important;
+ justify-content:center!important;
+ align-items:center!important;
+ gap:18px!important;
+ margin:3px auto 5px!important;
+}
+.site-header .header-right .contact-icons[hidden]{display:none!important}
+.site-header .contact-icons a{
+ width:34px!important;height:34px!important;
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ font-size:20px!important;
+}
+.site-header .contact-icons svg{width:21px!important;height:21px!important}
+.site-header .main-nav{gap:clamp(7px,1.8vw,13px)!important}
+.site-header .main-nav a,.site-header .main-nav button{
+ font-size:clamp(9.5px,2.6vw,12px)!important;
+ font-weight:600!important;
+ letter-spacing:0!important;
+}
+@media(min-width:760px){
+ .site-header .main-nav{gap:clamp(12px,1.5vw,19px)!important}
+ .site-header .main-nav a,.site-header .main-nav button{font-size:12px!important}
+}
+@media(max-width:420px){
+ .site-header .header-right{gap:4px!important}
+ .site-header .main-nav{gap:clamp(6px,1.5vw,9px)!important}
+ .site-header .main-nav a,.site-header .main-nav button{font-size:9.5px!important}
+}
+</style>
 </body>
 </html>
