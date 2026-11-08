@@ -1,6 +1,7 @@
 const SERVICES = [
   "Déverrouillage iCloud",
   "Déverrouillage Opérateur",
+  "SNAP-error/ban",
   "Suppression Blocage & Limitation Propriétaire",
   "Résolution Blocage DFU & Mode de Récupération",
   "Mise à jour iOS / macOS"
@@ -49,6 +50,7 @@ export async function onRequestPost({ request, env }) {
   const stripeLocale = localeAliases[requestedLocale] || requestedLocale;
   const checkoutLocale = supportedLocales.has(stripeLocale) ? stripeLocale : "auto";
   if (!SERVICES.includes(service)) return Response.json({ error: "Prestation invalide." }, { status: 400 });
+  if (service === "SNAP-error/ban" && device !== "iPhone") return Response.json({ error: "Ce service est disponible uniquement pour iPhone." }, { status: 400 });
 
   const name = String(customer.name || "").trim().slice(0, 120);
   const email = String(customer.email || "").trim().slice(0, 200);
