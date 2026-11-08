@@ -69,9 +69,8 @@ export async function onRequestPost({ request, env }) {
 
   const params = new URLSearchParams();
   params.set("mode", "payment");
-  params.set("ui_mode", "embedded_page");
-  params.set("redirect_on_completion", "always");
-  params.set("invoice_creation[enabled]", "true");
+  params.set("ui_mode", "elements");
+    params.set("invoice_creation[enabled]", "true");
   params.set("customer_creation", "always");
   params.set("customer_email", email);
   params.set("line_items[0][quantity]", "1");
@@ -90,7 +89,7 @@ export async function onRequestPost({ request, env }) {
   try {
     const stripeResponse = await fetch("https://api.stripe.com/v1/checkout/sessions", {
       method: "POST",
-      headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`, "Content-Type": "application/x-www-form-urlencoded" },
+      headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`, "Content-Type": "application/x-www-form-urlencoded", "Stripe-Version": "2026-09-30.endive" },
       body: params
     });
     const session = await stripeResponse.json();
