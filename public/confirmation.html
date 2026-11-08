@@ -12,6 +12,7 @@
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -15%,rgba(52,119,190,.25),transparent 52%),linear-gradient(145deg,#050b16,#0a1a2d 48%,#07101e);color:var(--white);font-family:Inter,sans-serif;display:flex;flex-direction:column}
 header{padding:22px 20px;border-bottom:1px solid var(--border);background:rgba(8,19,33,.95);text-align:center}.logo{font-size:25px;font-weight:800;letter-spacing:-1px;text-decoration:none;color:var(--white)}.logo span{color:var(--blue)}.logo .apple-mark{color:var(--white);margin-left:5px;font-family:Arial,sans-serif;font-size:.95em}
 nav{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 24px;margin-top:13px}nav a{font-size:13px;color:var(--muted);text-decoration:none}
+.site-footer{margin-top:auto;padding:24px 20px;text-align:center;border-top:1px solid var(--border);background:rgba(8,19,33,.72)}.footer-logo{display:inline-block;color:var(--white);font-size:22px;font-weight:800;letter-spacing:-1px;text-decoration:none}.footer-logo span:not(.apple-mark){color:var(--blue)}.footer-logo .apple-mark{color:var(--white);margin-left:5px;font-family:Arial,sans-serif;font-size:.95em}
 main{width:min(680px,calc(100% - 32px));margin:auto;padding:65px 0;text-align:center}
 .check{width:62px;height:62px;margin:0 auto 25px;border:2px solid var(--success);border-radius:50%;display:grid;place-items:center;color:var(--success);font-size:34px}
 h1{font-size:clamp(25px,5vw,34px);margin:0 0 15px}.message{color:var(--muted);line-height:1.8;margin:0 auto 30px}
@@ -74,5 +75,6 @@ document.getElementById("ok").addEventListener("click",()=>{location.href="https
 document.getElementById("retry").addEventListener("click",confirmOrder);
 confirmOrder();
 </script>
+<footer class="site-footer"><a class="footer-logo" href="https://ebagzunlock.com/">ebagz<span>unlock</span><span class="apple-mark" aria-hidden="true"> </span></a></footer>
 </body>
 </html>
