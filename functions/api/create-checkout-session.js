@@ -41,7 +41,7 @@ const CATALOGUE = {
     "iPad classique 1re–11e génération (A16 inclus)":37,
     "iPad mini 1–6 (A17 Pro inclus)":39,"iPad Air 1–5":37,
     "iPad Air M2/M3/M4 11/13 pouces":35,"iPad Pro 9.7 pouces":39,
-    "iPad Pro 10,5 pouces":39,"iPad Pro 11 pouces générations 1–5":45,
+    "iPad Pro 10.5 pouces":39,"iPad Pro 11 pouces générations 1–5":45,
     "iPad Pro 12.9 pouces générations 1–6":49,
     "iPad Pro M4 11/13 pouces":52,"iPad Pro M5 11/13 pouces":55
   },
