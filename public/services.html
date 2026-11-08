@@ -1195,17 +1195,27 @@ function googleTranslateElementInit(){
 </script>
 
 <script id="ebagz-hamburger-menu-script">
-(()=> {
- const toggle=document.getElementById("siteMenuToggle"),menu=document.getElementById("siteMenu"),contact=document.getElementById("contactIcons"),contactAction=document.getElementById("siteMenuContact");
+(()=>{
+ const toggle=document.getElementById("siteMenuToggle");
+ const menu=document.getElementById("siteMenu");
+ const contact=document.getElementById("contactIcons");
+ const contactButton=document.getElementById("contactToggle");
+ const menuContact=document.getElementById("siteMenuContact");
+ const headerRight=document.querySelector(".site-header .header-right");
  if(!toggle||!menu)return;
- const home=contact&&contact.parentNode?document.createComment("contact-icons-home"):null;
- if(home)contact.parentNode.insertBefore(home,contact);
- const restore=()=>{if(contact&&home&&home.parentNode){contact.hidden=true;contact.style.width="";contact.style.justifyContent="";home.parentNode.insertBefore(contact,home.nextSibling)}if(contactAction)contactAction.hidden=false};
- const close=()=>{menu.hidden=true;toggle.setAttribute("aria-expanded","false");restore()};
- toggle.addEventListener("click",()=>{if(menu.hidden){restore();menu.hidden=false;toggle.setAttribute("aria-expanded","true")}else close()});
- document.addEventListener("click",e=>{if(!menu.hidden&&!menu.contains(e.target)&&!toggle.contains(e.target))close()});
- document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
- if(contactAction&&contact)contactAction.addEventListener("click",()=>{contactAction.hidden=true;contact.hidden=false;contact.style.width="100%";contact.style.justifyContent="center";contactAction.insertAdjacentElement("afterend",contact)});
+ const setContactVisible=(visible)=>{
+  if(contact)contact.hidden=!visible;
+  if(headerRight)headerRight.classList.toggle("contact-open",visible);
+  if(contactButton)contactButton.setAttribute("aria-expanded",String(visible));
+  if(menuContact)menuContact.setAttribute("aria-expanded",String(visible));
+ };
+ const closeMenu=()=>{menu.hidden=true;toggle.setAttribute("aria-expanded","false")};
+ toggle.addEventListener("click",()=>{const open=menu.hidden;menu.hidden=!open;toggle.setAttribute("aria-expanded",String(open))});
+ document.addEventListener("click",e=>{if(!menu.hidden&&!menu.contains(e.target)&&!toggle.contains(e.target))closeMenu()});
+ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenu()});
+ const toggleContact=()=>{const show=!!(contact&&contact.hidden);setContactVisible(show)};
+ if(contactButton)contactButton.addEventListener("click",toggleContact);
+ if(menuContact)menuContact.addEventListener("click",()=>{closeMenu();setContactVisible(true)});
 })();
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
@@ -1266,6 +1276,11 @@ html[data-theme="light"] .site-header .site-menu,html[data-theme="light"] .site-
  }
 })();
 </script>
+<style id="ebagz-contact-display-fix">
+.site-header .header-right.contact-open{flex-wrap:wrap!important}
+.site-header .header-right .contact-icons{display:flex!important;flex:0 0 100%!important;width:100%!important;justify-content:center!important;align-items:center!important;gap:12px!important;margin:5px auto 2px!important}
+.site-header .header-right .contact-icons[hidden]{display:none!important}
+</style>
 </body>
 </html>
 
