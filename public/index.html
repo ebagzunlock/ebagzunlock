@@ -1571,7 +1571,11 @@ element.placeholder=t(element.getAttribute("data-i18n-placeholder"));
 });
 
 const languageSelect=$("languageSelect");
-if(languageSelect)languageSelect.value=currentLang;
+if(languageSelect){
+let savedLanguage=currentLang;
+try{savedLanguage=localStorage.getItem("ebagzunlock-language")||currentLang;}catch(error){}
+languageSelect.value=Array.from(languageSelect.options).some(option=>option.value===savedLanguage)?savedLanguage:currentLang;
+}
 
 document.title=currentLang==="fr"
 ?"EBAGZUNLOCK — Déverrouillage et assistance informatique Apple"
