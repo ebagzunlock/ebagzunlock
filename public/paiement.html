@@ -58,35 +58,13 @@ h2{font-size:18px;font-weight:500;text-transform:none;margin:0 0 16px}#summary-t
 <div id="google_translate_element" hidden></div>
 </header>
 <main>
-<h1>RÉCAPITULATIF</h1>
-<section class="panel" aria-labelledby="summary-title">
-<h2 id="summary-title">Détails de votre commande</h2>
-<div class="line"><span>Prestation</span><strong id="service">—</strong></div>
-<div class="line"><span>Appareil / Option</span><strong id="device">—</strong></div>
-<div class="line"><span>Modèle</span><strong id="model">—</strong></div>
-<div class="line"><span>Nom</span><strong id="customer-name">—</strong></div>
-<div class="line"><span>E-mail</span><strong id="customer-email">—</strong></div>
-<div class="line"><span>Téléphone</span><strong id="customer-phone">—</strong></div>
-<div class="line"><span>IMEI / Numéro de série</span><strong id="customer-identifier">—</strong></div>
-<div class="line" id="message-row" hidden><span>Informations complémentaires</span><strong id="customer-message">—</strong></div>
-<div class="line"><span>Total à payer</span><strong class="amount" id="amount">—</strong></div>
-</section>
-<section class="panel" aria-labelledby="payment-title">
-<div class="info-notice" role="note" aria-labelledby="info-brand">
-<div class="info-brand" id="info-brand">ebagz<span style="color:var(--blue)">unlock</span><span class="apple-mark" aria-hidden="true"> </span></div>
-<p>Selon la prestation choisie, vous recevrez après confirmation du paiement une autorisation, un code ou les instructions nécessaires par e-mail. Ces éléments vous permettront d’effectuer vous-même les étapes de la procédure sur votre appareil. Le paiement ne signifie donc pas que votre appareil sera déverrouillé instantanément ou à distance.</p>
-<p style="margin-top:8px">E-BAGZUNLOCK est un service indépendant et n’est pas affilié à Apple.</p>
-</div>
-<label class="acknowledgement" for="service-acknowledgement">
-<input id="service-acknowledgement" type="checkbox" required>
-<span>Je comprends que je recevrai par e-mail, selon la prestation, une autorisation, un code ou des instructions pour effectuer moi-même la procédure sur mon appareil.</span>
-</label>
-<h2 id="payment-title">MODE DE PAIEMENT</h2>
+<h1 id="payment-title">MODE DE PAIEMENT</h1>
+<section class="panel" aria-label="Moyens de paiement">
 <div id="payment-element"></div>
 <button id="pay-button" type="button" disabled>PAYER</button>
 <div id="status" role="alert"></div>
 </section>
-<a class="back" href="https://ebagzunlock.com/?page=offres#tarifs">← Retour aux offres</a>
+<a class="back" href="/recapitulatif.html">← Retour au récapitulatif</a>
 </main>
 <script>
 "use strict";
@@ -134,25 +112,13 @@ const amount=selection.service===updateService?updatePrices[selection.model]:pri
 const validCustomer=customer.name&&customer.email&&customer.phone&&customer.identifier;
 if(selection.service===updateService&&selection.device!==selection.model)amount=null;
 if(!selection.service||!selection.device||!selection.model||!Number.isFinite(amount)||!validCustomer){
-document.getElementById("status").textContent="Récapitulatif incomplet. Retournez sur le site et vérifiez les informations de votre commande.";
+document.getElementById("status").textContent="Commande introuvable. Revenez au récapitulatif et vérifiez les informations.";
 }else{
-document.getElementById("service").textContent=selection.service;
-document.getElementById("device").textContent=selection.device;
-document.getElementById("model").textContent=selection.model;
-document.getElementById("customer-name").textContent=customer.name;
-document.getElementById("customer-email").textContent=customer.email;
-document.getElementById("customer-phone").textContent=customer.phone;
-document.getElementById("customer-identifier").textContent=customer.identifier;
-if(customer.message){document.getElementById("customer-message").textContent=customer.message;document.getElementById("message-row").hidden=false;}
-document.getElementById("amount").textContent=amount+" €";
 startCheckout();
 }
 async function startCheckout(){
 const status=document.getElementById("status");
 const button=document.getElementById("pay-button");
-const acknowledgement=document.getElementById("service-acknowledgement");
-let stripeReady=false;
-acknowledgement.addEventListener("change",()=>{button.disabled=!stripeReady||!acknowledgement.checked;});
 button.disabled=true;
 try{
 if(!window.Stripe)throw new Error("Le service de paiement Stripe ne se charge pas. Actualisez la page.");
@@ -184,13 +150,10 @@ paymentElement.mount("#payment-element");
 const loaded=await checkout.loadActions();
 if(loaded.type!=="success")throw new Error(loaded.error?.message||"Impossible de charger les moyens de paiement.");
 const actions=loaded.actions;
-const session=await actions.getSession();
-const total=session?.total?.total?.amount;
-if(typeof total==="number")document.getElementById("amount").textContent=new Intl.NumberFormat("fr-FR",{style:"currency",currency:session.currency||"eur"}).format(total);
 stripeReady=true;
-button.disabled=!acknowledgement.checked;
+button.disabled=false;
 button.addEventListener("click",async()=>{
-if(button.disabled||!acknowledgement.checked)return;
+if(button.disabled)return;
 button.disabled=true;
 status.textContent="";
 try{
