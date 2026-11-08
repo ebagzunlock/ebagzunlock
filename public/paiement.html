@@ -11,9 +11,18 @@
 <style>
 :root{color-scheme:dark;--bg:#081321;--panel:#101f31;--blue:#6da5dc;--white:#f5f8fc;--muted:#aab7c7;--border:rgba(255,255,255,.12);--error:#ff7777}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -15%,rgba(52,119,190,.25),transparent 52%),linear-gradient(145deg,#050b16,#0a1a2d 48%,#07101e);color:var(--white);font-family:Inter,sans-serif}
-header{padding:22px 20px;border-bottom:1px solid var(--border);background:rgba(8,19,33,.95);text-align:center}
-.logo{font-size:25px;font-weight:800;letter-spacing:-1px;text-decoration:none;color:var(--white)}.logo span{color:var(--blue)}.logo .apple-mark{color:var(--white);margin-left:5px;font-family:Arial,sans-serif;font-size:.95em}
-nav{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 24px;margin-top:13px}nav a{font-size:13px;color:var(--muted);text-decoration:none}
+header{padding:19px 20px 17px;border-bottom:1px solid var(--border);background:rgba(8,19,33,.97);text-align:center}
+.logo{display:inline-block;font-size:25px;font-weight:800;letter-spacing:-1px;text-decoration:none;color:var(--white)}.logo span{color:var(--blue)}.logo .apple-mark{color:var(--white);margin-left:5px;font-family:Arial,sans-serif;font-size:.95em}
+nav{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px 22px;margin-top:15px}
+nav a{font-size:13px;font-weight:600;color:var(--white);text-decoration:none}
+.language-picker{display:inline-flex;align-items:center;justify-content:center;position:relative;width:38px;height:38px;flex:0 0 38px;cursor:pointer}
+.language-globe{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--blue);border-radius:50%;color:var(--white);pointer-events:none}
+.language-globe svg{width:19px;height:19px}
+.language-picker select{position:absolute;inset:0;width:38px;height:38px;min-width:38px;margin:0;padding:0;border:0;border-radius:50%;background:transparent;color:transparent;font-size:0;opacity:0;cursor:pointer;appearance:none;z-index:2}
+.language-picker select option{background:#0b1929;color:#f5f8fc;font-size:14px}
+#google_translate_element{display:none!important}
+.goog-te-banner-frame{display:none!important}body{top:0!important}
+@media(max-width:520px){header{padding:16px 12px}nav{gap:9px 13px}nav a{font-size:11px}.language-picker,.language-globe,.language-picker select{width:36px;height:36px;min-width:36px;flex-basis:36px}}
 .site-footer{margin-top:auto;padding:24px 20px;text-align:center;border-top:1px solid var(--border);background:rgba(8,19,33,.72)}.footer-logo{display:inline-block;color:var(--white);font-size:22px;font-weight:800;letter-spacing:-1px;text-decoration:none}.footer-logo span:not(.apple-mark){color:var(--blue)}.footer-logo .apple-mark{color:var(--white);margin-left:5px;font-family:Arial,sans-serif;font-size:.95em}
 main{width:min(760px,calc(100% - 32px));margin:40px auto 70px}
 h1{margin:0 0 24px;text-align:center;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px}
@@ -35,7 +44,13 @@ h2{font-size:18px;font-weight:500;text-transform:none;margin:0 0 16px}#summary-t
 <a href="https://ebagzunlock.com/?page=offres#services">Services</a>
 <a href="https://ebagzunlock.com/?page=offres#tarifs">Tarifs</a>
 <a href="https://ebagzunlock.com/?page=offres#fonctionnement">Fonctionnement</a>
+<label class="language-picker" aria-label="Choisir la langue">
+<span class="language-globe" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M3 12h18M12 3c2.2 2.4 3.2 5.4 3.2 9s-1 6.6-3.2 9c-2.2-2.4-3.2-5.4-3.2-9S9.8 5.4 12 3Z" stroke="currentColor" stroke-width="1.5"/></svg></span>
+<select id="languageSelect" aria-label="Choisir la langue">
+<option value="fr">Français</option><option value="en">English</option><option value="es">Español</option><option value="pt">Português</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="ar">العربية</option><option value="zh-CN">中文</option><option value="ja">日本語</option><option value="hi">हिन्दी</option><option value="ru">Русский</option><option value="nl">Nederlands</option>
+</select></label>
 </nav>
+<div id="google_translate_element" hidden></div>
 </header>
 <main>
 <h1>RÉCAPITULATIF</h1>
@@ -63,6 +78,28 @@ h2{font-size:18px;font-weight:500;text-transform:none;margin:0 0 16px}#summary-t
 "use strict";
 const PUBLISHABLE_KEY="pk_live_51UXyGX75EdsO57RNKonjBJn7r6Q2m2tGmlhzXpz9eQMs2c1ZDmVsp7oecok3jBg3xvcFsUkL3dyjZcKrvGs9iAic00hn3wyox8";
 const params=new URLSearchParams(location.search);
+
+// Synchroniser le sélecteur de langue avec le choix déjà fait sur le site.
+const languageSelect=document.getElementById("languageSelect");
+let selectedLanguage="fr";
+try{selectedLanguage=localStorage.getItem("ebagzunlock-language")||"fr";}catch(error){}
+if(languageSelect)languageSelect.value=Array.from(languageSelect.options).some(o=>o.value===selectedLanguage)?selectedLanguage:"fr";
+if(languageSelect)languageSelect.addEventListener("change",event=>{
+const lang=event.target.value;
+try{localStorage.setItem("ebagzunlock-language",lang);}catch(error){}
+document.cookie="googtrans=;path=/;max-age=0";
+document.cookie="googtrans=;domain="+location.hostname+";path=/;max-age=0";
+if(lang!=="fr"&&lang!=="en"){
+document.cookie="googtrans=/fr/"+lang+";path=/;max-age=31536000;SameSite=Lax";
+document.cookie="googtrans=/fr/"+lang+";domain="+location.hostname+";path=/;max-age=31536000;SameSite=Lax";
+}
+location.reload();
+});
+function googleTranslateElementInit(){
+if(window.google&&google.translate){
+new google.translate.TranslateElement({pageLanguage:"fr",includedLanguages:"en,es,pt,de,it,ar,zh-CN,ja,hi,ru,nl",autoDisplay:false},"google_translate_element");
+}
+}
 let savedSelection={},customer={};
 try{savedSelection=JSON.parse(sessionStorage.getItem("ebagzunlock-pending-payment")||"{}");}catch(error){}
 try{customer=JSON.parse(sessionStorage.getItem("ebagzunlock-pending-order")||"{}");}catch(error){}
@@ -146,5 +183,6 @@ if(result?.type==="error")throw new Error(result.error?.message||"Le paiement n'
 }
 </script>
 <footer class="site-footer"><a class="footer-logo" href="https://ebagzunlock.com/">ebagz<span>unlock</span><span class="apple-mark" aria-hidden="true"> </span></a></footer>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body>
 </html>
