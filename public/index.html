@@ -488,7 +488,7 @@ text-align:center
 .status-message.success{color:var(--success)}
 
 #requestSection{
-display:none;
+display:block;
 margin-top:25px;
 padding-top:25px;
 border-top:1px solid var(--border)
@@ -1020,26 +1020,10 @@ Découvrir nos offres
 </select>
 </div>
 
-<div class="price-display">
-<span data-i18n="servicePrice">Prix de la prestation</span>
-<strong id="priceValue">— €</strong>
-</div>
-
-<button class="primary-button full-width" id="payButton" type="button" disabled data-i18n="payButton">
-Procéder au paiement sécurisé
-</button>
-
-<div id="paymentStatus" class="status-message" role="status" aria-live="polite"></div>
-
-<p class="notice" data-i18n="stripeNotice">Le paiement est traité de manière sécurisée par Stripe.</p>
-
-<div id="requestSection">
+<div id="requestSection" class="visible">
 
 <h3 data-i18n="yourRequest">Votre demande</h3>
 
-<p class="notice" style="text-align:left;margin:0 0 20px" data-i18n="paidNotice">
-Paiement vérifié. Complétez les informations nécessaires à votre demande.
-</p>
 
 <form id="requestForm">
 
@@ -1073,14 +1057,25 @@ Paiement vérifié. Complétez les informations nécessaires à votre demande.
 <span data-i18n="consentText">Je confirme être le propriétaire de l'appareil ou être autorisé à effectuer cette demande. Toute intervention sera limitée aux opérations légales et autorisées.</span>
 </label>
 
-<button class="primary-button full-width" type="submit" data-i18n="submitRequest">
-Envoyer ma demande
-</button>
 
 </form>
 
-<div id="requestStatus" class="status-message" role="status" aria-live="polite"></div>
 </div>
+
+<div class="price-display">
+<span data-i18n="servicePrice">Prix de la prestation</span>
+<strong id="priceValue">— €</strong>
+</div>
+
+<button class="primary-button full-width" id="payButton" type="button" disabled data-i18n="payButton">
+Procéder au paiement sécurisé
+</button>
+
+<div id="paymentStatus" class="status-message" role="status" aria-live="polite"></div>
+
+<p class="notice" data-i18n="stripeNotice">Le paiement est traité de manière sécurisée par Stripe.</p>
+
+
 
 </div>
 </div>
@@ -1260,10 +1255,10 @@ chooseCategory:"Choisir une catégorie",
 modelLabel:"Modèle",
 chooseModel:"Choisir un modèle",
 servicePrice:"Prix de la prestation",
-payButton:"Procéder au paiement sécurisé",
+payButton:"Procéder au paiement",
 stripeNotice:"Le paiement est traité de manière sécurisée par Stripe.",
 yourRequest:"Votre demande",
-paidNotice:"Paiement vérifié. Complétez les informations nécessaires à votre demande.",
+
 nameLabel:"Nom et prénom",
 emailLabel:"Adresse e-mail",
 phoneLabel:"Numéro de téléphone",
@@ -1271,7 +1266,7 @@ identifierLabel:"IMEI ou numéro de série",
 messageLabel:"Informations complémentaires",
 messagePlaceholder:"Décrivez votre demande si nécessaire.",
 consentText:"Je confirme être le propriétaire de l'appareil ou être autorisé à effectuer cette demande. Toute intervention sera limitée aux opérations légales et autorisées.",
-submitRequest:"Envoyer ma demande",
+
 howTitle:"Comment ça fonctionne ?",
 howDesc:"Les étapes de votre demande, de la sélection du service à son traitement.",
 step1Title:"Choisissez votre prestation",
@@ -1338,10 +1333,10 @@ chooseCategory:"Choose a category",
 modelLabel:"Model",
 chooseModel:"Choose a model",
 servicePrice:"Service price",
-payButton:"Proceed to secure payment",
+payButton:"Proceed to payment",
 stripeNotice:"Payment is processed securely by Stripe.",
 yourRequest:"Your request",
-paidNotice:"Payment verified. Complete the information required for your request.",
+
 nameLabel:"Full name",
 emailLabel:"Email address",
 phoneLabel:"Phone number",
@@ -1349,7 +1344,7 @@ identifierLabel:"IMEI or serial number",
 messageLabel:"Additional information",
 messagePlaceholder:"Describe your request if necessary.",
 consentText:"I confirm that I own the device or am authorized to make this request. Any work will be limited to lawful and authorized operations.",
-submitRequest:"Submit my request",
+
 howTitle:"How does it work?",
 howDesc:"The steps of your request, from service selection to processing.",
 step1Title:"Choose your service",
@@ -1790,16 +1785,22 @@ payButton.addEventListener("click",()=>{
 const service=serviceSelect.value;
 const device=deviceSelect.value;
 let model=modelSelect.value;
-
-if(!service||!device||selectedPrice===null){
-showStatus(paymentStatus,t("invalidSelection"),"error");
-return;
-}
-
+if(!service||!device||selectedPrice===null){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
+if(!requestForm.reportValidity())return;
 if(service===UPDATE_SERVICE)model=device;
-
+const formData=new FormData(requestForm);
+const customer={
+name:String(formData.get("name")||"").trim(),
+email:String(formData.get("email")||"").trim(),
+phone:String(formData.get("phone")||"").trim(),
+identifier:String(formData.get("identifier")||"").trim(),
+message:String(formData.get("message")||"").trim()
+};
+try{
+sessionStorage.setItem("ebagzunlock-pending-payment",JSON.stringify({service,device,model}));
+sessionStorage.setItem("ebagzunlock-pending-order",JSON.stringify(customer));
+}catch(error){showStatus(paymentStatus,"Impossible de préparer votre commande. Réessayez.","error");return;}
 const params=new URLSearchParams({service,device,model});
-try{sessionStorage.setItem("ebagzunlock-pending-payment",JSON.stringify({service,device,model}));}catch(error){}
 window.location.href="/paiement.html?"+params.toString();
 });
 
@@ -1993,70 +1994,7 @@ window.scrollTo({top:0,behavior:"instant"});
 }
 
 /* Envoi de la commande après vérification du paiement */
-requestForm.addEventListener("submit",async event=>{
-
-event.preventDefault();
-
-if(isSubmittingOrder)return;
-
-if(!verifiedSelection||!verifiedSessionId){
-showStatus(requestStatus,t("noVerified"),"error");
-return;
-}
-
-if(!requestForm.reportValidity())return;
-
-const submitButton=requestForm.querySelector('button[type="submit"]');
-const formData=new FormData(requestForm);
-
-const order={
-sessionId:verifiedSessionId,
-name:String(formData.get("name")||"").trim(),
-email:String(formData.get("email")||"").trim(),
-phone:String(formData.get("phone")||"").trim(),
-identifier:String(formData.get("identifier")||"").trim(),
-message:String(formData.get("message")||"").trim()
-};
-
-isSubmittingOrder=true;
-submitButton.disabled=true;
-submitButton.textContent=t("sending");
-
-showStatus(requestStatus,t("sendSecure"));
-
-try{
-
-const response=await fetch("/api/submit-order",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify(order)
-});
-
-const result=await response.json();
-
-if(!response.ok||result.success!==true){
-throw new Error(result.error||t("sendError"));
-}
-
-requestForm.reset();
-showConfirmationPage();
-
-}catch(error){
-
-isSubmittingOrder=false;
-
-showStatus(
-requestStatus,
-error.message||t("sendError"),
-"error"
-);
-
-submitButton.disabled=false;
-submitButton.textContent=t("submitRequest");
-
-}
-
-});
+requestForm.addEventListener("submit",event=>event.preventDefault());
 
 /* Langue mémorisée sur cet appareil */
 try{
@@ -2070,7 +2008,6 @@ currentLang="en";
 }catch(error){}
 
 applyLanguage(currentLang);
-verifyReturnedPayment();
 
 </script>
 </body>
