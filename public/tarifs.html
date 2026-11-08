@@ -2216,6 +2216,39 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
  });
 })();
 </script>
+<script id="ebagz-force-full-page-translation">
+(()=> {
+ const getLang=()=>{try{return localStorage.getItem("ebagzunlock-language")||"fr"}catch(e){return "fr"}};
+ const lang=getLang();
+ if(lang==="fr")return;
+ const apply=()=>{
+  const combo=document.querySelector(".goog-te-combo");
+  if(!combo)return false;
+  if(combo.value!==lang){
+   combo.value=lang;
+   combo.dispatchEvent(new Event("change",{bubbles:true}));
+  }
+  return true;
+ };
+ let tries=0;
+ const timer=setInterval(()=>{
+  tries++;
+  if(apply()||tries>=80)clearInterval(timer);
+ },250);
+ window.addEventListener("load",()=>{setTimeout(apply,500);setTimeout(apply,1500);setTimeout(apply,3000)});
+ const root=document.body;
+ if(root&&window.MutationObserver){
+  let queued=false;
+  const observer=new MutationObserver(()=>{
+   if(queued)return;
+   queued=true;
+   setTimeout(()=>{queued=false;apply()},700);
+  });
+  observer.observe(root,{childList:true,subtree:true});
+  setTimeout(()=>observer.disconnect(),12000);
+ }
+})();
+</script>
 </body>
 </html>
 
