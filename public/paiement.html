@@ -286,5 +286,44 @@ if(result?.type==="error")throw new Error(result.error?.message||"Le paiement n'
 .site-header .main-nav a[aria-current="page"],.site-header .main-nav a.is-active,.site-header .main-nav button[aria-current="page"],.site-header .main-nav button.is-active{color:#6da5dc!important}
 .site-header .language-globe,.site-header .theme-toggle{border-color:rgba(255,255,255,.2)!important}
 </style>
+<style id="ebagz-nav-spacing-active-state">
+/* Navigation plus lisible, espacée sans graisse excessive. */
+.site-header .header-right{gap:clamp(6px,1.35vw,15px)!important}
+.site-header .main-nav{gap:clamp(9px,1.5vw,18px)!important}
+.site-header .main-nav a,.site-header .main-nav button{font-weight:500!important;letter-spacing:.01em!important;padding-left:1px!important;padding-right:1px!important}
+.site-header .main-nav a.is-active,.site-header .main-nav a[aria-current="page"],.site-header .main-nav button.is-active,.site-header .main-nav button[aria-current="page"]{color:#6da5dc!important}
+.site-header .main-nav a:not(.is-active):not([aria-current="page"]),.site-header .main-nav button:not(.is-active):not([aria-current="page"]){color:#fff!important}
+@media(max-width:420px){
+ .site-header .header-right{gap:4px!important}
+ .site-header .main-nav{gap:clamp(6px,1.5vw,9px)!important}
+ .site-header .main-nav a,.site-header .main-nav button{font-size:9px!important;letter-spacing:0!important}
+}
+</style>
+<script id="ebagz-header-active-link">
+(()=> {
+ const path=location.pathname.toLowerCase().replace(/\/+$/,"")||"/";
+ const links=document.querySelectorAll(".site-header .main-nav a[href]");
+ links.forEach(a=>{
+  try{
+   const target=new URL(a.href,location.href).pathname.toLowerCase().replace(/\/+$/,"")||"/";
+   const active=(target===path)||(path==="/"&&target==="/index.html");
+   a.classList.toggle("is-active",active);
+   if(active)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");
+  }catch(e){}
+ });
+ const contact=document.getElementById("contactToggle");
+ const icons=document.getElementById("contactIcons");
+ if(contact&&icons){
+  const sync=()=>{
+   const active=!icons.hidden;
+   contact.classList.toggle("is-active",active);
+   if(active)contact.setAttribute("aria-current","page");
+   else contact.removeAttribute("aria-current");
+  };
+  sync();
+  contact.addEventListener("click",()=>requestAnimationFrame(sync));
+ }
+})();
+</script>
 </body>
 </html>
