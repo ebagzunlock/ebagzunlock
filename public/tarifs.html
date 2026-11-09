@@ -1298,7 +1298,7 @@ const UPDATE_PRICES={
 "iPadOS":10,
 "macOS":13,
 "watchOS":8,
-"iMac unlock":2
+"ebagzunlock ":2
 };
 
 /* Traductions */
@@ -1478,23 +1478,23 @@ const identifierInput=$("deviceIdentifier");
 const identifierLabel=identifierInput?.previousElementSibling;
 function syncIdentifierRules(){
  const device=deviceSelect.value, service=serviceSelect.value;
- const independent=device==="iMac unlock";
+ const independent=device==="ebagzunlock ";
  if(!identifierInput)return;
  identifierInput.required=!independent;
  identifierInput.disabled=independent;
  if(independent){
   identifierInput.value="";
-  identifierInput.placeholder="Non requis pour iMac unlock";
+  identifierInput.placeholder="Non requis pour cette prestation";
   if(identifierLabel)identifierLabel.textContent="Identifiant non requis";
  }else if(device==="iPhone"&&service==="Déverrouillage Opérateur"){
-  identifierInput.placeholder="IMEI obligatoire";
-  if(identifierLabel)identifierLabel.textContent="IMEI";
+  identifierInput.placeholder="Saisissez l’IMEI";
+  if(identifierLabel)identifierLabel.textContent="IMEI uniquement";
  }else if(device==="iPhone"){
   identifierInput.placeholder="IMEI ou numéro de série";
   if(identifierLabel)identifierLabel.textContent="IMEI ou numéro de série";
  }else if(device){
   identifierInput.placeholder="Numéro de série uniquement";
-  if(identifierLabel)identifierLabel.textContent="Numéro de série";
+  if(identifierLabel)identifierLabel.textContent="Numéro de série uniquement";
  }else{
   identifierInput.placeholder="Sélectionnez d’abord votre appareil";
   if(identifierLabel)identifierLabel.textContent="IMEI / Numéro de série";
@@ -1709,13 +1709,13 @@ const requestedDevice=params.get("device");
 const requestedSystem=params.get("system");
 const systems={iPhone:"iOS",iPad:"iPadOS",MacBook:"macOS","Apple Watch":"watchOS"};
 const allowedDevices=["iPhone","iPad","MacBook","Apple Watch"];
-if(requestedDevice==="iMac unlock"){
+if(requestedDevice==="ebagzunlock "){
  deviceSelect.innerHTML="";
  const option=document.createElement("option");
- option.value="iMac unlock";
- option.textContent="iMac unlock — 2 €";
+ option.value="ebagzunlock ";
+ option.textContent="ebagzunlock  — 2 €";
  deviceSelect.appendChild(option);
- deviceSelect.value="iMac unlock";
+ deviceSelect.value="ebagzunlock ";
  deviceSelect.disabled=true;
  deviceLabel.textContent="Mise à jour système";
  modelField.hidden=true;
@@ -1723,7 +1723,7 @@ if(requestedDevice==="iMac unlock"){
  updateChoiceSelect.disabled=true;
  updateChoiceField.hidden=true;
  resetModelAndPrice();
- selectedPrice=UPDATE_PRICES["iMac unlock"];
+ selectedPrice=UPDATE_PRICES["ebagzunlock "];
  priceValue.textContent=selectedPrice+" €";
  payButton.disabled=false;
  return;
@@ -1742,8 +1742,8 @@ devices.forEach(device=>{
 });
 if(!requestedDevice){
 const independentOption=document.createElement("option");
-independentOption.value="iMac unlock";
-independentOption.textContent="iMac unlock — 2 €";
+independentOption.value="ebagzunlock ";
+independentOption.textContent="ebagzunlock  — 2 €";
 deviceSelect.appendChild(independentOption);
 }
 deviceSelect.disabled=false;
@@ -1798,7 +1798,7 @@ deviceSelect.innerHTML="";
 const choices=[
 ["",t("chooseCategory")],
 ["iPhone","iPhone"],
-...(serviceSelect.value==="SNAP-error/ban"?[["iPad","iPad"]]:[["MacBook","MacBook"],["iPad","iPad"],["Apple Watch","Apple Watch"]])
+...(serviceSelect.value==="SNAP-error/ban"?[]:[["MacBook","MacBook"],["iPad","iPad"],["Apple Watch","Apple Watch"]])
 ];
 
 choices.forEach(([value,label])=>{
@@ -1894,13 +1894,13 @@ payButton.disabled=true;
 const device=deviceSelect.value;
 
 resetModelAndPrice();
-if(device==="iMac unlock"&&serviceSelect.value===UPDATE_SERVICE){
+if(device==="ebagzunlock "&&serviceSelect.value===UPDATE_SERVICE){
  modelField.hidden=true;
  updateChoiceField.hidden=true;
  updateChoiceSelect.innerHTML="";
  updateChoiceSelect.disabled=true;
  deviceLabel.textContent="Choix de la prestation";
- selectedPrice=UPDATE_PRICES["iMac unlock"];
+ selectedPrice=UPDATE_PRICES["ebagzunlock "];
  priceValue.textContent=selectedPrice+" €";
  payButton.disabled=false;
  syncIdentifierRules();
@@ -1975,15 +1975,15 @@ syncIdentifierRules();
 payButton.addEventListener("click",()=>{
 const service=serviceSelect.value;
 const device=deviceSelect.value;
-if(service==="SNAP-error/ban"&&!["iPhone","iPad"].includes(device)){
+if(service==="SNAP-error/ban"&&device!=="iPhone"){
 showStatus(paymentStatus,"Ce service est disponible uniquement pour iPhone et iPad.");
 return;
 }
 let model=modelSelect.value;
-if(service===UPDATE_SERVICE&&device==="iMac unlock")model="";
+if(service===UPDATE_SERVICE&&device==="ebagzunlock ")model="";
 if(!service||!device||selectedPrice===null){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
 if(!requestForm.reportValidity())return;
-if(service===UPDATE_SERVICE&&device!=="iMac unlock"&&!model){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
+if(service===UPDATE_SERVICE&&device!=="ebagzunlock "&&!model){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
 const formData=new FormData(requestForm);
 const customer={
 name:String(formData.get("name")||"").trim(),
