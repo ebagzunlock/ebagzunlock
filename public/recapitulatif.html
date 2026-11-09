@@ -215,7 +215,7 @@ device:params.get("device")||savedSelection.device||"",
 model:params.get("model")||savedSelection.model||""
 };
 const updateSystemsByDevice={iPhone:"iOS",iPad:"iPadOS",MacBook:"macOS","Apple Watch":"watchOS"};
-const updatePrices={iOS:15,iPadOS:10,macOS:13,watchOS:8,ebagzunlock:2};
+const updatePrices={iOS:15,iPadOS:10,macOS:13,watchOS:8,"iMac unlock":2};
 const prices={
 "iPhone":{"iPhone X":25,"iPhone XR":25,"iPhone XS":25,"iPhone XS Max":25,"iPhone 11":25,"iPhone 11 Pro":25,"iPhone 11 Pro Max":27,"iPhone 12 mini":25,"iPhone 12":25,"iPhone 12 Pro":29,"iPhone 12 Pro Max":32,"iPhone 13 mini":39,"iPhone 13":40,"iPhone 13 Pro":40,"iPhone 13 Pro Max":42,"iPhone 14":40,"iPhone 14 Plus":40,"iPhone 14 Pro":43,"iPhone 14 Pro Max":49,"iPhone 15":53,"iPhone 15 Plus":55,"iPhone 15 Pro":55,"iPhone 15 Pro Max":59,"iPhone 16":64,"iPhone 16 Plus":59,"iPhone 16 Pro":62,"iPhone 16 Pro Max":69,"iPhone 16e":65,"iPhone 17":69,"iPhone 17 Pro":70,"iPhone 17 Pro Max":77,"iPhone 17e":75,"iPhone 17 Air":79,"iPhone 18":85,"iPhone 18 Pro":89,"iPhone 18 Pro Max":100,"iPhone 18 Duo":95},
 "MacBook":{"MacBook Air Intel 2008–2020":35,"MacBook Air M1":38,"MacBook Air M2 13/15 pouces":38,"MacBook Air M3 13/15 pouces":40,"MacBook Air M4 13/15 pouces":40,"MacBook Air M5 13/15 pouces":42,"MacBook Pro Intel":40,"MacBook Pro M1 13/14/16 pouces":45,"MacBook Pro M2":45,"MacBook Pro M3 14/16 pouces":45,"MacBook Pro M4 14/16 pouces":49,"MacBook Pro M5 14/16 pouces":49,"MacBook Pro M6 14 pouces":55,"MacBook 12 pouces 2015–2017":30,"MacBook Neo A18 Pro":133},
@@ -225,15 +225,15 @@ const updateService="Mise à jour iOS / macOS";
 const isUpdate=selection.service===updateService;
 const updateSystem=updateSystemsByDevice[selection.device]||"";
 const amount=isUpdate
- ? (selection.device==="ebagzunlock"&&selection.model==="ebagzunlock"?updatePrices.ebagzunlock:(selection.model&&prices[selection.device]?.[selection.model]!==undefined?updatePrices[updateSystem]:null))
+ ? (selection.device==="iMac unlock"&&!selection.model?updatePrices["iMac unlock"]:(selection.model&&prices[selection.device]?.[selection.model]!==undefined?updatePrices[updateSystem]:null))
  : prices[selection.device]?.[selection.model];
-const validCustomer=customer.name&&customer.email&&customer.phone&&customer.identifier;
-if(!selection.service||!selection.device||!selection.model||!Number.isFinite(amount)||!validCustomer){
+const validCustomer=customer.name&&customer.email&&customer.phone&&(selection.device==="iMac unlock"||customer.identifier);
+if(!selection.service||!selection.device||(selection.device!=="iMac unlock"&&!selection.model)||!Number.isFinite(amount)||!validCustomer){
 document.getElementById("status").textContent="Récapitulatif incomplet. Retournez sur le site et vérifiez les informations de votre commande.";
 }else{
 document.getElementById("service").textContent=isUpdate?"Mise à jour système":selection.service;
 document.getElementById("device").textContent=selection.device;
-document.getElementById("model").textContent=selection.model;
+document.getElementById("model").textContent=selection.model||"Non applicable";\nif(selection.device==="iMac unlock")document.getElementById("model").parentElement.hidden=true;
 if(isUpdate&&updateSystem){
  document.getElementById("update-system").textContent=updateSystem;
  document.getElementById("update-system-row").hidden=false;
@@ -241,7 +241,7 @@ if(isUpdate&&updateSystem){
 document.getElementById("customer-name").textContent=customer.name;
 document.getElementById("customer-email").textContent=customer.email;
 document.getElementById("customer-phone").textContent=customer.phone;
-document.getElementById("customer-identifier").textContent=customer.identifier;
+document.getElementById("customer-identifier").textContent=customer.identifier||"Non requis";
 if(customer.message){document.getElementById("customer-message").textContent=customer.message;document.getElementById("message-row").hidden=false;}
 document.getElementById("amount").textContent=amount+" €";
 
@@ -613,12 +613,12 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
 .site-header .main-nav a.is-active::after,
 .site-header .main-nav a[aria-current="page"]::after{display:none!important}
 </style>
-<style id="ebagz-company-name-white">
-.site-header .logo,.site-header .logo .logo-blue,.site-header .logo-blue,
-.site-footer .footer-logo,.site-footer .footer-logo .logo-blue,
-.footer-logo span:not(.apple-mark),header .logo span:not(.apple-mark),
-.logo-blue,.brand-inline,.brand-inline .logo-blue,
-.logo .apple-mark,.footer-logo .apple-mark,.apple-mark{color:#fff!important}
+
+<style id="ebagz-brand-colors-restored">
+.site-header .logo,.site-header .logo-blue,.site-header .logo .logo-blue,.site-footer .footer-logo,.site-footer .footer-logo .logo-blue,.footer-logo span:not(.apple-mark),.brand-inline .logo-blue{color:#6da5dc}
+.site-header .logo,.site-footer .footer-logo,.brand-inline{color:#fff!important}
+.site-header .logo .logo-blue,.site-header .logo-blue,.site-footer .footer-logo .logo-blue,.site-footer .footer-logo span:not(.apple-mark),.brand-inline .logo-blue{color:#6da5dc!important}
+.site-header .apple-mark,.site-footer .apple-mark,.brand-inline .apple-mark{color:#fff!important}
 </style>
 </body>
 </html>
