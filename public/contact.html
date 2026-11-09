@@ -1032,13 +1032,13 @@ html.contact-page .contact-page-icons svg{width:38px;height:38px}
 
 <style id="ebagz-universal-brand-background">
 html{background:#030a14!important}
-body{background:transparent!important;position:relative;isolation:isolate}
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-color:#020713;background-image:url("/background-ebagzunlock.svg?v=9");background-position:center center;background-repeat:no-repeat;background-size:min(58vw,760px) auto;background-attachment:fixed;opacity:.14}@media(max-width:700px){body::before{background-size:min(86vw,420px) auto;background-position:center center}}
-body>*{position:relative;z-index:1}
-main,.content-section,.page-section,.service-and-assistance,section,.hero{background:transparent!important}
-main{background:transparent!important}
+body{background:#030a14!important}
+main{position:relative!important;isolation:isolate!important;background:transparent!important}
+main::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background-color:#030a14;background-image:url("/background-ebagzunlock.svg?v=10");background-position:center center;background-repeat:no-repeat;background-size:min(100%,760px) auto;opacity:.18}
+main>*{position:relative;z-index:1}
+.content-section,.page-section,.service-and-assistance,section,.hero{background:transparent!important}
 #service-and-assistance{background:transparent!important}
-.site-header,.site-footer{background-color:rgba(3,10,20,.88)!important;backdrop-filter:blur(10px)}
+@media(max-width:700px){main::before{background-size:min(90vw,360px) auto;background-position:center center;opacity:.16}}
 </style>
 
 <style id="contact-support-card-style">
@@ -2531,6 +2531,19 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
 .site-header .contact-icons svg,header.site-header .contact-icons svg{width:20px!important;height:20px!important}
 </style>
 </body>
+<style id="contact-spacing-only-correction">
+/* Conserver les éléments et le contenu de Contact : réduire uniquement les espaces verticaux. */
+#contact-page.content-section{padding-top:30px!important;padding-bottom:0!important}
+#contact-page .contact-page-icons{margin-top:20px!important;margin-bottom:8px!important}
+#contact-page .support-assistance-card{margin-top:0!important}
+#contact-page #service-and-assistance{margin-top:0!important;padding-top:6px!important}
+#contact-page #service-and-assistance .container{gap:0!important}
+@media(max-width:600px){
+ #contact-page.content-section{padding-top:24px!important}
+ #contact-page .contact-page-icons{margin-top:16px!important;margin-bottom:6px!important}
+ #contact-page #service-and-assistance{padding-top:5px!important}
+}
+</style>
 </html>
 
 <style id="ebagz-final-one-line-header">
