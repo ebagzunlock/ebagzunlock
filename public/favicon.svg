@@ -1,16 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-<defs>
- <radialGradient id="bg" cx="50%" cy="42%" r="72%"><stop stop-color="#102d50"/><stop offset="1" stop-color="#020711"/></radialGradient>
- <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c9f5ff"/><stop offset=".45" stop-color="#12baff"/><stop offset="1" stop-color="#0758c9"/></linearGradient>
- <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-</defs>
-<rect width="128" height="128" rx="28" fill="url(#bg)"/>
-<g filter="url(#glow)" fill="none" stroke="url(#edge)" stroke-width="3.2" stroke-linejoin="round">
- <path d="M64 27c1-11 10-19 22-20-1 12-9 20-22 20Z"/>
- <path d="M61 39C47 30 29 36 22 52c-11 25 4 55 19 65 8 5 14-2 23-2s15 7 23 2c12-8 21-25 23-39-16-6-19-27-4-39-10-12-27-15-39-6-2 2-4 2-6 1Z"/>
- <path d="M7 73C24 37 61 25 94 42c17 9 24 25 17 39-8 16-31 24-56 25-19 1-37-5-48-16" stroke-width="2.4" opacity=".9"/>
-</g>
-<path d="M16 68h96" stroke="#04101e" stroke-width="25" opacity=".96"/>
-<text x="64" y="73" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="800" letter-spacing="-.7" fill="#f5fbff">ebagzunlock</text>
-<path d="M12 68h104" stroke="url(#edge)" stroke-width="1.5" opacity=".9"/>
+<defs><radialGradient id="bg" cx="45%" cy="35%" r="80%"><stop stop-color="#102b4a"/><stop offset="1" stop-color="#020713"/></radialGradient><linearGradient id="apple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".55" stop-color="#c5d4e5"/><stop offset="1" stop-color="#71869f"/></linearGradient><linearGradient id="orbit"><stop stop-color="#00e5ff"/><stop offset=".55" stop-color="#078bff"/><stop offset="1" stop-color="#00caff"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="2.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="128" height="128" rx="27" fill="url(#bg)"/>
+<path d="M10 78C24 42 64 23 99 43s25 52-8 66S19 106 10 78Z" fill="none" stroke="url(#orbit)" stroke-width="4" filter="url(#glow)"/>
+<g fill="url(#apple)"><path d="M76 20c-2 14-12 22-25 22 1-13 12-22 25-22Z"/><path d="M65 46c-12-8-29-3-36 10-10 19 1 48 14 59 8 6 14-1 22-1 9 0 14 7 22 1 12-9 21-28 21-41-15-5-19-22-7-33-11-10-26-10-36-2Z"/></g>
+<path d="M9 75C35 66 91 65 119 77" fill="none" stroke="#04101e" stroke-width="13"/><path d="M9 75C35 66 91 65 119 77" fill="none" stroke="url(#orbit)" stroke-width="2.5"/>
 </svg>
