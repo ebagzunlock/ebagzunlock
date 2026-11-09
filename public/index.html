@@ -2292,10 +2292,11 @@ new google.translate.TranslateElement({pageLanguage:"fr",includedLanguages:"en,e
  const headerRight=header?.querySelector(".header-right");
  if(!header||!toggle||!menu||!contact||!contactButton||!headerRight)return;
  const navLinks=Array.from(header.querySelectorAll(".main-nav a"));
- const currentPath=location.pathname.replace(/\\/$/,"/index.html");
+ const normalizePath=path=>path.endsWith("/")?path+"index.html":path;
+ const currentPath=normalizePath(location.pathname);
  const restoreCurrentPage=()=>{
   navLinks.forEach(link=>{
-   const target=new URL(link.getAttribute("href"),location.origin).pathname.replace(/\\/$/,"/index.html");
+   const target=normalizePath(new URL(link.getAttribute("href"),location.origin).pathname);
    const active=target===currentPath;
    if(active){link.setAttribute("aria-current","page");link.classList.add("is-active");}
    else{link.removeAttribute("aria-current");link.classList.remove("is-active");}
