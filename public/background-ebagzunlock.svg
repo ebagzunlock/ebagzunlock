@@ -9,5 +9,5 @@
 <path d="M190 820C300 570 650 470 1180 630S1390 430 1260 365 690 160 480 155 480 330 700 400" fill="none" stroke="#00baff" stroke-width="18" opacity=".75" filter="url(#blur)"/>
 <path d="M190 820C300 570 650 470 1180 630S1390 430 1260 365 690 160 480 155 480 330 700 400" fill="none" stroke="url(#orbit)" stroke-width="5"/>
 <g fill="url(#apple)"><path d="M884 205c-3 58-42 106-91 111-8-56 37-105 91-111Z"/><path d="M970 340c-42-43-101-41-151-18-27 12-51 13-79 1-64-27-135-16-174 35-51 66-34 185 15 263 28 44 62 86 107 83 30-2 47-20 83-20 37 0 51 20 86 19 46-1 78-43 106-87 20-31 34-65 43-101-73-30-92-126-36-175Z"/></g>
-<text x="768" y="585" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="104" font-weight="700" letter-spacing="-5" fill="#f4f7ff">ebagz<tspan fill="#00a9f4">unlock</tspan></text>
+<text x="768" y="585" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="112" font-weight="800" letter-spacing="-4" fill="#ffffff" stroke="#020817" stroke-width="9" paint-order="stroke fill">ebagz<tspan fill="#38d9ff" stroke="#020817">unlock</tspan></text>
 <g fill="#00caff"><circle cx="284" cy="534" r="4"/><circle cx="445" cy="213" r="4"/><circle cx="1085" cy="664" r="4"/><circle cx="642" cy="277" r="3"/></g></svg>
