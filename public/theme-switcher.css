@@ -26,7 +26,7 @@ html[data-site-theme="blue"] body,
 html[data-site-theme="dark"] body {
   background: transparent !important;
 }
-html[data-site-theme="blue"] body { color: #222 !important; }
+html[data-site-theme="blue"] body { color: #f5f8fc !important; }
 html[data-site-theme="dark"] body { color: #f5f2e9 !important; }
 
 /* Le fond fixe et sa signature ne sont ni recolorés ni masqués par le thème. */
