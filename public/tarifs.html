@@ -1701,7 +1701,7 @@ deviceSelect.innerHTML="";
 const choices=[
 ["",t("chooseCategory")],
 ["iPhone","iPhone"],
-...(serviceSelect.value==="SNAP-error/ban"?[]:[["MacBook","MacBook"],["iPad","iPad"],["Apple Watch","Apple Watch"]])
+...(serviceSelect.value==="SNAP-error/ban"?[["iPad","iPad"]]:[["MacBook","MacBook"],["iPad","iPad"],["Apple Watch","Apple Watch"]])
 ];
 
 choices.forEach(([value,label])=>{
@@ -1809,7 +1809,7 @@ return;
 resetModelAndPrice();
 
 if(!device||!CATALOGUE[device])return;
-if(serviceSelect.value==="SNAP-error/ban"&&device!=="iPhone")return;
+if(serviceSelect.value==="SNAP-error/ban"&&!["iPhone","iPad"].includes(device))return;
 
 Object.keys(CATALOGUE[device]).forEach(model=>{
 
@@ -1861,8 +1861,8 @@ payButton.disabled=!serviceSelect.value;
 payButton.addEventListener("click",()=>{
 const service=serviceSelect.value;
 const device=deviceSelect.value;
-if(service==="SNAP-error/ban"&&device!=="iPhone"){
-showStatus(paymentStatus,"Ce service est disponible uniquement pour iPhone.");
+if(service==="SNAP-error/ban"&&!["iPhone","iPad"].includes(device)){
+showStatus(paymentStatus,"Ce service est disponible uniquement pour iPhone et iPad.");
 return;
 }
 let model=modelSelect.value;
