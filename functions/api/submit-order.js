@@ -30,7 +30,8 @@ export async function onRequestPost({ request, env }) {
     const identifier = meta.customer_identifier || "";
     const message = meta.customer_message || "";
 
-    if (!service || !model || !name || !email || !phone || !identifier) {
+    const independent = device === "ebagzunlock ";
+    if (!service || !device || (!model && !independent) || !name || !email || !phone || (!identifier && !independent)) {
       return Response.json({ error: "Les informations de commande sont incomplètes." }, { status: 400 });
     }
 
@@ -49,13 +50,16 @@ export async function onRequestPost({ request, env }) {
       return Response.json({ error: "Le paiement est confirmé, mais la facture Stripe n'est pas encore disponible. Réessayez dans quelques instants." }, { status: 503 });
     }
 
-    const orderText = [
-      "NOUVELLE COMMANDE PAYÉE — EBAGZUNLOCK", "",
-      `Service : ${service}`, `Option / appareil : ${device}`, `Modèle : ${model}`, `Montant : ${amount} €`,
-      `Référence Stripe : ${sessionId}`, `Facture : ${invoicePdf || invoiceUrl}`, "",
-      `Nom : ${name}`, `E-mail : ${email}`, `Téléphone : ${phone}`, `IMEI / numéro de série : ${identifier}`, "",
-      "Informations complémentaires :", message || "Aucune"
-    ].join("\n");
+    const orderDetails = [
+      `Service : ${service}`, `Option / appareil : ${device}`,
+      ...(model ? [`Modèle : ${model}`] : []),
+      `Montant : ${amount} €`,
+      `Référence Stripe : ${sessionId}`, `Facture : ${invoicePdf || invoiceUrl}`,
+      `Nom : ${name}`, `E-mail : ${email}`, `Téléphone : ${phone}`,
+      ...(identifier ? [`IMEI / numéro de série : ${identifier}`] : []),
+      `Informations complémentaires : ${message || "Aucune"}`
+    ];
+    const orderText = ["NOUVELLE COMMANDE PAYÉE — EBAGZUNLOCK", "", ...orderDetails].join("\n");
 
     const sendEmail = async (payload, key) => {
       const response = await fetch("https://api.resend.com/emails", {
@@ -74,7 +78,7 @@ export async function onRequestPost({ request, env }) {
       from: "ebagzunlock <commandes@ebagzunlock.com>",
       to: ["ebagzunlock@outlook.fr"],
       reply_to: email,
-      subject: `Nouvelle commande payée — ${model}`,
+      subject: `Nouvelle commande payée — ${model || device}`,
       text: orderText
     }, `commande-admin-${sessionId}`);
 
@@ -86,7 +90,7 @@ export async function onRequestPost({ request, env }) {
       text: [
         `Bonjour ${name},`, "",
         "Nous confirmons la réception de votre paiement et de votre commande.",
-        `Prestation : ${service}`, `Appareil / option : ${device}`, `Modèle : ${model}`, `Montant réglé : ${amount} €`, "",
+        `Prestation : ${service}`, `Appareil / option : ${device}`, ...(model ? [`Modèle : ${model}`] : []), `Montant réglé : ${amount} €`, "",
         "Votre facture est disponible ici :", invoiceLink, "",
         "Merci pour votre confiance.", "EBAGZUNLOCK"
       ].join("\n")
