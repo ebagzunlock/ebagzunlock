@@ -1053,14 +1053,13 @@ html[data-theme="light"] .site-header .site-menu a,html[data-theme="light"] .sit
 
 <style id="ebagz-universal-brand-background">
 html{background:#030a14!important}
-body{background:transparent!important;position:relative;isolation:isolate}
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-color:#020713;background-image:url("/background-ebagzunlock.svg?v=9");background-position:center center;background-repeat:no-repeat;background-size:min(58vw,760px) auto;background-attachment:fixed;opacity:.14}@media(max-width:700px){body::before{background-size:min(86vw,420px) auto;background-position:center center}}
-body>*{position:relative;z-index:1}
-main,.content-section,.page-section,.service-and-assistance,section,.hero{background:transparent!important}
-main{background:transparent!important}
+body{background:#030a14!important}
+main{position:relative!important;isolation:isolate!important;background:transparent!important}
+main::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background-color:#030a14;background-image:url("/background-ebagzunlock.svg?v=10");background-position:center center;background-repeat:no-repeat;background-size:min(100%,760px) auto;opacity:.18}
+main>*{position:relative;z-index:1}
+.content-section,.page-section,.service-and-assistance,section,.hero{background:transparent!important}
 #service-and-assistance{background:transparent!important}
-.site-header,.site-footer{background-color:rgba(3,10,20,.88)!important;backdrop-filter:blur(10px)}
-#service-and-assistance .brand-inline{ text-transform:none!important; }
+@media(max-width:700px){main::before{background-size:min(90vw,360px) auto;background-position:center center;opacity:.16}}
 </style>
 
 <style id="compact-service-assistance-cards">
