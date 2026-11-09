@@ -27,7 +27,7 @@ nav a{font-size:13px;font-weight:600;color:var(--white);text-decoration:none}
 main{width:min(760px,calc(100% - 32px));margin:40px auto 70px}
 h1{margin:0 0 24px;text-align:center;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px}
 .panel{padding:25px;border:1px solid var(--border);border-radius:14px;background:var(--panel);margin-bottom:18px}
-h2{font-size:18px;font-weight:500;text-transform:none;margin:0 0 16px}#summary-title{font-size:14px;font-weight:500;margin:0 0 16px}#payment-title{text-align:center;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px;margin:0 0 22px}.line{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}.line:last-child{border:0}.line span{color:var(--muted)}.line strong{text-align:right;overflow-wrap:anywhere}.amount{color:var(--blue);font-size:24px;font-weight:800}
+h2{font-size:18px;font-weight:500;text-transform:none;margin:0 0 16px}#summary-title{font-size:14px;font-weight:500;margin:0 0 16px}#payment-title{text-align:center;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px;margin:0 0 22px}.line{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}.line[hidden]{display:none!important}.line:last-child{border:0}.line span{color:var(--muted)}.line strong{text-align:right;overflow-wrap:anywhere}.amount{color:var(--blue);font-size:24px;font-weight:800}
 #payment-element{min-height:150px}
 .info-notice{margin:0 0 18px;padding:18px;border:1px solid rgba(109,165,220,.55);border-radius:12px;background:rgba(109,165,220,.09)}
 .info-brand{font-size:16px;font-weight:800;letter-spacing:-.3px;margin:0 0 9px}.info-brand .apple-mark{font-family:Arial,sans-serif;margin-left:4px}
@@ -198,7 +198,7 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <div class="line"><span>Total à payer</span><strong class="amount" id="amount">—</strong></div>
 <label class="acknowledgement" for="cgv-acknowledgement">
 <input id="cgv-acknowledgement" type="checkbox" required>
-<span>Je reconnais avoir pris connaissance des <a href="/conditions-generales.html" target="_blank" rel="noopener noreferrer">conditions générales d’utilisation et d’achat</a> de ebagzunlock .</span>
+<span>Je reconnais avoir pris connaissance des <a href="/conditions-generales.html" target="_blank" rel="noopener noreferrer">Conditions générales d’utilisation et d’achat</a> de ebagzunlock .</span>
 </label>
 <button id="proceed-button" type="button" disabled>PROCÉDER AU PAIEMENT</button>
 <div id="status" role="alert"></div>
@@ -465,21 +465,25 @@ document.getElementById("status").textContent="Récapitulatif incomplet. Retourn
 }else{
 document.getElementById("service").textContent=isUpdate?"Mise à jour système":selection.service;
 document.getElementById("device").textContent=selection.device;
-document.getElementById("model").textContent=selection.model||"Non applicable";
-if(selection.device==="ebagzunlock "){
- document.getElementById("model-row").hidden=true;
- document.getElementById("update-system-row").hidden=true;
- document.getElementById("customer-identifier-row").hidden=true;
-}
-if(isUpdate&&updateSystem){
+document.getElementById("model").textContent=selection.model||"";
+const independentProduct=selection.device==="ebagzunlock ";
+
+/* Les lignes optionnelles restent réellement masquées lorsqu'elles ne concernent pas la commande. */
+document.getElementById("model-row").hidden=independentProduct;
+document.getElementById("update-system-row").hidden=independentProduct||!isUpdate||!updateSystem;
+document.getElementById("customer-identifier-row").hidden=independentProduct;
+document.getElementById("message-row").hidden=!String(customer.message||"").trim();
+
+if(isUpdate&&updateSystem&&!independentProduct){
  document.getElementById("update-system").textContent=updateSystem;
- document.getElementById("update-system-row").hidden=false;
 }
 document.getElementById("customer-name").textContent=customer.name;
 document.getElementById("customer-email").textContent=customer.email;
 document.getElementById("customer-phone").textContent=customer.phone;
-document.getElementById("customer-identifier").textContent=customer.identifier||"Non requis";
-if(customer.message){document.getElementById("customer-message").textContent=customer.message;document.getElementById("message-row").hidden=false;}
+document.getElementById("customer-identifier").textContent=customer.identifier||"";
+if(String(customer.message||"").trim()){
+ document.getElementById("customer-message").textContent=String(customer.message).trim();
+}
 document.getElementById("amount").textContent=amount+" €";
 
 }
