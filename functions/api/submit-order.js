@@ -32,7 +32,7 @@ export async function onRequestPost({ request, env }) {
     const phone = meta.customer_phone || "";
     const identifier = meta.customer_identifier || "";
     const message = meta.customer_message || "";
-    const orderNumber = `EBAGZ-${sessionId.slice(-8).toUpperCase()}`;
+    const orderNumber = /^EBAGZ-[A-Z0-9]{10,16}$/.test(meta.order_number || "") ? meta.order_number : `EBAGZ-${sessionId.slice(-8).toUpperCase()}`;
     const issueDate = new Date((session.created || Math.floor(Date.now() / 1000)) * 1000)
       .toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
 
