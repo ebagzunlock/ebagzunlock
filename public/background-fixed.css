@@ -1,10 +1,11 @@
-/* Filigrane unique : calque fixe du viewport, indépendant du contenu et du scroll. */
-html{min-height:100%;background:#081321!important}
-body{position:static!important;isolation:auto!important;min-height:100%;background:transparent!important}
-html::before{content:""!important;display:block!important;position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;z-index:0!important;pointer-events:none!important;background:url("/ebagzunlock-header.svg?v=10") center center/min(76vw,760px) auto no-repeat!important;opacity:.24!important;transform:none!important;will-change:auto!important}
-body::before{content:none!important;display:none!important}
+/* Filigrane du logo : fixe au viewport, decoratif et sans interaction. */
+html,body{min-height:100%;background:#081321!important}
+html::before{content:none!important;display:none!important}
+body{position:relative!important;isolation:isolate!important;background:transparent!important}
+body::before{content:""!important;display:block!important;position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;z-index:0!important;pointer-events:none!important;background-image:url("/ebagzunlock-header.svg?v=10")!important;background-position:center center!important;background-size:min(76vw,760px) auto!important;background-repeat:no-repeat!important;opacity:.32!important;transform:none!important;will-change:auto!important}
 body>*{position:relative;z-index:1}
 body>.site-header,body>header.site-header,body>.site-footer,body>footer.site-footer{z-index:5}
-main,main>section,main .content-section,main .home-showcase,main .hero,main .pricing-panel,main .process-card,main .service-card,main .showcase-card,main .contact-card,main .support-assistance-card,main .contact-panel,main .info-card,main .summary-card,main .payment-card,main .checkout-card,main .confirmation-card,#confirmationScreen{background-color:rgba(8,19,33,.48)!important;background-image:none!important}
-main .pricing-panel,main .process-card,main .service-card,main .showcase-card,main .contact-card,main .support-assistance-card,main .contact-panel,main .info-card,main .summary-card,main .payment-card,main .checkout-card,main .confirmation-card{background-color:rgba(16,31,49,.52)!important;backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px)}
-@media(max-width:600px){html::before{background-size:min(88vw,620px)!important;opacity:.21!important}}
+main{background:transparent!important}
+main,main>section,main .content-section,main .home-showcase,main .hero,main .pricing-panel,main .process-card,main .service-card,main .showcase-card,main .contact-card,main .support-assistance-card,main .contact-panel,main .info-card,main .summary-card,main .payment-card,main .checkout-card,main .confirmation-card,#confirmationScreen{background-color:rgba(8,19,33,.38)!important;background-image:none!important}
+main .pricing-panel,main .process-card,main .service-card,main .showcase-card,main .contact-card,main .support-assistance-card,main .contact-panel,main .info-card,main .summary-card,main .payment-card,main .checkout-card,main .confirmation-card{background-color:rgba(16,31,49,.42)!important;backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px)}
+@media(max-width:600px){body::before{background-size:min(88vw,620px)!important;opacity:.28!important}}
