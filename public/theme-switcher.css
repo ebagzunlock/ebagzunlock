@@ -1,15 +1,15 @@
-/* Deux thèmes uniquement : clair et sombre. Le filigrane fixe reste géré par background-fixed.css. */
-:root { color-scheme: light; }
-html[data-site-theme="light"] {
-  color-scheme: light;
-  background: #f4f2ed !important;
-  color: #222 !important;
-  --background: #f4f2ed;
-  --surface: rgba(255,255,255,.78);
-  --surface-2: rgba(250,249,246,.82);
-  --white: #222;
-  --muted: #55514a;
-  --border: rgba(30,30,30,.2);
+/* Deux thèmes uniquement : bleu d’origine et sombre. */
+:root { color-scheme: dark; }
+html[data-site-theme="blue"] {
+  color-scheme: dark;
+  background: #081321 !important;
+  color: #f5f8fc !important;
+  --background: #081321;
+  --surface: rgba(16,31,49,.78);
+  --surface-2: rgba(20,38,59,.82);
+  --white: #f5f8fc;
+  --muted: #aab7c7;
+  --border: rgba(255,255,255,.14);
 }
 html[data-site-theme="dark"] {
   color-scheme: dark;
@@ -22,11 +22,11 @@ html[data-site-theme="dark"] {
   --muted: #d2c6a8;
   --border: rgba(214,194,145,.32);
 }
-html[data-site-theme="light"] body,
+html[data-site-theme="blue"] body,
 html[data-site-theme="dark"] body {
   background: transparent !important;
 }
-html[data-site-theme="light"] body { color: #222 !important; }
+html[data-site-theme="blue"] body { color: #222 !important; }
 html[data-site-theme="dark"] body { color: #f5f2e9 !important; }
 
 /* Le fond fixe et sa signature ne sont ni recolorés ni masqués par le thème. */
@@ -65,16 +65,16 @@ html::before {
   border-color: rgba(214,194,145,.65) !important;
 }
 
-/* Mode clair : surfaces pâles et texte foncé, sans accent bleu. */
-html[data-site-theme="light"] :where(
+/* Thème bleu d’origine : fond bleu nuit, textes clairs et accents bleus. */
+html[data-site-theme="blue"] :where(
   h1,h2,h3,h4,h5,h6,p,li,label,small,strong,em,span,div,summary,dt,dd,
   .section-heading,.hero-description,.eyebrow,.field,.status-message,
   .process-notice,.footer-legal,.footer-copyright,.service-copy,
   .assistance-copy,.contact-content,.page-content
 ):not(.logo):not(.header-logo):not(.footer-logo):not(.logo-blue):not(.apple-mark) {
-  color: #252525;
+  color: #f5f8fc;
 }
-html[data-site-theme="light"] :where(
+html[data-site-theme="blue"] :where(
   .content-section,.hero,.home-showcase,.service-and-assistance,
   .pricing-panel,.summary-card,.content-card,.info-card,.panel,
   .service-card,.product-card,.category-card,.showcase-card,
@@ -82,20 +82,20 @@ html[data-site-theme="light"] :where(
   .checkout-card,.order-summary,.payment-card,.confirmation-card,
   .contact-card,.contact-panel,.request-card
 ) {
-  background-color: rgba(255,255,255,.70) !important;
-  border-color: rgba(35,35,35,.18) !important;
-  color: #252525 !important;
-  box-shadow: 0 5px 20px rgba(0,0,0,.045);
+  background-color: rgba(16,31,49,.70) !important;
+  border-color: rgba(109,165,220,.22) !important;
+  color: #f5f8fc !important;
+  box-shadow: 0 5px 20px rgba(0,0,0,.16);
 }
-html[data-site-theme="light"] :where(a:not(.logo):not(.header-logo):not(.footer-logo),.showcase-link) {
-  color: #292929 !important;
+html[data-site-theme="blue"] :where(a:not(.logo):not(.header-logo):not(.footer-logo),.showcase-link) {
+  color: #91c4f1 !important;
 }
-html[data-site-theme="light"] :where(button:not(.theme-toggle),.primary-button,.secondary-button,input,select,textarea) {
-  background-color: #fff !important;
-  color: #202020 !important;
-  border-color: rgba(30,30,30,.35) !important;
+html[data-site-theme="blue"] :where(button:not(.theme-toggle),.primary-button,.secondary-button,input,select,textarea) {
+  background-color: #101f31 !important;
+  color: #f5f8fc !important;
+  border-color: rgba(109,165,220,.45) !important;
 }
-html[data-site-theme="light"] :where(input,select,textarea)::placeholder { color: #777 !important; }
+html[data-site-theme="blue"] :where(input,select,textarea)::placeholder { color: #aab7c7 !important; }
 
 /* Mode sombre : textes blancs et or doux, avec surfaces noires translucides. */
 html[data-site-theme="dark"] :where(
@@ -140,19 +140,19 @@ html[data-site-theme="dark"] .site-menu {
 }
 html[data-site-theme="dark"] .site-menu a,
 html[data-site-theme="dark"] .site-menu button { color: #e5d2a6 !important; }
-html[data-site-theme="light"] .site-menu {
-  background: rgba(250,249,246,.97) !important;
-  border-color: rgba(30,30,30,.2) !important;
+html[data-site-theme="blue"] .site-menu {
+  background: rgba(8,19,33,.97) !important;
+  border-color: rgba(109,165,220,.25) !important;
 }
-html[data-site-theme="light"] .site-menu a,
-html[data-site-theme="light"] .site-menu button { color: #222 !important; }
+html[data-site-theme="blue"] .site-menu a,
+html[data-site-theme="blue"] .site-menu button { color: #f5f8fc !important; }
 
 /* Le bleu est réservé au mot « unlock » du logo de marque. */
-html[data-site-theme="light"] .logo-blue,
+html[data-site-theme="blue"] .logo-blue,
 html[data-site-theme="dark"] .logo-blue,
-html[data-site-theme="light"] .brand-blue,
+html[data-site-theme="blue"] .brand-blue,
 html[data-site-theme="dark"] .brand-blue { color: #6da5dc !important; }
-html[data-site-theme="light"] .apple-mark,
+html[data-site-theme="blue"] .apple-mark,
 html[data-site-theme="dark"] .apple-mark { color: #f5f8fc !important; }
 
 .theme-toggle {
@@ -187,21 +187,16 @@ html[data-site-theme="dark"] main .hero h1 > span:nth-child(2) {
   color:#f1eee5 !important;
 }
 
-/* En thème clair, rendre la marque du contenu lisible sur fond clair.
-   Le mot unlock conserve son bleu. En-tête et pied de page exclus. */
-html[data-site-theme="light"] main .brand-inline,
-html[data-site-theme="light"] main .brand-inline .apple-mark,
-html[data-site-theme="light"] main .confirmation-logo,
-html[data-site-theme="light"] main .brand-name {
-  color:#65452f !important;
-}
-html[data-site-theme="light"] main .brand-inline .logo-blue,
-html[data-site-theme="light"] main .confirmation-logo .logo-blue,
-html[data-site-theme="light"] main .brand-name .logo-blue,
-html[data-site-theme="light"] main .brand-blue,
-html[data-site-theme="light"] main .logo-blue {
-  color:#397bb7 !important;
-}
+/* La marque conserve le blanc/bleu/blanc dans le thème bleu d’origine. */
+html[data-site-theme="blue"] main .brand-inline,
+html[data-site-theme="blue"] main .brand-inline .apple-mark,
+html[data-site-theme="blue"] main .confirmation-logo,
+html[data-site-theme="blue"] main .brand-name { color:#f5f8fc !important; }
+html[data-site-theme="blue"] main .brand-inline .logo-blue,
+html[data-site-theme="blue"] main .confirmation-logo .logo-blue,
+html[data-site-theme="blue"] main .brand-name .logo-blue,
+html[data-site-theme="blue"] main .brand-blue,
+html[data-site-theme="blue"] main .logo-blue { color:#6da5dc !important; }
 
 /* Les deux couleurs du titre restent cohérentes sur les autres pages sombres. */
 html[data-site-theme="dark"] main .section-heading h2,
