@@ -178,7 +178,7 @@ html[data-theme="light"] .logo,html[data-theme="light"] .logo .apple-mark,html[d
  min-width:0!important;margin:0!important;padding:0!important;opacity:0!important;cursor:pointer!important;
 }
 .site-header #google_translate_element,header.site-header #google_translate_element{display:none!important}
-.site-header .contact-icons,header.site-header .contact-icons{display:none!important}
+.site-header .contact-icons:not([hidden]),header.site-header .contact-icons:not([hidden]){display:flex!important;position:absolute!important;right:18px!important;top:calc(100% - 2px)!important;z-index:110!important;padding:8px 12px!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:10px!important;background:#081321!important;gap:12px!important}
 .site-footer,footer.site-footer{
  width:100%!important;margin-top:auto!important;padding:24px 18px!important;
  border-top:1px solid rgba(255,255,255,.12)!important;
