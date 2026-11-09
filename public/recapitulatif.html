@@ -27,7 +27,7 @@ nav a{font-size:13px;font-weight:600;color:var(--white);text-decoration:none}
 main{width:min(760px,calc(100% - 32px));margin:40px auto 70px}
 h1{margin:0 0 24px;text-align:center;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px}
 .panel{padding:25px;border:1px solid var(--border);border-radius:14px;background:var(--panel);margin-bottom:18px}
-h2{font-size:18px;font-weight:500;text-transform:none;margin:0 0 16px}#summary-title{font-size:14px;font-weight:500;margin:0 0 16px}#payment-title{text-align:center;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px;margin:0 0 22px}.line{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}.line[hidden]{display:none!important}.line:last-child{border:0}.line span{color:var(--muted)}.line strong{text-align:right;overflow-wrap:anywhere}.amount{color:var(--blue);font-size:24px;font-weight:800}
+h2{font-size:18px;font-weight:500;text-transform:none;margin:0 0 16px}#summary-title{font-size:14px;font-weight:500;margin:0 0 16px}#payment-title{text-align:center;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px;margin:0 0 22px}.line{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}.line[hidden],.line[hidden] *{display:none!important}.line:last-child{border:0}.line span{color:var(--muted)}.line strong{text-align:right;overflow-wrap:anywhere}.amount{color:var(--blue);font-size:24px;font-weight:800}
 #payment-element{min-height:150px}
 .info-notice{margin:0 0 18px;padding:18px;border:1px solid rgba(109,165,220,.55);border-radius:12px;background:rgba(109,165,220,.09)}
 .info-brand{font-size:16px;font-weight:800;letter-spacing:-.3px;margin:0 0 9px}.info-brand .apple-mark{font-family:Arial,sans-serif;margin-left:4px}
@@ -238,7 +238,8 @@ try{customer=JSON.parse(sessionStorage.getItem("ebagzunlock-pending-order")||"{}
 const selection={
 service:params.get("service")||savedSelection.service||"",
 device:params.get("device")||savedSelection.device||"",
-model:params.get("model")||savedSelection.model||""
+model:params.get("model")||savedSelection.model||"",
+choice:params.get("choice")||savedSelection.choice||savedSelection.system||""
 };
 const updateSystemsByDevice={iPhone:"iOS",iPad:"iPadOS",MacBook:"macOS","Apple Watch":"watchOS"};
 const updatePrices={iOS:15,iPadOS:10,macOS:13,watchOS:8,"ebagzunlock ":2};
@@ -467,22 +468,24 @@ document.getElementById("service").textContent=isUpdate?"Mise à jour système":
 document.getElementById("device").textContent=selection.device;
 document.getElementById("model").textContent=selection.model||"";
 const independentProduct=selection.device==="ebagzunlock ";
+const selectedChoice=selection.choice||(isUpdate?updateSystem:"");
+const additionalInfo=String(customer.message||customer.additionalInfo||"").trim();
 
-/* Les lignes optionnelles restent réellement masquées lorsqu'elles ne concernent pas la commande. */
-document.getElementById("model-row").hidden=independentProduct;
-document.getElementById("update-system-row").hidden=independentProduct||!isUpdate||!updateSystem;
-document.getElementById("customer-identifier-row").hidden=independentProduct;
-document.getElementById("message-row").hidden=!String(customer.message||"").trim();
+/* Les lignes sans valeur sont masquées, jamais remplacées par un tiret. */
+document.getElementById("model-row").hidden=independentProduct||!String(selection.model||"").trim();
+document.getElementById("update-system-row").hidden=independentProduct||!selectedChoice;
+document.getElementById("customer-identifier-row").hidden=independentProduct||!String(customer.identifier||"").trim();
+document.getElementById("message-row").hidden=!additionalInfo;
 
-if(isUpdate&&updateSystem&&!independentProduct){
- document.getElementById("update-system").textContent=updateSystem;
+if(selectedChoice&&!independentProduct){
+ document.getElementById("update-system").textContent=selectedChoice;
 }
 document.getElementById("customer-name").textContent=customer.name;
 document.getElementById("customer-email").textContent=customer.email;
 document.getElementById("customer-phone").textContent=customer.phone;
 document.getElementById("customer-identifier").textContent=customer.identifier||"";
-if(String(customer.message||"").trim()){
- document.getElementById("customer-message").textContent=String(customer.message).trim();
+if(additionalInfo){
+ document.getElementById("customer-message").textContent=additionalInfo;
 }
 document.getElementById("amount").textContent=amount+" €";
 
