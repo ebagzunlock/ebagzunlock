@@ -1482,13 +1482,25 @@ function syncIdentifierRules(){
  if(!identifierInput)return;
  identifierInput.required=!independent;
  identifierInput.disabled=independent;
- if(independent){identifierInput.value="";identifierInput.placeholder="Non requis pour iMac unlock";}
- else if(device==="iPhone"&&service==="Déverrouillage Opérateur")identifierInput.placeholder="IMEI obligatoire";
- else if(device==="iPhone")identifierInput.placeholder="IMEI ou numéro de série";
- else if(device)identifierInput.placeholder="Numéro de série uniquement";
- else identifierInput.placeholder="Sélectionnez d’abord votre appareil";
- if(identifierLabel)identifierLabel.textContent=independent?"Identifiant (non requis)":(device==="iPhone"?(service==="Déverrouillage Opérateur"?"IMEI":"IMEI ou numéro de série"):"Numéro de série");
+ if(independent){
+  identifierInput.value="";
+  identifierInput.placeholder="Non requis pour iMac unlock";
+  if(identifierLabel)identifierLabel.textContent="Identifiant non requis";
+ }else if(device==="iPhone"&&service==="Déverrouillage Opérateur"){
+  identifierInput.placeholder="IMEI obligatoire";
+  if(identifierLabel)identifierLabel.textContent="IMEI";
+ }else if(device==="iPhone"){
+  identifierInput.placeholder="IMEI ou numéro de série";
+  if(identifierLabel)identifierLabel.textContent="IMEI ou numéro de série";
+ }else if(device){
+  identifierInput.placeholder="Numéro de série uniquement";
+  if(identifierLabel)identifierLabel.textContent="Numéro de série";
+ }else{
+  identifierInput.placeholder="Sélectionnez d’abord votre appareil";
+  if(identifierLabel)identifierLabel.textContent="IMEI / Numéro de série";
+ }
 }
+
 const requestStatus=$("requestStatus");
 const contactToggle=$("contactToggle");
 const contactIcons=$("contactIcons");
@@ -1728,10 +1740,12 @@ devices.forEach(device=>{
  option.textContent=device;
  deviceSelect.appendChild(option);
 });
+if(!requestedDevice){
 const independentOption=document.createElement("option");
 independentOption.value="iMac unlock";
 independentOption.textContent="iMac unlock — 2 €";
 deviceSelect.appendChild(independentOption);
+}
 deviceSelect.disabled=false;
 deviceLabel.textContent=requestedDevice?"Catégorie d'appareil":"Choix de la prestation";
 modelField.hidden=false;
