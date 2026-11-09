@@ -2351,18 +2351,21 @@ if(!service||!device||selectedPrice===null){showStatus(paymentStatus,t("invalidS
 if(!requestForm.reportValidity())return;
 if(service===UPDATE_SERVICE&&device!=="ebagzunlock "&&!model){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
 const formData=new FormData(requestForm);
+const choice=String(updateChoiceSelect?.value||"").trim();
+const messageField=document.getElementById("customerMessage");
 const customer={
 name:String(formData.get("name")||"").trim(),
 email:String(formData.get("email")||"").trim(),
 phone:String(formData.get("phone")||"").trim(),
 identifier:String(formData.get("identifier")||"").trim(),
-message:String(formData.get("message")||"").trim()
+message:String(messageField?.value??formData.get("message")??"").trim()
 };
 try{
-sessionStorage.setItem("ebagzunlock-pending-payment",JSON.stringify({service,device,model}));
+sessionStorage.setItem("ebagzunlock-pending-payment",JSON.stringify({service,device,model,choice}));
 sessionStorage.setItem("ebagzunlock-pending-order",JSON.stringify(customer));
 }catch(error){showStatus(paymentStatus,"Impossible de préparer votre commande. Réessayez.","error");return;}
 const params=new URLSearchParams({service,device,model});
+if(choice)params.set("choice",choice);
 window.location.href="/recapitulatif.html?"+params.toString();
 });
 
