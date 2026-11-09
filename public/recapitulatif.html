@@ -208,11 +208,8 @@ html[data-theme="light"] .logo,html[data-theme="light"] .logo .apple-mark,html[d
 <main>
 <h1>RÉCAPITULATIF</h1>
 <section class="panel" aria-labelledby="summary-title">
-<h2 id="summary-title">Détails de votre commande</h2>
- <div class="line"><span>№</span><strong id="order-number">—</strong></div>
-<div class="line"><span>Prestation</span><strong id="service">—</strong></div>
-<div class="line"><span>Appareil / Option</span><strong id="device">—</strong></div>
-<div class="line" id="model-row"><span>Modèle</span><strong id="model">—</strong></div><div class="line" id="update-system-row" hidden><span>Choix de la prestation</span><strong id="update-system">—</strong></div>
+<div class="line"><span>Numéro de commande</span><strong id="order-number">—</strong></div>
+ <div class="line" id="model-row"><span>Modèle</span><strong id="model">—</strong></div>
 <div class="line"><span>Nom</span><strong id="customer-name">—</strong></div>
 <div class="line"><span>E-mail</span><strong id="customer-email">—</strong></div>
 <div class="line"><span>Téléphone</span><strong id="customer-phone">—</strong></div>
@@ -501,8 +498,8 @@ const validCustomer=customer.name&&customer.email&&customer.phone&&(selection.de
 if(!selection.service||!selection.device||(selection.device!=="ebagzunlock "&&!selection.model)||!Number.isFinite(amount)||!validCustomer){
 document.getElementById("status").textContent="Récapitulatif incomplet. Retournez sur le site et vérifiez les informations de votre commande.";
 }else{
-document.getElementById("service").textContent=isUpdate?"Mise à jour système":selection.service;
-document.getElementById("device").textContent=selection.device;
+
+
 document.getElementById("model").textContent=selection.model||selection.device||"";
 const independentProduct=selection.device==="ebagzunlock ";
 const selectedChoice=selection.choice||(isUpdate?updateSystem:selection.service);
@@ -513,7 +510,7 @@ document.getElementById("service").textContent=selection.service;
 
 /* Les lignes sans valeur sont masquées, jamais remplacées par un tiret. */
 document.getElementById("model-row").hidden=!String(selection.model||selection.device||"").trim();
-document.getElementById("update-system-row").hidden=true;
+
 document.getElementById("customer-identifier-row").hidden=independentProduct||!String(customer.identifier||"").trim();
 document.getElementById("message-row").hidden=!additionalInfo;
 
