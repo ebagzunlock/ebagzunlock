@@ -51,7 +51,7 @@ export async function onRequestPost({ request, env }) {
   const stripeLocale = localeAliases[requestedLocale] || requestedLocale;
   const checkoutLocale = supportedLocales.has(stripeLocale) ? stripeLocale : "auto";
   if (!SERVICES.includes(service)) return Response.json({ error: "Prestation invalide." }, { status: 400 });
-  if (service === "SNAP-error/ban" && device !== "iPhone") return Response.json({ error: "Ce service est disponible uniquement pour iPhone." }, { status: 400 });
+  if (["SNAP-error/ban","Déverrouillage Opérateur"].includes(service) && device !== "iPhone") return Response.json({ error: "Ce service est disponible uniquement pour iPhone." }, { status: 400 });
   if (consentAccepted !== true) return Response.json({ error: "Veuillez accepter les conditions générales de vente avant de procéder au paiement." }, { status: 400 });
 
   const name = String(customer.name || "").trim().slice(0, 120);
