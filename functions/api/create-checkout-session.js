@@ -8,7 +8,7 @@ const SERVICES = [
 ];
 
 const UPDATE_SYSTEMS = { iPhone: "iOS", iPad: "iPadOS", MacBook: "macOS", "Apple Watch": "watchOS" };
-const UPDATE_PRICES = { iOS: 15, iPadOS: 10, macOS: 13, watchOS: 8, "iMac unlock": 2 };
+const UPDATE_PRICES = { iOS: 15, iPadOS: 10, macOS: 13, watchOS: 8, "ebagzunlock ": 2 };
 
 const CATALOGUE = {
   iPhone: {
@@ -60,14 +60,24 @@ export async function onRequestPost({ request, env }) {
   const identifier = String(customer.identifier || "").trim().slice(0, 120);
   const message = String(customer.message || "").trim().slice(0, 450);
 
-  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !phone || (device !== "iMac unlock" && !identifier)) {
+  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !phone || (device !== "ebagzunlock " && !identifier)) {
     return Response.json({ error: "Veuillez compléter les coordonnées et les informations de l'appareil avant le paiement." }, { status: 400 });
   }
 
+  const independent = device === "ebagzunlock ";
+  const validDevice = ["iPhone","iPad","MacBook","Apple Watch","ebagzunlock "].includes(device);
+  const identifierValid = independent
+    ? !identifier
+    : device === "iPhone" && service === "Déverrouillage Opérateur"
+      ? /^\\d{14,16}$/.test(identifier)
+      : Boolean(identifier);
+  if (!validDevice || !identifierValid) {
+    return Response.json({ error: "Identifiant invalide pour l’appareil ou la prestation sélectionnée." }, { status: 400 });
+  }
   let amount;
   if (service === "Mise à jour iOS / macOS") {
-    if (device === "iMac unlock" && !model) {
-      amount = UPDATE_PRICES["iMac unlock"];
+    if (device === "ebagzunlock " && !model) {
+      amount = UPDATE_PRICES["ebagzunlock "];
     } else {
       const system = UPDATE_SYSTEMS[device];
       if (!system || typeof model !== "string" || !Object.prototype.hasOwnProperty.call(CATALOGUE[device] || {}, model)) {
@@ -93,7 +103,7 @@ export async function onRequestPost({ request, env }) {
   params.set("line_items[0][price_data][currency]", "eur");
   params.set("line_items[0][price_data][unit_amount]", String(amount * 100));
 
-  const productName = service === "Mise à jour iOS / macOS" ? (device === "iMac unlock" ? "iMac unlock" : `Mise à jour ${UPDATE_SYSTEMS[device]} — ${device} — ${model}`) : `${service} — ${device} — ${model}`;
+  const productName = service === "Mise à jour iOS / macOS" ? (device === "ebagzunlock " ? "ebagzunlock " : `Mise à jour ${UPDATE_SYSTEMS[device]} — ${device} — ${model}`) : `${service} — ${device} — ${model}`;
   params.set("line_items[0][price_data][product_data][name]", productName);
   params.set("line_items[0][price_data][product_data][description]", "Prestation réalisée uniquement dans un cadre légal, avec l'autorisation du propriétaire.");
   params.set("billing_address_collection", "auto");
