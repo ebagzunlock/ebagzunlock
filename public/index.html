@@ -1935,7 +1935,8 @@ window.location.href="/tarifs.html?service="+encodeURIComponent(card.dataset.ser
 });
 });
 
-deviceSelect.addEventListener("change",()=>{\nsyncIdentifierRules();
+deviceSelect.addEventListener("change",()=>{
+syncIdentifierRules();
 
 invalidateVerifiedOrder();
 
@@ -2005,7 +2006,9 @@ priceValue.textContent=selectedPrice+" €";
 payButton.disabled=!serviceSelect.value;
 });
 
-syncIdentifierRules();\n\n/* Contact is handled once by ebagz-hamburger-menu-script. */
+syncIdentifierRules();
+
+/* Contact is handled once by ebagz-hamburger-menu-script. */
 
 /* Ouverture de la page de paiement intégrée E-BAGS UNLOCK */
 payButton.addEventListener("click",()=>{
@@ -2617,6 +2620,11 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
 .site-header .logo .logo-blue,.site-header .logo-blue,.site-footer .footer-logo .logo-blue,.site-footer .footer-logo span:not(.apple-mark),.brand-inline .logo-blue{color:#6da5dc!important}
 .site-header .apple-mark,.site-footer .apple-mark,.brand-inline .apple-mark{color:#fff!important}
 </style>
+<style id="ebagz-company-name-white">
+.site-header .logo,.site-footer .footer-logo,.brand-inline{color:#fff!important}
+.site-header .logo .logo-blue,.site-header .logo-blue,.site-footer .footer-logo .logo-blue,.brand-inline .logo-blue{color:#6da5dc!important}
+.site-header .logo .apple-mark,.site-footer .footer-logo .apple-mark,.brand-inline .apple-mark{color:#fff!important}
+</style>
 </body>
 </html>
 
@@ -2673,7 +2681,8 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
 .home-showcase-heading .showcase-kicker .brand-inline .logo-blue{color:#6da5dc!important}
 .home-showcase-heading .showcase-kicker .brand-inline .apple-mark{color:#fff!important}
 .home-showcase-heading .showcase-kicker .showcase-univers{display:inline-block!important;font-size:1.22em!important;font-weight:900!important;letter-spacing:1.2px!important;text-transform:uppercase!important;color:#6da5dc!important;line-height:1.2!important}
-</style>\n
+</style>
+
 <style id="ebagz-navigation-active-subtle">
 .site-header .main-nav a.is-active,
 .site-header .main-nav a[aria-current="page"]{
