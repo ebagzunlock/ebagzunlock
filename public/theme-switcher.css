@@ -231,3 +231,53 @@ html[data-site-theme="blue"] main .service-copy,
 html[data-site-theme="blue"] main .assistance-copy {
   color:#f5f8fc !important;
 }
+
+
+/* Palette du thème bleu d'origine : titres blancs avec accents bleus lisibles. */
+html[data-site-theme="blue"] main h1,
+html[data-site-theme="blue"] main h2,
+html[data-site-theme="blue"] main h3,
+html[data-site-theme="blue"] main h4,
+html[data-site-theme="blue"] main .section-heading,
+html[data-site-theme="blue"] main .home-showcase-heading{
+  color:#f5f8fc!important;
+}
+html[data-site-theme="blue"] main .hero h1 .blue,
+html[data-site-theme="blue"] main h1 .blue,
+html[data-site-theme="blue"] main h2 .blue,
+html[data-site-theme="blue"] main .eyebrow,
+html[data-site-theme="blue"] main .showcase-kicker,
+html[data-site-theme="blue"] main .section-kicker{
+  color:#78b5f0!important;
+}
+html[data-site-theme="blue"] main .hero-description,
+html[data-site-theme="blue"] main p,
+html[data-site-theme="blue"] main li{
+  color:#e7eef7!important;
+}
+html[data-site-theme="blue"] main a:not(.logo):not(.brand-inline),
+html[data-site-theme="blue"] main .showcase-link{
+  color:#91c4f1!important;
+}
+
+/* En sombre : on conserve le couple or doux / blanc cassé pour les titres et phrases. */
+html[data-site-theme="dark"] main h1,
+html[data-site-theme="dark"] main h2,
+html[data-site-theme="dark"] main h3,
+html[data-site-theme="dark"] main .section-heading{
+  color:#c9ad75!important;
+}
+html[data-site-theme="dark"] main h1 span:nth-child(2),
+html[data-site-theme="dark"] main h2 span:nth-child(2){
+  color:#f1eee5!important;
+}
+
+/* Le filigrane garde sa propre visibilité sans dépendre du thème actif. */
+html[data-site-theme="blue"]::before,
+html[data-site-theme="dark"]::before{
+  opacity:.38!important;
+}
+@media(max-width:600px){
+ html[data-site-theme="blue"]::before,
+ html[data-site-theme="dark"]::before{opacity:.34!important}
+}
