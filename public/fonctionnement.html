@@ -1023,7 +1023,7 @@ html[data-theme="light"] .logo,html[data-theme="light"] .logo .apple-mark,html[d
 <style id="ebagz-universal-brand-background">
 html{background:#030a14!important}
 body{background:transparent!important;position:relative;isolation:isolate}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(2,8,18,.12),rgba(2,8,18,.18)),url("/background-ebagzunlock.svg?v=5") center center/cover no-repeat}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-color:#020713;background-image:url("/background-ebagzunlock.svg?v=6");background-position:center center;background-repeat:no-repeat;background-size:100vw auto;background-attachment:fixed}
 main,.content-section,.page-section,.service-and-assistance{background-color:transparent!important}
 .site-header,.site-footer{background-color:rgba(3,10,20,.88)!important;backdrop-filter:blur(10px)}
 #service-and-assistance .brand-inline{ text-transform:none!important; }
@@ -1032,16 +1032,18 @@ main,.content-section,.page-section,.service-and-assistance{background-color:tra
 <style id="compact-service-assistance-cards">
 :root{--cdc-card-bg:rgba(3,17,34,.88);--cdc-card-border:rgba(0,190,255,.72)}
 #service-and-assistance .container{display:flex;flex-direction:column;gap:12px}
-#service-and-assistance .service-copy,#service-and-assistance .service-assistance-card{width:min(900px,100%);margin:0 auto;padding:16px 20px;border:1px solid var(--cdc-card-border);border-radius:13px;background:var(--cdc-card-bg);box-shadow:0 5px 20px rgba(0,0,0,.18)}
-#service-and-assistance #service-and-assistance-title{width:min(900px,100%);margin:0 auto;padding:12px 16px;border:1px solid var(--cdc-card-border);border-radius:13px;background:var(--cdc-card-bg);font-size:clamp(15px,2vw,19px);line-height:1.25;text-align:center;letter-spacing:.045em}
+#service-and-assistance .service-assistance-card{width:min(760px,100%);margin:0 auto;padding:12px 16px;border:1px solid var(--cdc-card-border);border-radius:12px;background:rgba(3,17,34,.76);box-shadow:0 4px 14px rgba(0,0,0,.14)}
+#service-and-assistance .service-copy{display:grid;gap:7px}
+#service-and-assistance .service-copy p{font-size:clamp(11px,1.15vw,13px);line-height:1.48}
+#service-and-assistance #service-and-assistance-title{width:100%;margin:0 auto 7px;padding:9px 12px;border:1px solid var(--cdc-card-border);border-radius:10px;background:rgba(3,17,34,.62);font-size:clamp(13px,1.7vw,16px);font-weight:600;line-height:1.25;text-align:center;letter-spacing:.025em}
 #service-and-assistance .service-copy p{margin:7px 0;font-size:clamp(12px,1.4vw,14px);line-height:1.55;text-transform:uppercase}
-#service-and-assistance .assistance-heading,#service-and-assistance h2.assistance-heading{margin:0 0 7px;font-size:clamp(15px,2vw,19px);line-height:1.25;letter-spacing:.045em;text-align:center;text-transform:uppercase}
-#service-and-assistance .assistance-copy{margin:0;font-size:clamp(12px,1.4vw,14px);line-height:1.5;text-align:center;text-transform:uppercase}
+#service-and-assistance .assistance-heading,#service-and-assistance h2.assistance-heading{margin:0 0 6px;font-size:clamp(13px,1.7vw,16px);font-weight:600;line-height:1.25;letter-spacing:.025em;text-align:center;text-transform:uppercase}
+#service-and-assistance .assistance-copy{margin:0;font-size:clamp(11px,1.15vw,13px);font-weight:400;line-height:1.45;text-align:center;text-transform:uppercase}
 #service-and-assistance .assistance-actions{margin-top:10px;display:flex;justify-content:center;gap:14px}
-#contact-page .support-assistance-card{width:min(900px,100%);margin:12px auto 0;padding:13px 18px;gap:14px;border-radius:13px;background:var(--cdc-card-bg);border-color:var(--cdc-card-border)}
+#contact-page .support-assistance-card{width:min(640px,calc(100% - 20px));margin:12px auto 0;padding:10px 13px;gap:12px;border-radius:12px;background:rgba(3,17,34,.76);border-color:var(--cdc-card-border)}
 #contact-page .support-assistance-icon{font-size:30px;min-width:54px;padding:5px 14px 5px 0}
-#contact-page .support-assistance-content h2{font-size:clamp(15px,2vw,19px);letter-spacing:.045em}
-#contact-page .support-assistance-content p{font-size:clamp(12px,1.4vw,14px);line-height:1.5;text-transform:uppercase}
+#contact-page .support-assistance-content h2{font-size:clamp(13px,1.7vw,16px);font-weight:600;letter-spacing:.025em}
+#contact-page .support-assistance-content p{font-size:clamp(11px,1.15vw,13px);font-weight:400;line-height:1.45;text-transform:uppercase}
 #contact-page .support-assistance-content{text-align:center}
 </style>
 </head>
