@@ -127,7 +127,7 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <div class="contact-icons" id="contactIcons" hidden>
 <a href="mailto:ebagzunlock@outlook.fr?subject=Demande%20de%20contact%20%E2%80%93%20ebagzunlock&body=Bonjour%2C%0A%0AJe%20souhaite%20obtenir%20des%20informations%20sur%20vos%20services." aria-label="Envoyer un e-mail" title="Envoyer un e-mail">✉️</a>
 
-<a href="https://wa.me/33644676361?text=Bonjour%2C%20je%20souhaite%20obtenir%20des%20informations%20sur%20vos%20services." aria-label="Envoyer un message WhatsApp" title="Ouvrir WhatsApp avec un message prérempli">
+<a href="whatsapp://send?phone=33644676361&text=Bonjour%2C%20je%20souhaite%20obtenir%20des%20informations%20sur%20vos%20services." aria-label="Envoyer un message WhatsApp" title="Ouvrir WhatsApp avec un message prérempli">
 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
 <path d="M20 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.2A8.5 8.5 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
 <path d="M8 8.2c.4-.5.8-.4 1.1.1l.8 1.5c.2.3.1.6-.2.9l-.5.5c.6 1.1 1.4 1.9 2.6 2.5l.5-.6c.2-.3.5-.4.9-.2l1.5.7c.5.2.6.7.2 1.1-.5.6-1.1.9-1.9.8-2.8-.4-5.8-3.3-6.1-6.1-.1-.5.3-1 .8-1.2Z" fill="currentColor"/>
@@ -361,17 +361,26 @@ html body .site-header .main-nav button:not([aria-current="page"]):not(.is-activ
 </style>
 <script id="ebagz-final-nav-translation-script">
 (()=>{
- const clean=p=>(p||"/").split("?")[0].split("#")[0].replace(/\/+$/,"")||"/";
- const current=clean(location.pathname);
- document.querySelectorAll(".site-header .main-nav a[href]").forEach(a=>{
-  try{const target=clean(new URL(a.getAttribute("href"),location.origin).pathname);const active=target===current||((current==="/"||current==="/index.html")&&(target==="/"||target==="/index.html"));a.classList.toggle("is-active",active);if(active)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");}catch(e){}
- });
- document.querySelectorAll(".site-header .header-logo,.site-footer .footer-logo,.brand-inline").forEach(el=>{el.classList.add("notranslate");el.setAttribute("translate","no")});
- document.querySelectorAll(".site-header .apple-mark,.site-footer .apple-mark").forEach(el=>{el.classList.add("notranslate");el.setAttribute("translate","no")});
- const lang=document.getElementById("languageSelect");let saved="fr";try{saved=localStorage.getItem("ebagzunlock-language")||"fr"}catch(e){}if(lang&&Array.from(lang.options).some(o=>o.value===saved))lang.value=saved;
- const applySavedTranslation=()=>{if(saved==="fr")return;const cookie=document.cookie.split(";").some(x=>x.trim().startsWith("googtrans=/fr/"+saved));if(!cookie){document.cookie="googtrans=/fr/"+saved+";path=/;max-age=31536000;SameSite=Lax";document.cookie="googtrans=/fr/"+saved+";domain="+location.hostname+";path=/;max-age=31536000;SameSite=Lax";} };
- applySavedTranslation();
-})();
+ const cleanPath=value=>{
+  try{
+   const path=new URL(value,location.origin).pathname.replace(/\\/+$/,"")||"/";
+   return path==="/"||path.toLowerCase().endsWith("/index.html")?"index.html":path.split("/").pop().toLowerCase();
+  }catch(e){return "";}
+ };
+ const updateActive=()=>{
+  const current=cleanPath(location.pathname);
+  document.querySelectorAll(".site-header .main-nav a[href]").forEach(a=>{
+   const target=cleanPath(a.getAttribute("href"));
+   const active=!!target&&target===current;
+   a.classList.toggle("is-active",active);
+   if(active)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");
+  });
+  document.querySelectorAll(".site-header .header-logo,.site-footer .footer-logo,.brand-inline").forEach(el=>{el.classList.add("notranslate");el.setAttribute("translate","no")});
+  document.querySelectorAll(".site-header .apple-mark,.site-footer .apple-mark").forEach(el=>{el.classList.add("notranslate");el.setAttribute("translate","no")});
+ };
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",updateActive,{once:true});else updateActive();
+ window.addEventListener("pageshow",updateActive);
+})(); 
 </script>
 <style id="ebagz-translate-entire-page-style">
 #google_translate_element{position:fixed!important;left:-10000px!important;top:0!important;width:1px!important;height:1px!important;overflow:hidden!important;display:block!important;visibility:hidden!important}
@@ -604,3 +613,15 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
 </style>
 </body>
 </html>
+\n<style id="ebagz-navigation-active-final-fix">
+.site-header .main-nav a.is-active,
+.site-header .main-nav a[aria-current="page"]{
+ color:#8fc5ff!important;
+ background:rgba(109,165,220,.18)!important;
+ border-radius:6px!important;
+ box-shadow:inset 0 -3px 0 #78b5f0!important;
+ text-decoration:none!important;
+}
+.site-header .main-nav a.is-active::after,
+.site-header .main-nav a[aria-current="page"]::after{content:none!important;display:none!important}
+</style>\n
