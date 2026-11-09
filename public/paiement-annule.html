@@ -287,4 +287,66 @@ function googleTranslateElementInit(){if(window.google&&google.translate)new goo
 <p class="footer-legal"><a href="/conditions-generales.html">CONDITIONS GÉNÉRALES D'ACHAT</a></p>
 <p class="footer-copyright">Copyright © 2026 ebagzunlock . All rights reserved.</p>
 </footer>
+<script id="ebagz-hamburger-menu-script">
+(()=> {
+ const toggle=document.getElementById("siteMenuToggle");
+ const menu=document.getElementById("siteMenu");
+ const contact=document.getElementById("contactIcons");
+ const contactButton=document.getElementById("contactToggle");
+ const menuContact=document.getElementById("siteMenuContact");
+ const headerRight=document.querySelector(".site-header .header-right");
+ if(!toggle||!menu||!contact||!contactButton||!headerRight)return;
+ const setContactVisible=visible=>{
+  contact.hidden=!visible;
+  headerRight.classList.toggle("contact-open",visible);
+  contactButton.setAttribute("aria-expanded",String(visible));
+  contactButton.classList.toggle("is-active",visible);
+  if(menuContact)menuContact.setAttribute("aria-expanded",String(visible));
+ };
+ const closeMenu=()=>{
+  menu.hidden=true;
+  toggle.setAttribute("aria-expanded","false");
+  if(contact.parentElement!==headerRight)headerRight.appendChild(contact);
+  contact.hidden=true;
+  if(menuContact){menuContact.setAttribute("aria-expanded","false");menuContact.classList.remove("is-active");}
+ };
+ toggle.addEventListener("click",event=>{
+  event.preventDefault();
+  const open=menu.hidden;
+  menu.hidden=!open;
+  toggle.setAttribute("aria-expanded",String(open));
+ });
+ contactButton.addEventListener("click",event=>{
+  event.preventDefault();
+  event.stopPropagation();
+  setContactVisible(contact.hidden);
+ });
+ if(menuContact)menuContact.addEventListener("click",event=>{
+  event.preventDefault();
+  event.stopPropagation();
+  const showing=menuContact.getAttribute("aria-expanded")==="true";
+  if(showing){
+   if(contact.parentElement!==headerRight)headerRight.appendChild(contact);
+   contact.hidden=true;
+   menuContact.setAttribute("aria-expanded","false");
+   menuContact.classList.remove("is-active");
+  }else{
+   menu.insertBefore(contact,menuContact.nextSibling);
+   contact.hidden=false;
+   menuContact.setAttribute("aria-expanded","true");
+   menuContact.classList.add("is-active");
+  }
+ });
+ document.querySelectorAll(".site-header .main-nav a").forEach(link=>{
+  link.addEventListener("click",()=>{
+   setContactVisible(false);
+   closeMenu();
+  });
+ });
+ document.addEventListener("click",event=>{
+  if(!menu.hidden&&!menu.contains(event.target)&&!toggle.contains(event.target))closeMenu();
+ });
+ document.addEventListener("keydown",event=>{if(event.key==="Escape")closeMenu();});
+})();
+</script>
 </body></html>
