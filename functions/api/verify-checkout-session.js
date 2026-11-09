@@ -58,7 +58,7 @@ export async function onRequestGet({ request, env }) {
     const device = session.metadata?.device || null;
     const model = session.metadata?.model || null;
 
-    if (!service || !model) {
+    if (!service || !device || (device !== "ebagzunlock " && !model)) {
       return Response.json(
         { error: "Informations de commande manquantes." },
         { status: 400 }
