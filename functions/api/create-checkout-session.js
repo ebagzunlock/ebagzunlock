@@ -8,7 +8,7 @@ const SERVICES = [
 ];
 
 const UPDATE_SYSTEMS = { iPhone: "iOS", iPad: "iPadOS", MacBook: "macOS", "Apple Watch": "watchOS" };
-const UPDATE_PRICES = { iOS: 15, iPadOS: 10, macOS: 13, watchOS: 8, ebagzunlock: 2 };
+const UPDATE_PRICES = { iOS: 15, iPadOS: 10, macOS: 13, watchOS: 8, "iMac unlock": 2 };
 
 const CATALOGUE = {
   iPhone: {
@@ -60,7 +60,7 @@ export async function onRequestPost({ request, env }) {
   const identifier = String(customer.identifier || "").trim().slice(0, 120);
   const message = String(customer.message || "").trim().slice(0, 450);
 
-  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !phone || !identifier) {
+  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !phone || (device !== "iMac unlock" && !identifier)) {
     return Response.json({ error: "Veuillez compléter les coordonnées et les informations de l'appareil avant le paiement." }, { status: 400 });
   }
 
@@ -93,13 +93,13 @@ export async function onRequestPost({ request, env }) {
   params.set("line_items[0][price_data][currency]", "eur");
   params.set("line_items[0][price_data][unit_amount]", String(amount * 100));
 
-  const productName = service === "Mise à jour iOS / macOS" ? (device === "ebagzunlock" ? "Mise à jour — ebagzunlock " : `Mise à jour ${UPDATE_SYSTEMS[device]} — ${device} — ${model}`) : `${service} — ${device} — ${model}`;
+  const productName = service === "Mise à jour iOS / macOS" ? (device === "iMac unlock" ? "iMac unlock" : `Mise à jour ${UPDATE_SYSTEMS[device]} — ${device} — ${model}`) : `${service} — ${device} — ${model}`;
   params.set("line_items[0][price_data][product_data][name]", productName);
   params.set("line_items[0][price_data][product_data][description]", "Prestation réalisée uniquement dans un cadre légal, avec l'autorisation du propriétaire.");
   params.set("billing_address_collection", "auto");
   params.set("return_url", `${siteOrigin}/confirmation.html?session_id={CHECKOUT_SESSION_ID}`);
 
-  const metadata = { service, device: device || "", model, amount_eur: String(amount), customer_name: name, customer_email: email, customer_phone: phone, customer_identifier: identifier, customer_message: message, consent_accepted: "yes" };
+  const metadata = { service, device: device || "", model: model || "", amount_eur: String(amount), customer_name: name, customer_email: email, customer_phone: phone, customer_identifier: identifier, customer_message: message, consent_accepted: "yes" };
   for (const [key, value] of Object.entries(metadata)) params.set(`metadata[${key}]`, value);
 
   try {
