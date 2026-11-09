@@ -218,7 +218,7 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 </select></label>
 <div id="google_translate_element"></div>
 
-<div class="contact-icons" id="contactIcons" hidden>
+<div class="contact-icons" id="headerContactIcons" hidden>
 <a href="mailto:ebagzunlock@outlook.fr?subject=Demande%20de%20contact%20%E2%80%93%20ebagzunlock%20%EF%A3%BF&body=Bonjour%2C%0A%0AJe%20souhaite%20obtenir%20des%20informations%20sur%20les%20services%20de%20ebagzunlock%20%EF%A3%BF." aria-label="Envoyer un e-mail" title="Envoyer un e-mail">✉️</a>
 
 <a href="whatsapp://send?phone=33644676361&text=Bonjour%2C%20je%20souhaite%20obtenir%20des%20informations%20sur%20vos%20services." aria-label="Envoyer un message WhatsApp" title="Ouvrir WhatsApp avec un message prérempli">
@@ -236,12 +236,14 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <a href="/services.html">DÉCOUVRIR NOS OFFRES</a>
 <a href="/services.html#service-and-assistance-title">SERVICES RENDUS</a>
 <a href="/services.html#assistance-heading">ASSISTANCE</a>
+
+<a href="/conditions-generales.html">CONDITIONS GÉNÉRALES</a>
 <button type="button" id="siteMenuContact" aria-expanded="false" aria-controls="contactIcons">CONTACT</button>
 <div class="contact-icons" id="contactIcons" hidden>
 <a href="mailto:ebagzunlock@outlook.fr?subject=Demande%20de%20contact%20%E2%80%93%20ebagzunlock%20%EF%A3%BF&amp;body=Bonjour%2C%0A%0AJe%20souhaite%20obtenir%20des%20informations%20sur%20les%20services%20de%20ebagzunlock%20%EF%A3%BF." aria-label="Envoyer un e-mail" title="Envoyer un e-mail">✉️</a>
 <a href="whatsapp://send?phone=33644676361&amp;text=Bonjour%2C%20je%20souhaite%20obtenir%20des%20informations%20sur%20vos%20services." aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.2A8.5 8.5 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 8.2c.4-.5.8-.4 1.1.1l.8 1.5c.2.3.1.6-.2.9l-.5.5c.6 1.1 1.4 1.9 2.6 2.5l.5-.6c.2-.2.5-.4.9-.2l1.5.7c.5.2.6.7.2 1.1-.5.6-1.1.9-1.9.8-2.8-.4-5.8-3.3-6.1-6.1-.1-.5.3-1 .8-1.2Z" fill="currentColor"/></svg></a>
 <a href="tel:+33764027733" aria-label="Téléphone" title="Téléphone"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3.5h3l1.5 4-2 1.5a15 15 0 0 0 5.5 5.5l1.5-2 4 1.5v3c0 1.1-.9 2-2 2C10 19 5 14 5 5.5c0-1.1.9-2 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></a>
-</div><a href="/conditions-generales.html">CONDITIONS GÉNÉRALES</a>
+</div>
 </div>
 </header>
 <main>
@@ -467,7 +469,7 @@ confirmOrder();
 .site-header .contact-icons svg,header.site-header .contact-icons svg{width:20px!important;height:20px!important}
 </style>
 <script id="ebagz-contact-menu-handler">
-(()=>{const b=document.getElementById("siteMenuContact"),icons=document.getElementById("contactIcons");if(!b||!icons||b.dataset.handlerReady==="1")return;b.dataset.handlerReady="1";b.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();const open=icons.hidden;b.setAttribute("aria-expanded",String(open));icons.hidden=!open;});})();
+(()=>{document.addEventListener("click",e=>{const b=e.target.closest("#siteMenuContact");if(!b)return;const icons=document.querySelector("#siteMenu #contactIcons");if(!icons)return;e.preventDefault();e.stopImmediatePropagation();const open=icons.hidden;icons.hidden=!open;b.setAttribute("aria-expanded",String(open));},true);})();
 </script>
 </body>
 </html>
