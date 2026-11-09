@@ -87,3 +87,19 @@ html::before { user-select:none; }
 @media (prefers-reduced-motion:reduce) {
   html { scroll-behavior:auto; }
 }
+
+/* Correctif de stabilité : la signature est un calque du viewport, jamais du contenu. */
+html::before{
+  position:fixed!important;
+  inset:0!important;
+  width:100%!important;
+  height:100vh!important;
+  height:100dvh!important;
+  background-attachment:scroll!important;
+  background-position:center center!important;
+  transform:none!important;
+  z-index:0!important;
+}
+body,body>*{
+  transform:none;
+}
