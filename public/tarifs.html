@@ -489,6 +489,12 @@ color:var(--white)
 border-color:var(--blue-light)
 }
 
+.independent-brand-display{min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 14px;border:1px solid var(--blue-light);border-radius:8px;background:#0b1929;color:var(--white)}
+.independent-brand-display[hidden]{display:none!important}
+.independent-brand-display .brand-inline{font-size:19px;font-weight:800;letter-spacing:-.7px;white-space:nowrap;color:#fff}
+.independent-brand-display .logo-blue{color:#6da5dc!important}
+.independent-brand-display .apple-mark{color:#fff!important}
+.independent-brand-display strong{color:var(--blue-light);font-size:16px;white-space:nowrap}
 .field select:disabled{
 opacity:.55;
 cursor:not-allowed
@@ -1120,6 +1126,7 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <div class="field" id="updateChoiceField" hidden>
 <label for="updateChoiceSelect">Choix de la prestation</label>
 <select id="updateChoiceSelect" disabled></select>
+<div id="independentBrandDisplay" class="independent-brand-display" hidden><span class="brand-inline notranslate" translate="no">ebagz<span class="logo-blue">unlock</span><span class="apple-mark"> </span></span><strong>— 2 €</strong></div>
 </div>
 
 <div id="requestSection" class="visible">
@@ -1468,6 +1475,7 @@ const modelSelect=$("modelSelect");
 const modelField=$("modelField");
 const updateChoiceField=$("updateChoiceField");
 const updateChoiceSelect=$("updateChoiceSelect");
+const independentBrandDisplay=$("independentBrandDisplay");
 const deviceLabel=$("deviceLabel");
 const priceValue=$("priceValue");
 const payButton=$("payButton");
@@ -1724,6 +1732,8 @@ if(requestedDevice==="ebagzunlock "){
  updateChoiceSelect.appendChild(option);
  updateChoiceField.hidden=false;
  updateChoiceSelect.disabled=true;
+ updateChoiceSelect.hidden=true;
+ if(independentBrandDisplay)independentBrandDisplay.hidden=false;
  resetModelAndPrice();
  selectedPrice=UPDATE_PRICES["ebagzunlock "];
  priceValue.textContent=selectedPrice+" €";
@@ -1773,6 +1783,8 @@ if(chosen){
  updateChoiceField.hidden=true;
  updateChoiceSelect.innerHTML="";
  updateChoiceSelect.disabled=true;
+ updateChoiceSelect.hidden=false;
+ if(independentBrandDisplay)independentBrandDisplay.hidden=true;
 }
 }
 
@@ -1796,6 +1808,8 @@ function resetDeviceChoices(){
 
 updateChoiceField.hidden=true;
 updateChoiceSelect.innerHTML="";
+updateChoiceSelect.hidden=false;
+if(independentBrandDisplay)independentBrandDisplay.hidden=true;
 deviceSelect.innerHTML="";
 
 const choices=[
@@ -1899,9 +1913,11 @@ const device=deviceSelect.value;
 resetModelAndPrice();
 if(device==="ebagzunlock "&&serviceSelect.value===UPDATE_SERVICE){
  modelField.hidden=true;
- updateChoiceField.hidden=true;
+ updateChoiceField.hidden=false;
  updateChoiceSelect.innerHTML="";
  updateChoiceSelect.disabled=true;
+ updateChoiceSelect.hidden=true;
+ if(independentBrandDisplay)independentBrandDisplay.hidden=false;
  deviceLabel.textContent="Choix de la prestation";
  selectedPrice=UPDATE_PRICES["ebagzunlock "];
  priceValue.textContent=selectedPrice+" €";
