@@ -1117,6 +1117,7 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 </select>
 </div>
 
+<div class="field" id="modelFamilyField" hidden><label for="modelFamilySelect">Famille de modèles</label><select id="modelFamilySelect" disabled><option value="">Choisir une famille</option></select></div>
 <div class="field" id="modelField">
 <label for="modelSelect" data-i18n="modelLabel">Modèle</label>
 <select id="modelSelect" disabled>
@@ -1221,85 +1222,306 @@ CONTINUER
 
 /* Catalogue des appareils et tarifs */
 const CATALOGUE = {
-"iPhone":{
-"iPhone X":25,
-"iPhone XR":25,
-"iPhone XS":25,
-"iPhone XS Max":25,
-"iPhone 11":25,
-"iPhone 11 Pro":25,
-"iPhone 11 Pro Max":27,
-"iPhone 12 mini":25,
-"iPhone 12":25,
-"iPhone 12 Pro":29,
-"iPhone 12 Pro Max":32,
-"iPhone 13 mini":39,
-"iPhone 13":40,
-"iPhone 13 Pro":40,
-"iPhone 13 Pro Max":42,
-"iPhone 14":40,
-"iPhone 14 Plus":40,
-"iPhone 14 Pro":43,
-"iPhone 14 Pro Max":49,
-"iPhone 15":53,
-"iPhone 15 Plus":55,
-"iPhone 15 Pro":55,
-"iPhone 15 Pro Max":59,
-"iPhone 16":64,
-"iPhone 16 Plus":59,
-"iPhone 16 Pro":62,
-"iPhone 16 Pro Max":69,
-"iPhone 16e":65,
-"iPhone 17":69,
-"iPhone 17 Pro":70,
-"iPhone 17 Pro Max":77,
-"iPhone 17e":75,
-"iPhone 17 Air":79,
-"iPhone 18":85,
-"iPhone 18 Pro":89,
-"iPhone 18 Pro Max":100,
-"iPhone 18 Duo":95
-},
-
-"MacBook":{
-"MacBook Air Intel 2008–2020":35,
-"MacBook Air M1":38,
-"MacBook Air M2 13/15 pouces":38,
-"MacBook Air M3 13/15 pouces":40,
-"MacBook Air M4 13/15 pouces":40,
-"MacBook Air M5 13/15 pouces":42,
-"MacBook Pro Intel":40,
-"MacBook Pro M1 13/14/16 pouces":45,
-"MacBook Pro M2":45,
-"MacBook Pro M3 14/16 pouces":45,
-"MacBook Pro M4 14/16 pouces":49,
-"MacBook Pro M5 14/16 pouces":49,
-"MacBook Pro M6 14 pouces":55,
-"MacBook 12 pouces 2015–2017":30,
-"MacBook Neo A18 Pro":133
-},
-
-"iPad":{
-"iPad classique 1re–11e génération (A16 inclus)":37,
-"iPad mini 1–6 (A17 Pro inclus)":39,
-"iPad Air 1–5":37,
-"iPad Air M2/M3/M4 11/13 pouces":35,
-"iPad Pro 9.7 pouces":39,
-"iPad Pro 10.5 pouces":39,
-"iPad Pro 11 pouces générations 1–5":45,
-"iPad Pro 12.9 pouces générations 1–6":49,
-"iPad Pro M4 11/13 pouces":52,
-"iPad Pro M5 11/13 pouces":55
-},
-
-"Apple Watch":{
-"Apple Watch Series 1–12":54,
-"Apple Watch SE 1/2/3":63,
-"Apple Watch Ultra 1/2/3/4":69
-}
+  "iPhone": {
+    "iPhone X": 25,
+    "iPhone XR": 25,
+    "iPhone XS": 25,
+    "iPhone XS Max": 25,
+    "iPhone 11": 25,
+    "iPhone 11 Pro": 25,
+    "iPhone 11 Pro Max": 27,
+    "iPhone 12 mini": 25,
+    "iPhone 12": 25,
+    "iPhone 12 Pro": 29,
+    "iPhone 12 Pro Max": 32,
+    "iPhone 13 mini": 39,
+    "iPhone 13": 40,
+    "iPhone 13 Pro": 40,
+    "iPhone 13 Pro Max": 42,
+    "iPhone 14": 40,
+    "iPhone 14 Plus": 40,
+    "iPhone 14 Pro": 43,
+    "iPhone 14 Pro Max": 49,
+    "iPhone 15": 53,
+    "iPhone 15 Plus": 55,
+    "iPhone 15 Pro": 55,
+    "iPhone 15 Pro Max": 59,
+    "iPhone 16": 64,
+    "iPhone 16 Plus": 59,
+    "iPhone 16 Pro": 62,
+    "iPhone 16 Pro Max": 69,
+    "iPhone 16e": 65,
+    "iPhone 17": 69,
+    "iPhone 17 Pro": 70,
+    "iPhone 17 Pro Max": 77,
+    "iPhone 17e": 75,
+    "iPhone 17 Air": 79,
+    "iPhone 18": 85,
+    "iPhone 18 Pro": 89,
+    "iPhone 18 Pro Max": 100,
+    "iPhone 18 Duo": 95
+  },
+  "iPad": {
+    "iPad (1re génération)": 37,
+    "iPad 2": 37,
+    "iPad (3e génération)": 37,
+    "iPad (4e génération)": 37,
+    "iPad (5e génération)": 37,
+    "iPad (6e génération)": 37,
+    "iPad (7e génération)": 37,
+    "iPad (8e génération)": 37,
+    "iPad (9e génération)": 37,
+    "iPad (10e génération)": 37,
+    "iPad (11e génération — A16)": 37,
+    "iPad mini (1re génération)": 39,
+    "iPad mini 2": 39,
+    "iPad mini 3": 39,
+    "iPad mini 4": 39,
+    "iPad mini (5e génération)": 39,
+    "iPad mini (6e génération)": 39,
+    "iPad mini (7e génération — A17 Pro)": 39,
+    "iPad Air (1re génération)": 37,
+    "iPad Air 2": 37,
+    "iPad Air (3e génération)": 37,
+    "iPad Air (4e génération)": 37,
+    "iPad Air (5e génération)": 37,
+    "iPad Air 11 pouces (M2)": 35,
+    "iPad Air 13 pouces (M2)": 35,
+    "iPad Air 11 pouces (M3)": 35,
+    "iPad Air 13 pouces (M3)": 35,
+    "iPad Air 11 pouces (M4)": 35,
+    "iPad Air 13 pouces (M4)": 35,
+    "iPad Pro 9,7 pouces (1re génération)": 39,
+    "iPad Pro 10,5 pouces (2e génération)": 39,
+    "iPad Pro 12,9 pouces (1re génération)": 49,
+    "iPad Pro 12,9 pouces (2e génération)": 49,
+    "iPad Pro 12,9 pouces (3e génération)": 49,
+    "iPad Pro 12,9 pouces (4e génération)": 49,
+    "iPad Pro 12,9 pouces (5e génération)": 49,
+    "iPad Pro 12,9 pouces (6e génération)": 49,
+    "iPad Pro 11 pouces (1re génération)": 45,
+    "iPad Pro 11 pouces (2e génération)": 45,
+    "iPad Pro 11 pouces (3e génération)": 45,
+    "iPad Pro 11 pouces (4e génération — M2)": 45,
+    "iPad Pro 11 pouces (M4)": 52,
+    "iPad Pro 13 pouces (M4)": 52,
+    "iPad Pro 11 pouces (M5)": 55,
+    "iPad Pro 13 pouces (M5)": 55
+  },
+  "MacBook": {
+    "MacBook Air 11 pouces (2010)": 35,
+    "MacBook Air 11 pouces (2011)": 35,
+    "MacBook Air 11 pouces (2012)": 35,
+    "MacBook Air 11 pouces (2013)": 35,
+    "MacBook Air 11 pouces (2014)": 35,
+    "MacBook Air 11 pouces (2015)": 35,
+    "MacBook Air 13 pouces (2008)": 35,
+    "MacBook Air 13 pouces (2009)": 35,
+    "MacBook Air 13 pouces (2010)": 35,
+    "MacBook Air 13 pouces (2011)": 35,
+    "MacBook Air 13 pouces (2012)": 35,
+    "MacBook Air 13 pouces (2013)": 35,
+    "MacBook Air 13 pouces (2014)": 35,
+    "MacBook Air 13 pouces (2015)": 35,
+    "MacBook Air 13 pouces (2017)": 35,
+    "MacBook Air Retina 13 pouces (2018)": 35,
+    "MacBook Air Retina 13 pouces (2019)": 35,
+    "MacBook Air Retina 13 pouces (2020 Intel)": 35,
+    "MacBook Air 13 pouces (M1, 2020)": 38,
+    "MacBook Air 13 pouces (M2, 2022)": 38,
+    "MacBook Air 15 pouces (M2, 2023)": 38,
+    "MacBook Air 13 pouces (M3, 2024)": 40,
+    "MacBook Air 15 pouces (M3, 2024)": 40,
+    "MacBook Air 13 pouces (M4, 2025)": 40,
+    "MacBook Air 15 pouces (M4, 2025)": 40,
+    "MacBook Air 13 pouces (M5, 2026)": 42,
+    "MacBook Air 15 pouces (M5, 2026)": 42,
+    "MacBook Pro 13 pouces (Intel, 2006–2020)": 40,
+    "MacBook Pro 15 pouces (Intel, 2006–2019)": 40,
+    "MacBook Pro 16 pouces (Intel, 2019–2020)": 40,
+    "MacBook Pro 17 pouces (Intel, 2006–2011)": 40,
+    "MacBook Pro 13 pouces (M1, 2020)": 45,
+    "MacBook Pro 14 pouces (M1 Pro/M1 Max, 2021)": 45,
+    "MacBook Pro 16 pouces (M1 Pro/M1 Max, 2021)": 45,
+    "MacBook Pro 13 pouces (M2, 2022)": 45,
+    "MacBook Pro 14 pouces (M2 Pro/M2 Max, 2023)": 45,
+    "MacBook Pro 16 pouces (M2 Pro/M2 Max, 2023)": 45,
+    "MacBook Pro 14 pouces (M3, 2023)": 45,
+    "MacBook Pro 16 pouces (M3, 2023)": 45,
+    "MacBook Pro 14 pouces (M4, 2024)": 49,
+    "MacBook Pro 14 pouces (M4 Pro/M4 Max, 2024)": 49,
+    "MacBook Pro 16 pouces (M4 Pro/M4 Max, 2024)": 49,
+    "MacBook Pro 14 pouces (M5, 2025)": 49,
+    "MacBook Pro 14 pouces (M5 Pro/M5 Max, 2026)": 49,
+    "MacBook Pro 16 pouces (M5 Pro/M5 Max, 2026)": 49,
+    "MacBook 12 pouces (2015)": 30,
+    "MacBook 12 pouces (2016)": 30,
+    "MacBook 12 pouces (2017)": 30,
+    "MacBook Neo (A18 Pro, 2026)": 133
+  },
+  "Apple Watch": {
+    "Apple Watch Series 1": 54,
+    "Apple Watch Series 2": 54,
+    "Apple Watch Series 3": 54,
+    "Apple Watch Series 4": 54,
+    "Apple Watch Series 5": 54,
+    "Apple Watch Series 6": 54,
+    "Apple Watch Series 7": 54,
+    "Apple Watch Series 8": 54,
+    "Apple Watch Series 9": 54,
+    "Apple Watch Series 10": 54,
+    "Apple Watch Series 11": 54,
+    "Apple Watch Series 12": 54,
+    "Apple Watch SE (1re génération)": 63,
+    "Apple Watch SE (2e génération)": 63,
+    "Apple Watch SE (3e génération)": 63,
+    "Apple Watch Ultra (1re génération)": 69,
+    "Apple Watch Ultra 2": 69,
+    "Apple Watch Ultra 3": 69,
+    "Apple Watch Ultra 4": 69
+  }
 };
-
-const UPDATE_SERVICE="Mise à jour iOS / macOS";
+const MODEL_FAMILIES = {
+  "iPad": {
+    "iPad classique": [
+      "iPad (1re génération)",
+      "iPad 2",
+      "iPad (3e génération)",
+      "iPad (4e génération)",
+      "iPad (5e génération)",
+      "iPad (6e génération)",
+      "iPad (7e génération)",
+      "iPad (8e génération)",
+      "iPad (9e génération)",
+      "iPad (10e génération)",
+      "iPad (11e génération — A16)"
+    ],
+    "iPad mini": [
+      "iPad mini (1re génération)",
+      "iPad mini 2",
+      "iPad mini 3",
+      "iPad mini 4",
+      "iPad mini (5e génération)",
+      "iPad mini (6e génération)",
+      "iPad mini (7e génération — A17 Pro)"
+    ],
+    "iPad Air": [
+      "iPad Air (1re génération)",
+      "iPad Air 2",
+      "iPad Air (3e génération)",
+      "iPad Air (4e génération)",
+      "iPad Air (5e génération)",
+      "iPad Air 11 pouces (M2)",
+      "iPad Air 13 pouces (M2)",
+      "iPad Air 11 pouces (M3)",
+      "iPad Air 13 pouces (M3)",
+      "iPad Air 11 pouces (M4)",
+      "iPad Air 13 pouces (M4)"
+    ],
+    "iPad Pro": [
+      "iPad Pro 9,7 pouces (1re génération)",
+      "iPad Pro 10,5 pouces (2e génération)",
+      "iPad Pro 12,9 pouces (1re génération)",
+      "iPad Pro 12,9 pouces (2e génération)",
+      "iPad Pro 12,9 pouces (3e génération)",
+      "iPad Pro 12,9 pouces (4e génération)",
+      "iPad Pro 12,9 pouces (5e génération)",
+      "iPad Pro 12,9 pouces (6e génération)",
+      "iPad Pro 11 pouces (1re génération)",
+      "iPad Pro 11 pouces (2e génération)",
+      "iPad Pro 11 pouces (3e génération)",
+      "iPad Pro 11 pouces (4e génération — M2)",
+      "iPad Pro 11 pouces (M4)",
+      "iPad Pro 13 pouces (M4)",
+      "iPad Pro 11 pouces (M5)",
+      "iPad Pro 13 pouces (M5)"
+    ]
+  },
+  "MacBook": {
+    "MacBook Air": [
+      "MacBook Air 11 pouces (2010)",
+      "MacBook Air 11 pouces (2011)",
+      "MacBook Air 11 pouces (2012)",
+      "MacBook Air 11 pouces (2013)",
+      "MacBook Air 11 pouces (2014)",
+      "MacBook Air 11 pouces (2015)",
+      "MacBook Air 13 pouces (2008)",
+      "MacBook Air 13 pouces (2009)",
+      "MacBook Air 13 pouces (2010)",
+      "MacBook Air 13 pouces (2011)",
+      "MacBook Air 13 pouces (2012)",
+      "MacBook Air 13 pouces (2013)",
+      "MacBook Air 13 pouces (2014)",
+      "MacBook Air 13 pouces (2015)",
+      "MacBook Air 13 pouces (2017)",
+      "MacBook Air Retina 13 pouces (2018)",
+      "MacBook Air Retina 13 pouces (2019)",
+      "MacBook Air Retina 13 pouces (2020 Intel)",
+      "MacBook Air 13 pouces (M1, 2020)",
+      "MacBook Air 13 pouces (M2, 2022)",
+      "MacBook Air 15 pouces (M2, 2023)",
+      "MacBook Air 13 pouces (M3, 2024)",
+      "MacBook Air 15 pouces (M3, 2024)",
+      "MacBook Air 13 pouces (M4, 2025)",
+      "MacBook Air 15 pouces (M4, 2025)",
+      "MacBook Air 13 pouces (M5, 2026)",
+      "MacBook Air 15 pouces (M5, 2026)"
+    ],
+    "MacBook Pro": [
+      "MacBook Pro 13 pouces (Intel, 2006–2020)",
+      "MacBook Pro 15 pouces (Intel, 2006–2019)",
+      "MacBook Pro 16 pouces (Intel, 2019–2020)",
+      "MacBook Pro 17 pouces (Intel, 2006–2011)",
+      "MacBook Pro 13 pouces (M1, 2020)",
+      "MacBook Pro 14 pouces (M1 Pro/M1 Max, 2021)",
+      "MacBook Pro 16 pouces (M1 Pro/M1 Max, 2021)",
+      "MacBook Pro 13 pouces (M2, 2022)",
+      "MacBook Pro 14 pouces (M2 Pro/M2 Max, 2023)",
+      "MacBook Pro 16 pouces (M2 Pro/M2 Max, 2023)",
+      "MacBook Pro 14 pouces (M3, 2023)",
+      "MacBook Pro 16 pouces (M3, 2023)",
+      "MacBook Pro 14 pouces (M4, 2024)",
+      "MacBook Pro 14 pouces (M4 Pro/M4 Max, 2024)",
+      "MacBook Pro 16 pouces (M4 Pro/M4 Max, 2024)",
+      "MacBook Pro 14 pouces (M5, 2025)",
+      "MacBook Pro 14 pouces (M5 Pro/M5 Max, 2026)",
+      "MacBook Pro 16 pouces (M5 Pro/M5 Max, 2026)"
+    ],
+    "MacBook / MacBook Neo": [
+      "MacBook 12 pouces (2015)",
+      "MacBook 12 pouces (2016)",
+      "MacBook 12 pouces (2017)",
+      "MacBook Neo (A18 Pro, 2026)"
+    ]
+  },
+  "Apple Watch": {
+    "Apple Watch Series": [
+      "Apple Watch Series 1",
+      "Apple Watch Series 2",
+      "Apple Watch Series 3",
+      "Apple Watch Series 4",
+      "Apple Watch Series 5",
+      "Apple Watch Series 6",
+      "Apple Watch Series 7",
+      "Apple Watch Series 8",
+      "Apple Watch Series 9",
+      "Apple Watch Series 10",
+      "Apple Watch Series 11",
+      "Apple Watch Series 12"
+    ],
+    "Apple Watch SE": [
+      "Apple Watch SE (1re génération)",
+      "Apple Watch SE (2e génération)",
+      "Apple Watch SE (3e génération)"
+    ],
+    "Apple Watch Ultra": [
+      "Apple Watch Ultra (1re génération)",
+      "Apple Watch Ultra 2",
+      "Apple Watch Ultra 3",
+      "Apple Watch Ultra 4"
+    ]
+  }
+};const UPDATE_SERVICE="Mise à jour iOS / macOS";
 const UPDATE_PRICES={
 "iOS":15,
 "iPadOS":10,
@@ -1473,6 +1695,8 @@ const serviceSelect=$("serviceSelect");
 const deviceSelect=$("deviceSelect");
 const modelSelect=$("modelSelect");
 const modelField=$("modelField");
+const modelFamilyField=$("modelFamilyField");
+const modelFamilySelect=$("modelFamilySelect");
 const updateChoiceField=$("updateChoiceField");
 const updateChoiceSelect=$("updateChoiceSelect");
 const independentBrandDisplay=$("independentBrandDisplay");
@@ -1727,6 +1951,8 @@ showStatus(paymentStatus,"");
 
 function resetModelAndPrice(){
 
+if(modelFamilySelect){modelFamilySelect.innerHTML='<option value="">Choisir une famille</option>';modelFamilySelect.value="";modelFamilySelect.disabled=true;}
+if(modelFamilyField)modelFamilyField.hidden=true;
 modelSelect.innerHTML="";
 
 const option=document.createElement("option");
@@ -1797,7 +2023,7 @@ resetModelAndPrice();
 const chosen=requestedDevice&&allowedDevices.includes(requestedDevice)?requestedDevice:"";
 if(chosen){
  deviceSelect.value=chosen;
- populateModels(chosen);
+ populateModelFamilies(chosen);
  const system=systems[chosen];
  const validSystem=!requestedSystem||requestedSystem===system;
  updateChoiceSelect.innerHTML="";
@@ -1819,20 +2045,22 @@ if(chosen){
 }
 }
 
-function populateModels(device){
- modelSelect.innerHTML="";
- const placeholder=document.createElement("option");
- placeholder.value="";
- placeholder.textContent=t("chooseModel");
- modelSelect.appendChild(placeholder);
+function populateModelFamilies(device){
+ const families=MODEL_FAMILIES[device];
+ if(!families){modelFamilyField.hidden=true;populateModels(device,null);return;}
+ modelFamilyField.hidden=false;
+ modelFamilySelect.innerHTML='<option value="">Choisir une famille</option>';
+ Object.keys(families).forEach(family=>{const option=document.createElement("option");option.value=family;option.textContent=family;modelFamilySelect.appendChild(option);});
+ modelFamilySelect.disabled=false;
+ modelSelect.innerHTML='<option value="">Choisir un modèle</option>';modelSelect.disabled=true;modelField.hidden=false;
+}
+function populateModels(device,family){
+ modelSelect.innerHTML="";const placeholder=document.createElement("option");placeholder.value="";placeholder.textContent=t("chooseModel");modelSelect.appendChild(placeholder);
  if(!device||!CATALOGUE[device]){modelSelect.disabled=true;return;}
- Object.keys(CATALOGUE[device]).forEach(model=>{
-  const option=document.createElement("option");
-  option.value=model;
-  option.textContent=translateModelName(model);
-  modelSelect.appendChild(option);
- });
- modelSelect.disabled=false;
+ const familyModels=MODEL_FAMILIES[device];
+ const modelNames=familyModels?(family&&familyModels[family]?familyModels[family]:[]):Object.keys(CATALOGUE[device]);
+ modelNames.forEach(model=>{const option=document.createElement("option");option.value=model;option.textContent=translateModelName(model);modelSelect.appendChild(option);});
+ modelSelect.disabled=modelNames.length===0;
 }
 
 function resetDeviceChoices(){
@@ -1858,6 +2086,7 @@ deviceSelect.appendChild(option);
 
 deviceLabel.textContent=t("deviceCategory");
 deviceSelect.disabled=false;
+if(modelFamilyField)modelFamilyField.hidden=true;
 modelField.hidden=false;
 
 resetModelAndPrice();
@@ -1960,7 +2189,7 @@ if(device==="ebagzunlock "&&serviceSelect.value===UPDATE_SERVICE){
 modelField.hidden=false;
 if(!device||!CATALOGUE[device])return;
 if(serviceSelect.value==="SNAP-error/ban"&&!["iPhone","iPad"].includes(device))return;
-populateModels(device);
+populateModelFamilies(device);
 if(serviceSelect.value===UPDATE_SERVICE){
  const systems={iPhone:"iOS",iPad:"iPadOS",MacBook:"macOS","Apple Watch":"watchOS"};
  const system=systems[device];
@@ -1986,6 +2215,9 @@ if(requestedDeviceChoice&&serviceSelect.value){
  }
 }
 
+modelFamilySelect?.addEventListener("change",()=>{
+ invalidateVerifiedOrder();populateModels(deviceSelect.value,modelFamilySelect.value);selectedPrice=null;priceValue.textContent="— €";payButton.disabled=true;updateOwnershipConsent();
+});
 modelSelect.addEventListener("change",()=>{
 
 invalidateVerifiedOrder();
@@ -2114,8 +2346,9 @@ throw new Error(t("paymentNotConfirmed"));
 deviceSelect.dispatchEvent(new Event("change"));
 
 if(!isUpdate){
-
-modelSelect.value=selection.model;
+ const familyEntry=Object.entries(MODEL_FAMILIES[restoredDevice]||{}).find(([,models])=>models.includes(selection.model));
+ if(familyEntry){modelFamilySelect.value=familyEntry[0];modelFamilySelect.dispatchEvent(new Event("change"));}
+ modelSelect.value=selection.model;
 
 if(modelSelect.value!==selection.model){
 throw new Error(t("paymentNotConfirmed"));
