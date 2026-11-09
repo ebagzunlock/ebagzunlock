@@ -1602,6 +1602,21 @@ const payButton=$("payButton");
 const paymentStatus=$("paymentStatus");
 const requestSection=$("requestSection");
 const requestForm=$("requestForm");
+const identifierInput=$("deviceIdentifier");
+const identifierLabel=identifierInput?.previousElementSibling;
+function syncIdentifierRules(){
+ const device=deviceSelect.value, service=serviceSelect.value;
+ const independent=device==="iMac unlock";
+ if(!identifierInput)return;
+ identifierInput.required=!independent;
+ identifierInput.disabled=independent;
+ if(independent){identifierInput.value="";identifierInput.placeholder="Non requis pour iMac unlock";}
+ else if(device==="iPhone"&&service==="Déverrouillage Opérateur")identifierInput.placeholder="IMEI obligatoire";
+ else if(device==="iPhone")identifierInput.placeholder="IMEI ou numéro de série";
+ else if(device)identifierInput.placeholder="Numéro de série uniquement";
+ else identifierInput.placeholder="Sélectionnez d’abord votre appareil";
+ if(identifierLabel)identifierLabel.textContent=independent?"Identifiant (non requis)":(device==="iPhone"?(service==="Déverrouillage Opérateur"?"IMEI":"IMEI ou numéro de série"):"Numéro de série");
+}
 const requestStatus=$("requestStatus");
 const contactToggle=$("contactToggle");
 const contactIcons=$("contactIcons");
@@ -1920,7 +1935,7 @@ window.location.href="/tarifs.html?service="+encodeURIComponent(card.dataset.ser
 });
 });
 
-deviceSelect.addEventListener("change",()=>{
+deviceSelect.addEventListener("change",()=>{\nsyncIdentifierRules();
 
 invalidateVerifiedOrder();
 
@@ -1990,7 +2005,7 @@ priceValue.textContent=selectedPrice+" €";
 payButton.disabled=!serviceSelect.value;
 });
 
-/* Contact is handled once by ebagz-hamburger-menu-script. */
+syncIdentifierRules();\n\n/* Contact is handled once by ebagz-hamburger-menu-script. */
 
 /* Ouverture de la page de paiement intégrée E-BAGS UNLOCK */
 payButton.addEventListener("click",()=>{
@@ -2003,7 +2018,7 @@ return;
 let model=modelSelect.value;
 if(!service||!device||selectedPrice===null){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
 if(!requestForm.reportValidity())return;
-if(service===UPDATE_SERVICE)model=device;
+if(service===UPDATE_SERVICE)model=device==="iMac unlock"?"":model;
 const formData=new FormData(requestForm);
 const customer={
 name:String(formData.get("name")||"").trim(),
