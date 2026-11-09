@@ -392,7 +392,7 @@ html body .site-header .main-nav button:not([aria-current="page"]):not(.is-activ
 (()=>{
  const cleanPath=value=>{
   try{
-   const path=new URL(value,location.origin).pathname.replace(/\\/+$/,"")||"/";
+   const path=new URL(value,location.origin).pathname.replace(/\/+$/,"")||"/";
    return path==="/"||path.toLowerCase().endsWith("/index.html")?"index.html":path.split("/").pop().toLowerCase();
   }catch(e){return "";}
  };
