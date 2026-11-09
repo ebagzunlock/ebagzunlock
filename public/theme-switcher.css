@@ -1,85 +1,168 @@
-
-/* Thème noir et blanc ebagzunlock — le filigrane fixe background-fixed.css reste intact. */
-html[data-site-theme="mono"] {
+/* Deux thèmes uniquement : clair et sombre. Le filigrane fixe reste géré par background-fixed.css. */
+:root { color-scheme: light; }
+html[data-site-theme="light"] {
+  color-scheme: light;
+  background: #f4f2ed !important;
+  color: #222 !important;
+  --background: #f4f2ed;
+  --surface: rgba(255,255,255,.78);
+  --surface-2: rgba(250,249,246,.82);
+  --white: #222;
+  --muted: #55514a;
+  --border: rgba(30,30,30,.2);
+}
+html[data-site-theme="dark"] {
   color-scheme: dark;
-  background: #000 !important;
-  color: #fff !important;
+  background: #080808 !important;
+  color: #f5f2e9 !important;
+  --background: #080808;
+  --surface: rgba(0,0,0,.58);
+  --surface-2: rgba(8,8,8,.62);
+  --white: #f5f2e9;
+  --muted: #d2c6a8;
+  --border: rgba(214,194,145,.32);
 }
-html[data-site-theme="mono"] body {
+html[data-site-theme="light"] body,
+html[data-site-theme="dark"] body {
   background: transparent !important;
-  color: #fff !important;
 }
-html[data-site-theme="mono"] :where(
+html[data-site-theme="light"] body { color: #222 !important; }
+html[data-site-theme="dark"] body { color: #f5f2e9 !important; }
+
+/* Le fond fixe et sa signature ne sont ni recolorés ni masqués par le thème. */
+html::before {
+  background-image: url("/background-ebagzunlock.svg") !important;
+  background-repeat: no-repeat !important;
+  background-position: 50% 50% !important;
+  background-attachment: fixed !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+/* En-tête et pied de page restent sombres pour préserver le logo blanc/bleu/blanc. */
+.site-header, header.site-header, .site-footer, footer.site-footer {
+  background: rgba(8,8,8,.96) !important;
+  color: #f5f8fc !important;
+  border-color: rgba(255,255,255,.16) !important;
+}
+.site-header .logo, .site-header .header-logo,
+.site-footer .footer-logo, .site-footer .logo {
+  color: #f5f8fc !important;
+}
+.site-header .logo-blue, .site-header .brand-blue,
+.site-footer .logo-blue, .site-footer .brand-blue {
+  color: #6da5dc !important;
+}
+.site-header .apple-mark, .site-footer .apple-mark {
+  color: #f5f8fc !important;
+}
+.site-header .main-nav a, .site-header .main-nav button,
+.site-header .menu-toggle, .site-header .language-globe {
+  color: #f5f8fc !important;
+}
+.site-header .theme-toggle {
+  color: #d6c291 !important;
+  border-color: rgba(214,194,145,.65) !important;
+}
+
+/* Mode clair : surfaces pâles et texte foncé, sans accent bleu. */
+html[data-site-theme="light"] :where(
   h1,h2,h3,h4,h5,h6,p,li,label,small,strong,em,span,div,summary,dt,dd,
   .section-heading,.hero-description,.eyebrow,.field,.status-message,
   .process-notice,.footer-legal,.footer-copyright,.service-copy,
   .assistance-copy,.contact-content,.page-content
-) {
-  color: #fff;
+):not(.logo):not(.header-logo):not(.footer-logo):not(.logo-blue):not(.apple-mark) {
+  color: #252525;
 }
-html[data-site-theme="mono"] :where(a:not(.logo):not(.header-logo):not(.footer-logo), .showcase-link) {
-  color: #fff !important;
-}
-html[data-site-theme="mono"] :where(
-  .site-header,.site-footer,.site-menu,header.site-header,footer.site-footer,
+html[data-site-theme="light"] :where(
   .content-section,.hero,.home-showcase,.service-and-assistance,
   .pricing-panel,.summary-card,.content-card,.info-card,.panel,
   .service-card,.product-card,.category-card,.showcase-card,
   .process-card,.support-assistance-card,.service-assistance-card,
-  .checkout-card,.order-summary,.payment-card,.confirmation-card
+  .checkout-card,.order-summary,.payment-card,.confirmation-card,
+  .contact-card,.contact-panel,.request-card
 ) {
-  background-color: rgba(0,0,0,.84) !important;
-  border-color: rgba(255,255,255,.5) !important;
-  color: #fff !important;
-  box-shadow: none;
+  background-color: rgba(255,255,255,.70) !important;
+  border-color: rgba(35,35,35,.18) !important;
+  color: #252525 !important;
+  box-shadow: 0 5px 20px rgba(0,0,0,.045);
 }
-html[data-site-theme="mono"] :where(
-  button:not(.theme-toggle),.primary-button,.secondary-button,
-  input,select,textarea,.menu-toggle
+html[data-site-theme="light"] :where(a:not(.logo):not(.header-logo):not(.footer-logo),.showcase-link) {
+  color: #292929 !important;
+}
+html[data-site-theme="light"] :where(button:not(.theme-toggle),.primary-button,.secondary-button,input,select,textarea) {
+  background-color: #fff !important;
+  color: #202020 !important;
+  border-color: rgba(30,30,30,.35) !important;
+}
+html[data-site-theme="light"] :where(input,select,textarea)::placeholder { color: #777 !important; }
+
+/* Mode sombre : textes blancs et or doux, avec surfaces noires translucides. */
+html[data-site-theme="dark"] :where(
+  h1,h2,h3,h4,h5,h6,.section-heading,.eyebrow,
+  .service-title,.card-title,.process-title,.support-title
+):not(.logo):not(.header-logo):not(.footer-logo):not(.logo-blue):not(.apple-mark) {
+  color: #c9ad75 !important;
+}
+html[data-site-theme="dark"] :where(
+  p,li,label,small,strong,em,span,div,summary,dt,dd,
+  .hero-description,.field,.status-message,.process-notice,
+  .footer-legal,.footer-copyright,.service-copy,.assistance-copy,
+  .contact-content,.page-content,.description,.muted
+):not(.logo):not(.header-logo):not(.footer-logo):not(.logo-blue):not(.apple-mark) {
+  color: #f4f1e8;
+}
+html[data-site-theme="dark"] :where(
+  .content-section,.hero,.home-showcase,.service-and-assistance,
+  .pricing-panel,.summary-card,.content-card,.info-card,.panel,
+  .service-card,.product-card,.category-card,.showcase-card,
+  .process-card,.support-assistance-card,.service-assistance-card,
+  .checkout-card,.order-summary,.payment-card,.confirmation-card,
+  .contact-card,.contact-panel,.request-card
 ) {
-  background-color: #050505 !important;
-  color: #fff !important;
-  border-color: rgba(255,255,255,.8) !important;
+  background-color: rgba(0,0,0,.48) !important;
+  border-color: rgba(207,181,125,.34) !important;
+  color: #f4f1e8 !important;
+  box-shadow: 0 5px 22px rgba(0,0,0,.12);
 }
-html[data-site-theme="mono"] :where(input,select,textarea)::placeholder {
-  color: #c8c8c8 !important;
+html[data-site-theme="dark"] :where(a:not(.logo):not(.header-logo):not(.footer-logo),.showcase-link) {
+  color: #e5d2a6 !important;
 }
-html[data-site-theme="mono"] :where(.site-header,.site-footer,.site-menu) {
-  background: rgba(0,0,0,.94) !important;
+html[data-site-theme="dark"] :where(button:not(.theme-toggle),.primary-button,.secondary-button,input,select,textarea) {
+  background-color: rgba(8,8,8,.86) !important;
+  color: #f5f2e9 !important;
+  border-color: rgba(207,181,125,.58) !important;
 }
-html[data-site-theme="mono"] .site-menu a,
-html[data-site-theme="mono"] .site-menu button,
-html[data-site-theme="mono"] .main-nav a,
-html[data-site-theme="mono"] .main-nav button {
-  color: #fff !important;
+html[data-site-theme="dark"] :where(input,select,textarea)::placeholder { color: #c9c0ad !important; }
+html[data-site-theme="dark"] .site-menu {
+  background: rgba(5,5,5,.94) !important;
+  border-color: rgba(207,181,125,.38) !important;
 }
-html[data-site-theme="mono"] .logo-blue,
-html[data-site-theme="mono"] .brand-blue,
-html[data-site-theme="mono"] .header-logo .logo-blue,
-html[data-site-theme="mono"] .footer-logo .logo-blue {
-  color: #65b8ff !important;
+html[data-site-theme="dark"] .site-menu a,
+html[data-site-theme="dark"] .site-menu button { color: #e5d2a6 !important; }
+html[data-site-theme="light"] .site-menu {
+  background: rgba(250,249,246,.97) !important;
+  border-color: rgba(30,30,30,.2) !important;
 }
-html[data-site-theme="mono"] .apple-mark,
-html[data-site-theme="mono"] .header-logo,
-html[data-site-theme="mono"] .footer-logo {
-  color: #f5f8fc !important;
-}
+html[data-site-theme="light"] .site-menu a,
+html[data-site-theme="light"] .site-menu button { color: #222 !important; }
+
+/* Le bleu est réservé au mot « unlock » du logo de marque. */
+html[data-site-theme="light"] .logo-blue,
+html[data-site-theme="dark"] .logo-blue,
+html[data-site-theme="light"] .brand-blue,
+html[data-site-theme="dark"] .brand-blue { color: #6da5dc !important; }
+html[data-site-theme="light"] .apple-mark,
+html[data-site-theme="dark"] .apple-mark { color: #f5f8fc !important; }
+
 .theme-toggle {
-  width: 28px !important;
-  height: 28px !important;
-  min-width: 28px !important;
-  flex: 0 0 28px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  border: 1px solid currentColor !important;
-  border-radius: 50% !important;
-  background: transparent !important;
-  color: inherit !important;
-  cursor: pointer !important;
-  line-height: 1 !important;
+  width: 28px !important; height: 28px !important; min-width: 28px !important;
+  flex: 0 0 28px !important; display: inline-flex !important;
+  align-items: center !important; justify-content: center !important;
+  padding: 0 !important; margin: 0 !important;
+  border: 1px solid currentColor !important; border-radius: 50% !important;
+  background: transparent !important; color: #d6c291 !important;
+  cursor: pointer !important; line-height: 1 !important;
 }
 .theme-toggle svg { width: 17px; height: 17px; display: block; }
 .theme-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
