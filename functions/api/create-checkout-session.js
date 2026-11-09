@@ -66,8 +66,8 @@ export async function onRequestPost({ request, env }) {
 
   let amount;
   if (service === "Mise à jour iOS / macOS") {
-    if (device === "ebagzunlock" && model === "ebagzunlock") {
-      amount = UPDATE_PRICES.ebagzunlock;
+    if (device === "iMac unlock" && !model) {
+      amount = UPDATE_PRICES["iMac unlock"];
     } else {
       const system = UPDATE_SYSTEMS[device];
       if (!system || typeof model !== "string" || !Object.prototype.hasOwnProperty.call(CATALOGUE[device] || {}, model)) {
