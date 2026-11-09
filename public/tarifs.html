@@ -1094,8 +1094,8 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <option value="Déverrouillage iCloud">Déverrouillage iCloud</option>
 <option value="Déverrouillage Opérateur">Déverrouillage opérateur</option>
 <option value="SNAP-error/ban">SNAP-error/ban</option>
-<option value="Suppression Blocage & Limitation Propriétaire">Suppression de blocage et de limitation propriétaire</option>
-<option value="Résolution Blocage DFU & Mode de Récupération">Résolution des blocages DFU et du mode de récupération</option>
+<option value="Suppression Blocage & Limitation Propriétaire">Suppression de blocage & limitation propriétaire</option>
+<option value="Résolution Blocage DFU & Mode de Récupération">Résolution blocage DFU & mode de récupération</option>
 <option value="Mise à jour iOS / macOS">Mise à jour iOS / macOS</option>
 </select>
 </div>
@@ -1116,6 +1116,10 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <select id="modelSelect" disabled>
 <option value="" data-i18n="chooseModel">Choisir un modèle</option>
 </select>
+</div>
+<div class="field" id="updateChoiceField" hidden>
+<label for="updateChoiceSelect">Choix de la prestation</label>
+<select id="updateChoiceSelect" disabled></select>
 </div>
 
 <div id="requestSection" class="visible">
@@ -1314,8 +1318,8 @@ servicesDesc:"Sélectionnez un service pour commencer votre demande.",
 svcIcloud:"Déverrouillage iCloud",
 svcCarrier:"Déverrouillage opérateur",
 svcSnap:"SNAP-error/ban",
-svcOwner:"Suppression de blocage et de limitation propriétaire",
-svcDfu:"Résolution des blocages DFU et du mode de récupération",
+svcOwner:"Suppression de blocage & limitation propriétaire",
+svcDfu:"Résolution blocage DFU & mode de récupération",
 svcUpdate:"Mise à jour système",
 imeiSerial:"IMEI ou numéro de série",
 imeiOnly:"IMEI uniquement",
@@ -1461,6 +1465,8 @@ const serviceSelect=$("serviceSelect");
 const deviceSelect=$("deviceSelect");
 const modelSelect=$("modelSelect");
 const modelField=$("modelField");
+const updateChoiceField=$("updateChoiceField");
+const updateChoiceSelect=$("updateChoiceSelect");
 const deviceLabel=$("deviceLabel");
 const priceValue=$("priceValue");
 const payButton=$("payButton");
@@ -1670,36 +1676,70 @@ payButton.disabled=true;
 
 function resetUpdateChoices(){
 
+const params=new URLSearchParams(location.search);
+const requestedDevice=params.get("device");
+const requestedSystem=params.get("system");
+const systems={iPhone:"iOS",iPad:"iPadOS",MacBook:"macOS","Apple Watch":"watchOS"};
+const allowedDevices=["iPhone","iPad","MacBook","Apple Watch"];
+const devices=allowedDevices.filter(device=>!requestedDevice||device===requestedDevice);
 deviceSelect.innerHTML="";
-
-const requestedSystem=new URLSearchParams(location.search).get("device");
-const categorySystems=["iOS","iPadOS","macOS","watchOS"];
-const systemLabels={
-"iOS":"iOS — 15 €",
-"iPadOS":"iPadOS — 10 €",
-"macOS":"macOS — 13 €",
-"watchOS":"watchOS — 8 €",
-"ebagzunlock":"ebagzunlock  — 2 €"
-};
-const choices=categorySystems.includes(requestedSystem)
-?[[requestedSystem,systemLabels[requestedSystem]]]
-:[["",t("chooseOption")],...categorySystems.map(value=>[value,systemLabels[value]]),["ebagzunlock",systemLabels.ebagzunlock]];
-
-choices.forEach(([value,label])=>{
-const option=document.createElement("option");
-option.value=value;
-option.textContent=label;
-deviceSelect.appendChild(option);
+const first=document.createElement("option");
+first.value="";
+first.textContent=t("chooseCategory");
+deviceSelect.appendChild(first);
+devices.forEach(device=>{
+ const option=document.createElement("option");
+ option.value=device;
+ option.textContent=device;
+ deviceSelect.appendChild(option);
 });
-
 deviceSelect.disabled=false;
-deviceLabel.textContent=categorySystems.includes(requestedSystem)?"Mise à jour système":"Mise à jour système";
-modelField.hidden=true;
-modelSelect.value="";
+deviceLabel.textContent=t("deviceCategory");
+modelField.hidden=false;
+resetModelAndPrice();
+const chosen=requestedDevice&&allowedDevices.includes(requestedDevice)?requestedDevice:"";
+if(chosen){
+ deviceSelect.value=chosen;
+ populateModels(chosen);
+ const system=systems[chosen];
+ const validSystem=!requestedSystem||requestedSystem===system;
+ updateChoiceSelect.innerHTML="";
+ const option=document.createElement("option");
+ option.value=system;
+ option.textContent=system+" — "+UPDATE_PRICES[system]+" €";
+ updateChoiceSelect.appendChild(option);
+ updateChoiceField.hidden=false;
+ updateChoiceSelect.disabled=true;
+ selectedPrice=validSystem?UPDATE_PRICES[system]:null;
+ priceValue.textContent=selectedPrice===null?"— €":selectedPrice+" €";
+ payButton.disabled=selectedPrice===null;
+}else{
+ updateChoiceField.hidden=true;
+ updateChoiceSelect.innerHTML="";
+ updateChoiceSelect.disabled=true;
+}
+}
+
+function populateModels(device){
+ modelSelect.innerHTML="";
+ const placeholder=document.createElement("option");
+ placeholder.value="";
+ placeholder.textContent=t("chooseModel");
+ modelSelect.appendChild(placeholder);
+ if(!device||!CATALOGUE[device]){modelSelect.disabled=true;return;}
+ Object.keys(CATALOGUE[device]).forEach(model=>{
+  const option=document.createElement("option");
+  option.value=model;
+  option.textContent=translateModelName(model);
+  modelSelect.appendChild(option);
+ });
+ modelSelect.disabled=false;
 }
 
 function resetDeviceChoices(){
 
+updateChoiceField.hidden=true;
+updateChoiceSelect.innerHTML="";
 deviceSelect.innerHTML="";
 
 const choices=[
@@ -1799,33 +1839,24 @@ payButton.disabled=true;
 
 const device=deviceSelect.value;
 
-if(serviceSelect.value===UPDATE_SERVICE){
-
-if(Object.prototype.hasOwnProperty.call(UPDATE_PRICES,device)){
-selectedPrice=UPDATE_PRICES[device];
-priceValue.textContent=selectedPrice+" €";
-payButton.disabled=false;
-}
-
-return;
-}
-
 resetModelAndPrice();
-
 if(!device||!CATALOGUE[device])return;
 if(serviceSelect.value==="SNAP-error/ban"&&!["iPhone","iPad"].includes(device))return;
-
-Object.keys(CATALOGUE[device]).forEach(model=>{
-
-const option=document.createElement("option");
-option.value=model;
-option.textContent=translateModelName(model);
-
-modelSelect.appendChild(option);
-
-});
-
-modelSelect.disabled=false;
+populateModels(device);
+if(serviceSelect.value===UPDATE_SERVICE){
+ const systems={iPhone:"iOS",iPad:"iPadOS",MacBook:"macOS","Apple Watch":"watchOS"};
+ const system=systems[device];
+ updateChoiceSelect.innerHTML="";
+ const option=document.createElement("option");
+ option.value=system;
+ option.textContent=system+" — "+UPDATE_PRICES[system]+" €";
+ updateChoiceSelect.appendChild(option);
+ updateChoiceField.hidden=false;
+ updateChoiceSelect.disabled=true;
+ selectedPrice=UPDATE_PRICES[system];
+ priceValue.textContent=selectedPrice+" €";
+ payButton.disabled=false;
+}
 });
 
 const requestedDeviceChoice=new URLSearchParams(location.search).get("device");
@@ -1846,15 +1877,25 @@ const model=modelSelect.value;
 
 if(!CATALOGUE[device]||
 !Object.prototype.hasOwnProperty.call(CATALOGUE[device],model)){
-
-selectedPrice=null;
-priceValue.textContent="— €";
-payButton.disabled=true;
-
-return;
+ if(serviceSelect.value===UPDATE_SERVICE&&model&&CATALOGUE[device]){
+  const systems={iPhone:"iOS",iPad:"iPadOS",MacBook:"macOS","Apple Watch":"watchOS"};
+  const system=systems[device];
+  selectedPrice=UPDATE_PRICES[system];
+  priceValue.textContent=selectedPrice+" €";
+  payButton.disabled=false;
+  return;
+ }
+ selectedPrice=null;
+ priceValue.textContent="— €";
+ payButton.disabled=true;
+ return;
 }
-
-selectedPrice=CATALOGUE[device][model];
+if(serviceSelect.value===UPDATE_SERVICE){
+ const systems={iPhone:"iOS",iPad:"iPadOS",MacBook:"macOS","Apple Watch":"watchOS"};
+ selectedPrice=UPDATE_PRICES[systems[device]];
+}else{
+ selectedPrice=CATALOGUE[device][model];
+}
 priceValue.textContent=selectedPrice+" €";
 payButton.disabled=!serviceSelect.value;
 });
@@ -1872,7 +1913,7 @@ return;
 let model=modelSelect.value;
 if(!service||!device||selectedPrice===null){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
 if(!requestForm.reportValidity())return;
-if(service===UPDATE_SERVICE)model=device;
+if(service===UPDATE_SERVICE&&!model){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
 const formData=new FormData(requestForm);
 const customer={
 name:String(formData.get("name")||"").trim(),
