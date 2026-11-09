@@ -1073,7 +1073,7 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <a href="/services.html" data-i18n="navServices" aria-current="page">Services</a>
 <a href="/tarifs.html" data-i18n="navPrices">Tarifs</a>
 <a href="/fonctionnement.html" data-i18n="navHow">Fonctionnement</a>
-<button type="button" id="contactToggle" aria-expanded="false" data-i18n="contact">Contact</button>
+<a href="/contact.html" data-i18n="contact">Contact</a>
 </nav>
 
 <label class="language-picker" aria-label="Choisir la langue">
@@ -1093,7 +1093,7 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 </svg>
 </a>
 <a href="tel:+33764027733" aria-label="Téléphone" title="Téléphone"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3.5h3l1.5 4-2 1.5a15 15 0 0 0 5.5 5.5l1.5-2 4 1.5v3c0 1.1-.9 2-2 2C10 19 5 14 5 5.5c0-1.1.9-2 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></a>
-</div>
+
 
 </div>
 </div>
@@ -1101,7 +1101,7 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <a href="/services.html">DÉCOUVRIR NOS OFFRES</a>
 <a href="/services.html#service-and-assistance-title">SERVICES RENDUS</a>
 <a href="/services.html#assistance-heading">ASSISTANCE</a>
-<button type="button" id="siteMenuContact">CONTACT</button>
+<a href="/contact.html" id="siteMenuContact">CONTACT</a>
 <a href="/conditions-generales.html">CONDITIONS GÉNÉRALES</a>
 </div>
 </header>
@@ -1186,91 +1186,28 @@ function googleTranslateElementInit(){
  const header=document.querySelector(".site-header");
  const toggle=document.getElementById("siteMenuToggle");
  const menu=document.getElementById("siteMenu");
- const contact=document.getElementById("contactIcons");
- const contactButton=document.getElementById("contactToggle");
- const menuContact=document.getElementById("siteMenuContact");
- const headerRight=header?.querySelector(".header-right");
- if(!header||!toggle||!menu||!contact||!contactButton||!headerRight)return;
- const navLinks=Array.from(header.querySelectorAll(".main-nav a"));
- const normalizePath=path=>path.endsWith("/")?path+"index.html":path;
- const currentPath=normalizePath(location.pathname);
- const restoreCurrentPage=()=>{
-  navLinks.forEach(link=>{
-   const target=normalizePath(new URL(link.getAttribute("href"),location.origin).pathname);
-   const active=target===currentPath;
-   if(active){link.setAttribute("aria-current","page");link.classList.add("is-active");}
-   else{link.removeAttribute("aria-current");link.classList.remove("is-active");}
-  });
- };
- const setContactVisible=visible=>{
-  if(visible&&contact.parentElement!==headerRight)headerRight.appendChild(contact);
-  contact.hidden=!visible;
-  headerRight.classList.toggle("contact-open",visible);
-  contactButton.setAttribute("aria-expanded",String(visible));
-  contactButton.classList.toggle("is-active",visible);
-  if(menuContact){menuContact.setAttribute("aria-expanded",String(visible));menuContact.classList.toggle("is-active",visible);}
-  if(visible){
-   navLinks.forEach(link=>{link.removeAttribute("aria-current");link.classList.remove("is-active");});
-  }else{
-   restoreCurrentPage();
-  }
- };
- const closeMenu=()=>{
-  menu.hidden=true;
-  toggle.setAttribute("aria-expanded","false");
-  if(contact.parentElement!==headerRight)headerRight.appendChild(contact);
-  contact.hidden=true;
-  headerRight.classList.remove("contact-open");
-  contactButton.setAttribute("aria-expanded","false");
-  contactButton.classList.remove("is-active");
-  if(menuContact){menuContact.setAttribute("aria-expanded","false");menuContact.classList.remove("is-active");}
-  restoreCurrentPage();
- };
- restoreCurrentPage();
+ if(!header||!toggle||!menu)return;
+ const links=Array.from(header.querySelectorAll(".main-nav a"));
+ const normalize=path=>path.endsWith("/")?path+"index.html":path;
+ const current=normalize(location.pathname);
+ links.forEach(link=>{
+  const target=normalize(new URL(link.getAttribute("href"),location.origin).pathname);
+  const active=target===current;
+  if(active){link.setAttribute("aria-current","page");link.classList.add("is-active");}
+  else{link.removeAttribute("aria-current");link.classList.remove("is-active");}
+ });
+ const closeMenu=()=>{menu.hidden=true;toggle.setAttribute("aria-expanded","false");};
  toggle.addEventListener("click",event=>{
   event.preventDefault();
   const open=menu.hidden;
-  if(open)setContactVisible(false);
   menu.hidden=!open;
   toggle.setAttribute("aria-expanded",String(open));
  });
- contactButton.addEventListener("click",event=>{
-  event.preventDefault();
-  event.stopPropagation();
-  setContactVisible(contact.hidden);
- });
- if(menuContact)menuContact.addEventListener("click",event=>{
-  event.preventDefault();
-  event.stopPropagation();
-  const showing=menuContact.getAttribute("aria-expanded")==="true";
-  if(showing){
-   if(contact.parentElement!==headerRight)headerRight.appendChild(contact);
-   contact.hidden=true;
-   menuContact.setAttribute("aria-expanded","false");
-   menuContact.classList.remove("is-active");
-   restoreCurrentPage();
-  }else{
-   menu.insertBefore(contact,menuContact.nextSibling);
-   contact.hidden=false;
-   navLinks.forEach(link=>{link.removeAttribute("aria-current");link.classList.remove("is-active");});
-   contactButton.setAttribute("aria-expanded","false");
-   contactButton.classList.remove("is-active");
-   menuContact.setAttribute("aria-expanded","true");
-   menuContact.classList.add("is-active");
-  }
- });
- navLinks.forEach(link=>{
-  link.addEventListener("click",()=>{
-   closeMenu();
-  });
- });
+ menu.querySelectorAll("a").forEach(link=>link.addEventListener("click",closeMenu));
  document.addEventListener("click",event=>{
   if(!menu.hidden&&!menu.contains(event.target)&&!toggle.contains(event.target))closeMenu();
-  if(!contact.hidden&&!contact.contains(event.target)&&!contactButton.contains(event.target)&&!menuContact?.contains(event.target))setContactVisible(false);
  });
- document.addEventListener("keydown",event=>{
-  if(event.key==="Escape")closeMenu();
- });
+ document.addEventListener("keydown",event=>{if(event.key==="Escape")closeMenu();});
 })();
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
