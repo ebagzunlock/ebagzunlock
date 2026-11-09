@@ -1298,7 +1298,7 @@ const UPDATE_PRICES={
 "iPadOS":10,
 "macOS":13,
 "watchOS":8,
-"ebagzunlock":2
+"iMac unlock":2
 };
 
 /* Traductions */
@@ -1474,6 +1474,21 @@ const payButton=$("payButton");
 const paymentStatus=$("paymentStatus");
 const requestSection=$("requestSection");
 const requestForm=$("requestForm");
+const identifierInput=$("deviceIdentifier");
+const identifierLabel=identifierInput?.previousElementSibling;
+function syncIdentifierRules(){
+ const device=deviceSelect.value, service=serviceSelect.value;
+ const independent=device==="iMac unlock";
+ if(!identifierInput)return;
+ identifierInput.required=!independent;
+ identifierInput.disabled=independent;
+ if(independent){identifierInput.value="";identifierInput.placeholder="Non requis pour iMac unlock";}
+ else if(device==="iPhone"&&service==="Déverrouillage Opérateur")identifierInput.placeholder="IMEI obligatoire";
+ else if(device==="iPhone")identifierInput.placeholder="IMEI ou numéro de série";
+ else if(device)identifierInput.placeholder="Numéro de série uniquement";
+ else identifierInput.placeholder="Sélectionnez d’abord votre appareil";
+ if(identifierLabel)identifierLabel.textContent=independent?"Identifiant (non requis)":(device==="iPhone"?(service==="Déverrouillage Opérateur"?"IMEI":"IMEI ou numéro de série"):"Numéro de série");
+}
 const requestStatus=$("requestStatus");
 const contactToggle=$("contactToggle");
 const contactIcons=$("contactIcons");
@@ -1682,13 +1697,13 @@ const requestedDevice=params.get("device");
 const requestedSystem=params.get("system");
 const systems={iPhone:"iOS",iPad:"iPadOS",MacBook:"macOS","Apple Watch":"watchOS"};
 const allowedDevices=["iPhone","iPad","MacBook","Apple Watch"];
-if(requestedDevice==="ebagzunlock"){
+if(requestedDevice==="iMac unlock"){
  deviceSelect.innerHTML="";
  const option=document.createElement("option");
- option.value="ebagzunlock";
- option.textContent="ebagzunlock  — 2 €";
+ option.value="iMac unlock";
+ option.textContent="iMac unlock — 2 €";
  deviceSelect.appendChild(option);
- deviceSelect.value="ebagzunlock";
+ deviceSelect.value="iMac unlock";
  deviceSelect.disabled=true;
  deviceLabel.textContent="Mise à jour système";
  modelField.hidden=true;
@@ -1696,7 +1711,7 @@ if(requestedDevice==="ebagzunlock"){
  updateChoiceSelect.disabled=true;
  updateChoiceField.hidden=true;
  resetModelAndPrice();
- selectedPrice=UPDATE_PRICES.ebagzunlock;
+ selectedPrice=UPDATE_PRICES["iMac unlock"];
  priceValue.textContent=selectedPrice+" €";
  payButton.disabled=false;
  return;
@@ -1849,7 +1864,7 @@ window.location.href="/tarifs.html?service="+encodeURIComponent(card.dataset.ser
 });
 });
 
-deviceSelect.addEventListener("change",()=>{
+deviceSelect.addEventListener("change",()=>{\nsyncIdentifierRules();
 
 invalidateVerifiedOrder();
 
@@ -1920,7 +1935,7 @@ priceValue.textContent=selectedPrice+" €";
 payButton.disabled=!serviceSelect.value;
 });
 
-/* Contact is handled once by ebagz-hamburger-menu-script. */
+syncIdentifierRules();\n\n/* Contact is handled once by ebagz-hamburger-menu-script. */
 
 /* Ouverture de la page de paiement intégrée E-BAGS UNLOCK */
 payButton.addEventListener("click",()=>{
@@ -1931,10 +1946,10 @@ showStatus(paymentStatus,"Ce service est disponible uniquement pour iPhone et iP
 return;
 }
 let model=modelSelect.value;
-if(service===UPDATE_SERVICE&&device==="ebagzunlock")model="ebagzunlock";
+if(service===UPDATE_SERVICE&&device==="iMac unlock")model="";
 if(!service||!device||selectedPrice===null){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
 if(!requestForm.reportValidity())return;
-if(service===UPDATE_SERVICE&&!model){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
+if(service===UPDATE_SERVICE&&device!=="iMac unlock"&&!model){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
 const formData=new FormData(requestForm);
 const customer={
 name:String(formData.get("name")||"").trim(),
@@ -2526,12 +2541,12 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
 .site-header .main-nav a.is-active::after,
 .site-header .main-nav a[aria-current="page"]::after{display:none!important}
 </style>
-<style id="ebagz-company-name-white">
-.site-header .logo,.site-header .logo .logo-blue,.site-header .logo-blue,
-.site-footer .footer-logo,.site-footer .footer-logo .logo-blue,
-.footer-logo span:not(.apple-mark),header .logo span:not(.apple-mark),
-.logo-blue,.brand-inline,.brand-inline .logo-blue,
-.logo .apple-mark,.footer-logo .apple-mark,.apple-mark{color:#fff!important}
+
+<style id="ebagz-brand-colors-restored">
+.site-header .logo,.site-header .logo-blue,.site-header .logo .logo-blue,.site-footer .footer-logo,.site-footer .footer-logo .logo-blue,.footer-logo span:not(.apple-mark),.brand-inline .logo-blue{color:#6da5dc}
+.site-header .logo,.site-footer .footer-logo,.brand-inline{color:#fff!important}
+.site-header .logo .logo-blue,.site-header .logo-blue,.site-footer .footer-logo .logo-blue,.site-footer .footer-logo span:not(.apple-mark),.brand-inline .logo-blue{color:#6da5dc!important}
+.site-header .apple-mark,.site-footer .apple-mark,.brand-inline .apple-mark{color:#fff!important}
 </style>
 </body>
 </html>
