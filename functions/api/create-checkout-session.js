@@ -173,12 +173,7 @@ const CATALOGUE = {
     "MacBook Pro 16 pouces (M4 Pro/M4 Max, 2024)": 49,
     "MacBook Pro 14 pouces (M5, 2025)": 49,
     "MacBook Pro 14 pouces (M5 Pro/M5 Max, 2026)": 49,
-    "MacBook Pro 16 pouces (M5 Pro/M5 Max, 2026)",
-      "MacBook Pro 14 pouces (M5 Pro, 2026)",
-      "MacBook Pro 14 pouces (M5 Max, 2026)",
-      "MacBook Pro 16 pouces (M5 Pro, 2026)",
-      "MacBook Pro 16 pouces (M5 Max, 2026)",
-      "MacBook Pro 14 pouces (M6, 2026)": 49,
+    "MacBook Pro 16 pouces (M5 Pro/M5 Max, 2026)": 49,
     "MacBook Pro 14 pouces (M5 Pro, 2026)": 49,
     "MacBook Pro 14 pouces (M5 Max, 2026)": 49,
     "MacBook Pro 16 pouces (M5 Pro, 2026)": 49,
@@ -210,7 +205,8 @@ const CATALOGUE = {
     "Apple Watch Ultra 3": 69,
     "Apple Watch Ultra 4": 69
   }
-}
+};
+
 
 export async function onRequestPost({ request, env }) {
   if (!env.STRIPE_SECRET_KEY) return Response.json({ error: "La clé Stripe n'est pas configurée." }, { status: 503 });
