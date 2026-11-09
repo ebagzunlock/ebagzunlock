@@ -233,7 +233,8 @@ document.getElementById("status").textContent="Récapitulatif incomplet. Retourn
 }else{
 document.getElementById("service").textContent=isUpdate?"Mise à jour système":selection.service;
 document.getElementById("device").textContent=selection.device;
-document.getElementById("model").textContent=selection.model||"Non applicable";\nif(selection.device==="iMac unlock")document.getElementById("model").parentElement.hidden=true;
+document.getElementById("model").textContent=selection.model||"Non applicable";
+if(selection.device==="iMac unlock")document.getElementById("model").parentElement.hidden=true;
 if(isUpdate&&updateSystem){
  document.getElementById("update-system").textContent=updateSystem;
  document.getElementById("update-system-row").hidden=false;
@@ -619,6 +620,11 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
 .site-header .logo,.site-footer .footer-logo,.brand-inline{color:#fff!important}
 .site-header .logo .logo-blue,.site-header .logo-blue,.site-footer .footer-logo .logo-blue,.site-footer .footer-logo span:not(.apple-mark),.brand-inline .logo-blue{color:#6da5dc!important}
 .site-header .apple-mark,.site-footer .apple-mark,.brand-inline .apple-mark{color:#fff!important}
+</style>
+<style id="ebagz-company-name-white">
+.site-header .logo,.site-footer .footer-logo,.brand-inline{color:#fff!important}
+.site-header .logo .logo-blue,.site-header .logo-blue,.site-footer .footer-logo .logo-blue,.brand-inline .logo-blue{color:#6da5dc!important}
+.site-header .logo .apple-mark,.site-footer .footer-logo .apple-mark,.brand-inline .apple-mark{color:#fff!important}
 </style>
 </body>
 </html>
