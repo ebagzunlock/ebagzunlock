@@ -307,30 +307,53 @@ function googleTranslateElementInit(){if(window.google&&google.translate)new goo
 </footer>
 <script id="ebagz-hamburger-menu-script">
 (()=> {
+ const header=document.querySelector(".site-header");
  const toggle=document.getElementById("siteMenuToggle");
  const menu=document.getElementById("siteMenu");
  const contact=document.getElementById("contactIcons");
  const contactButton=document.getElementById("contactToggle");
  const menuContact=document.getElementById("siteMenuContact");
- const headerRight=document.querySelector(".site-header .header-right");
- if(!toggle||!menu||!contact||!contactButton||!headerRight)return;
+ const headerRight=header?.querySelector(".header-right");
+ if(!header||!toggle||!menu||!contact||!contactButton||!headerRight)return;
+ const navLinks=Array.from(header.querySelectorAll(".main-nav a"));
+ const currentPath=location.pathname.replace(/\\/$/,"/index.html");
+ const restoreCurrentPage=()=>{
+  navLinks.forEach(link=>{
+   const target=new URL(link.getAttribute("href"),location.origin).pathname.replace(/\\/$/,"/index.html");
+   const active=target===currentPath;
+   if(active){link.setAttribute("aria-current","page");link.classList.add("is-active");}
+   else{link.removeAttribute("aria-current");link.classList.remove("is-active");}
+  });
+ };
  const setContactVisible=visible=>{
+  if(visible&&contact.parentElement!==headerRight)headerRight.appendChild(contact);
   contact.hidden=!visible;
   headerRight.classList.toggle("contact-open",visible);
   contactButton.setAttribute("aria-expanded",String(visible));
   contactButton.classList.toggle("is-active",visible);
-  if(menuContact)menuContact.setAttribute("aria-expanded",String(visible));
+  if(menuContact){menuContact.setAttribute("aria-expanded",String(visible));menuContact.classList.toggle("is-active",visible);}
+  if(visible){
+   navLinks.forEach(link=>{link.removeAttribute("aria-current");link.classList.remove("is-active");});
+  }else{
+   restoreCurrentPage();
+  }
  };
  const closeMenu=()=>{
   menu.hidden=true;
   toggle.setAttribute("aria-expanded","false");
   if(contact.parentElement!==headerRight)headerRight.appendChild(contact);
   contact.hidden=true;
+  headerRight.classList.remove("contact-open");
+  contactButton.setAttribute("aria-expanded","false");
+  contactButton.classList.remove("is-active");
   if(menuContact){menuContact.setAttribute("aria-expanded","false");menuContact.classList.remove("is-active");}
+  restoreCurrentPage();
  };
+ restoreCurrentPage();
  toggle.addEventListener("click",event=>{
   event.preventDefault();
   const open=menu.hidden;
+  if(open)setContactVisible(false);
   menu.hidden=!open;
   toggle.setAttribute("aria-expanded",String(open));
  });
@@ -348,23 +371,29 @@ function googleTranslateElementInit(){if(window.google&&google.translate)new goo
    contact.hidden=true;
    menuContact.setAttribute("aria-expanded","false");
    menuContact.classList.remove("is-active");
+   restoreCurrentPage();
   }else{
    menu.insertBefore(contact,menuContact.nextSibling);
    contact.hidden=false;
+   navLinks.forEach(link=>{link.removeAttribute("aria-current");link.classList.remove("is-active");});
+   contactButton.setAttribute("aria-expanded","false");
+   contactButton.classList.remove("is-active");
    menuContact.setAttribute("aria-expanded","true");
    menuContact.classList.add("is-active");
   }
  });
- document.querySelectorAll(".site-header .main-nav a").forEach(link=>{
+ navLinks.forEach(link=>{
   link.addEventListener("click",()=>{
-   setContactVisible(false);
    closeMenu();
   });
  });
  document.addEventListener("click",event=>{
   if(!menu.hidden&&!menu.contains(event.target)&&!toggle.contains(event.target))closeMenu();
+  if(!contact.hidden&&!contact.contains(event.target)&&!contactButton.contains(event.target)&&!menuContact?.contains(event.target))setContactVisible(false);
  });
- document.addEventListener("keydown",event=>{if(event.key==="Escape")closeMenu();});
+ document.addEventListener("keydown",event=>{
+  if(event.key==="Escape")closeMenu();
+ });
 })();
 </script>
 </body></html>
