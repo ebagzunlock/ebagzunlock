@@ -1543,7 +1543,15 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
   card.hidden=!allowed;
   if(!allowed)return;
   const url=new URL(card.getAttribute("href"),location.origin);
-  url.searchParams.set("device",card.hasAttribute("data-update-service")?updateChoice:device);
+  if(card.hasAttribute("data-update-service")){
+   url.searchParams.set("device",updateChoice);
+   const title=card.querySelector("h3");
+   if(title)title.textContent="Mise à jour système "+updateChoice;
+   const description=card.querySelector("p");
+   if(description)description.textContent="Mise à jour disponible pour "+device;
+  }else{
+   url.searchParams.set("device",device);
+  }
   card.href=url.pathname+url.search;
  });
 })();
