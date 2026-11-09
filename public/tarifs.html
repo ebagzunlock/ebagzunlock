@@ -1798,7 +1798,7 @@ deviceSelect.innerHTML="";
 const choices=[
 ["",t("chooseCategory")],
 ["iPhone","iPhone"],
-...(serviceSelect.value==="SNAP-error/ban"?[]:[["MacBook","MacBook"],["iPad","iPad"],["Apple Watch","Apple Watch"]])
+...(["SNAP-error/ban","Déverrouillage Opérateur"].includes(serviceSelect.value)?[]:[["MacBook","MacBook"],["iPad","iPad"],["Apple Watch","Apple Watch"]])
 ];
 
 choices.forEach(([value,label])=>{
