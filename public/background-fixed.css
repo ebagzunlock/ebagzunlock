@@ -103,3 +103,31 @@ html::before{
 body,body>*{
   transform:none;
 }
+
+
+/* Safari iOS : placer le filigrane sur le pseudo-élément du body
+   évite qu'il soit traité comme un arrière-plan du document qui défile. */
+html::before{content:none!important;display:none!important}
+body::before{
+  content:""!important;
+  position:fixed!important;
+  inset:0!important;
+  width:100vw!important;
+  height:100vh!important;
+  height:100dvh!important;
+  display:block!important;
+  z-index:0!important;
+  pointer-events:none!important;
+  background-image:url("/background-ebagzunlock.svg")!important;
+  background-repeat:no-repeat!important;
+  background-position:center center!important;
+  background-size:min(100vw,900px) auto!important;
+  background-attachment:scroll!important;
+  opacity:.30!important;
+  transform:none!important;
+  will-change:auto!important;
+}
+body>*{position:relative;z-index:1}
+@media(max-width:600px){
+  body::before{background-size:min(112vw,680px)!important;opacity:.27!important}
+}
