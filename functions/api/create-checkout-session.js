@@ -69,7 +69,7 @@ export async function onRequestPost({ request, env }) {
   const identifierValid = independent
     ? !identifier
     : device === "iPhone" && service === "Déverrouillage Opérateur"
-      ? /^\\d{14,16}$/.test(identifier)
+      ? /^\d{14,16}$/.test(identifier)
       : Boolean(identifier);
   if (!validDevice || !identifierValid) {
     return Response.json({ error: "Identifiant invalide pour l’appareil ou la prestation sélectionnée." }, { status: 400 });
