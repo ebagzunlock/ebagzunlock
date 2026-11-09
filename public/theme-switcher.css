@@ -203,3 +203,31 @@ html[data-site-theme="dark"] main .section-heading h2,
 html[data-site-theme="dark"] main .home-showcase-heading h2 {
   color:#c9ad75 !important;
 }
+
+
+/* Thème bleu : titres et phrases en blanc et bleu, jamais en or.
+   Le titre principal alterne blanc puis bleu ; les autres titres sont bleus,
+   tandis que les phrases descriptives restent blanc doux. */
+html[data-site-theme="blue"] main h1,
+html[data-site-theme="blue"] main h2,
+html[data-site-theme="blue"] main h3,
+html[data-site-theme="blue"] main h4,
+html[data-site-theme="blue"] main .section-heading,
+html[data-site-theme="blue"] main .eyebrow,
+html[data-site-theme="blue"] main .home-showcase-heading .showcase-univers {
+  color:#6da5dc !important;
+}
+html[data-site-theme="blue"] main .hero h1 > span:first-child {
+  color:#f5f8fc !important;
+}
+html[data-site-theme="blue"] main .hero h1 > span:nth-child(2) {
+  color:#6da5dc !important;
+}
+html[data-site-theme="blue"] main p,
+html[data-site-theme="blue"] main li,
+html[data-site-theme="blue"] main .hero-description,
+html[data-site-theme="blue"] main .home-showcase-heading p,
+html[data-site-theme="blue"] main .service-copy,
+html[data-site-theme="blue"] main .assistance-copy {
+  color:#f5f8fc !important;
+}
