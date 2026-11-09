@@ -2444,7 +2444,7 @@ throw new Error(t("paymentNotConfirmed"));
 
 deviceSelect.dispatchEvent(new Event("change"));
 
-if(!isUpdate){
+if(selection.model&&restoredDevice!=="ebagzunlock "){
  const familyEntry=Object.entries(MODEL_FAMILIES[restoredDevice]||{}).find(([,models])=>models.includes(selection.model));
  if(familyEntry){modelFamilySelect.value=familyEntry[0];modelFamilySelect.dispatchEvent(new Event("change"));}
  modelSelect.value=selection.model;
