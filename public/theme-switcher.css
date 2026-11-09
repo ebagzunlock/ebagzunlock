@@ -166,3 +166,45 @@ html[data-site-theme="dark"] .apple-mark { color: #f5f8fc !important; }
 }
 .theme-toggle svg { width: 17px; height: 17px; display: block; }
 .theme-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+
+/* Ajustements demandés : contraste du titre et visibilité du filigrane.
+   Ces règles ne modifient jamais l'en-tête ni le pied de page. */
+html[data-site-theme="dark"]::before {
+  opacity:.44 !important;
+}
+@media (max-width:600px) {
+  html[data-site-theme="dark"]::before {
+    opacity:.40 !important;
+  }
+}
+
+/* Sur la page d'accueil : première ligne or doux, seconde blanc cassé. */
+html[data-site-theme="dark"] main .hero h1 > span:first-child {
+  color:#c9ad75 !important;
+}
+html[data-site-theme="dark"] main .hero h1 > span:nth-child(2) {
+  color:#f1eee5 !important;
+}
+
+/* En thème clair, rendre la marque du contenu lisible sur fond clair.
+   Le mot unlock conserve son bleu. En-tête et pied de page exclus. */
+html[data-site-theme="light"] main .brand-inline,
+html[data-site-theme="light"] main .brand-inline .apple-mark,
+html[data-site-theme="light"] main .confirmation-logo,
+html[data-site-theme="light"] main .brand-name {
+  color:#65452f !important;
+}
+html[data-site-theme="light"] main .brand-inline .logo-blue,
+html[data-site-theme="light"] main .confirmation-logo .logo-blue,
+html[data-site-theme="light"] main .brand-name .logo-blue,
+html[data-site-theme="light"] main .brand-blue,
+html[data-site-theme="light"] main .logo-blue {
+  color:#397bb7 !important;
+}
+
+/* Les deux couleurs du titre restent cohérentes sur les autres pages sombres. */
+html[data-site-theme="dark"] main .section-heading h2,
+html[data-site-theme="dark"] main .home-showcase-heading h2 {
+  color:#c9ad75 !important;
+}
