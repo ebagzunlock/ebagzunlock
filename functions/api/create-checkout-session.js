@@ -7,7 +7,8 @@ const SERVICES = [
   "Mise à jour iOS / macOS"
 ];
 
-const UPDATE_PRICES = { iOS: 7, macOS: 15, ebagzunlock: 2 };
+const UPDATE_SYSTEMS = { iPhone: "iOS", iPad: "iPadOS", MacBook: "macOS", "Apple Watch": "watchOS" };
+const UPDATE_PRICES = { iOS: 15, iPadOS: 10, macOS: 13, watchOS: 8, ebagzunlock: 2 };
 
 const CATALOGUE = {
   iPhone: {
@@ -65,10 +66,15 @@ export async function onRequestPost({ request, env }) {
 
   let amount;
   if (service === "Mise à jour iOS / macOS") {
-    if (typeof model !== "string" || !Object.prototype.hasOwnProperty.call(UPDATE_PRICES, model) || device !== model) {
-      return Response.json({ error: "Option de mise à jour invalide." }, { status: 400 });
+    if (device === "ebagzunlock" && model === "ebagzunlock") {
+      amount = UPDATE_PRICES.ebagzunlock;
+    } else {
+      const system = UPDATE_SYSTEMS[device];
+      if (!system || typeof model !== "string" || !Object.prototype.hasOwnProperty.call(CATALOGUE[device] || {}, model)) {
+        return Response.json({ error: "Option de mise à jour invalide." }, { status: 400 });
+      }
+      amount = UPDATE_PRICES[system];
     }
-    amount = UPDATE_PRICES[model];
   } else {
     if (typeof device !== "string" || typeof model !== "string" || !Object.prototype.hasOwnProperty.call(CATALOGUE, device) || !Object.prototype.hasOwnProperty.call(CATALOGUE[device], model)) {
       return Response.json({ error: "Sélection de prestation ou d'appareil invalide." }, { status: 400 });
@@ -87,7 +93,7 @@ export async function onRequestPost({ request, env }) {
   params.set("line_items[0][price_data][currency]", "eur");
   params.set("line_items[0][price_data][unit_amount]", String(amount * 100));
 
-  const productName = service === "Mise à jour iOS / macOS" ? `Mise à jour — ${model}` : `${service} — ${device} — ${model}`;
+  const productName = service === "Mise à jour iOS / macOS" ? (device === "ebagzunlock" ? "Mise à jour — ebagzunlock " : `Mise à jour ${UPDATE_SYSTEMS[device]} — ${device} — ${model}`) : `${service} — ${device} — ${model}`;
   params.set("line_items[0][price_data][product_data][name]", productName);
   params.set("line_items[0][price_data][product_data][description]", "Prestation réalisée uniquement dans un cadre légal, avec l'autorisation du propriétaire.");
   params.set("billing_address_collection", "auto");
