@@ -1498,7 +1498,15 @@ function updateOwnershipConsent(){
  }
  const selectedDevice=model||device||"APPAREIL";
  const identifierPart=identifier?" - "+identifier:"";
- const selectedService=service==="Mise à jour iOS / macOS"?"la mise à jour système":(service||"le service sélectionné").toLowerCase();
+ const serviceLabels={
+  "Déverrouillage iCloud":"le déblocage iCloud",
+  "Déverrouillage Opérateur":"le déverrouillage opérateur",
+  "SNAP-error/ban":"le service SNAP ERROR/BAN",
+  "Suppression Blocage & Limitation Propriétaire":"la suppression du blocage et de la limitation propriétaire",
+  "Résolution Blocage DFU & Mode de Récupération":"la résolution du blocage DFU et du mode de récupération",
+  "Mise à jour iOS / macOS":"la mise à jour système"
+ };
+ const selectedService=serviceLabels[service]||("la prestation "+(service||"sélectionnée"));
  consentText.textContent="J’ACCEPTE LA REMISE À ZÉRO & RÉINITIALISATION DE MON "+selectedDevice.toUpperCase()+identifierPart+" par ebagzunlock  pour "+selectedService+".";
 }
 function syncIdentifierRules(){
@@ -1879,6 +1887,7 @@ card.classList.toggle("selected",card.dataset.service===name);
 
 showStatus(paymentStatus,"");
 refreshSelectLabels();
+updateOwnershipConsent();
 
 return true;
 }
