@@ -1033,7 +1033,7 @@ html.contact-page .contact-page-icons svg{width:38px;height:38px}
 <style id="ebagz-universal-brand-background">
 html{background:#030a14!important}
 body{background:transparent!important;position:relative;isolation:isolate}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(2,8,18,.68),rgba(2,8,18,.78)),url("/background-ebagzunlock.svg?v=2") center center/cover no-repeat}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(2,8,18,.68),rgba(2,8,18,.78)),url("/background-ebagzunlock.svg?v=3") center center/cover no-repeat}
 main,.content-section,.page-section,.service-and-assistance{background-color:transparent!important}
 .site-header,.site-footer{background-color:rgba(3,10,20,.88)!important;backdrop-filter:blur(10px)}
 </style>
@@ -1046,6 +1046,22 @@ main,.content-section,.page-section,.service-and-assistance{background-color:tra
 #contact-page .support-assistance-content h2{margin:0 0 8px;color:#16c7f3;font-size:clamp(20px,3vw,30px);font-weight:800}
 #contact-page .support-assistance-content p{margin:0;color:#f5f8fc;font-weight:600;line-height:1.45}
 @media(max-width:600px){#contact-page .support-assistance-card{gap:12px;padding:15px 12px}#contact-page .support-assistance-icon{min-width:52px;font-size:32px;padding-right:12px}}
+</style>
+
+<style id="compact-service-assistance-cards">
+:root{--cdc-card-bg:rgba(3,17,34,.88);--cdc-card-border:rgba(0,190,255,.72)}
+#service-and-assistance .container{display:flex;flex-direction:column;gap:12px}
+#service-and-assistance .service-copy,#service-and-assistance .service-assistance-card{width:min(900px,100%);margin:0 auto;padding:16px 20px;border:1px solid var(--cdc-card-border);border-radius:13px;background:var(--cdc-card-bg);box-shadow:0 5px 20px rgba(0,0,0,.18)}
+#service-and-assistance #service-and-assistance-title{width:min(900px,100%);margin:0 auto;padding:12px 16px;border:1px solid var(--cdc-card-border);border-radius:13px;background:var(--cdc-card-bg);font-size:clamp(15px,2vw,19px);line-height:1.25;text-align:center;letter-spacing:.045em}
+#service-and-assistance .service-copy p{margin:7px 0;font-size:clamp(12px,1.4vw,14px);line-height:1.55;text-transform:uppercase}
+#service-and-assistance .assistance-heading,#service-and-assistance h2.assistance-heading{margin:0 0 7px;font-size:clamp(15px,2vw,19px);line-height:1.25;letter-spacing:.045em;text-align:center;text-transform:uppercase}
+#service-and-assistance .assistance-copy{margin:0;font-size:clamp(12px,1.4vw,14px);line-height:1.5;text-align:center;text-transform:uppercase}
+#service-and-assistance .assistance-actions{margin-top:10px;display:flex;justify-content:center;gap:14px}
+#contact-page .support-assistance-card{width:min(900px,100%);margin:12px auto 0;padding:13px 18px;gap:14px;border-radius:13px;background:var(--cdc-card-bg);border-color:var(--cdc-card-border)}
+#contact-page .support-assistance-icon{font-size:30px;min-width:54px;padding:5px 14px 5px 0}
+#contact-page .support-assistance-content h2{font-size:clamp(15px,2vw,19px);letter-spacing:.045em}
+#contact-page .support-assistance-content p{font-size:clamp(12px,1.4vw,14px);line-height:1.5;text-transform:uppercase}
+#contact-page .support-assistance-content{text-align:center}
 </style>
 </head>
 
@@ -1117,13 +1133,13 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 </section>
 <section id="service-and-assistance" class="service-and-assistance" aria-labelledby="service-and-assistance-title">
 <div class="container">
-<h2 id="service-and-assistance-title">SERVICE RENDU PAR LE SITE</h2>
+<div class="service-assistance-card"><h2 id="service-and-assistance-title">SERVICE RENDU PAR LE SITE</h2>
 <div class="service-copy">
 <p><span class="brand-inline notranslate" translate="no">ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></span> propose un contournement sans restriction ni blocage MAJ, cela inclut un contournement sans jailbreak &amp; bypass avec un accès complet à l’opérateur mobile <span class="operator-nowrap">4/5G sans restriction</span>.</p>
 <p><span class="brand-inline notranslate" translate="no">ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></span> est un service dépendant du DarkWeb pour la réception des codes de setup d’accès à votre appareil.</p>
 <p><span class="brand-inline notranslate" translate="no">ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></span> est un service de contournement du système Apple ainsi que de la base de données iOS - macOS - iPadOS. Après confirmation de votre paiement, vous recevrez une autorisation/code à utiliser avec les instructions nécessaires par courrier ainsi que votre facture.</p>
 <p>Ces codes que vous recevrez seront chiffrés et vous permettront d’effectuer vous-même les étapes de la procédure sur votre appareil. Éventuellement sans ordinateur portable, vous aurez besoin de votre appareil ainsi qu’un câble d’alimentation à brancher sur secteur.</p>
-</div>
+</div></div>
 
 
 </div>
