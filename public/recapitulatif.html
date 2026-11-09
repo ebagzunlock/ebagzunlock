@@ -206,7 +206,7 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <h1>RÉCAPITULATIF</h1>
 <section class="panel" aria-labelledby="summary-title">
 <h2 id="summary-title">Détails de votre commande</h2>
- <div class="line"><span>Numéro de commande</span><strong id="order-number">—</strong></div>
+ <div class="line"><span>№</span><strong id="order-number">—</strong></div>
 <div class="line"><span>Prestation</span><strong id="service">—</strong></div>
 <div class="line"><span>Appareil / Option</span><strong id="device">—</strong></div>
 <div class="line" id="model-row"><span>Modèle</span><strong id="model">—</strong></div><div class="line" id="update-system-row" hidden><span>Choix de la prestation</span><strong id="update-system">—</strong></div>
@@ -274,7 +274,7 @@ if(!/^EBAGZ-[A-Z0-9]{10,16}$/.test(orderNumber)){
  orderNumber="EBAGZ-"+datePart+randomPart;
  try{sessionStorage.setItem("ebagzunlock-order-number",orderNumber);}catch(error){}
 }
-document.getElementById("order-number").textContent=orderNumber;
+document.getElementById("order-number").textContent=orderNumber.replace(/^EBAGZ-/,"");
 const updateSystemsByDevice={iPhone:"iOS",iPad:"iPadOS",MacBook:"macOS","Apple Watch":"watchOS"};
 const updatePrices={iOS:15,iPadOS:10,macOS:13,watchOS:8,"ebagzunlock ":2};
 const prices={
