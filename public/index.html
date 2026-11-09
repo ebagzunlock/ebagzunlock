@@ -1087,8 +1087,8 @@ SERVICE DE DÉVERROUILLAGE POUR APPAREILS APPLE
 </div>
 
 <h1>
-<span data-i18n="heroLine1">Votre appareil,</span>
-<span class="blue" data-i18n="heroLine2">Notre expertise.</span>
+<span data-i18n="heroLine1">VOTRE APPAREIL,</span>
+<span class="blue" data-i18n="heroLine2">NOTRE EXPERTISE.</span>
 </h1>
 
 <p class="hero-description" data-i18n="heroDesc">
@@ -1104,8 +1104,8 @@ Découvrir nos offres
 
 <section class="home-showcase" aria-label="Univers Apple">
 <div class="home-showcase-heading">
-<div class="showcase-kicker">EBAGZUNLOCK — UNIVERS APPLE</div>
-<h2>Votre technologie, notre expertise.</h2>
+<div class="showcase-kicker"><span class="brand-inline notranslate" translate="no">ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></span> — UNIVERS APPLE</div>
+<h2>VOTRE TECHNOLOGIE, NOTRE EXPERTISE.</h2>
 <p>Découvrez nos solutions dédiées à vos appareils Apple.</p>
 </div>
 <div class="showcase-track">
@@ -1437,8 +1437,8 @@ navPrices:"Tarifs",
 navHow:"Fonctionnement",
 contact:"Contact",
 eyebrow:"SERVICE DE DÉVERROUILLAGE POUR APPAREILS APPLE",
-heroLine1:"Votre appareil,",
-heroLine2:"Notre expertise.",
+heroLine1:"VOTRE APPAREIL,",
+heroLine2:"NOTRE EXPERTISE.",
 heroDesc:"Des solutions adaptées à vos appareils Apple, avec une prise en charge rapide et professionnelle.",
 discover:"Découvrir nos offres",
 servicesTitle:"Nos services",
@@ -2542,8 +2542,35 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
  .site-header .language-picker,.site-header .language-globe,.site-header .language-picker select{width:30px!important;height:30px!important;min-width:30px!important}
 }
 </style>
-<script id="ebagz-navigation-current-page">
-(()=>{const clean=p=>(p||"/").split("?")[0].split("#")[0].replace(/\/+$/,"")||"/";const current=clean(location.pathname);document.querySelectorAll(".site-header .main-nav a[href]").forEach(a=>{try{const target=clean(new URL(a.getAttribute("href"),location.origin).pathname);const active=target===current||((current==="/"||current==="/index.html")&&(target==="/"||target==="/index.html"));a.classList.toggle("is-active",active);if(active)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");}catch(e){}});})();
+<script id="ebagz-navigation-active-state-v2">
+(()=> {
+ const links=[...document.querySelectorAll(".site-header .main-nav a[href]")];
+ const clean=value=>(value||"/").split("?")[0].split("#")[0].replace(/\\/+$/,"")||"/";
+ const pageClassMap={"/": "home-page","/index.html":"home-page","/services.html":"services-page","/tarifs.html":"tarifs-page","/fonctionnement.html":"fonctionnement-page","/conditions-generales.html":"conditions-page","/paiement.html":"paiement-page","/recapitulatif.html":"recapitulatif-page"};
+ const mark=()=>{
+  const current=clean(window.location.pathname);
+  const pageClass=Object.entries(pageClassMap).find(([path])=>clean(path)===current)?.[1];
+  links.forEach(link=>{
+   let target="/";
+   try{target=clean(new URL(link.getAttribute("href"),window.location.origin).pathname);}catch(e){}
+   let active=target===current || (current==="/" && target==="/index.html");
+   if(!active && pageClass){
+    const mapped=pageClassMap[target];
+    active=!!mapped && mapped===pageClass;
+   }
+   link.classList.toggle("is-active",active);
+   if(active)link.setAttribute("aria-current","page");
+   else link.removeAttribute("aria-current");
+  });
+ };
+ mark();
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mark,{once:true});
+ window.addEventListener("pageshow",mark);
+ links.forEach(link=>link.addEventListener("click",()=>{
+  links.forEach(item=>{item.classList.remove("is-active");item.removeAttribute("aria-current");});
+  link.classList.add("is-active");link.setAttribute("aria-current","page");
+ }));
+})();
 </script>
 </body>
 </html>
@@ -2581,4 +2608,42 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
 .site-header .header-right{order:1!important;width:auto!important;flex:1 1 auto!important;justify-content:flex-end!important}
 .site-header .main-nav a,.site-header .main-nav button{font-size:clamp(11px,.9vw,13px)!important}
 }
+</style>
+<style id="ebagz-navigation-active-visible-v2">
+/* Indicateur visible sur l'onglet de la page consultée. */
+.site-header .main-nav a{position:relative!important;text-decoration:none!important}
+.site-header .main-nav a.is-active,.site-header .main-nav a[aria-current="page"]{
+ color:#8fc5ff!important;
+ background:rgba(109,165,220,.10)!important;
+ border-radius:5px!important;
+ box-shadow:none!important;
+}
+.site-header .main-nav a.is-active::after,.site-header .main-nav a[aria-current="page"]::after{
+ content:""!important;position:absolute!important;left:2px!important;right:2px!important;bottom:2px!important;height:2px!important;
+ background:#78b5f0!important;border-radius:2px!important;display:block!important;
+}
+.site-header .menu-toggle{width:40px!important;height:40px!important;min-width:40px!important;flex-basis:40px!important}
+.site-header .menu-toggle span{width:24px!important;height:2.2px!important}
+.site-header .main-nav{gap:clamp(8px,1.55vw,17px)!important}
+.site-header .main-nav a,.site-header .main-nav button{font-size:clamp(10.5px,1.05vw,13.5px)!important;min-height:38px!important;padding:8px 3px!important}
+.site-header .language-globe svg{width:20px!important;height:20px!important}
+.site-header .language-picker,.site-header .language-globe,.site-header .language-picker select{width:36px!important;height:36px!important;min-width:36px!important}
+.site-header .contact-icons a{width:40px!important;height:40px!important}
+.site-header .contact-icons svg{width:24px!important;height:24px!important}
+@media(max-width:420px){
+ .site-header .header-right{gap:4px!important}
+ .site-header .menu-toggle{width:34px!important;height:36px!important;min-width:34px!important;flex-basis:34px!important}
+ .site-header .menu-toggle span{width:21px!important}
+ .site-header .main-nav{gap:clamp(4px,1vw,7px)!important}
+ .site-header .main-nav a,.site-header .main-nav button{font-size:clamp(10px,2.9vw,11.5px)!important;padding:7px 1px!important;min-height:36px!important}
+ .site-header .language-picker,.site-header .language-globe,.site-header .language-picker select{width:31px!important;height:31px!important;min-width:31px!important}
+}
+</style>
+<style id="ebagz-home-uppercase-brand-heading">
+.home-showcase-heading .showcase-kicker{font-size:clamp(15px,1.8vw,19px)!important;letter-spacing:1.2px!important;font-weight:800!important;line-height:1.35!important}
+.home-showcase-heading .showcase-kicker .brand-inline{font-size:inherit!important;letter-spacing:inherit!important;font-weight:900!important}
+.home-showcase-heading .showcase-kicker .logo-blue{color:#6da5dc!important}
+.home-showcase-heading .showcase-kicker .apple-mark{color:inherit!important}
+.home-showcase-heading h2{font-size:clamp(29px,4.2vw,42px)!important;letter-spacing:-.8px!important;font-weight:800!important;text-transform:uppercase!important}
+.hero h1{text-transform:uppercase!important}
 </style>
