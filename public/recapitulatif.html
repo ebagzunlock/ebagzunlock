@@ -146,6 +146,17 @@ html[data-theme="light"] .logo,html[data-theme="light"] .logo .apple-mark,html[d
 .apple-mark{display:inline-block!important;margin-left:0!important;padding:0!important;letter-spacing:0!important;color:#f5f8fc!important;white-space:nowrap!important;vertical-align:baseline!important}
 </style>
 
+
+<script>
+try {
+  if (localStorage.getItem("ebagzunlock-site-theme") === "mono") {
+    document.documentElement.setAttribute("data-site-theme", "mono");
+  }
+} catch (e) {}
+</script>
+<link rel="stylesheet" href="/theme-switcher.css?v=1">
+<script src="/theme-switcher.js?v=1" defer></script>
+
 </head>
 <body>
 <header class="site-header">
