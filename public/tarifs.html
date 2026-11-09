@@ -1682,6 +1682,25 @@ const requestedDevice=params.get("device");
 const requestedSystem=params.get("system");
 const systems={iPhone:"iOS",iPad:"iPadOS",MacBook:"macOS","Apple Watch":"watchOS"};
 const allowedDevices=["iPhone","iPad","MacBook","Apple Watch"];
+if(requestedDevice==="ebagzunlock"){
+ deviceSelect.innerHTML="";
+ const option=document.createElement("option");
+ option.value="ebagzunlock";
+ option.textContent="ebagzunlock  — 2 €";
+ deviceSelect.appendChild(option);
+ deviceSelect.value="ebagzunlock";
+ deviceSelect.disabled=true;
+ deviceLabel.textContent="Mise à jour système";
+ modelField.hidden=true;
+ updateChoiceSelect.innerHTML="";
+ updateChoiceSelect.disabled=true;
+ updateChoiceField.hidden=true;
+ resetModelAndPrice();
+ selectedPrice=UPDATE_PRICES.ebagzunlock;
+ priceValue.textContent=selectedPrice+" €";
+ payButton.disabled=false;
+ return;
+}
 const devices=allowedDevices.filter(device=>!requestedDevice||device===requestedDevice);
 deviceSelect.innerHTML="";
 const first=document.createElement("option");
@@ -1912,6 +1931,7 @@ showStatus(paymentStatus,"Ce service est disponible uniquement pour iPhone et iP
 return;
 }
 let model=modelSelect.value;
+if(service===UPDATE_SERVICE&&device==="ebagzunlock")model="ebagzunlock";
 if(!service||!device||selectedPrice===null){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
 if(!requestForm.reportValidity())return;
 if(service===UPDATE_SERVICE&&!model){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
