@@ -284,13 +284,53 @@ export async function onRequestPost({ request, env }) {
     amount = CATALOGUE[device][model];
   }
 
+  // Les virements SEPA via customer_balance nécessitent un Customer Stripe existant.
+  // On réutilise celui de l'adresse e-mail, sinon on le crée avant la session.
+  let stripeCustomer;
+  try {
+    const lookupUrl = new URL("https://api.stripe.com/v1/customers");
+    lookupUrl.searchParams.set("email", email);
+    lookupUrl.searchParams.set("limit", "1");
+    const lookupResponse = await fetch(lookupUrl, {
+      headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`, "Stripe-Version": "2026-09-30.endive" }
+    });
+    const lookup = await lookupResponse.json();
+    if (!lookupResponse.ok) {
+      console.error("Stripe customer lookup error:", lookup);
+      return Response.json({ error: "Impossible de vérifier le profil client auprès de Stripe." }, { status: 502 });
+    }
+    stripeCustomer = lookup.data && lookup.data[0];
+    if (!stripeCustomer) {
+      const customerParams = new URLSearchParams();
+      customerParams.set("email", email);
+      customerParams.set("name", name);
+      if (phone) customerParams.set("phone", phone);
+      const createCustomerResponse = await fetch("https://api.stripe.com/v1/customers", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`, "Content-Type": "application/x-www-form-urlencoded", "Stripe-Version": "2026-09-30.endive" },
+        body: customerParams
+      });
+      stripeCustomer = await createCustomerResponse.json();
+      if (!createCustomerResponse.ok) {
+        console.error("Stripe customer creation error:", stripeCustomer);
+        return Response.json({ error: "Stripe n'a pas pu créer le profil client nécessaire au virement bancaire." }, { status: 502 });
+      }
+    }
+  } catch (error) {
+    console.error("Stripe customer error:", error);
+    return Response.json({ error: "Impossible de préparer le profil client auprès de Stripe." }, { status: 502 });
+  }
+
   const params = new URLSearchParams();
   params.set("mode", "payment");
   params.set("locale", checkoutLocale);
   params.set("ui_mode", "elements");
-    params.set("invoice_creation[enabled]", "true");
-  params.set("customer_creation", "always");
-  params.set("customer_email", email);
+  params.set("invoice_creation[enabled]", "true");
+  params.set("customer", stripeCustomer.id);
+  // Virement bancaire européen en euros : Stripe fournit les coordonnées et la référence au client.
+  params.set("payment_method_options[customer_balance][funding_type]", "bank_transfer");
+  params.set("payment_method_options[customer_balance][bank_transfer][type]", "eu_bank_transfer");
+  params.set("payment_method_options[customer_balance][bank_transfer][eu_bank_transfer][country]", "FR");
   params.set("line_items[0][quantity]", "1");
   params.set("line_items[0][price_data][currency]", "eur");
   params.set("line_items[0][price_data][unit_amount]", String(amount * 100));
