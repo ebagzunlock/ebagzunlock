@@ -119,7 +119,7 @@ ${model ? `<tr><td style="padding:11px 0;border-top:1px solid #29425d;color:#aeb
       text: orderText
     }, `commande-admin-${sessionId}`);
 
-    // Facture ebagzunlock envoyée en HTML : aucun bouton, lien ou canal WhatsApp.
+    // Facture client ebagzunlock envoyée en HTML.
     await sendEmail({
       from: "ebagzunlock <commandes@ebagzunlock.com>",
       to: [email],
