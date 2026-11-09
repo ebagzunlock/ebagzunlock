@@ -58,34 +58,43 @@ export async function onRequestPost({ request, env }) {
     const invoiceHtml = `<!doctype html><html lang="fr"><head><meta charset="utf-8"></head>
 <body style="margin:0;padding:24px 12px;background:#071321;font-family:Arial,Helvetica,sans-serif;color:#f5f8fc">
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:620px;margin:0 auto;background:#0d1d30;border:1px solid #29425d;border-radius:14px;overflow:hidden">
-<tr><td style="padding:28px 24px;text-align:center;background:#081321">
-<img src="${logoUrl}" alt="ebagzunlock" width="230" style="display:block;width:230px;max-width:85%;height:auto;margin:0 auto 16px">
-<div style="font-size:13px;letter-spacing:2px;color:#9fb8d2">FACTURE CLIENT</div>
-<div style="margin-top:9px;font-size:18px;font-weight:bold;color:#fff">N° ${orderNumber}</div>
+<tr><td style="padding:28px 24px 22px;text-align:center;background:#081321">
+<img src="${logoUrl}" alt="ebagzunlock" width="160" height="160" style="display:block;width:160px;height:160px;object-fit:cover;object-position:center;margin:0 auto 12px;border:0">
+<div style="font-size:14px;color:#c3cfdd">Service de déverrouillage Apple</div>
+<div style="margin-top:16px;font-size:18px;font-weight:bold;color:#fff">N° ${orderNumber}</div>
+<div style="margin-top:6px;font-size:12px;color:#9fb8d2">${issueDate}</div>
 </td></tr>
-<tr><td style="padding:28px 24px">
-<p style="margin:0 0 10px;font-size:17px">Bonjour ${safeName},</p>
-<p style="margin:0 0 22px;color:#c3cfdd;line-height:1.65">Nous vous remercions pour votre confiance. Votre paiement a bien été reçu et votre commande est confirmée.</p>
-<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
-<tr><td colspan="2" style="padding:0 0 12px;font-size:15px;font-weight:bold;color:#8fc5ff">DÉTAILS DE LA COMMANDE</td></tr>
-<tr><td style="padding:11px 0;border-top:1px solid #29425d;color:#aebed0">Date</td><td align="right" style="padding:11px 0;border-top:1px solid #29425d;color:#fff">${issueDate}</td></tr>
-<tr><td style="padding:11px 0;border-top:1px solid #29425d;color:#aebed0">Prestation</td><td align="right" style="padding:11px 0;border-top:1px solid #29425d;color:#fff">${safeService}</td></tr>
-<tr><td style="padding:11px 0;border-top:1px solid #29425d;color:#aebed0">Appareil / option</td><td align="right" style="padding:11px 0;border-top:1px solid #29425d;color:#fff">${safeDevice}</td></tr>
-${model ? `<tr><td style="padding:11px 0;border-top:1px solid #29425d;color:#aebed0">Modèle</td><td align="right" style="padding:11px 0;border-top:1px solid #29425d;color:#fff">${safeModel}</td></tr>` : ""}
-<tr><td style="padding:14px 0;border-top:1px solid #29425d;color:#fff;font-weight:bold">TOTAL RÉGLÉ</td><td align="right" style="padding:14px 0;border-top:1px solid #29425d;color:#8fc5ff;font-size:21px;font-weight:bold">${amountText} €</td></tr>
+<tr><td style="padding:26px 24px">
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-bottom:26px">
+<tr><td style="padding:11px 12px;border-bottom:1px solid #29425d;color:#fff;font-size:14px">${safeName}</td></tr>
+<tr><td style="padding:11px 12px;border-bottom:1px solid #29425d;color:#fff;font-size:14px">${safeEmail}</td></tr>
+<tr><td style="padding:11px 12px;border-bottom:1px solid #29425d;color:#fff;font-size:14px">${safePhone}</td></tr>
 </table>
-<div style="margin-top:24px;padding:16px;background:#132943;border-radius:9px">
-<div style="font-size:13px;color:#9fb8d2;margin-bottom:8px">COORDONNÉES DE COMMANDE</div>
-<div style="font-size:14px;line-height:1.8;color:#f5f8fc">Téléphone : ${safePhone}<br>E-mail : ${safeEmail}${identifier ? `<br>Identifiant appareil : ${safeIdentifier}` : ""}${message ? `<br>Informations complémentaires : ${safeMessage}` : ""}</div>
+<div style="margin:0 0 12px;font-size:15px;font-weight:bold;color:#8fc5ff">DÉTAILS DE LA PRESTATION</div>
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+<tr style="background:#081321">
+<td style="padding:11px 9px;color:#fff;font-size:11px;font-weight:bold">PRESTATION</td>
+<td style="padding:11px 9px;color:#fff;font-size:11px;font-weight:bold">APPAREIL / MODÈLE</td>
+<td align="right" style="padding:11px 9px;color:#fff;font-size:11px;font-weight:bold">MONTANT</td>
+</tr>
+<tr>
+<td style="padding:13px 9px;border-bottom:1px solid #29425d;color:#f5f8fc;font-size:13px">${safeService}</td>
+<td style="padding:13px 9px;border-bottom:1px solid #29425d;color:#f5f8fc;font-size:13px">${safeDevice}${model ? `<br>${safeModel}` : ""}</td>
+<td align="right" style="padding:13px 9px;border-bottom:1px solid #29425d;color:#f5f8fc;font-size:13px;white-space:nowrap">${amountText} €</td>
+</tr>
+<tr><td colspan="2" style="padding:16px 9px;color:#fff;font-weight:bold">TOTAL PAYÉ</td><td align="right" style="padding:16px 9px;color:#8fc5ff;font-size:19px;font-weight:bold;white-space:nowrap">${amountText} €</td></tr>
+</table>
+<p style="margin:28px 0 8px;text-align:center;color:#fff;font-size:16px;font-weight:bold">Merci pour votre confiance.</p>
+<p style="margin:0 0 18px;text-align:center;color:#c3cfdd;line-height:1.6;font-size:13px">Pour toute question concernant votre commande, notre équipe reste à votre disposition.</p>
+<div style="text-align:center;font-size:13px;line-height:2">
+<div><a href="tel:+33764027733" style="color:#8fc5ff;text-decoration:none">+33 7 64 02 77 33</a></div>
+<div><a href="mailto:ebagzunlock@outlook.fr" style="color:#8fc5ff;text-decoration:none">ebagzunlock@outlook.fr</a></div>
+<div><a href="https://ebagzunlock.com" style="color:#8fc5ff;text-decoration:none">https://ebagzunlock.com</a></div>
 </div>
-<p style="margin:24px 0 8px;color:#c3cfdd;line-height:1.6">Merci d'avoir choisi ebagzunlock . Nous restons à votre disposition pour toute question concernant votre commande.</p>
-</td></tr>
-<tr><td style="padding:22px 24px;text-align:center;background:#081321;border-top:1px solid #29425d">
-<div style="font-size:14px;color:#fff">Assistance et contact</div>
-<div style="margin-top:10px;font-size:14px"><a href="tel:+33764027733" style="color:#8fc5ff;text-decoration:none">+33 7 64 02 77 33</a></div>
-<div style="margin-top:7px;font-size:14px"><a href="mailto:ebagzunlock@outlook.fr" style="color:#8fc5ff;text-decoration:none">ebagzunlock@outlook.fr</a></div>
-<div style="margin-top:7px;font-size:14px"><a href="https://ebagzunlock.com" style="color:#8fc5ff;text-decoration:none">ebagzunlock.com</a></div>
-<div style="margin-top:18px;font-size:11px;color:#7f91a6">Copyright © 2026 ebagzunlock . Tous droits réservés.</div>
+<div style="margin-top:22px;border-top:2px solid #2f8fe5;padding:18px 8px 4px;text-align:center">
+<div style="font-size:14px;font-weight:bold;color:#fff">ebagzunlock </div>
+<div style="margin-top:5px;font-size:11px;color:#9fb8d2">Copyright © 2026. Tous droits réservés.</div>
+</div>
 </td></tr></table></body></html>`;
 
     const orderDetails = [
@@ -128,14 +137,14 @@ ${model ? `<tr><td style="padding:11px 0;border-top:1px solid #29425d;color:#aeb
       text: [
         `Bonjour ${name},`, "",
         "Nous confirmons la réception de votre paiement et de votre commande.",
-        `Facture : ${orderNumber}`, `Date : ${issueDate}`,
-        `Prestation : ${service}`, `Appareil / option : ${device}`,
-        ...(model ? [`Modèle : ${model}`] : []),
-        `Montant réglé : ${amountText} €`, "",
-        "Téléphone : +33 7 64 02 77 33",
-        "E-mail : ebagzunlock@outlook.fr",
-        "Site : https://ebagzunlock.com",
-        "", "Merci pour votre confiance.", "EBAGZUNLOCK"
+`N° ${orderNumber}`, `Date : ${issueDate}`,
+        name, email, phone, "",
+        `Prestation : ${service}`, `Appareil / modèle : ${device}${model ? " — " + model : ""}`,
+        `Montant : ${amountText} €`, `TOTAL PAYÉ : ${amountText} €`, "",
+        "Merci pour votre confiance.",
+        "Pour toute question concernant votre commande, notre équipe reste à votre disposition.",
+        "+33 7 64 02 77 33", "ebagzunlock@outlook.fr", "https://ebagzunlock.com",
+        "", "ebagzunlock ", "Copyright © 2026. Tous droits réservés."
       ].join("\n")
     }, `facture-client-${sessionId}`);
 
