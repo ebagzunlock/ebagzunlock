@@ -1104,15 +1104,15 @@ Découvrir nos offres
 
 <section class="home-showcase" aria-label="Univers Apple">
 <div class="home-showcase-heading">
-<div class="showcase-kicker"><span class="brand-inline notranslate" translate="no">ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></span> — UNIVERS APPLE</div>
+<div class="showcase-kicker"><span class="brand-inline notranslate" translate="no">ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="true"> </span></span> <span class="showcase-univers">— UNIVERS APPLE</span></div>
 <h2>VOTRE TECHNOLOGIE, NOTRE EXPERTISE.</h2>
 <p>Découvrez nos solutions dédiées à vos appareils Apple.</p>
 </div>
 <div class="showcase-track">
-<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/v/iphone/home/ci/images/meta/iphone__cud4q04omsuq_og.png" alt="iPhone" loading="lazy"></div><h3>iPhone</h3><p>Un accompagnement dédié à votre iPhone et à ses fonctionnalités.</p><a class="showcase-link" href="/services.html">Découvrir nos services →</a></article>
-<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/newsroom/images/2025/03/apple-introduces-the-new-macbook-air-with-the-m4-chip-and-a-sky-blue-color/article/Apple-MacBook-Air-sky-blue-250305_big.jpg.large.jpg" alt="MacBook Air" loading="lazy"></div><h3>MacBook</h3><p>Des solutions adaptées à votre ordinateur Apple.</p><a class="showcase-link" href="/services.html">Découvrir nos services →</a></article>
-<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/newsroom/images/product/ipad/standard/Apple-iPad-10th-gen-silver-2up-221018_big.jpg.large_2x.jpg" alt="iPad" loading="lazy"></div><h3>iPad</h3><p>Une assistance pensée pour votre tablette et votre usage.</p><a class="showcase-link" href="/services.html">Découvrir nos services →</a></article>
-<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/v/apple-watch-series-11/c/images/overview/product-viewer/product_display_endframe__baw4nxfmflbm_large.jpg" alt="Apple Watch" loading="lazy"></div><h3>Apple Watch</h3><p>Retrouvez un accompagnement pour votre montre connectée.</p><a class="showcase-link" href="/services.html">Découvrir nos services →</a></article>
+<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/v/iphone/home/ci/images/meta/iphone__cud4q04omsuq_og.png" alt="iPhone" loading="lazy"></div><h3>iPhone</h3><p>Un accompagnement dédié à votre iPhone et à ses fonctionnalités.</p><a class="showcase-link" href="/services.html?device=iPhone">Découvrir nos services →</a></article>
+<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/newsroom/images/2025/03/apple-introduces-the-new-macbook-air-with-the-m4-chip-and-a-sky-blue-color/article/Apple-MacBook-Air-sky-blue-250305_big.jpg.large.jpg" alt="MacBook Air" loading="lazy"></div><h3>MacBook</h3><p>Des solutions adaptées à votre ordinateur Apple.</p><a class="showcase-link" href="/services.html?device=MacBook">Découvrir nos services →</a></article>
+<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/newsroom/images/product/ipad/standard/Apple-iPad-10th-gen-silver-2up-221018_big.jpg.large_2x.jpg" alt="iPad" loading="lazy"></div><h3>iPad</h3><p>Une assistance pensée pour votre tablette et votre usage.</p><a class="showcase-link" href="/services.html?device=iPad">Découvrir nos services →</a></article>
+<article class="showcase-card"><div class="showcase-visual"><img src="https://www.apple.com/v/apple-watch-series-11/c/images/overview/product-viewer/product_display_endframe__baw4nxfmflbm_large.jpg" alt="Apple Watch" loading="lazy"></div><h3>Apple Watch</h3><p>Retrouvez un accompagnement pour votre montre connectée.</p><a class="showcase-link" href="/services.html?device=Apple%20Watch">Découvrir nos services →</a></article>
 </div>
 </section>
 
@@ -1423,8 +1423,10 @@ const CATALOGUE = {
 
 const UPDATE_SERVICE="Mise à jour iOS / macOS";
 const UPDATE_PRICES={
-"iOS":7,
-"macOS":15,
+"iOS":15,
+"iPadOS":10,
+"macOS":13,
+"watchOS":8,
 "ebagzunlock":2
 };
 
@@ -1806,9 +1808,11 @@ deviceSelect.innerHTML="";
 
 const choices=[
 ["",t("chooseOption")],
-["iOS","iOS — 7 €"],
-["macOS","macOS — 15 €"],
-["ebagzunlock","ebagzunlock — 2 €"]
+["iOS","iOS — 15 €"],
+["iPadOS","iPadOS — 10 €"],
+["macOS","macOS — 13 €"],
+["watchOS","watchOS — 8 €"],
+["ebagzunlock","ebagzunlock  — 2 €"]
 ];
 
 choices.forEach(([value,label])=>{
@@ -1953,6 +1957,15 @@ modelSelect.appendChild(option);
 
 modelSelect.disabled=false;
 });
+
+const requestedDeviceChoice=new URLSearchParams(location.search).get("device");
+if(requestedDeviceChoice&&serviceSelect.value){
+ const matchingChoice=Array.from(deviceSelect.options).some(option=>option.value===requestedDeviceChoice);
+ if(matchingChoice){
+  deviceSelect.value=requestedDeviceChoice;
+  deviceSelect.dispatchEvent(new Event("change",{bubbles:true}));
+ }
+}
 
 modelSelect.addEventListener("change",()=>{
 
@@ -2626,18 +2639,7 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
 .home-showcase-heading .showcase-kicker .apple-mark{color:inherit!important}
 .home-showcase-heading h2{font-size:clamp(29px,4.2vw,42px)!important;letter-spacing:-.8px!important;font-weight:800!important;text-transform:uppercase!important}
 .hero h1{text-transform:uppercase!important}
-</style>\n<style id="ebagz-navigation-active-final-fix">
-.site-header .main-nav a.is-active,
-.site-header .main-nav a[aria-current="page"]{
- color:#8fc5ff!important;
- background:rgba(109,165,220,.18)!important;
- border-radius:6px!important;
- box-shadow:inset 0 -3px 0 #78b5f0!important;
- text-decoration:none!important;
-}
-.site-header .main-nav a.is-active::after,
-.site-header .main-nav a[aria-current="page"]::after{content:none!important;display:none!important}
-</style>\n\n<style id="ebagz-showcase-brand-case-fix">
+</style>\n\n\n<style id="ebagz-showcase-brand-case-fix">
 .home-showcase-heading .showcase-kicker{text-transform:uppercase!important}
 .home-showcase-heading .showcase-kicker .brand-inline,
 .home-showcase-heading .showcase-kicker .brand-inline *{text-transform:none!important}
@@ -2645,3 +2647,15 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
 .home-showcase-heading .showcase-kicker .brand-inline .logo-blue{color:#6da5dc!important}
 .home-showcase-heading .showcase-kicker .brand-inline .apple-mark{color:#fff!important}
 </style>\n
+<style id="ebagz-navigation-active-subtle">
+.site-header .main-nav a.is-active,
+.site-header .main-nav a[aria-current="page"]{
+ color:#9bc7ee!important;
+ background:transparent!important;
+ border-radius:0!important;
+ box-shadow:inset 0 -1px 0 #78b5f0!important;
+ font-weight:600!important;
+}
+.site-header .main-nav a.is-active::after,
+.site-header .main-nav a[aria-current="page"]::after{content:none!important;display:none!important}
+</style>
