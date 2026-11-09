@@ -1710,22 +1710,25 @@ const requestedSystem=params.get("system");
 const systems={iPhone:"iOS",iPad:"iPadOS",MacBook:"macOS","Apple Watch":"watchOS"};
 const allowedDevices=["iPhone","iPad","MacBook","Apple Watch"];
 if(requestedDevice==="ebagzunlock "){
+ /* Prestation indépendante à 2 € : aucun appareil ni modèle à sélectionner. */
+ const serviceOption=Array.from(serviceSelect.options).find(option=>option.value===UPDATE_SERVICE);
+ if(serviceOption)serviceOption.textContent="Mise à jour système";
+ deviceField.hidden=true;
+ modelField.hidden=true;
  deviceSelect.innerHTML="";
+ deviceSelect.disabled=true;
+ updateChoiceSelect.innerHTML="";
  const option=document.createElement("option");
  option.value="ebagzunlock ";
  option.textContent="ebagzunlock  — 2 €";
- deviceSelect.appendChild(option);
- deviceSelect.value="ebagzunlock ";
- deviceSelect.disabled=true;
- deviceLabel.textContent="Mise à jour système";
- modelField.hidden=true;
- updateChoiceSelect.innerHTML="";
+ updateChoiceSelect.appendChild(option);
+ updateChoiceField.hidden=false;
  updateChoiceSelect.disabled=true;
- updateChoiceField.hidden=true;
  resetModelAndPrice();
  selectedPrice=UPDATE_PRICES["ebagzunlock "];
  priceValue.textContent=selectedPrice+" €";
  payButton.disabled=false;
+ syncIdentifierRules();
  return;
 }
 const devices=allowedDevices.filter(device=>!requestedDevice||device===requestedDevice);
