@@ -1151,7 +1151,7 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 <input id="customerPhone" name="phone" type="tel" autocomplete="tel" required>
 </div>
 
-<div class="field">
+<div class="field" id="identifierField">
 <label for="deviceIdentifier" data-i18n="identifierLabel">IMEI ou numéro de série</label>
 <input id="deviceIdentifier" name="identifier" required>
 </div>
@@ -1163,7 +1163,7 @@ ebagz<span class="logo-blue">unlock</span><span class="apple-mark" aria-hidden="
 
 <label class="consent">
 <input type="checkbox" id="ownershipConsent" required>
-<span data-i18n="consentText">Je confirme être le propriétaire de l'appareil ou être autorisé à effectuer cette demande. Toute intervention sera limitée aux opérations légales et autorisées.</span>
+<span id="ownershipConsentText">J’ACCEPTE LA REMISE À ZÉRO &amp; RÉINITIALISATION DE MON APPAREIL par ebagzunlock .</span>
 </label>
 
 
@@ -1484,16 +1484,34 @@ const requestSection=$("requestSection");
 const requestForm=$("requestForm");
 const identifierInput=$("deviceIdentifier");
 const identifierLabel=identifierInput?.previousElementSibling;
+const identifierField=$("identifierField");
+function updateOwnershipConsent(){
+ const device=deviceSelect.value;
+ const service=serviceSelect.value;
+ const model=modelSelect.value;
+ const identifier=String(identifierInput?.value||"").trim();
+ const consentText=$("ownershipConsentText");
+ if(!consentText)return;
+ if(device==="ebagzunlock "){
+  consentText.textContent="J’ACCEPTE LA PRESTATION ebagzunlock  au tarif de 2 €.";
+  return;
+ }
+ const selectedDevice=model||device||"APPAREIL";
+ const identifierPart=identifier?" - "+identifier:"";
+ const selectedService=service==="Mise à jour iOS / macOS"?"la mise à jour système":(service||"le service sélectionné").toLowerCase();
+ consentText.textContent="J’ACCEPTE LA REMISE À ZÉRO & RÉINITIALISATION DE MON "+selectedDevice.toUpperCase()+identifierPart+" par ebagzunlock  pour "+selectedService+".";
+}
 function syncIdentifierRules(){
  const device=deviceSelect.value, service=serviceSelect.value;
  const independent=device==="ebagzunlock ";
  if(!identifierInput)return;
  identifierInput.required=!independent;
  identifierInput.disabled=independent;
+ if(identifierField)identifierField.hidden=independent;
  if(independent){
   identifierInput.value="";
-  identifierInput.placeholder="Non requis pour cette prestation";
-  if(identifierLabel)identifierLabel.textContent="Identifiant non requis";
+  identifierInput.placeholder="";
+  if(identifierLabel)identifierLabel.textContent="";
  }else if(device==="iPhone"&&service==="Déverrouillage Opérateur"){
   identifierInput.placeholder="Saisissez l’IMEI";
   if(identifierLabel)identifierLabel.textContent="IMEI uniquement";
@@ -1507,7 +1525,11 @@ function syncIdentifierRules(){
   identifierInput.placeholder="Sélectionnez d’abord votre appareil";
   if(identifierLabel)identifierLabel.textContent="IMEI / Numéro de série";
  }
+ updateOwnershipConsent();
 }
+
+identifierInput?.addEventListener("input",updateOwnershipConsent);
+modelSelect?.addEventListener("change",updateOwnershipConsent);
 
 const requestStatus=$("requestStatus");
 const contactToggle=$("contactToggle");
@@ -1651,6 +1673,7 @@ document.title=currentLang==="fr"
 :"ebagzunlock  — Apple Unlocking and IT Support";
 
 refreshSelectLabels();
+updateOwnershipConsent();
 
 if(verifiedSessionId){
 payButton.textContent=t("alreadyPaid");
