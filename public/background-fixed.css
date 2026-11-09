@@ -1,0 +1,70 @@
+/* Signature de marque fixe : reste centrée dans la fenêtre pendant tout le défilement. */
+html, body { min-height:100%; }
+body {
+  position:relative !important;
+  isolation:isolate !important;
+  background-color:#081321 !important;
+}
+body::before {
+  content:"";
+  position:fixed;
+  z-index:0;
+  inset:0;
+  pointer-events:none;
+  background-image:url("/background-ebagzunlock.svg");
+  background-repeat:no-repeat;
+  background-position:center center;
+  background-size:min(100vw, 900px) auto;
+  opacity:.30;
+}
+/* Le contenu reste au-dessus du filigrane, sans jamais le déplacer. */
+body > main, body > #confirmationScreen, body > .page-content {
+  position:relative;
+  z-index:1;
+  background:transparent !important;
+}
+body > .site-header, body > header.site-header,
+body > .site-footer, body > footer.site-footer {
+  position:relative !important;
+  z-index:5 !important;
+  background:#081321 !important;
+}
+/* Les grands fonds de sections deviennent translucides pour laisser voir la signature. */
+main, main > section, main .content-section, main .home-showcase,
+main #tarifs, main #services, main #fonctionnement,
+main .hero, main .pricing-panel, main .process-card,
+main .service-card, main .showcase-card,
+main .contact-card, main .support-assistance-card,
+main .contact-panel, main .info-card, main .summary-card,
+main .payment-card, main .checkout-card, main .confirmation-card,
+#confirmationScreen {
+  background-color:rgba(8,19,33,.58) !important;
+  background-image:none !important;
+}
+/* Les blocs de lecture conservent leur contraste, mais ne forment plus un écran opaque. */
+main .pricing-panel,
+main .process-card,
+main .service-card,
+main .showcase-card,
+main .contact-card,
+main .support-assistance-card,
+main .contact-panel,
+main .info-card,
+main .summary-card,
+main .payment-card,
+main .checkout-card,
+main .confirmation-card {
+  background-color:rgba(16,31,49,.58) !important;
+  backdrop-filter:blur(2px);
+}
+/* Le texte et les commandes restent parfaitement interactifs. */
+body::before { user-select:none; }
+@media (max-width:600px) {
+  body::before {
+    background-size:min(112vw, 680px) auto;
+    opacity:.27;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+}
