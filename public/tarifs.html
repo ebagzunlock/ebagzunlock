@@ -1728,8 +1728,12 @@ devices.forEach(device=>{
  option.textContent=device;
  deviceSelect.appendChild(option);
 });
+const independentOption=document.createElement("option");
+independentOption.value="iMac unlock";
+independentOption.textContent="iMac unlock — 2 €";
+deviceSelect.appendChild(independentOption);
 deviceSelect.disabled=false;
-deviceLabel.textContent=t("deviceCategory");
+deviceLabel.textContent=requestedDevice?"Catégorie d'appareil":"Choix de la prestation";
 modelField.hidden=false;
 resetModelAndPrice();
 const chosen=requestedDevice&&allowedDevices.includes(requestedDevice)?requestedDevice:"";
@@ -1875,6 +1879,19 @@ payButton.disabled=true;
 const device=deviceSelect.value;
 
 resetModelAndPrice();
+if(device==="iMac unlock"&&serviceSelect.value===UPDATE_SERVICE){
+ modelField.hidden=true;
+ updateChoiceField.hidden=true;
+ updateChoiceSelect.innerHTML="";
+ updateChoiceSelect.disabled=true;
+ deviceLabel.textContent="Choix de la prestation";
+ selectedPrice=UPDATE_PRICES["iMac unlock"];
+ priceValue.textContent=selectedPrice+" €";
+ payButton.disabled=false;
+ syncIdentifierRules();
+ return;
+}
+modelField.hidden=false;
 if(!device||!CATALOGUE[device])return;
 if(serviceSelect.value==="SNAP-error/ban"&&!["iPhone","iPad"].includes(device))return;
 populateModels(device);
