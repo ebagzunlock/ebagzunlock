@@ -564,65 +564,23 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
  .site-header .language-picker,.site-header .language-globe,.site-header .language-picker select{width:30px!important;height:30px!important;min-width:30px!important}
 }
 </style>
-<script id="ebagz-navigation-active-state-v2">
-(()=> {
- const links=[...document.querySelectorAll(".site-header .main-nav a[href]")];
- const clean=value=>(value||"/").split("?")[0].split("#")[0].replace(/\\/+$/,"")||"/";
- const pageClassMap={"/": "home-page","/index.html":"home-page","/services.html":"services-page","/tarifs.html":"tarifs-page","/fonctionnement.html":"fonctionnement-page","/conditions-generales.html":"conditions-page","/paiement.html":"paiement-page","/recapitulatif.html":"recapitulatif-page"};
- const mark=()=>{
-  const current=clean(window.location.pathname);
-  const pageClass=Object.entries(pageClassMap).find(([path])=>clean(path)===current)?.[1];
-  links.forEach(link=>{
-   let target="/";
-   try{target=clean(new URL(link.getAttribute("href"),window.location.origin).pathname);}catch(e){}
-   let active=target===current || (current==="/" && target==="/index.html");
-   if(!active && pageClass){
-    const mapped=pageClassMap[target];
-    active=!!mapped && mapped===pageClass;
-   }
-   link.classList.toggle("is-active",active);
-   if(active)link.setAttribute("aria-current","page");
-   else link.removeAttribute("aria-current");
-  });
- };
- mark();
- if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mark,{once:true});
- window.addEventListener("pageshow",mark);
- links.forEach(link=>link.addEventListener("click",()=>{
-  links.forEach(item=>{item.classList.remove("is-active");item.removeAttribute("aria-current");});
-  link.classList.add("is-active");link.setAttribute("aria-current","page");
- }));
-})();
-</script>
-</body>
-</html>
-<style id="ebagz-navigation-active-visible-v2">
-/* Indicateur visible sur l'onglet de la page consultée. */
+
+
+<style id="ebagz-navigation-active-visible-v3">
 .site-header .main-nav a{position:relative!important;text-decoration:none!important}
-.site-header .main-nav a.is-active,.site-header .main-nav a[aria-current="page"]{
- color:#8fc5ff!important;
- background:rgba(109,165,220,.10)!important;
- border-radius:5px!important;
- box-shadow:none!important;
-}
-.site-header .main-nav a.is-active::after,.site-header .main-nav a[aria-current="page"]::after{
- content:""!important;position:absolute!important;left:2px!important;right:2px!important;bottom:2px!important;height:2px!important;
- background:#78b5f0!important;border-radius:2px!important;display:block!important;
-}
-.site-header .menu-toggle{width:40px!important;height:40px!important;min-width:40px!important;flex-basis:40px!important}
-.site-header .menu-toggle span{width:24px!important;height:2.2px!important}
-.site-header .main-nav{gap:clamp(8px,1.55vw,17px)!important}
-.site-header .main-nav a,.site-header .main-nav button{font-size:clamp(10.5px,1.05vw,13.5px)!important;min-height:38px!important;padding:8px 3px!important}
-.site-header .language-globe svg{width:20px!important;height:20px!important}
-.site-header .language-picker,.site-header .language-globe,.site-header .language-picker select{width:36px!important;height:36px!important;min-width:36px!important}
-.site-header .contact-icons a{width:40px!important;height:40px!important}
-.site-header .contact-icons svg{width:24px!important;height:24px!important}
+.site-header .main-nav a[aria-current="page"]{color:#8fc5ff!important;background:rgba(109,165,220,.10)!important;border-radius:5px!important}
+.site-header .main-nav a[aria-current="page"]::after{content:""!important;position:absolute!important;left:2px!important;right:2px!important;bottom:2px!important;height:2px!important;background:#78b5f0!important;border-radius:2px!important;display:block!important}
+.site-header .main-nav{gap:clamp(7px,1.2vw,14px)!important}
+.site-header .main-nav a,.site-header .main-nav button{font-size:clamp(12px,1.05vw,14px)!important;min-height:36px!important;padding:7px 3px!important}
+.site-header .language-globe svg{width:19px!important;height:19px!important}
+.site-header .language-picker,.site-header .language-globe,.site-header .language-picker select{width:33px!important;height:33px!important;min-width:33px!important}
 @media(max-width:420px){
- .site-header .header-right{gap:4px!important}
- .site-header .menu-toggle{width:34px!important;height:36px!important;min-width:34px!important;flex-basis:34px!important}
- .site-header .menu-toggle span{width:21px!important}
- .site-header .main-nav{gap:clamp(4px,1vw,7px)!important}
- .site-header .main-nav a,.site-header .main-nav button{font-size:clamp(10px,2.9vw,11.5px)!important;padding:7px 1px!important;min-height:36px!important}
- .site-header .language-picker,.site-header .language-globe,.site-header .language-picker select{width:31px!important;height:31px!important;min-width:31px!important}
+ .site-header .main-nav{gap:clamp(4px,.9vw,7px)!important}
+ .site-header .main-nav a,.site-header .main-nav button{font-size:clamp(11.5px,3vw,13px)!important;padding:7px 2px!important;min-height:35px!important}
+ .site-header .language-globe svg{width:18px!important;height:18px!important}
+ .site-header .language-picker,.site-header .language-globe,.site-header .language-picker select{width:32px!important;height:32px!important;min-width:32px!important}
 }
 </style>
+
+</body>
+</html>
