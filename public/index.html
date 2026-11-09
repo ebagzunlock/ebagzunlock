@@ -2836,6 +2836,9 @@ html body main,html body #service-and-assistance,html body .service-and-assistan
 .site-header .site-menu #contactIcons svg{width:20px!important;height:20px!important}
 </style>
 
+<script id="home-menu-contact-toggle-fix">
+(()=>{const b=document.getElementById("siteMenuContact"),icons=document.getElementById("contactIcons");if(!b||!icons)return;b.addEventListener("click",()=>{const open=b.getAttribute("aria-expanded")!=="true";b.setAttribute("aria-expanded",String(open));icons.hidden=!open;});})();
+</script>
 </body>
 </html>
 
