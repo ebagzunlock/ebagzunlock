@@ -4,18 +4,18 @@
   const readTheme = () => {
     try {
       const saved = localStorage.getItem(KEY);
-      return saved === "dark" ? "dark" : "light";
+      return saved === "dark" ? "dark" : "blue";
     } catch (_) {
-      return "light";
+      return "blue";
     }
   };
   const apply = (theme) => {
-    const selected = theme === "dark" ? "dark" : "light";
+    const selected = theme === "dark" ? "dark" : "blue";
     root.setAttribute("data-site-theme", selected);
     try { localStorage.setItem(KEY, selected); } catch (_) {}
     const button = document.querySelector(".site-header .theme-toggle");
     if (button) {
-      const nextLabel = selected === "dark" ? "Activer le thème clair" : "Activer le thème sombre";
+      const nextLabel = selected === "dark" ? "Activer le thème bleu" : "Activer le thème sombre";
       button.setAttribute("aria-pressed", selected === "dark" ? "true" : "false");
       button.setAttribute("aria-label", nextLabel);
       button.setAttribute("title", nextLabel);
@@ -32,7 +32,7 @@
     picker.parentNode.insertBefore(button, picker);
     apply(readTheme());
     button.addEventListener("click", () => {
-      apply(root.getAttribute("data-site-theme") === "dark" ? "light" : "dark");
+      apply(root.getAttribute("data-site-theme") === "dark" ? "blue" : "dark");
     });
   };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", install, { once: true });
