@@ -85,20 +85,11 @@
 </style>
 
 <style id="ebagz-universal-brand-background">
-html{background-color:#030a14!important}
-body{
-  min-height:100vh!important;
-  background-color:#030a14!important;
-  background-image:url("/background-ebagzunlock.svg?v=12")!important;
-  background-position:center center!important;
-  background-repeat:no-repeat!important;
-  background-size:min(92vw,760px) auto!important;
-  background-attachment:fixed!important;
-}
-main{background:transparent!important}
-@media(max-width:700px){
-  body{background-size:min(94vw,520px) auto!important;background-position:center center!important;background-attachment:fixed!important}
-}
+html{background-color:#081321!important}
+html[data-theme="light"]{background-color:#f4f7fb!important}
+body{position:relative!important;isolation:isolate!important;background:transparent!important}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:url("/background-ebagzunlock.svg?v=13");background-position:center center;background-repeat:no-repeat;background-size:min(76vw,500px) auto;opacity:.34}
+@media(max-width:700px){body::before{background-size:min(78vw,370px) auto;opacity:.38}}
 </style>
 </head>
 <body>
