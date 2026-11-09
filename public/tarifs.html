@@ -1672,14 +1672,18 @@ function resetUpdateChoices(){
 
 deviceSelect.innerHTML="";
 
-const choices=[
-["",t("chooseOption")],
-["iOS","iOS — 15 €"],
-["iPadOS","iPadOS — 10 €"],
-["macOS","macOS — 13 €"],
-["watchOS","watchOS — 8 €"],
-["ebagzunlock","ebagzunlock  — 2 €"]
-];
+const requestedSystem=new URLSearchParams(location.search).get("device");
+const categorySystems=["iOS","iPadOS","macOS","watchOS"];
+const systemLabels={
+"iOS":"iOS — 15 €",
+"iPadOS":"iPadOS — 10 €",
+"macOS":"macOS — 13 €",
+"watchOS":"watchOS — 8 €",
+"ebagzunlock":"ebagzunlock  — 2 €"
+};
+const choices=categorySystems.includes(requestedSystem)
+?[[requestedSystem,systemLabels[requestedSystem]]]
+:[["",t("chooseOption")],...categorySystems.map(value=>[value,systemLabels[value]]),["ebagzunlock",systemLabels.ebagzunlock]];
 
 choices.forEach(([value,label])=>{
 const option=document.createElement("option");
@@ -1689,7 +1693,7 @@ deviceSelect.appendChild(option);
 });
 
 deviceSelect.disabled=false;
-deviceLabel.textContent=t("updateChoice");
+deviceLabel.textContent=categorySystems.includes(requestedSystem)?"Mise à jour système":"Mise à jour système";
 modelField.hidden=true;
 modelSelect.value="";
 }
