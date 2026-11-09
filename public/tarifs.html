@@ -1712,7 +1712,7 @@ if(chosen){
  updateChoiceSelect.disabled=true;
  selectedPrice=validSystem?UPDATE_PRICES[system]:null;
  priceValue.textContent=selectedPrice===null?"— €":selectedPrice+" €";
- payButton.disabled=selectedPrice===null;
+ payButton.disabled=true;
 }else{
  updateChoiceField.hidden=true;
  updateChoiceSelect.innerHTML="";
@@ -1855,7 +1855,7 @@ if(serviceSelect.value===UPDATE_SERVICE){
  updateChoiceSelect.disabled=true;
  selectedPrice=UPDATE_PRICES[system];
  priceValue.textContent=selectedPrice+" €";
- payButton.disabled=false;
+ payButton.disabled=true;
 }
 });
 
