@@ -468,8 +468,20 @@ document.getElementById("service").textContent=isUpdate?"Mise à jour système":
 document.getElementById("device").textContent=selection.device;
 document.getElementById("model").textContent=selection.model||"";
 const independentProduct=selection.device==="ebagzunlock ";
-const selectedChoice=selection.choice||(isUpdate?updateSystem:"");
+const serviceCategories={
+"Déverrouillage iCloud":"Déverrouillage",
+"Déverrouillage Opérateur":"Déverrouillage",
+"SNAP-error/ban":"SNAP ERROR/BAN",
+"Suppression Blocage & Limitation Propriétaire":"Suppression de blocage",
+"Résolution Blocage DFU & Mode de Récupération":"Résolution blocage DFU"
+};
+const selectedChoice=selection.choice||(isUpdate?updateSystem:selection.service);
 const additionalInfo=String(customer.message||customer.additionalInfo||"").trim();
+
+/* Pour les services classiques, la catégorie et le choix précis sont présentés séparément. */
+document.getElementById("service").textContent=isUpdate
+ ?"Mise à jour système"
+ :(serviceCategories[selection.service]||selection.service);
 
 /* Les lignes sans valeur sont masquées, jamais remplacées par un tiret. */
 document.getElementById("model-row").hidden=independentProduct||!String(selection.model||"").trim();
