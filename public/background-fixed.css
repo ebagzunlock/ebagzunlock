@@ -8,17 +8,19 @@ html::before {
   content:"";
   position:fixed !important;
   inset:0 !important;
+  width:100vw !important;
+  height:100vh !important;
+  height:100dvh !important;
   z-index:0 !important;
   display:block;
   pointer-events:none;
   background-image:url("/background-ebagzunlock.svg");
   background-repeat:no-repeat;
-  background-position:50% 50%;
-  background-size:min(100vw, 900px) auto;
+  background-position:center center !important;
+  background-attachment:fixed !important;
+  background-size:min(100vw, 900px) auto !important;
   opacity:.30;
-  transform:translateZ(0);
-  -webkit-transform:translateZ(0);
-  will-change:transform;
+  contain:paint;
 }
 body {
   position:relative !important;
@@ -71,7 +73,8 @@ main .confirmation-card {
 html::before { user-select:none; }
 @media (max-width:600px) {
   html::before {
-    background-size:min(112vw, 680px) auto;
+    background-size:min(112vw, 680px) auto !important;
+    background-position:center center !important;
     opacity:.27;
   }
 }
