@@ -273,7 +273,7 @@ if(!/^[0-9]{14}$/.test(orderNumber)){
  orderNumber=datePart+randomPart;
  try{sessionStorage.setItem("ebagzunlock-order-number",orderNumber);}catch(error){}
 }
-document.getElementById("order-number").textContent=orderNumber.replace(/^EBAGZ-/,"");
+document.getElementById("order-number").textContent="N° "+orderNumber;
 const updateSystemsByDevice={iPhone:"iOS",iPad:"iPadOS",MacBook:"macOS","Apple Watch":"watchOS"};
 const updatePrices={iOS:15,iPadOS:10,macOS:13,watchOS:8,"ebagzunlock ":2};
 const prices={
