@@ -32,7 +32,7 @@ export async function onRequestPost({ request, env }) {
     const phone = meta.customer_phone || "";
     const identifier = meta.customer_identifier || "";
     const message = meta.customer_message || "";
-    const orderNumber = /^EBAGZ-[A-Z0-9]{10,16}$/.test(meta.order_number || "") ? meta.order_number : `EBAGZ-${sessionId.slice(-8).toUpperCase()}`;
+    const orderNumber = /^[0-9]{14}$/.test(meta.order_number || "") ? meta.order_number : String(session.created || Math.floor(Date.now() / 1000)).padStart(14, "0").slice(-14);
     const issueDate = new Date((session.created || Math.floor(Date.now() / 1000)) * 1000)
       .toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
 
@@ -92,7 +92,7 @@ export async function onRequestPost({ request, env }) {
 <div><a href="https://ebagzunlock.com" style="color:#8fc5ff;text-decoration:none">https://ebagzunlock.com</a></div>
 </div>
 <div style="margin-top:22px;border-top:2px solid #2f8fe5;padding:18px 8px 4px;text-align:center">
-<div style="font-size:14px;font-weight:bold;color:#fff">ebagzunlock </div>
+<div style="font-size:14px;font-weight:bold;color:#fff"><span style="color:#fff">ebagz</span><span style="color:#65b8ff">unlock</span><span style="color:#fff;margin-left:0"></span></div>
 <div style="margin-top:5px;font-size:11px;color:#9fb8d2">Copyright © 2026. Tous droits réservés.</div>
 </div>
 </td></tr></table></body></html>`;
