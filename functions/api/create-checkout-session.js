@@ -241,7 +241,7 @@ export async function onRequestPost({ request, env }) {
   const localeAliases = { "zh-CN": "zh", "pt": "pt", "en": "en", "fr": "fr" };
   const stripeLocale = localeAliases[requestedLocale] || requestedLocale;
   const checkoutLocale = supportedLocales.has(stripeLocale) ? stripeLocale : "auto";
-  if (!/^EBAGZ-[A-Z0-9]{10,16}$/.test(String(orderNumber))) return Response.json({ error: "Numéro de commande manquant ou invalide. Revenez au récapitulatif." }, { status: 400 });
+  if (!/^[0-9]{14}$/.test(String(orderNumber))) return Response.json({ error: "Numéro de commande manquant ou invalide. Revenez au récapitulatif." }, { status: 400 });
   if (!SERVICES.includes(service)) return Response.json({ error: "Prestation invalide." }, { status: 400 });
   if (["SNAP-error/ban","Déverrouillage Opérateur"].includes(service) && device !== "iPhone") return Response.json({ error: "Ce service est disponible uniquement pour iPhone." }, { status: 400 });
   if (consentAccepted !== true) return Response.json({ error: "Veuillez accepter les conditions générales de vente avant de procéder au paiement." }, { status: 400 });
