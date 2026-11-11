@@ -2700,3 +2700,49 @@ html.fonctionnement-page .site-header .main-nav a[href="/fonctionnement.html"]{c
 .site-menu #contactIcons{position:static!important;width:100%!important;margin:8px auto 10px!important;padding:8px 5px!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:10px!important;background:#101f31!important;gap:6px!important}
 @media(max-width:380px){.contact-icons a,.contact-page-icons a,.site-footer .footer-contact-icons a{width:30px!important;height:30px!important;min-width:30px!important;flex-basis:30px!important}.contact-icons svg,.contact-page-icons svg,.site-footer .footer-contact-icons svg{width:16px!important;height:16px!important}}
 </style>
+
+
+<style id="ebagz-menu-contact-icons-fit">
+/* Sept icônes compactes dans le panneau CONTACT du menu hamburger */
+#siteMenu #contactIcons{
+ display:grid!important;
+ grid-template-columns:repeat(7,minmax(0,1fr))!important;
+ align-items:center!important;
+ justify-items:center!important;
+ gap:2px!important;
+ width:100%!important;
+ max-width:100%!important;
+ min-width:0!important;
+ margin:7px 0 8px!important;
+ padding:6px 4px!important;
+ box-sizing:border-box!important;
+ overflow:hidden!important;
+}
+#siteMenu #contactIcons a{
+ display:flex!important;
+ width:100%!important;
+ min-width:0!important;
+ max-width:25px!important;
+ height:25px!important;
+ min-height:25px!important;
+ flex:0 1 25px!important;
+ margin:0 auto!important;
+ padding:0!important;
+ align-items:center!important;
+ justify-content:center!important;
+ box-sizing:border-box!important;
+ border-radius:50%!important;
+}
+#siteMenu #contactIcons svg{
+ display:block!important;
+ width:12px!important;
+ height:12px!important;
+ max-width:12px!important;
+ max-height:12px!important;
+}
+@media(max-width:360px){
+ #siteMenu #contactIcons{gap:1px!important;padding:5px 2px!important}
+ #siteMenu #contactIcons a{max-width:22px!important;height:22px!important;min-height:22px!important;flex-basis:22px!important}
+ #siteMenu #contactIcons svg{width:11px!important;height:11px!important;max-width:11px!important;max-height:11px!important}
+}
+</style>
