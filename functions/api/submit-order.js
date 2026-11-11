@@ -34,7 +34,7 @@ export async function onRequestPost({ request, env }) {
     const message = meta.customer_message || "";
     const activityDomain = meta.activity_domain || (service === "Création de site web" ? model : "");
     const isCreation = service === "Création de site web" && device === "Site web";
-    const orderNumber = /^[0-9]{14}$/.test(meta.order_number || "") ? meta.order_number : String(session.created || Math.floor(Date.now() / 1000)).padStart(14, "0").slice(-14);
+    const orderNumber = /^EB[A-Z0-9]{10}$/.test(meta.order_number || "") ? meta.order_number : "EB" + Array.from(crypto.getRandomValues(new Uint8Array(10)), byte => "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[byte % 32]).join("");
     const issueDate = new Date((session.created || Math.floor(Date.now() / 1000)) * 1000)
       .toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
 
