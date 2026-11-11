@@ -130,7 +130,7 @@ export async function onRequestPost({ request, env }) {
       ].join("\n")
     }, `facture-client-${sessionId}`);
 
-    return Response.json({ success: true, invoiceNumber: orderNumber });
+    return Response.json({ success: true, invoiceNumber: orderNumber, invoiceHtml });
   } catch (error) {
     console.error("Erreur commande :", error);
     return Response.json({ error: error.message || "Erreur lors de l'envoi de la commande." }, { status: 502 });
