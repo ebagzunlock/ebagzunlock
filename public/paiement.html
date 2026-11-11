@@ -278,7 +278,7 @@ const isCreation=selection.service==="Création de site web"&&selection.device==
 const amount=isCreation?creationPrices[selection.model]:(isUpdate
  ? (selection.device==="ebagzunlock "&&!selection.model?updatePrices["ebagzunlock "]:(selection.model&&prices[selection.device]?.[selection.model]!==undefined?updatePrices[updateSystem]:null))
  : prices[selection.device]?.[selection.model]);
-const validCustomer=customer.name&&customer.email&&customer.phone&&(selection.device==="ebagzunlock "||customer.identifier);
+const validCustomer=customer.name&&customer.email&&customer.phone&&(selection.device==="ebagzunlock "||selection.device==="Site web"||customer.identifier);
 if(!selection.service||!selection.device||(selection.device!=="ebagzunlock "&&!selection.model)||!Number.isFinite(amount)||!validCustomer){
 document.getElementById("status").textContent="Commande introuvable. Revenez au récapitulatif et vérifiez les informations.";
 }else{
