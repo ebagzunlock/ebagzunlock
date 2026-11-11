@@ -253,6 +253,7 @@ html[data-theme="light"] .logo,html[data-theme="light"] .logo .apple-mark,html[d
 <h1 id="title">Vérification de votre paiement…</h1>
 <p class="message" id="message">Nous confirmons votre règlement et préparons votre confirmation de commande.</p>
 <p id="status" role="alert"></p>
+<div id="invoice-preview" hidden style="width:min(100%,680px);margin:24px auto 0;text-align:left"><iframe id="invoice-frame" title="Facture de votre commande" style="display:block;width:100%;height:1050px;border:0;border-radius:12px;background:#081321"></iframe></div>
 <button id="ok" type="button" hidden>OK</button>
 <button id="retry" type="button">Réessayer</button>
 </main>
@@ -294,6 +295,7 @@ document.getElementById("check").hidden=false;
 document.getElementById("title").textContent="Commande confirmée et paiement reçu";
 document.getElementById("message").textContent="Votre commande a bien été envoyée. Votre facture vient également d'être envoyée par e-mail.";
 document.getElementById("ok").hidden=false;
+if(orderData.invoiceHtml){document.getElementById("invoice-frame").srcdoc=orderData.invoiceHtml;document.getElementById("invoice-preview").hidden=false;}
 try{sessionStorage.removeItem("ebagzunlock-pending-payment");sessionStorage.removeItem("ebagzunlock-pending-order");}catch(error){}
 }catch(error){
 statusEl.textContent=error.message||"Une erreur est survenue.";
