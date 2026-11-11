@@ -528,7 +528,7 @@ document.getElementById("customer-identifier").textContent=customer.identifier||
 if(additionalInfo){
  document.getElementById("customer-message").textContent=additionalInfo;
 }
-document.getElementById("amount").textContent=amount+" €";
+document.getElementById("amount").textContent=amount.toLocaleString("fr-FR",{minimumFractionDigits:0,maximumFractionDigits:2})+" €";
 
 }
 
