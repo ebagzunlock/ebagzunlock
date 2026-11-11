@@ -1189,7 +1189,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <option value="Suppression Blocage & Limitation Propriétaire">Suppression de blocage & limitation propriétaire</option>
 <option value="Résolution Blocage DFU & Mode de Récupération">Résolution blocage DFU & mode de récupération</option>
 <option value="Mise à jour iOS / macOS">Mise à jour iOS / macOS</option>
+<option value="Création de site web">CRÉATION DE SITE WEB</option>
 </select>
+</div>
+
+<div class="field" id="activityField" hidden>
+<label for="activitySelect">Domaine d’activité</label>
+<select id="activitySelect">
+<option value="">Choisir un domaine d’activité</option>
+<option>Commerce</option><option>Restauration</option><option>Beauté</option><option>Santé et bien-être</option><option>Immobilier</option><option>Transport</option><option>Tourisme</option><option>Services professionnels</option><option>Éducation</option><option>Artisanat & bâtiment</option><option>Événementiel</option><option>Associations</option><option>Technologie</option><option>Autres</option>
+</select>
+<p class="notice">Pour « Autres », le tarif affiché est un tarif de départ à partir de 800 €.</p>
 </div>
 
 <div class="field" id="deviceField">
@@ -1844,6 +1854,12 @@ const $=id=>document.getElementById(id);
 
 const serviceSelect=$("serviceSelect");
 const deviceSelect=$("deviceSelect");
+const deviceField=$("deviceField");
+const activityField=$("activityField");
+const activitySelect=$("activitySelect");
+const CREATION_SERVICE="Création de site web";
+const CREATION_PRICES={"Commerce":357,"Restauration":405,"Beauté":405,"Santé et bien-être":405,"Immobilier":510,"Transport":550,"Tourisme":376.75,"Services professionnels":615,"Éducation":410,"Artisanat & bâtiment":457,"Événementiel":510,"Associations":605,"Technologie":730,"Autres":800};
+let selectedActivity="";
 const modelSelect=$("modelSelect");
 const modelField=$("modelField");
 const modelFamilyField=$("modelFamilyField");
@@ -1867,6 +1883,10 @@ function updateOwnershipConsent(){
  const identifier=String(identifierInput?.value||"").trim();
  const consentText=$("ownershipConsentText");
  if(!consentText)return;
+ if(service==="Création de site web"){
+  consentText.textContent="J'accepte les conditions générales d'achat et de confidentialité.";
+  return;
+ }
  if(device==="ebagzunlock "){
   consentText.textContent="J’ACCEPTE LA PRESTATION ebagzunlock  au tarif de 2 €.";
   return;
@@ -1886,7 +1906,7 @@ function updateOwnershipConsent(){
 }
 function syncIdentifierRules(){
  const device=deviceSelect.value, service=serviceSelect.value;
- const independent=device==="ebagzunlock ";
+ const independent=device==="ebagzunlock "||device==="Site web";
  if(!identifierInput)return;
  identifierInput.required=!independent;
  identifierInput.disabled=independent;
@@ -2255,10 +2275,15 @@ selectedPrice=null;
 priceValue.textContent="— €";
 payButton.disabled=true;
 
-if(name===UPDATE_SERVICE){
-resetUpdateChoices();
+if(name===CREATION_SERVICE){
+ activityField.hidden=false; activitySelect.value=""; selectedActivity="";
+ deviceField.hidden=true; modelField.hidden=true; if(modelFamilyField)modelFamilyField.hidden=true;
+ updateChoiceField.hidden=true; deviceSelect.innerHTML='<option value="Site web">Site web</option>'; deviceSelect.value="Site web"; deviceSelect.disabled=true;
+ if(identifierInput){identifierInput.value="";identifierInput.required=false;identifierInput.disabled=true;} if(identifierField)identifierField.hidden=true;
 }else{
-resetDeviceChoices();
+ activityField.hidden=true; activitySelect.value=""; selectedActivity=""; deviceField.hidden=false;
+ if(identifierInput)identifierInput.disabled=false;
+ if(name===UPDATE_SERVICE){resetUpdateChoices();}else{resetDeviceChoices();}
 }
 
 document.querySelectorAll(".service-card").forEach(card=>{
@@ -2309,6 +2334,13 @@ if(!selectService(card.dataset.service))return;
 window.location.href="/tarifs.html?service="+encodeURIComponent(card.dataset.service);
 
 });
+});
+
+activitySelect.addEventListener("change",()=>{
+ invalidateVerifiedOrder(); selectedActivity=activitySelect.value;
+ selectedPrice=Object.prototype.hasOwnProperty.call(CREATION_PRICES,selectedActivity)?CREATION_PRICES[selectedActivity]:null;
+ priceValue.textContent=selectedPrice===null?"— €":selectedPrice.toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2})+" €";
+ payButton.disabled=selectedPrice===null; updateOwnershipConsent();
 });
 
 deviceSelect.addEventListener("change",()=>{
@@ -2408,15 +2440,17 @@ syncIdentifierRules();
 /* Ouverture de la page de paiement intégrée E-BAGS UNLOCK */
 payButton.addEventListener("click",()=>{
 const service=serviceSelect.value;
-const device=deviceSelect.value;
+const device=service===CREATION_SERVICE?"Site web":deviceSelect.value;
 if(service==="SNAP-error/ban"&&device!=="iPhone"){
 showStatus(paymentStatus,"Ce service est disponible uniquement pour iPhone et iPad.");
 return;
 }
 let model=modelSelect.value;
+if(service===CREATION_SERVICE)model=selectedActivity;
 if(service===UPDATE_SERVICE&&device==="ebagzunlock ")model="";
 if(!service||!device||selectedPrice===null){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
 if(!requestForm.reportValidity())return;
+if(service===CREATION_SERVICE&&!model){showStatus(paymentStatus,"Veuillez choisir votre domaine d’activité.","error");return;}
 if(service===UPDATE_SERVICE&&device!=="ebagzunlock "&&!model){showStatus(paymentStatus,t("invalidSelection"),"error");return;}
 const formData=new FormData(requestForm);
 const choice=String(updateChoiceSelect?.value||"").trim();
