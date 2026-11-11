@@ -212,6 +212,7 @@ html[data-theme="light"] .logo,html[data-theme="light"] .logo .apple-mark,html[d
 <h1>RÉCAPITULATIF</h1>
 <section class="panel" aria-labelledby="summary-title">
 <div class="line"><span>Numéro de commande</span><strong id="order-number">—</strong></div>
+<div class="line" id="service-row"><span>Prestation</span><strong id="service-name">—</strong></div>
  <div class="line" id="model-row"><span id="model-label">Modèle</span><strong id="model">—</strong></div>
 <div class="line"><span>Nom</span><strong id="customer-name">—</strong></div>
 <div class="line"><span>E-mail</span><strong id="customer-email">—</strong></div>
@@ -506,6 +507,7 @@ document.getElementById("status").textContent="Récapitulatif incomplet. Retourn
 }else{
 
 
+document.getElementById("service-name").textContent=selection.service;
 document.getElementById("model").textContent=selection.model||selection.device||"";
 const independentProduct=selection.device==="ebagzunlock "||isCreation;
 if(isCreation)document.getElementById("model-label").textContent="Domaine d’activité";
