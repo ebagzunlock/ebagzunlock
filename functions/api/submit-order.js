@@ -34,12 +34,13 @@ export async function onRequestPost({ request, env }) {
     const message = meta.customer_message || "";
     const activityDomain = meta.activity_domain || (service === "Création de site web" ? model : "");
     const isCreation = service === "Création de site web" && device === "Site web";
-    const orderNumber = /^EB[A-Z0-9]{10}$/.test(meta.order_number || "") ? meta.order_number : "EB" + Array.from(crypto.getRandomValues(new Uint8Array(10)), byte => "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[byte % 32]).join("");
-    const issueDate = new Date((session.created || Math.floor(Date.now() / 1000)) * 1000)
-      .toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
+    const orderNumber = /^[A-Z0-9]{14}$/.test(meta.order_number || "") ? meta.order_number : "";
+    const address = session.customer_details?.address || {};
+    const customerAddress = [address.line1, address.line2, [address.postal_code, address.city].filter(Boolean).join(" "), address.state, address.country].filter(Boolean).join(", ");
+    const setupCode = meta.setup_code || "";
 
     const independent = device === "ebagzunlock " || isCreation;
-    if (!service || !device || (!model && !independent) || (isCreation && !activityDomain) || !name || !email || !phone ||
+    if (!service || !device || (!model && !independent) || (isCreation && !activityDomain) || !name || !email || !phone || !orderNumber ||
         (!identifier && !independent) || !Number.isFinite(amount) || amount <= 0) {
       return Response.json({ error: "Les informations de commande sont incomplètes." }, { status: 400 });
     }
@@ -55,56 +56,34 @@ export async function onRequestPost({ request, env }) {
     const safeEmail = escapeHtml(email);
     const safePhone = escapeHtml(phone);
     const safeIdentifier = escapeHtml(identifier);
+    const safeAddress = escapeHtml(customerAddress);
     const safeMessage = escapeHtml(message || "Aucune");
-    const siteUrl = "https://ebagzunlock.com";
-    const logoUrl = `${siteUrl}/background-ebagzunlock.svg`;
     const invoiceHtml = `<!doctype html><html lang="fr"><head><meta charset="utf-8"></head>
-<body style="margin:0;padding:24px 12px;background:#071321;font-family:Arial,Helvetica,sans-serif;color:#f5f8fc">
-<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:620px;margin:0 auto;background:#0d1d30;border:1px solid #29425d;border-radius:14px;overflow:hidden">
+<body style="margin:0;padding:24px 12px;background:#081321;font-family:Arial,Helvetica,sans-serif;color:#f5f8fc">
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:620px;margin:0 auto;background:#101f31;border:1px solid #29425d;border-radius:14px;overflow:hidden">
 <tr><td style="padding:28px 24px 22px;text-align:center;background:#081321">
-<img src="${logoUrl}" alt="ebagzunlock" width="160" height="160" style="display:block;width:160px;height:160px;object-fit:cover;object-position:center;margin:0 auto 12px;border:0">
-<div style="font-size:14px;color:#c3cfdd">Service de déverrouillage Apple</div>
-<div style="margin-top:16px;font-size:18px;font-weight:bold;color:#fff">N° ${orderNumber}</div>
-<div style="margin-top:6px;font-size:12px;color:#9fb8d2">${issueDate}</div>
-</td></tr>
-<tr><td style="padding:26px 24px">
-<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-bottom:26px">
-<tr><td style="padding:11px 12px;border-bottom:1px solid #29425d;color:#fff;font-size:14px">${safeName}</td></tr>
-<tr><td style="padding:11px 12px;border-bottom:1px solid #29425d;color:#fff;font-size:14px">${safeEmail}</td></tr>
-<tr><td style="padding:11px 12px;border-bottom:1px solid #29425d;color:#fff;font-size:14px">${safePhone}</td></tr>
-</table>
-<div style="margin:0 0 12px;font-size:15px;font-weight:bold;color:#8fc5ff">DÉTAILS DE LA PRESTATION</div>
+<div style="font-size:30px;font-weight:800;letter-spacing:-1px;color:#fff">ebagz<span style="color:#6da5dc">unlock</span><span style="margin-left:5px;color:#fff"></span></div>
+<div style="margin-top:12px;font-size:13px;font-weight:bold;letter-spacing:1px;color:#f5f8fc">SERVICES DE DÉVERROUILLAGE</div>
+<div style="margin-top:4px;font-size:13px;font-weight:bold;letter-spacing:1px;color:#f5f8fc">&amp; CRÉATION DE SITE WEB</div>
+<div style="margin-top:22px;font-size:20px;font-weight:bold;color:#d9b66f">N° ${orderNumber}</div>
+</td></tr><tr><td style="padding:26px 24px">
+<div style="text-align:center;line-height:1.9;margin-bottom:25px;color:#f5f8fc;font-size:14px"><div>${safeName}</div><div>${safeEmail}</div><div>${safePhone}</div>${safeAddress ? `<div>${safeAddress}</div>` : ""}</div>
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
-<tr style="background:#081321">
-<td style="padding:11px 9px;color:#fff;font-size:11px;font-weight:bold">PRESTATION</td>
-<td style="padding:11px 9px;color:#fff;font-size:11px;font-weight:bold">APPAREIL / MODÈLE</td>
-<td align="right" style="padding:11px 9px;color:#fff;font-size:11px;font-weight:bold">MONTANT</td>
-</tr>
-<tr>
-<td style="padding:13px 9px;border-bottom:1px solid #29425d;color:#f5f8fc;font-size:13px">${safeService}</td>
-<td style="padding:13px 9px;border-bottom:1px solid #29425d;color:#f5f8fc;font-size:13px">${isCreation ? `Domaine : ${safeActivityDomain}` : `${safeDevice}${model ? `<br>${safeModel}` : ""}`}</td>
-<td align="right" style="padding:13px 9px;border-bottom:1px solid #29425d;color:#f5f8fc;font-size:13px;white-space:nowrap">${amountText} €</td>
-</tr>
-<tr><td colspan="2" style="padding:16px 9px;color:#fff;font-weight:bold">TOTAL PAYÉ</td><td align="right" style="padding:16px 9px;color:#8fc5ff;font-size:19px;font-weight:bold;white-space:nowrap">${amountText} €</td></tr>
-</table>
-<p style="margin:28px 0 8px;text-align:center;color:#fff;font-size:16px;font-weight:bold">Merci pour votre confiance.</p>
-<p style="margin:0 0 18px;text-align:center;color:#c3cfdd;line-height:1.6;font-size:13px">Pour toute question concernant votre commande, notre équipe reste à votre disposition.</p>
-<div style="text-align:center;font-size:13px;line-height:2">
-<div><a href="tel:+33764027733" style="color:#8fc5ff;text-decoration:none">+33 7 64 02 77 33</a></div>
-<div><a href="mailto:ebagzunlock@outlook.fr" style="color:#8fc5ff;text-decoration:none">ebagzunlock@outlook.fr</a></div>
-<div><a href="https://ebagzunlock.com" style="color:#8fc5ff;text-decoration:none">https://ebagzunlock.com</a></div>
-</div>
-<div style="margin-top:22px;border-top:2px solid #2f8fe5;padding:18px 8px 4px;text-align:center">
-<div style="font-size:14px;font-weight:bold;color:#fff"><span style="color:#fff">ebagz</span><span style="color:#65b8ff">unlock</span><span style="color:#fff;margin-left:0"></span></div>
-<div style="margin-top:5px;font-size:11px;color:#9fb8d2">Copyright © 2026. Tous droits réservés.</div>
-</div>
+<tr style="background:#081321"><td style="padding:12px 9px;color:#fff;font-size:11px;font-weight:bold">PRESTATION</td><td style="padding:12px 9px;color:#fff;font-size:11px;font-weight:bold">APPAREIL ET MODÈLE</td><td align="right" style="padding:12px 9px;color:#fff;font-size:11px;font-weight:bold">MONTANT</td></tr>
+<tr><td style="padding:14px 9px;border-bottom:1px solid #29425d;color:#f5f8fc;font-size:13px">${safeService}</td><td style="padding:14px 9px;border-bottom:1px solid #29425d;color:#f5f8fc;font-size:13px">${isCreation ? `Domaine : ${safeActivityDomain}` : `${safeDevice}${model ? `<br>${safeModel}` : ""}`}</td><td align="right" style="padding:14px 9px;border-bottom:1px solid #29425d;color:#f5f8fc;font-size:13px;white-space:nowrap">${amountText} €</td></tr>
+<tr><td colspan="2" style="padding:17px 9px;color:#fff;font-weight:bold">TOTAL PAYÉ</td><td align="right" style="padding:17px 9px;color:#8fc5ff;font-size:20px;font-weight:bold;white-space:nowrap">${amountText} €</td></tr></table>
+<div style="margin:28px auto 10px;text-align:center;color:#d9b66f;font-size:16px;font-weight:bold">SETUP CODE</div>
+<div style="padding:14px 10px;text-align:center;border:1px solid #d9b66f;border-radius:8px;color:#fff;font-size:16px;font-weight:bold;letter-spacing:1px">${setupCode ? escapeHtml(setupCode) : "COMMUNIQUÉ SÉPARÉMENT PAR NOTRE ÉQUIPE"}</div>
+<p style="margin:28px 0 8px;text-align:center;color:#fff;font-size:16px;font-weight:bold">Merci pour votre confiance.</p><p style="margin:0 0 18px;text-align:center;color:#c3cfdd;line-height:1.6;font-size:13px">Pour toute question, notre équipe reste à votre disposition.</p>
+<div style="text-align:center;font-size:13px;line-height:2"><div><a href="tel:+33764027733" style="color:#8fc5ff;text-decoration:none">+33 7 64 02 77 33</a></div><div><a href="mailto:ebagzunlock@outlook.fr" style="color:#8fc5ff;text-decoration:none">ebagzunlock@outlook.fr</a></div><div><a href="https://ebagzunlock.com" style="color:#8fc5ff;text-decoration:none">https://ebagzunlock.com</a></div></div>
+<div style="margin-top:22px;border-top:2px solid #2f8fe5;padding:18px 8px 4px;text-align:center;font-size:11px;color:#9fb8d2">ebagzunlock — Copyright © 2026. Tous droits réservés.</div>
 </td></tr></table></body></html>`;
 
     const orderDetails = [
       `Commande : ${orderNumber}`, `Service : ${service}`, ...(isCreation ? [`Domaine d’activité : ${activityDomain}`] : [`Appareil / option : ${device}`]),
       ...(!isCreation && model ? [`Modèle : ${model}`] : []),
       `Montant payé : ${amountText} €`, `Référence Stripe : ${sessionId}`,
-      `Nom : ${name}`, `E-mail : ${email}`, `Téléphone : ${phone}`,
+      `Nom : ${name}`, `E-mail : ${email}`, `Téléphone : ${phone}`, ...(customerAddress ? [`Adresse : ${customerAddress}`] : []),
       ...(identifier ? [`IMEI / numéro de série : ${identifier}`] : []),
       `Informations complémentaires : ${message || "Aucune"}`
     ];
@@ -140,10 +119,10 @@ export async function onRequestPost({ request, env }) {
       text: [
         `Bonjour ${name},`, "",
         "Nous confirmons la réception de votre paiement et de votre commande.",
-`N° ${orderNumber}`, `Date : ${issueDate}`,
-        name, email, phone, "",
+`N° ${orderNumber}`,
+        name, email, phone, ...(customerAddress ? [customerAddress] : []), "",
         `Prestation : ${service}`, isCreation ? `Domaine d’activité : ${activityDomain}` : `Appareil / modèle : ${device}${model ? " — " + model : ""}`,
-        `Montant : ${amountText} €`, `TOTAL PAYÉ : ${amountText} €`, "",
+        `Montant : ${amountText} €`, `TOTAL PAYÉ : ${amountText} €`, "", "SETUP CODE", setupCode || "Communiqué séparément par notre équipe", "",
         "Merci pour votre confiance.",
         "Pour toute question concernant votre commande, notre équipe reste à votre disposition.",
         "+33 7 64 02 77 33", "ebagzunlock@outlook.fr", "https://ebagzunlock.com",
