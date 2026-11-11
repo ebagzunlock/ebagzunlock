@@ -4,8 +4,11 @@ const SERVICES = [
   "SNAP-error/ban",
   "Suppression Blocage & Limitation Propriétaire",
   "Résolution Blocage DFU & Mode de Récupération",
-  "Mise à jour iOS / macOS"
+  "Mise à jour iOS / macOS",
+  "Création de site web"
 ];
+
+const CREATION_PRICES = {"Commerce":357,"Restauration":405,"Beauté":405,"Santé et bien-être":405,"Immobilier":510,"Transport":550,"Tourisme":376.75,"Services professionnels":615,"Éducation":410,"Artisanat & bâtiment":457,"Événementiel":510,"Associations":605,"Technologie":730,"Autres":800};
 
 const UPDATE_SYSTEMS = { iPhone: "iOS", iPad: "iPadOS", MacBook: "macOS", "Apple Watch": "watchOS" };
 const UPDATE_PRICES = { iOS: 15, iPadOS: 10, macOS: 13, watchOS: 8, "ebagzunlock ": 2 };
@@ -252,12 +255,13 @@ export async function onRequestPost({ request, env }) {
   const identifier = String(customer.identifier || "").trim().slice(0, 120);
   const message = String(customer.message || "").trim().slice(0, 450);
 
-  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !phone || (device !== "ebagzunlock " && !identifier)) {
+  const isCreation = service === "Création de site web" && device === "Site web";
+  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !phone || (device !== "ebagzunlock " && !isCreation && !identifier)) {
     return Response.json({ error: "Veuillez compléter les coordonnées et les informations de l'appareil avant le paiement." }, { status: 400 });
   }
 
-  const independent = device === "ebagzunlock ";
-  const validDevice = ["iPhone","iPad","MacBook","Apple Watch","ebagzunlock "].includes(device);
+  const independent = device === "ebagzunlock " || isCreation;
+  const validDevice = ["iPhone","iPad","MacBook","Apple Watch","ebagzunlock ","Site web"].includes(device);
   const identifierValid = independent
     ? !identifier
     : device === "iPhone" && service === "Déverrouillage Opérateur"
@@ -267,7 +271,10 @@ export async function onRequestPost({ request, env }) {
     return Response.json({ error: "Identifiant invalide pour l’appareil ou la prestation sélectionnée." }, { status: 400 });
   }
   let amount;
-  if (service === "Mise à jour iOS / macOS") {
+  if (isCreation) {
+    if (!Object.prototype.hasOwnProperty.call(CREATION_PRICES, model || "")) return Response.json({ error: "Domaine d’activité invalide." }, { status: 400 });
+    amount = CREATION_PRICES[model];
+  } else if (service === "Mise à jour iOS / macOS") {
     if (device === "ebagzunlock " && !model) {
       amount = UPDATE_PRICES["ebagzunlock "];
     } else {
@@ -335,13 +342,13 @@ export async function onRequestPost({ request, env }) {
   params.set("line_items[0][price_data][currency]", "eur");
   params.set("line_items[0][price_data][unit_amount]", String(amount * 100));
 
-  const productName = service === "Mise à jour iOS / macOS" ? (device === "ebagzunlock " ? "ebagzunlock " : `Mise à jour ${UPDATE_SYSTEMS[device]} — ${device} — ${model}`) : `${service} — ${device} — ${model}`;
+  const productName = isCreation ? `Création de site web — ${model}` : service === "Mise à jour iOS / macOS" ? (device === "ebagzunlock " ? "ebagzunlock " : `Mise à jour ${UPDATE_SYSTEMS[device]} — ${device} — ${model}`) : `${service} — ${device} — ${model}`;
   params.set("line_items[0][price_data][product_data][name]", productName);
   params.set("line_items[0][price_data][product_data][description]", "Prestation réalisée uniquement dans un cadre légal, avec l'autorisation du propriétaire.");
   params.set("billing_address_collection", "auto");
   params.set("return_url", `${siteOrigin}/confirmation.html?session_id={CHECKOUT_SESSION_ID}`);
 
-  const metadata = { order_number: orderNumber, service, device: device || "", model: model || "", amount_eur: String(amount), customer_name: name, customer_email: email, customer_phone: phone, customer_identifier: identifier, customer_message: message, consent_accepted: "yes" };
+  const metadata = { order_number: orderNumber, service, device: device || "", model: model || "", activity_domain: isCreation ? model : "", amount_eur: String(amount), customer_name: name, customer_email: email, customer_phone: phone, customer_identifier: identifier, customer_message: message, consent_accepted: "yes" };
   for (const [key, value] of Object.entries(metadata)) params.set(`metadata[${key}]`, value);
 
   try {
