@@ -264,6 +264,7 @@ device:params.get("device")||savedSelection.device||"",
 model:params.get("model")||savedSelection.model||""
 };
 const updateSystemsByDevice={iPhone:"iOS",iPad:"iPadOS",MacBook:"macOS","Apple Watch":"watchOS"};
+const creationPrices={"Commerce":357,"Restauration":405,"Beauté":405,"Santé et bien-être":405,"Immobilier":510,"Transport":550,"Tourisme":376.75,"Services professionnels":615,"Éducation":410,"Artisanat & bâtiment":457,"Événementiel":510,"Associations":605,"Technologie":730,"Autres":800};
 const updatePrices={iOS:15,iPadOS:10,macOS:13,watchOS:8,"ebagzunlock ":2};
 const prices={
 "iPhone":{"iPhone X":25,"iPhone XR":25,"iPhone XS":25,"iPhone XS Max":25,"iPhone 11":25,"iPhone 11 Pro":25,"iPhone 11 Pro Max":27,"iPhone 12 mini":25,"iPhone 12":25,"iPhone 12 Pro":29,"iPhone 12 Pro Max":32,"iPhone 13 mini":39,"iPhone 13":40,"iPhone 13 Pro":40,"iPhone 13 Pro Max":42,"iPhone 14":40,"iPhone 14 Plus":40,"iPhone 14 Pro":43,"iPhone 14 Pro Max":49,"iPhone 15":53,"iPhone 15 Plus":55,"iPhone 15 Pro":55,"iPhone 15 Pro Max":59,"iPhone 16":64,"iPhone 16 Plus":59,"iPhone 16 Pro":62,"iPhone 16 Pro Max":69,"iPhone 16e":65,"iPhone 17":69,"iPhone 17 Pro":70,"iPhone 17 Pro Max":77,"iPhone 17e":75,"iPhone 17 Air":79,"iPhone 18":85,"iPhone 18 Pro":89,"iPhone 18 Pro Max":100,"iPhone 18 Duo":95},
@@ -273,9 +274,10 @@ const prices={
 const updateService="Mise à jour iOS / macOS";
 const isUpdate=selection.service===updateService;
 const updateSystem=updateSystemsByDevice[selection.device]||"";
-const amount=isUpdate
+const isCreation=selection.service==="Création de site web"&&selection.device==="Site web";
+const amount=isCreation?creationPrices[selection.model]:(isUpdate
  ? (selection.device==="ebagzunlock "&&!selection.model?updatePrices["ebagzunlock "]:(selection.model&&prices[selection.device]?.[selection.model]!==undefined?updatePrices[updateSystem]:null))
- : prices[selection.device]?.[selection.model];
+ : prices[selection.device]?.[selection.model]);
 const validCustomer=customer.name&&customer.email&&customer.phone&&(selection.device==="ebagzunlock "||customer.identifier);
 if(!selection.service||!selection.device||(selection.device!=="ebagzunlock "&&!selection.model)||!Number.isFinite(amount)||!validCustomer){
 document.getElementById("status").textContent="Commande introuvable. Revenez au récapitulatif et vérifiez les informations.";
