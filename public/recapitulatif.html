@@ -268,13 +268,12 @@ choice:params.get("choice")||savedSelection.choice||savedSelection.system||""
 // Le numéro de commande est attribué dès l'ouverture du récapitulatif et conservé jusqu'à la facture.
 let orderNumber="";
 try{orderNumber=sessionStorage.getItem("ebagzunlock-order-number")||"";}catch(error){}
-if(!/^[A-Z]{2}[A-Z0-9]{10}$/.test(orderNumber)){
+if(!/^[A-Z0-9]{14}$/.test(orderNumber)){
  const alphabet="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
- const bytes=new Uint8Array(10);
+ const bytes=new Uint8Array(14);
  if(window.crypto&&crypto.getRandomValues)crypto.getRandomValues(bytes);
  else for(let i=0;i<bytes.length;i++)bytes[i]=Math.floor(Math.random()*256);
- const randomPart=Array.from(bytes,b=>alphabet[b%alphabet.length]).join("");
- orderNumber="EB"+randomPart;
+ orderNumber=Array.from(bytes,b=>alphabet[b%alphabet.length]).join("");
  try{sessionStorage.setItem("ebagzunlock-order-number",orderNumber);}catch(error){}
 }
 document.getElementById("order-number").textContent="N° "+orderNumber;
