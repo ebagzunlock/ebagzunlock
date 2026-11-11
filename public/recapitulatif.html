@@ -212,7 +212,7 @@ html[data-theme="light"] .logo,html[data-theme="light"] .logo .apple-mark,html[d
 <h1>RÉCAPITULATIF</h1>
 <section class="panel" aria-labelledby="summary-title">
 <div class="line"><span>Numéro de commande</span><strong id="order-number">—</strong></div>
- <div class="line" id="model-row"><span>Modèle</span><strong id="model">—</strong></div>
+ <div class="line" id="model-row"><span id="model-label">Modèle</span><strong id="model">—</strong></div>
 <div class="line"><span>Nom</span><strong id="customer-name">—</strong></div>
 <div class="line"><span>E-mail</span><strong id="customer-email">—</strong></div>
 <div class="line"><span>Téléphone</span><strong id="customer-phone">—</strong></div>
@@ -221,7 +221,7 @@ html[data-theme="light"] .logo,html[data-theme="light"] .logo .apple-mark,html[d
 <div class="line"><span>Total à payer</span><strong class="amount" id="amount">—</strong></div>
 <label class="acknowledgement" for="cgv-acknowledgement">
 <input id="cgv-acknowledgement" type="checkbox" required>
-<span>Je reconnais avoir pris connaissance des <a href="/conditions-generales.html" target="_blank" rel="noopener noreferrer">Conditions générales d’utilisation et d’achat</a> de ebagzunlock .</span>
+<span id="recap-consent-text">Je reconnais avoir pris connaissance des <a href="/conditions-generales.html" target="_blank" rel="noopener noreferrer">Conditions générales d’utilisation et d’achat</a> de ebagzunlock .</span>
 </label>
 <button id="proceed-button" type="button" disabled>PROCÉDER AU PAIEMENT</button>
 <div id="status" role="alert"></div>
@@ -492,19 +492,23 @@ const prices={
   }
 };
 const updateService="Mise à jour iOS / macOS";
+const creationService="Création de site web";
+const creationPrices={"Commerce":357,"Restauration":405,"Beauté":405,"Santé et bien-être":405,"Immobilier":510,"Transport":550,"Tourisme":376.75,"Services professionnels":615,"Éducation":410,"Artisanat & bâtiment":457,"Événementiel":510,"Associations":605,"Technologie":730,"Autres":800};
 const isUpdate=selection.service===updateService;
 const updateSystem=updateSystemsByDevice[selection.device]||"";
-const amount=isUpdate
+const isCreation=selection.service===creationService&&selection.device==="Site web";
+const amount=isCreation?creationPrices[selection.model]:(isUpdate
  ? (selection.device==="ebagzunlock "&&!selection.model?updatePrices["ebagzunlock "]:(selection.model&&prices[selection.device]?.[selection.model]!==undefined?updatePrices[updateSystem]:null))
- : prices[selection.device]?.[selection.model];
-const validCustomer=customer.name&&customer.email&&customer.phone&&(selection.device==="ebagzunlock "||customer.identifier);
-if(!selection.service||!selection.device||(selection.device!=="ebagzunlock "&&!selection.model)||!Number.isFinite(amount)||!validCustomer){
+ : prices[selection.device]?.[selection.model]);
+const validCustomer=customer.name&&customer.email&&customer.phone&&(selection.device==="ebagzunlock "||selection.device==="Site web"||customer.identifier);
+if(!selection.service||!selection.device||(!isCreation&&selection.device!=="ebagzunlock "&&!selection.model)||(isCreation&&!selection.model)||!Number.isFinite(amount)||!validCustomer){
 document.getElementById("status").textContent="Récapitulatif incomplet. Retournez sur le site et vérifiez les informations de votre commande.";
 }else{
 
 
 document.getElementById("model").textContent=selection.model||selection.device||"";
-const independentProduct=selection.device==="ebagzunlock ";
+const independentProduct=selection.device==="ebagzunlock "||isCreation;
+if(isCreation)document.getElementById("model-label").textContent="Domaine d’activité";
 const selectedChoice=selection.choice||(isUpdate?updateSystem:selection.service);
 const additionalInfo=String(customer.message||customer.additionalInfo||"").trim();
 
@@ -526,6 +530,7 @@ document.getElementById("amount").textContent=amount+" €";
 
 }
 
+if(isCreation)document.getElementById("recap-consent-text").textContent="J'accepte les conditions générales d'achat et de confidentialité.";
 const consentBox=document.getElementById("cgv-acknowledgement");
 const proceedButton=document.getElementById("proceed-button");
 consentBox.addEventListener("change",()=>{proceedButton.disabled=!consentBox.checked;});
