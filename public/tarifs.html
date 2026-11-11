@@ -1197,7 +1197,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <label for="activitySelect">Domaine d’activité</label>
 <select id="activitySelect">
 <option value="">Choisir un domaine d’activité</option>
-<option>Commerce</option><option>Restauration</option><option>Beauté</option><option>Santé et bien-être</option><option>Immobilier</option><option>Transport</option><option>Tourisme</option><option>Services professionnels</option><option>Éducation</option><option>Artisanat & bâtiment</option><option>Événementiel</option><option>Associations</option><option>Technologie</option><option>Autres</option>
+<option>Commerce</option><option>Restauration</option><option>Beauté</option><option>Santé et bien-être</option><option>Immobilier</option><option>Transport</option><option>Tourisme</option><option>Services professionnels</option><option>Éducation</option><option>Artisanat & bâtiment</option><option>Événementiel</option><option>Associations</option><option>Technologie</option><option value="Autres">Autres (à partir de 800 €)</option>
 </select>
 <p class="notice">Pour « Autres », le tarif affiché est un tarif de départ à partir de 800 €.</p>
 </div>
@@ -2682,6 +2682,7 @@ currentLang="fr";
 }catch(error){}
 
 applyLanguage(currentLang);
+if(serviceSelect.value===CREATION_SERVICE)payButton.textContent="CONTINUER";
 
 function googleTranslateElementInit(){
 if(window.google&&google.translate){
