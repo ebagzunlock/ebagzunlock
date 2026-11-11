@@ -2291,6 +2291,7 @@ card.classList.toggle("selected",card.dataset.service===name);
 });
 
 showStatus(paymentStatus,"");
+payButton.textContent=name===CREATION_SERVICE?"CONTINUER":t("payButton");
 refreshSelectLabels();
 updateOwnershipConsent();
 
