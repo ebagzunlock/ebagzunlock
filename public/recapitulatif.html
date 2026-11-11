@@ -268,14 +268,13 @@ choice:params.get("choice")||savedSelection.choice||savedSelection.system||""
 // Le numéro de commande est attribué dès l'ouverture du récapitulatif et conservé jusqu'à la facture.
 let orderNumber="";
 try{orderNumber=sessionStorage.getItem("ebagzunlock-order-number")||"";}catch(error){}
-if(!/^[0-9]{14}$/.test(orderNumber)){
- const now=new Date();
- const datePart=[String(now.getFullYear()).slice(-2),String(now.getMonth()+1).padStart(2,"0"),String(now.getDate()).padStart(2,"0")].join("");
- const bytes=new Uint8Array(8);
+if(!/^[A-Z]{2}[A-Z0-9]{10}$/.test(orderNumber)){
+ const alphabet="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+ const bytes=new Uint8Array(10);
  if(window.crypto&&crypto.getRandomValues)crypto.getRandomValues(bytes);
  else for(let i=0;i<bytes.length;i++)bytes[i]=Math.floor(Math.random()*256);
- const randomPart=Array.from(bytes,b=>String(b%10)).join("");
- orderNumber=datePart+randomPart;
+ const randomPart=Array.from(bytes,b=>alphabet[b%alphabet.length]).join("");
+ orderNumber="EB"+randomPart;
  try{sessionStorage.setItem("ebagzunlock-order-number",orderNumber);}catch(error){}
 }
 document.getElementById("order-number").textContent="N° "+orderNumber;
