@@ -32,12 +32,14 @@ export async function onRequestPost({ request, env }) {
     const phone = meta.customer_phone || "";
     const identifier = meta.customer_identifier || "";
     const message = meta.customer_message || "";
+    const activityDomain = meta.activity_domain || (service === "Création de site web" ? model : "");
+    const isCreation = service === "Création de site web" && device === "Site web";
     const orderNumber = /^[0-9]{14}$/.test(meta.order_number || "") ? meta.order_number : String(session.created || Math.floor(Date.now() / 1000)).padStart(14, "0").slice(-14);
     const issueDate = new Date((session.created || Math.floor(Date.now() / 1000)) * 1000)
       .toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
 
-    const independent = device === "ebagzunlock ";
-    if (!service || !device || (!model && !independent) || !name || !email || !phone ||
+    const independent = device === "ebagzunlock " || isCreation;
+    if (!service || !device || (!model && !independent) || (isCreation && !activityDomain) || !name || !email || !phone ||
         (!identifier && !independent) || !Number.isFinite(amount) || amount <= 0) {
       return Response.json({ error: "Les informations de commande sont incomplètes." }, { status: 400 });
     }
@@ -49,6 +51,7 @@ export async function onRequestPost({ request, env }) {
     const safeService = escapeHtml(service);
     const safeDevice = escapeHtml(device);
     const safeModel = escapeHtml(model);
+    const safeActivityDomain = escapeHtml(activityDomain);
     const safeEmail = escapeHtml(email);
     const safePhone = escapeHtml(phone);
     const safeIdentifier = escapeHtml(identifier);
@@ -79,7 +82,7 @@ export async function onRequestPost({ request, env }) {
 </tr>
 <tr>
 <td style="padding:13px 9px;border-bottom:1px solid #29425d;color:#f5f8fc;font-size:13px">${safeService}</td>
-<td style="padding:13px 9px;border-bottom:1px solid #29425d;color:#f5f8fc;font-size:13px">${safeDevice}${model ? `<br>${safeModel}` : ""}</td>
+<td style="padding:13px 9px;border-bottom:1px solid #29425d;color:#f5f8fc;font-size:13px">${isCreation ? `Domaine : ${safeActivityDomain}` : `${safeDevice}${model ? `<br>${safeModel}` : ""}`}</td>
 <td align="right" style="padding:13px 9px;border-bottom:1px solid #29425d;color:#f5f8fc;font-size:13px;white-space:nowrap">${amountText} €</td>
 </tr>
 <tr><td colspan="2" style="padding:16px 9px;color:#fff;font-weight:bold">TOTAL PAYÉ</td><td align="right" style="padding:16px 9px;color:#8fc5ff;font-size:19px;font-weight:bold;white-space:nowrap">${amountText} €</td></tr>
@@ -98,8 +101,8 @@ export async function onRequestPost({ request, env }) {
 </td></tr></table></body></html>`;
 
     const orderDetails = [
-      `Commande : ${orderNumber}`, `Service : ${service}`, `Appareil / option : ${device}`,
-      ...(model ? [`Modèle : ${model}`] : []),
+      `Commande : ${orderNumber}`, `Service : ${service}`, ...(isCreation ? [`Domaine d’activité : ${activityDomain}`] : [`Appareil / option : ${device}`]),
+      ...(!isCreation && model ? [`Modèle : ${model}`] : []),
       `Montant payé : ${amountText} €`, `Référence Stripe : ${sessionId}`,
       `Nom : ${name}`, `E-mail : ${email}`, `Téléphone : ${phone}`,
       ...(identifier ? [`IMEI / numéro de série : ${identifier}`] : []),
@@ -139,7 +142,7 @@ export async function onRequestPost({ request, env }) {
         "Nous confirmons la réception de votre paiement et de votre commande.",
 `N° ${orderNumber}`, `Date : ${issueDate}`,
         name, email, phone, "",
-        `Prestation : ${service}`, `Appareil / modèle : ${device}${model ? " — " + model : ""}`,
+        `Prestation : ${service}`, isCreation ? `Domaine d’activité : ${activityDomain}` : `Appareil / modèle : ${device}${model ? " — " + model : ""}`,
         `Montant : ${amountText} €`, `TOTAL PAYÉ : ${amountText} €`, "",
         "Merci pour votre confiance.",
         "Pour toute question concernant votre commande, notre équipe reste à votre disposition.",
