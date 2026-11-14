@@ -331,7 +331,7 @@ export async function onRequestPost({ request, env }) {
   const params = new URLSearchParams();
   params.set("mode", "payment");
   params.set("locale", checkoutLocale);
-  params.set("ui_mode", "embedded_page");
+  params.set("ui_mode", "elements");
   // Managed Payments requires eligible product tax codes; this service checkout uses standard Stripe Checkout instead.
   params.set("managed_payments[enabled]", "false");
   params.set("invoice_creation[enabled]", "true");
