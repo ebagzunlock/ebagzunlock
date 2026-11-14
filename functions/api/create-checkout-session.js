@@ -332,6 +332,8 @@ export async function onRequestPost({ request, env }) {
   params.set("mode", "payment");
   params.set("locale", checkoutLocale);
   params.set("ui_mode", "embedded_page");
+  // Managed Payments requires eligible product tax codes; this service checkout uses standard Stripe Checkout instead.
+  params.set("managed_payments[enabled]", "false");
   params.set("invoice_creation[enabled]", "true");
   params.set("customer", stripeCustomer.id);
   // Virement bancaire européen en euros : Stripe fournit les coordonnées et la référence au client.
