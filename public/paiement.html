@@ -10,7 +10,7 @@
 <title>Récapitulatif — E-BAGS UNLOCK</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://js.stripe.com/dahlia/stripe.js"></script>
+<script src="https://js.stripe.com/endive/stripe.js"></script>
 <style>
 :root{color-scheme:dark;--bg:#081321;--panel:#101f31;--blue:#6da5dc;--white:#f5f8fc;--muted:#aab7c7;--border:rgba(255,255,255,.12);--error:#ff7777}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -15%,rgba(52,119,190,.25),transparent 52%),linear-gradient(145deg,#050b16,#0a1a2d 48%,#07101e);color:var(--white);font-family:Inter,sans-serif}
@@ -31,6 +31,10 @@ main{width:min(760px,calc(100% - 32px));margin:40px auto 70px}
 h1{margin:0 0 24px;text-align:center;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px}
 .panel{padding:25px;border:1px solid var(--border);border-radius:14px;background:var(--panel);margin-bottom:18px}
 h2{font-size:18px;font-weight:500;text-transform:none;margin:0 0 16px}#summary-title{font-size:14px;font-weight:500;margin:0 0 16px}#payment-title{text-align:center;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px;margin:0 0 22px}.line{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}.line:last-child{border:0}.line span{color:var(--muted)}.line strong{text-align:right;overflow-wrap:anywhere}.amount{color:var(--blue);font-size:24px;font-weight:800}
+#express-checkout-element{margin:0 0 14px;min-height:0}
+#wallet-divider{display:flex;align-items:center;gap:12px;margin:8px 0 18px;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.08em}
+#wallet-divider::before,#wallet-divider::after{content:"";height:1px;flex:1;background:var(--border)}
+#wallet-divider[hidden]{display:none!important}
 #payment-element{min-height:150px}
 .info-notice{margin:0 0 18px;padding:18px;border:1px solid rgba(109,165,220,.55);border-radius:12px;background:rgba(109,165,220,.09)}
 .info-brand{font-size:16px;font-weight:800;letter-spacing:-.3px;margin:0 0 9px}.info-brand .apple-mark{font-family:Arial,sans-serif;margin-left:4px}
@@ -221,6 +225,8 @@ html[data-theme="light"] .logo,html[data-theme="light"] .logo .apple-mark,html[d
 <main>
 <h1 id="payment-title">MODE DE PAIEMENT</h1>
 <section class="panel" aria-label="Moyens de paiement">
+<div id="express-checkout-element" aria-label="Apple Pay et Google Pay"></div>
+<div id="wallet-divider" hidden><span>OU PAYER PAR CARTE</span></div>
 <div id="payment-element"></div>
 <button id="pay-button" type="button" disabled>PAYER</button>
 <div id="status" role="alert"></div>
@@ -310,14 +316,31 @@ variables:{colorPrimary:"#6da5dc",colorBackground:"#101f31",colorText:"#f5f8fc",
 }
 }
 });
-const paymentElement=checkout.createPaymentElement({
-layout:"accordion",
-wallets:{applePay:"auto",link:"auto"}
+const expressCheckoutElement=checkout.createExpressCheckoutElement({
+ buttonHeight:50,
+ buttonTheme:{applePay:"white-outline"}
 });
+const walletDivider=document.getElementById("wallet-divider");
+expressCheckoutElement.on("availablepaymentmethodschange",({paymentMethods})=>{
+ walletDivider.hidden=!paymentMethods;
+});
+expressCheckoutElement.mount("#express-checkout-element");
+const paymentElement=checkout.createPaymentElement({layout:"accordion"});
 paymentElement.mount("#payment-element");
 const loaded=await checkout.loadActions();
 if(loaded.type!=="success")throw new Error(loaded.error?.message||"Impossible de charger les moyens de paiement.");
 const actions=loaded.actions;
+expressCheckoutElement.on("confirm",async(event)=>{
+ button.disabled=true;
+ status.textContent="";
+ try{
+  const result=await actions.confirm({expressCheckoutConfirmEvent:event});
+  if(result?.type==="error")throw new Error(result.error?.message||"Le paiement par portefeuille n'a pas pu être confirmé.");
+ }catch(error){
+  status.textContent=error.message||"Le paiement par portefeuille a échoué. Réessayez ou utilisez votre carte.";
+  button.disabled=false;
+ }
+});
 stripeReady=true;
 button.disabled=false;
 button.addEventListener("click",async()=>{
