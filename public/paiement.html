@@ -318,6 +318,10 @@ variables:{colorPrimary:"#6da5dc",colorBackground:"#101f31",colorText:"#f5f8fc",
 });
 const expressCheckoutElement=checkout.createExpressCheckoutElement({
  buttonHeight:50,
+ paymentMethods:{
+  applePay:"always",
+  googlePay:"always"
+ },
  buttonTheme:{applePay:"white-outline"}
 });
 const walletDivider=document.getElementById("wallet-divider");
